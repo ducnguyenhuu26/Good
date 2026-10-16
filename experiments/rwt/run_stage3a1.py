@@ -214,10 +214,11 @@ def train_mlp(train: dict, validation: dict, seed: int, config: dict, path: Path
 
 
 def model_predict(model: MiniDynamics, state: np.ndarray, action: np.ndarray) -> tuple[np.ndarray, np.ndarray]:
+    device = next(model.parameters()).device
     with torch.no_grad():
-        next_state, reward = model.predict(torch.as_tensor(state, dtype=torch.float32),
-                                           torch.as_tensor(action, dtype=torch.float32))
-    return next_state.numpy(), reward.numpy()
+        next_state, reward = model.predict(torch.as_tensor(state, dtype=torch.float32, device=device),
+                                           torch.as_tensor(action, dtype=torch.float32, device=device))
+    return next_state.detach().cpu().numpy(), reward.detach().cpu().numpy()
 
 
 def validation_metrics(normalizer: TrainNormalizer, val_by: dict, ridge: LinearRidgeDynamics,

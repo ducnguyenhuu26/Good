@@ -8,7 +8,9 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import multiprocessing as mp
 import platform
+from concurrent.futures import ProcessPoolExecutor
 from pathlib import Path
 from time import perf_counter
 
@@ -83,12 +85,17 @@ def _arrays(data: dict, device: str, context: np.ndarray | None = None):
 def _train(kind: str, seed: int, train: dict, val: dict,
            train_context: np.ndarray | None, val_context: np.ndarray | None,
            settings: dict, output: Path, device: str, resume: bool):
+    if device == "cuda":
+        # Independent GPU workers should not each start a large CPU thread pool.
+        torch.set_num_threads(1)
     torch.manual_seed(seed)
     if device == "cuda":
         torch.cuda.manual_seed_all(seed)
     hidden = int(settings["hidden_dim"])
     model = RewardPredictor(hidden) if kind == "reward" else _model(kind, hidden)
     model.to(device)
+    if device == "cuda":
+        torch.cuda.reset_peak_memory_stats()
     best_path = output / "checkpoints" / f"{kind}_{seed}_best.pt"
     latest_path = output / "checkpoints" / f"{kind}_{seed}_latest.pt"
     if resume and not best_path.exists() and not latest_path.exists():
@@ -181,10 +188,14 @@ def _train(kind: str, seed: int, train: dict, val: dict,
         torch.testing.assert_close(getattr(loaded, f"{name}_mean"), tensor.mean(0))
         torch.testing.assert_close(getattr(loaded, f"{name}_scale"),
                                    tensor.std(0, unbiased=False).clamp_min(1e-4))
-    return loaded, curve, {"kind": kind, "seed": seed,
-                           "best_epoch": int(selected["epoch"]), "validation_loss": best,
-                           "training_seconds_this_invocation": perf_counter() - start,
-                           "parameters": sum(p.numel() for p in loaded.parameters())}
+    row = {"kind": kind, "seed": seed,
+           "best_epoch": int(selected["epoch"]), "validation_loss": best,
+           "training_seconds_this_invocation": perf_counter() - start,
+           "parameters": sum(p.numel() for p in loaded.parameters())}
+    if device == "cuda":
+        row["peak_vram_allocated_mb"] = torch.cuda.max_memory_allocated() / 1024**2
+        row["peak_vram_reserved_mb"] = torch.cuda.max_memory_reserved() / 1024**2
+    return loaded, curve, row
 
 
 def predict_state(model: StateDynamics, state: np.ndarray, action: np.ndarray,
@@ -209,18 +220,77 @@ def validation_metrics(models: dict, reward_model: RewardPredictor,
             prediction = predict_state(model, data["state"], data["action"], context)
             squared = (prediction - data["next_state"]) ** 2
             rows.append({"method": kind, "seed": seed, "regime": regime,
+                         "split": "validation_abd",
                          "raw_mse": float(squared.mean()),
                          "normalized_mse": normalizer.normalized_mse(prediction, data["next_state"])})
             for dimension in range(17):
                 dimensions.append({"method": kind, "seed": seed, "regime": regime,
+                                   "split": "validation_abd",
                                    "dimension": dimension, "raw_mse": float(squared[:, dimension].mean()),
                                    "normalized_mse": float((squared[:, dimension] /
                                                             normalizer.delta_scale[dimension] ** 2).mean())})
         with torch.no_grad():
             prediction = reward_model(torch.as_tensor(data["state"]),
                                       torch.as_tensor(data["action"])).numpy()
-        rewards.append({"regime": regime,
+        rewards.append({"regime": regime, "split": "validation_abd",
                         "reward_mse": float(np.mean((prediction - data["reward"]) ** 2))})
+    return rows, dimensions, rewards
+
+
+def heldout_metrics(models: dict, reward_model: RewardPredictor,
+                    normalizer: TrainNormalizer, seeds: list[int], steps: int):
+    """Evaluate frozen models on fresh trajectories; transitions are never saved for training."""
+    rows, dimensions, rewards = [], [], []
+    for regime_index, regime in enumerate(("A", "B", "D", "C")):
+        for seed in seeds:
+            env = RecurrentHalfCheetah([(regime, steps)])
+            rng = np.random.default_rng(seed + 4000 + regime_index * 10000)
+            states, actions, next_states, observed_rewards = [], [], [], []
+            try:
+                state, _ = env.reset(seed=seed)
+                for _ in range(steps):
+                    action = rng.uniform(-0.8, 0.8, size=6).astype(np.float32)
+                    next_state, reward, terminated, truncated, _ = env.step(action)
+                    states.append(state.copy())
+                    actions.append(action.copy())
+                    next_states.append(next_state.copy())
+                    observed_rewards.append(reward)
+                    state = next_state
+                    if terminated or truncated:
+                        break
+            finally:
+                env.close()
+            data = {"state": np.asarray(states, dtype=np.float32),
+                    "action": np.asarray(actions, dtype=np.float32),
+                    "next_state": np.asarray(next_states, dtype=np.float32),
+                    "reward": np.asarray(observed_rewards, dtype=np.float32)}
+            for (kind, model_seed), model in models.items():
+                if regime == "C" and kind == "oracle":
+                    continue
+                if kind == "pooled":
+                    context = None
+                elif kind == "oracle":
+                    context = np.repeat(np.eye(3, dtype=np.float32)[regime_index:regime_index + 1],
+                                        len(data["state"]), axis=0)
+                else:
+                    context = observed_histories(data)
+                prediction = predict_state(model, data["state"], data["action"], context)
+                squared = (prediction - data["next_state"]) ** 2
+                rows.append({"method": kind, "seed": model_seed, "regime": regime,
+                             "split": "heldout_online_eval", "raw_mse": float(squared.mean()),
+                             "normalized_mse": normalizer.normalized_mse(
+                                 prediction, data["next_state"])})
+                for dimension in range(17):
+                    dimensions.append({"method": kind, "seed": model_seed, "regime": regime,
+                                       "split": "heldout_online_eval", "dimension": dimension,
+                                       "raw_mse": float(squared[:, dimension].mean()),
+                                       "normalized_mse": float((squared[:, dimension] /
+                                           normalizer.delta_scale[dimension] ** 2).mean())})
+            with torch.no_grad():
+                predicted_reward = reward_model(torch.as_tensor(data["state"]),
+                                                torch.as_tensor(data["action"])).numpy()
+            rewards.append({"regime": regime, "seed": seed, "split": "heldout_online_eval",
+                            "reward_mse": float(np.mean((predicted_reward - data["reward"]) ** 2))})
     return rows, dimensions, rewards
 
 
@@ -358,15 +428,31 @@ def main() -> None:
                         action_mean=normalizer.action_mean, action_scale=normalizer.action_scale,
                         delta_mean=normalizer.delta_mean, delta_scale=normalizer.delta_scale)
     models, curves, runs = {}, [], []
+    training_workers = int(config.get("training_workers", 1))
+    if training_workers < 1 or (training_workers > 1 and args.device != "cuda"):
+        raise ValueError("parallel training workers require CUDA and a positive worker count")
+    jobs = []
     for kind in (*configured_methods, "reward"):
         train_context = context_for(source["train"], kind) if kind != "reward" else None
         val_context = context_for(source["validation"], kind) if kind != "reward" else None
         for seed in config["training_seeds"]:
-            model, curve, row = _train(kind, int(seed), train, val, train_context, val_context,
-                                       config["training"], output, args.device, args.resume)
-            models[(kind, int(seed))] = model
-            curves.extend(curve)
-            runs.append(row)
+            jobs.append((kind, int(seed), train, val, train_context, val_context,
+                         config["training"], output, args.device, args.resume))
+    training_start = perf_counter()
+    if training_workers == 1:
+        trained = [_train(*job) for job in jobs]
+    else:
+        # Spawn avoids inheriting a CUDA context and gives each seed isolated RNG state.
+        with ProcessPoolExecutor(max_workers=training_workers,
+                                 mp_context=mp.get_context("spawn")) as executor:
+            futures = [executor.submit(_train, *job) for job in jobs]
+            trained = [future.result() for future in futures]
+    training_wall_seconds = perf_counter() - training_start
+    for job, (model, curve, row) in zip(jobs, trained):
+        kind, seed = job[:2]
+        models[(kind, seed)] = model
+        curves.extend(curve)
+        runs.append(row)
     selected = {kind: min((row for row in runs if row["kind"] == kind),
                           key=lambda row: row["validation_loss"])["seed"]
                 for kind in (*configured_methods, "reward")}
@@ -381,13 +467,22 @@ def main() -> None:
         prediction = ridge.predict(data["state"], data["action"])
         squared = (prediction - data["next_state"]) ** 2
         one.append({"method": "ridge", "seed": -1, "regime": regime,
+                    "split": "validation_abd",
                     "raw_mse": float(squared.mean()),
                     "normalized_mse": normalizer.normalized_mse(prediction, data["next_state"])})
         for dimension in range(17):
             dimensions.append({"method": "ridge", "seed": -1, "regime": regime,
+                               "split": "validation_abd",
                                "dimension": dimension, "raw_mse": float(squared[:, dimension].mean()),
                                "normalized_mse": float((squared[:, dimension] /
                                                         normalizer.delta_scale[dimension] ** 2).mean())})
+    heldout_one, heldout_dimensions, heldout_rewards = heldout_metrics(
+        {(kind, seed): model for (kind, seed), model in models.items() if kind != "reward"},
+        chosen["reward"], normalizer, [int(x) for x in config["heldout_seeds"]],
+        int(config["heldout_steps"]))
+    one.extend(heldout_one)
+    dimensions.extend(heldout_dimensions)
+    rewards.extend(heldout_rewards)
     write_csv(output / "one_step.csv", one)
     write_csv(output / "per_dimension.csv", dimensions)
     write_csv(output / "reward_validation.csv", rewards)
@@ -396,12 +491,14 @@ def main() -> None:
     roll = rollout({kind: chosen[kind] for kind in configured_methods}, ridge,
                    [int(x) for x in config["rollout_seeds"]])
     write_csv(output / "rollout.csv", roll)
-    world = SeparatedWorldModel(chosen["pooled"], chosen["reward"]).eval()
+    world = SeparatedWorldModel(chosen["pooled"].to(args.device),
+                                chosen["reward"].to(args.device)).eval()
     support = TrainSupport(train["state"], train["action"], val["state"], val["action"])
-    plans, steps = mpc_replay(world, support, [int(x) for x in config["mpc_seeds"]])
+    plans, steps = mpc_replay(world, support, [int(x) for x in config["mpc_seeds"]], horizons=(3,))
     write_csv(output / "mpc_plans.csv", plans)
     write_csv(output / "mpc_plan_steps.csv", steps)
     summary = {"dataset": audit, "device_training": args.device,
+               "training_workers": training_workers, "training_wall_seconds": training_wall_seconds,
                "selected_seed_abd_only": selected, "training_runs": runs,
                "validation_support_threshold": support.threshold,
                "rollout_nonfinite": sum(not row["finite"] for row in roll),

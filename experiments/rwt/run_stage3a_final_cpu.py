@@ -264,9 +264,10 @@ def matched_physics(model: MiniDynamics, state_only: MiniDynamics,
 
 
 def mpc_replay(model: MiniDynamics, support: TrainSupport,
-               seeds: list[int]) -> tuple[list[dict], list[dict]]:
+               seeds: list[int], horizons: tuple[int, ...] = (3, 5)) -> tuple[list[dict], list[dict]]:
     """Compare identical plans from identical qpos/qvel; MuJoCo stays in evaluator."""
     summaries, steps = [], []
+    device = next(model.parameters()).device
     for regime in ("A", "B", "D", "C"):
         for seed in seeds:
             source = RecurrentHalfCheetah([(regime, 10)])
@@ -278,7 +279,7 @@ def mpc_replay(model: MiniDynamics, support: TrainSupport,
                 qpos, qvel = source.unwrapped.data.qpos.copy(), source.unwrapped.data.qvel.copy()
             finally:
                 source.close()
-            for horizon in (3, 5):
+            for horizon in horizons:
                 planner = MiniCEM(model, -np.ones(6), np.ones(6),
                                   CEMConfig(horizon, 32, 2, 0.2), seed=seed, diagnostics=True)
                 planner.act(state)
@@ -288,10 +289,10 @@ def mpc_replay(model: MiniDynamics, support: TrainSupport,
                 for policy, actions in plans.items():
                     with torch.no_grad():
                         predicted_states, predicted_rewards = planner.rollout(
-                            torch.as_tensor(state, dtype=torch.float32),
-                            torch.as_tensor(actions[None], dtype=torch.float32))
-                    prediction = predicted_states[0].numpy()
-                    reward_prediction = predicted_rewards[0].numpy()
+                            torch.as_tensor(state, dtype=torch.float32, device=device),
+                            torch.as_tensor(actions[None], dtype=torch.float32, device=device))
+                    prediction = predicted_states[0].detach().cpu().numpy()
+                    reward_prediction = predicted_rewards[0].detach().cpu().numpy()
                     if policy == "mpc":
                         np.testing.assert_allclose(prediction, planner.last_plan_states, atol=1e-6)
                         np.testing.assert_allclose(reward_prediction, planner.last_plan_rewards, atol=1e-6)
@@ -308,7 +309,8 @@ def mpc_replay(model: MiniDynamics, support: TrainSupport,
                             actual, reward, _, _, _ = replay.step(action)
                             actual_rewards.append(float(reward))
                             teacher_forced_rewards.append(float(teacher_reward))
-                            normalized = (prediction[t] - model.state_mean.numpy()) / model.state_scale.numpy()
+                            normalized = (prediction[t] - model.state_mean.detach().cpu().numpy()) / \
+                                model.state_scale.detach().cpu().numpy()
                             next_action = actions[t + 1] if t + 1 < horizon else action
                             support_distance = float(support.distance(prediction[t][None],
                                                                       next_action[None])[0])

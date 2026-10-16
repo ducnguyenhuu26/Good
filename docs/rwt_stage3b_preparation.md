@@ -126,8 +126,11 @@ MPC metrics. Resume trên CPU đã kiểm tra: dùng lại checkpoint/dataset, m
 không đổi. Sau load, runner đối chiếu **means và scales** của state/action/
 delta/context/reward với A/B/D train arrays. Addendum có kiểm tra checksum,
 field schema, seed và exact transition overlap với base train/validation.
-GPU-pilot config (`pooled`, `history`, reward, ridge) cũng đã chạy end-to-end
-trên CPU với output riêng; không có oracle checkpoint trong pilot config.
+GPU-pilot config giữ `pooled`, `history`, `oracle` diagnostic, reward predictor
+và ridge reference. Oracle được train/evaluate chỉ trên A/B/D với regime labels
+đặc quyền và không tham gia dự đoán C hoặc MPC. Ba training workers chạy ba
+seed độc lập trên CUDA; dataset nhỏ được chuyển trực tiếp lên device, nên không
+có DataLoader workers để nhân bản dữ liệu hay tăng overhead.
 
 Máy local: Python 3.11.9, PyTorch 2.13.0+cpu, Gymnasium 1.3.0, MuJoCo 3.3.7;
 `cuda_available=false`. GPU training chưa được chạy. Trên GPU VM, từ gốc repo:

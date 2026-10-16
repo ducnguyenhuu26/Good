@@ -5,8 +5,12 @@ cpu_threads: 4
 data_dir: results/rwt/stage3a_cpu_smoke/data
 output_dir: results/rwt/stage3b_gpu_pilot
 training_seeds: [41, 42, 43]
-methods: [pooled, history]
+# Each worker trains one independent seed process on CUDA; arrays are device-resident.
+training_workers: 3
+methods: [pooled, history, oracle]
 ridge: 1.0
+heldout_seeds: [821, 822, 823]
+heldout_steps: 200
 training:
   hidden_dim: 64
   epochs: 35
