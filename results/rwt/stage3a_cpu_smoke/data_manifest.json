@@ -1,0 +1,72 @@
+{
+  "offline_regimes": [
+    "A",
+    "B",
+    "D"
+  ],
+  "held_out_regime": "C",
+  "splits": [
+    {
+      "regime": "A",
+      "count": 1800,
+      "seed": 31415,
+      "episodes": 9,
+      "seconds": 0.1114062999986345,
+      "transitions_per_second": 16157.075497723761,
+      "file": "results\\rwt\\stage3a_cpu_smoke\\data\\train_A.npz"
+    },
+    {
+      "regime": "B",
+      "count": 1800,
+      "seed": 32415,
+      "episodes": 9,
+      "seconds": 0.09823829999368172,
+      "transitions_per_second": 18322.792639080362,
+      "file": "results\\rwt\\stage3a_cpu_smoke\\data\\train_B.npz"
+    },
+    {
+      "regime": "D",
+      "count": 1800,
+      "seed": 33415,
+      "episodes": 9,
+      "seconds": 0.10297369999170769,
+      "transitions_per_second": 17480.191545462105,
+      "file": "results\\rwt\\stage3a_cpu_smoke\\data\\train_D.npz"
+    },
+    {
+      "regime": "A",
+      "count": 200,
+      "seed": 131415,
+      "episodes": 1,
+      "seconds": 0.023049800001899712,
+      "transitions_per_second": 8676.864874468172,
+      "file": "results\\rwt\\stage3a_cpu_smoke\\data\\validation_A.npz"
+    },
+    {
+      "regime": "B",
+      "count": 200,
+      "seed": 132415,
+      "episodes": 1,
+      "seconds": 0.013414100001682527,
+      "transitions_per_second": 14909.684583752472,
+      "file": "results\\rwt\\stage3a_cpu_smoke\\data\\validation_B.npz"
+    },
+    {
+      "regime": "D",
+      "count": 200,
+      "seed": 133415,
+      "episodes": 1,
+      "seconds": 0.013874099997337908,
+      "transitions_per_second": 14415.349466875328,
+      "file": "results\\rwt\\stage3a_cpu_smoke\\data\\validation_D.npz"
+    }
+  ],
+  "dataset_fields": [
+    "state",
+    "action",
+    "next_state",
+    "reward",
+    "terminated",
+    "truncated"
+  ]
+}

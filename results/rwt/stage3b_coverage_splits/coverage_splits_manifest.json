@@ -1,0 +1,210 @@
+{
+  "offline_regimes": [
+    "A",
+    "B",
+    "D"
+  ],
+  "held_out_regime": "C",
+  "split_unit": "disjoint episode seeds and trajectories",
+  "source_checkpoints": {
+    "dynamics": "be35c796468a56d7a50df77aabc6068e362d66145829d0377f50a7933573b339",
+    "reward": "2167acd53622dd301dfb2cb3bfae220ea13d0a729375abf0a8f29cd528780106"
+  },
+  "config": {
+    "output_dir": "results/rwt/stage3b_coverage_splits",
+    "checkpoint_dir": "results/rwt/stage3b_gpu_pilot/checkpoints",
+    "dynamics_seed": 41,
+    "reward_seed": 43,
+    "regimes": [
+      "A",
+      "B",
+      "D"
+    ],
+    "splits": {
+      "train": 930000,
+      "validation": 1030000,
+      "test": 1130000
+    },
+    "count_per_policy": 600,
+    "episode_steps": 200,
+    "mpc": {
+      "horizon": 3,
+      "candidates": 32,
+      "iterations": 2,
+      "elite_fraction": 0.2
+    }
+  },
+  "splits": [
+    {
+      "regime_evaluator_only": "A",
+      "seed": 930000,
+      "policy_counts": {
+        "oscillator": 600,
+        "learned_mpc": 600
+      },
+      "episodes_per_policy": {
+        "oscillator": 3,
+        "learned_mpc": 3
+      },
+      "split": "train",
+      "file": "train_A.npz",
+      "count": 1200,
+      "sha256": "81c5026fb2f161df74a3d9ee4b1c34adb2dc7031f3eb1ecd8dfe9e111bd2b212",
+      "velocity_gt_0_5": 0.105,
+      "velocity_mean": 0.06677239388227463,
+      "mean_abs_action": 0.5222078561782837
+    },
+    {
+      "regime_evaluator_only": "B",
+      "seed": 940000,
+      "policy_counts": {
+        "oscillator": 600,
+        "learned_mpc": 600
+      },
+      "episodes_per_policy": {
+        "oscillator": 3,
+        "learned_mpc": 3
+      },
+      "split": "train",
+      "file": "train_B.npz",
+      "count": 1200,
+      "sha256": "9517b02df868f0c7d1f439b62596ad17602a8e665b0f2e2d89fb5d5f6040b243",
+      "velocity_gt_0_5": 0.07666666666666666,
+      "velocity_mean": 0.03771781548857689,
+      "mean_abs_action": 0.5259097218513489
+    },
+    {
+      "regime_evaluator_only": "D",
+      "seed": 950000,
+      "policy_counts": {
+        "oscillator": 600,
+        "learned_mpc": 600
+      },
+      "episodes_per_policy": {
+        "oscillator": 3,
+        "learned_mpc": 3
+      },
+      "split": "train",
+      "file": "train_D.npz",
+      "count": 1200,
+      "sha256": "5af8f1897b2326abda917f60a2bf6b391d01452c070b7e33810c15b710b9eac6",
+      "velocity_gt_0_5": 0.04833333333333333,
+      "velocity_mean": -0.02372177131474018,
+      "mean_abs_action": 0.5193371176719666
+    },
+    {
+      "regime_evaluator_only": "A",
+      "seed": 1030000,
+      "policy_counts": {
+        "oscillator": 600,
+        "learned_mpc": 600
+      },
+      "episodes_per_policy": {
+        "oscillator": 3,
+        "learned_mpc": 3
+      },
+      "split": "validation",
+      "file": "validation_A.npz",
+      "count": 1200,
+      "sha256": "cf459b49edec3cfd367fbdc9f0b60e84bd31f76380f2a9726853e6ee2ec62c1d",
+      "velocity_gt_0_5": 0.12666666666666668,
+      "velocity_mean": 0.08889400213956833,
+      "mean_abs_action": 0.5254158973693848
+    },
+    {
+      "regime_evaluator_only": "B",
+      "seed": 1040000,
+      "policy_counts": {
+        "oscillator": 600,
+        "learned_mpc": 600
+      },
+      "episodes_per_policy": {
+        "oscillator": 3,
+        "learned_mpc": 3
+      },
+      "split": "validation",
+      "file": "validation_B.npz",
+      "count": 1200,
+      "sha256": "46884bb958039896f49b4d2c53639617e88ad96b81edaf4c7e786833d0970677",
+      "velocity_gt_0_5": 0.085,
+      "velocity_mean": 0.05750345066189766,
+      "mean_abs_action": 0.525653064250946
+    },
+    {
+      "regime_evaluator_only": "D",
+      "seed": 1050000,
+      "policy_counts": {
+        "oscillator": 600,
+        "learned_mpc": 600
+      },
+      "episodes_per_policy": {
+        "oscillator": 3,
+        "learned_mpc": 3
+      },
+      "split": "validation",
+      "file": "validation_D.npz",
+      "count": 1200,
+      "sha256": "5c80cd70d48e8be15a11a53331015d9100942acea9ca2e0feec2c9d481d4e99d",
+      "velocity_gt_0_5": 0.04416666666666667,
+      "velocity_mean": -0.036862608045339584,
+      "mean_abs_action": 0.5173415541648865
+    },
+    {
+      "regime_evaluator_only": "A",
+      "seed": 1130000,
+      "policy_counts": {
+        "oscillator": 600,
+        "learned_mpc": 600
+      },
+      "episodes_per_policy": {
+        "oscillator": 3,
+        "learned_mpc": 3
+      },
+      "split": "test",
+      "file": "test_A.npz",
+      "count": 1200,
+      "sha256": "e54d32b47ed4d3e4d38dcaa3a6791c67316d50af9e407c271aee039d6b25ec96",
+      "velocity_gt_0_5": 0.14083333333333334,
+      "velocity_mean": 0.11457090079784393,
+      "mean_abs_action": 0.5198469161987305
+    },
+    {
+      "regime_evaluator_only": "B",
+      "seed": 1140000,
+      "policy_counts": {
+        "oscillator": 600,
+        "learned_mpc": 600
+      },
+      "episodes_per_policy": {
+        "oscillator": 3,
+        "learned_mpc": 3
+      },
+      "split": "test",
+      "file": "test_B.npz",
+      "count": 1200,
+      "sha256": "41a42411f4655f12f392951371fccc5449e3cb910aca29dfc5f4a6b8b9e5a78c",
+      "velocity_gt_0_5": 0.06666666666666667,
+      "velocity_mean": 0.03528059273958206,
+      "mean_abs_action": 0.521983802318573
+    },
+    {
+      "regime_evaluator_only": "D",
+      "seed": 1150000,
+      "policy_counts": {
+        "oscillator": 600,
+        "learned_mpc": 600
+      },
+      "episodes_per_policy": {
+        "oscillator": 3,
+        "learned_mpc": 3
+      },
+      "split": "test",
+      "file": "test_D.npz",
+      "count": 1200,
+      "sha256": "41bd17a9a9fce2ad739bc5dab626520a63ff4be07ce295be347e0ba86abed7a7",
+      "velocity_gt_0_5": 0.08166666666666667,
+      "velocity_mean": 0.00045018515083938837,
+      "mean_abs_action": 0.5167397260665894
+    }
+  ]
+}

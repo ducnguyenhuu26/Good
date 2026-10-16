@@ -1,0 +1,8 @@
+{
+  "results/rwt/stage3a_cpu_smoke/data/train_A.npz": "22b8899ffbc9547e865ef9177da4913f6b2c323c1bfb5d835e7646700ee7dcc5",
+  "results/rwt/stage3a_cpu_smoke/data/train_B.npz": "955a2db5babd2e0a80d6a9639bbaa325759057bc64b061cc8fccffa91593c0b5",
+  "results/rwt/stage3a_cpu_smoke/data/train_D.npz": "a8cb36c30389175171d580cef96b3444df9b892878b1866605a1f53363327cbc",
+  "results/rwt/stage3a_cpu_smoke/data/validation_A.npz": "6f8459c986694c5e1020206ffa7d6afde97cbff2f2c42101820d9280f5a3cced",
+  "results/rwt/stage3a_cpu_smoke/data/validation_B.npz": "cbbfce12aa68d4d3dc14d228394b62c69b25db679b4db84d9a3aa8a9110b1497",
+  "results/rwt/stage3a_cpu_smoke/data/validation_D.npz": "6e7d754fdc921eac20382aa02ae9ddc1ce3abdcc208d0c2c1387d950c8c0bf70"
+}

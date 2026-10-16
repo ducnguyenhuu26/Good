@@ -1,0 +1,168 @@
+{
+  "dataset": {
+    "files": [
+      "train_A.npz",
+      "train_B.npz",
+      "train_D.npz",
+      "validation_A.npz",
+      "validation_B.npz",
+      "validation_D.npz"
+    ],
+    "train_counts": {
+      "A": 1800,
+      "B": 1800,
+      "D": 1800
+    },
+    "validation_counts": {
+      "A": 200,
+      "B": 200,
+      "D": 200
+    },
+    "train_seeds": [
+      31415,
+      32415,
+      33415
+    ],
+    "validation_seeds": [
+      131415,
+      132415,
+      133415
+    ],
+    "exact_transition_overlap": 0,
+    "contains_c_offline": false
+  },
+  "device_training": "cuda",
+  "training_workers": 3,
+  "training_wall_seconds": 8.818809508986305,
+  "selected_seed_abd_only": {
+    "pooled": 41,
+    "history": 41,
+    "oracle": 42,
+    "reward": 43
+  },
+  "training_runs": [
+    {
+      "kind": "pooled",
+      "seed": 41,
+      "best_epoch": 35,
+      "validation_loss": 0.06395353376865387,
+      "training_seconds_this_invocation": 1.7086332779726945,
+      "parameters": 6801,
+      "peak_vram_allocated_mb": 18.74609375,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "pooled",
+      "seed": 42,
+      "best_epoch": 35,
+      "validation_loss": 0.06658579409122467,
+      "training_seconds_this_invocation": 1.703830367012415,
+      "parameters": 6801,
+      "peak_vram_allocated_mb": 18.74609375,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "pooled",
+      "seed": 43,
+      "best_epoch": 35,
+      "validation_loss": 0.06606651097536087,
+      "training_seconds_this_invocation": 1.705587150005158,
+      "parameters": 6801,
+      "peak_vram_allocated_mb": 18.74609375,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "history",
+      "seed": 41,
+      "best_epoch": 35,
+      "validation_loss": 0.06356625258922577,
+      "training_seconds_this_invocation": 1.376788018969819,
+      "parameters": 11409,
+      "peak_vram_allocated_mb": 20.7958984375,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "history",
+      "seed": 42,
+      "best_epoch": 35,
+      "validation_loss": 0.06529485434293747,
+      "training_seconds_this_invocation": 1.3701584889786318,
+      "parameters": 11409,
+      "peak_vram_allocated_mb": 20.7958984375,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "history",
+      "seed": 43,
+      "best_epoch": 35,
+      "validation_loss": 0.06481074541807175,
+      "training_seconds_this_invocation": 1.3799334850045852,
+      "parameters": 11409,
+      "peak_vram_allocated_mb": 20.7958984375,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "oracle",
+      "seed": 41,
+      "best_epoch": 35,
+      "validation_loss": 0.05824442580342293,
+      "training_seconds_this_invocation": 1.342092752980534,
+      "parameters": 6993,
+      "peak_vram_allocated_mb": 18.83251953125,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "oracle",
+      "seed": 42,
+      "best_epoch": 35,
+      "validation_loss": 0.057993628084659576,
+      "training_seconds_this_invocation": 1.341334282013122,
+      "parameters": 6993,
+      "peak_vram_allocated_mb": 18.83251953125,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "oracle",
+      "seed": 43,
+      "best_epoch": 35,
+      "validation_loss": 0.06311605870723724,
+      "training_seconds_this_invocation": 1.3468084530322812,
+      "parameters": 6993,
+      "peak_vram_allocated_mb": 18.83251953125,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "reward",
+      "seed": 41,
+      "best_epoch": 35,
+      "validation_loss": 0.026809057220816612,
+      "training_seconds_this_invocation": 1.3091204229858704,
+      "parameters": 5761,
+      "peak_vram_allocated_mb": 18.67724609375,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "reward",
+      "seed": 42,
+      "best_epoch": 35,
+      "validation_loss": 0.025498805567622185,
+      "training_seconds_this_invocation": 1.3006470979889855,
+      "parameters": 5761,
+      "peak_vram_allocated_mb": 18.67724609375,
+      "peak_vram_reserved_mb": 24.0
+    },
+    {
+      "kind": "reward",
+      "seed": 43,
+      "best_epoch": 34,
+      "validation_loss": 0.024349233135581017,
+      "training_seconds_this_invocation": 1.3003182649845257,
+      "parameters": 5761,
+      "peak_vram_allocated_mb": 18.67724609375,
+      "peak_vram_reserved_mb": 24.0
+    }
+  ],
+  "validation_support_threshold": 4.3925580978393555,
+  "rollout_nonfinite": 0,
+  "mpc_invalid_candidates": 0
+}

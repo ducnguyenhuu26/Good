@@ -1,0 +1,16 @@
+regime,seed,eval_seed,split,reward_mse
+A,-1,-1,validation_abd,0.005624672397971153
+B,-1,-1,validation_abd,0.003994988277554512
+D,-1,-1,validation_abd,0.0029799160547554493
+A,821,821,heldout_online_eval,0.007315794937312603
+A,822,822,heldout_online_eval,0.008338511921465397
+A,823,823,heldout_online_eval,0.007082004565745592
+B,821,821,heldout_online_eval,0.0070739327929914
+B,822,822,heldout_online_eval,0.008874287828803062
+B,823,823,heldout_online_eval,0.006960003171116114
+D,821,821,heldout_online_eval,0.00398575933650136
+D,822,822,heldout_online_eval,0.003736122278496623
+D,823,823,heldout_online_eval,0.004926725290715694
+C,821,821,heldout_online_eval,0.004655129741877317
+C,822,822,heldout_online_eval,0.004225489683449268
+C,823,823,heldout_online_eval,0.005648321472108364
