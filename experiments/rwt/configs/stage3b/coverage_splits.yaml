@@ -1,0 +1,20 @@
+# Separate trajectory/seed splits for the coverage diagnostic. Never merged
+# into Pilot A and never includes held-out regime C.
+output_dir: results/rwt/stage3b_coverage_splits
+checkpoint_dir: results/rwt/stage3b_gpu_pilot/checkpoints
+dynamics_seed: 41
+reward_seed: 43
+regimes: [A, B, D]
+splits:
+  train: 930000
+  validation: 940000
+  test: 950000
+count_per_policy: 600
+episode_steps: 200
+mpc:
+  horizon: 3
+  candidates: 32
+  iterations: 2
+  elite_fraction: 0.2
+  initial_std: 0.6
+  min_std: 0.08
