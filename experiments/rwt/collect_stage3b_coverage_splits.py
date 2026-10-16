@@ -11,11 +11,10 @@ import json
 from pathlib import Path
 
 import numpy as np
-import torch
 import yaml
 
 from rwt.stage3a import CEMConfig
-from experiments.rwt.collect_stage3b_coverage import collect_regime, load_world
+from collect_stage3b_coverage import collect_regime, load_world
 
 
 def main() -> None:
