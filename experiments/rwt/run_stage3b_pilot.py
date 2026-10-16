@@ -246,6 +246,7 @@ def heldout_metrics(models: dict, reward_model: RewardPredictor,
             env = RecurrentHalfCheetah([(regime, steps)])
             rng = np.random.default_rng(seed + 4000 + regime_index * 10000)
             states, actions, next_states, observed_rewards = [], [], [], []
+            terminated_flags, truncated_flags = [], []
             try:
                 state, _ = env.reset(seed=seed)
                 for _ in range(steps):
@@ -255,6 +256,8 @@ def heldout_metrics(models: dict, reward_model: RewardPredictor,
                     actions.append(action.copy())
                     next_states.append(next_state.copy())
                     observed_rewards.append(reward)
+                    terminated_flags.append(terminated)
+                    truncated_flags.append(truncated)
                     state = next_state
                     if terminated or truncated:
                         break
@@ -263,7 +266,9 @@ def heldout_metrics(models: dict, reward_model: RewardPredictor,
             data = {"state": np.asarray(states, dtype=np.float32),
                     "action": np.asarray(actions, dtype=np.float32),
                     "next_state": np.asarray(next_states, dtype=np.float32),
-                    "reward": np.asarray(observed_rewards, dtype=np.float32)}
+                    "reward": np.asarray(observed_rewards, dtype=np.float32),
+                    "terminated": np.asarray(terminated_flags, dtype=bool),
+                    "truncated": np.asarray(truncated_flags, dtype=bool)}
             for (kind, model_seed), model in models.items():
                 if regime == "C" and kind == "oracle":
                     continue
