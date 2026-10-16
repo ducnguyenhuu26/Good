@@ -232,7 +232,7 @@ def validation_metrics(models: dict, reward_model: RewardPredictor,
         with torch.no_grad():
             prediction = reward_model(torch.as_tensor(data["state"]),
                                       torch.as_tensor(data["action"])).numpy()
-        rewards.append({"regime": regime, "split": "validation_abd",
+        rewards.append({"regime": regime, "seed": -1, "split": "validation_abd",
                         "reward_mse": float(np.mean((prediction - data["reward"]) ** 2))})
     return rows, dimensions, rewards
 
