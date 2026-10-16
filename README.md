@@ -101,6 +101,16 @@ for reference; baseline implementations are not included.
 - `scripts/`: data generation, pretraining, training and evaluation commands.
 - `configs/`: checkpoint manifest and reported results.
 
+## RWT research pipeline
+
+This checkout also contains the separate RWT experiments for recurrent dynamics
+identification and learned world models. The implementation lives in `src/rwt/`,
+with stage runners and locked configs in `experiments/rwt/`, focused tests in
+`tests/test_rwt_*.py`, and stage reports in `docs/rwt_*.md`. The RWT additions
+leave the upstream NEO model implementation unchanged. See
+[the Stage 3B preparation report](docs/rwt_stage3b_preparation.md) for the
+current GPU pilot setup and its CPU validation results.
+
 Run the tests with `CUDA_VISIBLE_DEVICES= python -m pytest -q tests`.
 The CPU test suite also runs on every pull request and push to `main`.
 [Third-party notices](docs/third-party-notices.md) accompany the relevant source.

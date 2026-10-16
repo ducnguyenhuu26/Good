@@ -1,0 +1,13 @@
+# Addendum is train-only; Stage 3A validation remains locked.
+checkpoint_dir: results/rwt/stage3b_cpu_smoke/checkpoints
+dynamics_seed: 41
+reward_seed: 43
+output_dir: results/rwt/stage3b_coverage_addendum/data
+seed: 270001
+count_per_policy: 300
+episode_steps: 150
+mpc:
+  horizon: 3
+  candidates: 32
+  iterations: 2
+  elite_fraction: 0.2

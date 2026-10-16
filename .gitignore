@@ -14,3 +14,9 @@ build/
 *.pt
 *.pth
 *.ckpt
+/results/
+.mypy_cache/
+.ruff_cache/
+.ipynb_checkpoints/
+*.log
+*.tmp

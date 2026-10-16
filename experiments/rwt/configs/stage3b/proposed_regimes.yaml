@@ -1,0 +1,6 @@
+# Frozen from A/B/D-only matched probes and stability checks.
+# Diagnostic proposal only; do not combine with checkpoints trained on the old physics.
+A: {friction: 1.0, actuator_gain: 1.0}
+B: {friction: 0.3, actuator_gain: 1.0}
+D: {friction: 1.0, actuator_gain: 0.5}
+C: {friction: 0.3, actuator_gain: 0.5}

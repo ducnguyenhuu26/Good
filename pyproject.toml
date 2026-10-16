@@ -25,6 +25,8 @@ dependencies = [
 train = ["torch>=2.7,<3", "wandb>=0.20,<1"]
 arithmetic = ["torch>=2.7,<3", "omegaconf>=2.3,<3", "lightning>=2.5,<3", "tqdm>=4.67,<5"]
 test = ["pytest>=8,<10"]
+rwt = ["gymnasium>=1,<2", "matplotlib>=3.8,<4"]
+rwt-mujoco = ["gymnasium[mujoco]>=1,<2", "torch>=2.7,<3", "pyyaml>=6,<7"]
 # Image Editing primitives are defined through torchvision/Pillow.
 image-editing = ["torch>=2.7,<3", "torchvision>=0.22,<1", "pillow>=10,<12"]
 

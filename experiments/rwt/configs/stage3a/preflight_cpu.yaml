@@ -1,0 +1,19 @@
+cpu_threads: 2
+data_dir: results/rwt/stage3a_cpu_smoke/data
+output_dir: results/rwt/stage3a1_cpu_preflight
+training_seeds: [41, 42, 43]
+ridge: 1.0
+mlp:
+  hidden_dim: 64
+  max_epochs: 35
+  patience: 7
+  min_improvement: 0.0001
+  batch_size: 256
+  learning_rate: 0.001
+rollout_seeds: [801, 802, 803]
+mpc_seeds: [811, 812]
+mpc:
+  horizon: 3
+  candidates: 32
+  iterations: 2
+  elite_fraction: 0.2

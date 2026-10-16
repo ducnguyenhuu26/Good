@@ -1,0 +1,16 @@
+# Same locked A/B/D data and evaluation protocol; only training device changes.
+# Coverage addendum is an optional negative ablation, not the default pilot.
+# Run --check-gpu before training. No C offline data.
+cpu_threads: 4
+data_dir: results/rwt/stage3a_cpu_smoke/data
+output_dir: results/rwt/stage3b_gpu_pilot
+training_seeds: [41, 42, 43]
+methods: [pooled, history]
+ridge: 1.0
+training:
+  hidden_dim: 64
+  epochs: 35
+  batch_size: 256
+  learning_rate: 0.001
+rollout_seeds: [801, 802, 803]
+mpc_seeds: [811, 812, 813]

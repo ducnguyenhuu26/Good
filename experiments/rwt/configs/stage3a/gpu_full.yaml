@@ -1,0 +1,32 @@
+# Larger run of the same pipeline. This is a prepared configuration, not a
+# completed benchmark or a claim of stable MPC performance.
+seed: 31415
+cpu_threads: 4
+output_dir: results/rwt/stage3a_gpu_full
+regimes:
+  A: {friction: 1.0, actuator_gain: 1.0}
+  B: {friction: 0.6, actuator_gain: 1.0}
+  D: {friction: 1.0, actuator_gain: 0.7}
+  C: {friction: 0.6, actuator_gain: 0.7}
+offline:
+  regimes: [A, B, D]
+  collection_workers: 3
+  train_count_per_regime: 90000
+  validation_count_per_regime: 10000
+  episode_steps: 500
+model:
+  hidden_dim: 64
+training:
+  epochs: 60
+  batch_size: 1024
+  learning_rate: 0.0005
+mpc:
+  horizon: 5
+  candidates: 64
+  iterations: 2
+  elite_fraction: 0.2
+evaluation:
+  seeds: [701, 702, 703, 704, 705, 706, 707, 708, 709, 710, 711, 712, 713, 714, 715, 716, 717, 718, 719, 720]
+  batch_seeds: true
+  dwell_times: [100, 100, 100, 150, 100, 150]
+  adapter_ridge: 20.0

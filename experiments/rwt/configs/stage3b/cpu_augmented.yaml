@@ -1,0 +1,14 @@
+# Original A/B/D validation is unchanged; extra A/B/D transitions join train only.
+cpu_threads: 2
+data_dir: results/rwt/stage3a_cpu_smoke/data
+extra_train_dir: results/rwt/stage3b_coverage_addendum/data
+output_dir: results/rwt/stage3b_cpu_augmented
+training_seeds: [41, 42, 43]
+ridge: 1.0
+training:
+  hidden_dim: 64
+  epochs: 35
+  batch_size: 256
+  learning_rate: 0.001
+rollout_seeds: [801, 802, 803]
+mpc_seeds: [811, 812, 813]

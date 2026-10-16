@@ -1,0 +1,30 @@
+seed: 31415
+cpu_threads: 2
+output_dir: results/rwt/stage3a_cpu_smoke
+regimes:
+  A: {friction: 1.0, actuator_gain: 1.0}
+  B: {friction: 0.6, actuator_gain: 1.0}
+  D: {friction: 1.0, actuator_gain: 0.7}
+  C: {friction: 0.6, actuator_gain: 0.7}
+offline:
+  regimes: [A, B, D]
+  collection_workers: 1
+  train_count_per_regime: 1800
+  validation_count_per_regime: 200
+  episode_steps: 200
+model:
+  hidden_dim: 64
+training:
+  epochs: 5
+  batch_size: 256
+  learning_rate: 0.001
+mpc:
+  horizon: 3
+  candidates: 32
+  iterations: 2
+  elite_fraction: 0.2
+evaluation:
+  seeds: [701, 702]
+  batch_seeds: false
+  dwell_times: [12, 12, 12, 16, 12, 16]
+  adapter_ridge: 20.0

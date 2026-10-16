@@ -1,0 +1,31 @@
+# Prepared GPU pilot; run only after the CPU preflight report is reviewed.
+seed: 31415
+cpu_threads: 4
+output_dir: results/rwt/stage3a_gpu_pilot
+regimes:
+  A: {friction: 1.0, actuator_gain: 1.0}
+  B: {friction: 0.6, actuator_gain: 1.0}
+  D: {friction: 1.0, actuator_gain: 0.7}
+  C: {friction: 0.6, actuator_gain: 0.7}
+offline:
+  regimes: [A, B, D]
+  collection_workers: 2
+  train_count_per_regime: 9000
+  validation_count_per_regime: 1000
+  episode_steps: 250
+model:
+  hidden_dim: 64
+training:
+  epochs: 25
+  batch_size: 512
+  learning_rate: 0.0007
+mpc:
+  horizon: 5
+  candidates: 64
+  iterations: 2
+  elite_fraction: 0.2
+evaluation:
+  seeds: [701, 702, 703]
+  batch_seeds: true
+  dwell_times: [24, 24, 24, 32, 24, 32]
+  adapter_ridge: 20.0
