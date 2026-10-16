@@ -374,8 +374,11 @@ def main() -> None:
                         default=Path("experiments/rwt/configs/stage3b/cpu_smoke.yaml"))
     parser.add_argument("--device", choices=("cpu", "cuda"), default="cpu")
     parser.add_argument("--resume", action="store_true")
+    parser.add_argument("--evaluate-only", action="store_true")
     parser.add_argument("--check-gpu", action="store_true")
     args = parser.parse_args()
+    if args.resume and args.evaluate_only:
+        parser.error("--resume and --evaluate-only cannot be combined")
     if args.check_gpu:
         import gymnasium, mujoco
         available = torch.cuda.is_available()
@@ -416,10 +419,10 @@ def main() -> None:
                                           for key in source["train"][regime]}
         audit.update(extra_audit)
     train, val = pool(source["train"]), pool(source["validation"])
-    if args.resume:
+    if args.resume or args.evaluate_only:
         saved_config = json.loads((output / "resolved_config.json").read_text(encoding="utf-8"))
         if saved_config["config"] != config or saved_config["device"] != args.device:
-            raise ValueError("resume config/device differs from original run")
+            raise ValueError("requested config/device differs from original run")
     else:
         (output / "resolved_config.json").write_text(json.dumps({"config": config,
             "device": args.device, "config_path": str(args.config), "torch": torch.__version__},
@@ -427,7 +430,7 @@ def main() -> None:
     hashed_files = sorted(data_dir.glob("*.npz")) + (sorted(extra_dir.glob("*.npz")) if extra_dir else [])
     data_hashes = {str(path): hashlib.sha256(path.read_bytes()).hexdigest()
                    for path in hashed_files}
-    if args.resume:
+    if args.resume or args.evaluate_only:
         recorded_hashes = json.loads((output / "dataset_hashes.json").read_text(encoding="utf-8"))
         legacy_hashes = ({Path(path).name: digest for path, digest in data_hashes.items()}
                          if extra_dir is None else None)
@@ -456,7 +459,36 @@ def main() -> None:
             jobs.append((kind, int(seed), train, val, train_context, val_context,
                          config["training"], output, args.device, args.resume))
     training_start = perf_counter()
-    if training_workers == 1:
+    if args.evaluate_only:
+        prior_summary = json.loads((output / "summary.json").read_text(encoding="utf-8"))
+        if prior_summary["device_training"] != args.device:
+            raise ValueError("evaluation device differs from saved pilot")
+        selected = {kind: int(seed) for kind, seed in prior_summary["selected_seed_abd_only"].items()}
+        runs = prior_summary["training_runs"]
+        training_wall_seconds = float(prior_summary["training_wall_seconds"])
+        hidden = int(config["training"]["hidden_dim"])
+        for kind in configured_methods:
+            for seed in config["training_seeds"]:
+                checkpoint = torch.load(output / "checkpoints" / f"{kind}_{seed}_best.pt",
+                                        map_location="cpu", weights_only=True)
+                if (checkpoint["kind"] != kind or int(checkpoint["seed"]) != int(seed)
+                        or checkpoint["offline_regimes"] != list(REGIMES)):
+                    raise ValueError(f"checkpoint provenance mismatch for {kind}/{seed}")
+                model = _model(kind, hidden)
+                model.load_state_dict(checkpoint["model_state"])
+                models[(kind, int(seed))] = model.eval()
+        reward_seed = selected["reward"]
+        reward_checkpoint = torch.load(
+            output / "checkpoints" / f"reward_{reward_seed}_best.pt",
+            map_location="cpu", weights_only=True)
+        if (reward_checkpoint["kind"] != "reward"
+                or int(reward_checkpoint["seed"]) != reward_seed
+                or reward_checkpoint["offline_regimes"] != list(REGIMES)):
+            raise ValueError("reward checkpoint provenance mismatch")
+        reward_model = RewardPredictor(hidden)
+        reward_model.load_state_dict(reward_checkpoint["model_state"])
+        models[("reward", reward_seed)] = reward_model.eval()
+    elif training_workers == 1:
         trained = [_train(*job) for job in jobs]
     else:
         # Spawn avoids inheriting a CUDA context and gives each seed isolated RNG state.
@@ -464,18 +496,20 @@ def main() -> None:
                                  mp_context=mp.get_context("spawn")) as executor:
             futures = [executor.submit(_train, *job) for job in jobs]
             trained = [future.result() for future in futures]
-    training_wall_seconds = perf_counter() - training_start
-    for job, (model, curve, row) in zip(jobs, trained):
-        kind, seed = job[:2]
-        models[(kind, seed)] = model
-        curves.extend(curve)
-        runs.append(row)
-    selected = {kind: min((row for row in runs if row["kind"] == kind),
-                          key=lambda row: row["validation_loss"])["seed"]
-                for kind in (*configured_methods, "reward")}
+    if not args.evaluate_only:
+        training_wall_seconds = perf_counter() - training_start
+        for job, (model, curve, row) in zip(jobs, trained):
+            kind, seed = job[:2]
+            models[(kind, seed)] = model
+            curves.extend(curve)
+            runs.append(row)
+        selected = {kind: min((row for row in runs if row["kind"] == kind),
+                              key=lambda row: row["validation_loss"])["seed"]
+                    for kind in (*configured_methods, "reward")}
     chosen = {kind: models[(kind, selected[kind])] for kind in (*configured_methods, "reward")}
-    write_csv(output / "training_curves.csv", curves)
-    write_csv(output / "training_runs.csv", runs)
+    if not args.evaluate_only:
+        write_csv(output / "training_curves.csv", curves)
+        write_csv(output / "training_runs.csv", runs)
     one, dimensions, rewards = validation_metrics(
         {(kind, seed): model for (kind, seed), model in models.items() if kind != "reward"},
         chosen["reward"], source["validation"], normalizer)
