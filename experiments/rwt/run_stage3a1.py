@@ -70,7 +70,7 @@ def dataset_audit(data_dir: Path, train_by: dict, val_by: dict,
     expected = {(split, regime) for split in ("train", "validation") for regime in ("A", "B", "D")}
     recorded = {}
     for item in manifest["splits"]:
-        filename = Path(item["file"]).name
+        filename = item["file"].replace("\\", "/").rsplit("/", 1)[-1]
         split = "train" if filename.startswith("train_") else "validation" if filename.startswith("validation_") else None
         key = (split, item["regime"])
         if key not in expected or filename != f"{split}_{item['regime']}.npz" or key in recorded:
