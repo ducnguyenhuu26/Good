@@ -140,6 +140,7 @@ pip install -e ".[rwt-mujoco,test]"
 $env:PYTHONPATH='src'
 python experiments/rwt/prepare_stage3b_dataset.py --config experiments/rwt/configs/stage3a/cpu_smoke.yaml
 python experiments/rwt/run_stage3b_pilot.py --check-gpu
+python experiments/rwt/check_stage3b_cuda.py
 python experiments/rwt/run_stage3b_pilot.py --config experiments/rwt/configs/stage3b/gpu_pilot.yaml --device cuda
 ```
 
