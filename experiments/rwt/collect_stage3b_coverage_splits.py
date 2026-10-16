@@ -27,6 +27,11 @@ def main() -> None:
         raise ValueError("coverage collection requires train/validation/test splits")
     if set(config["regimes"]) != {"A", "B", "D"}:
         raise ValueError("coverage collection is restricted to A/B/D")
+    split_seeds = {int(value) for value in config["splits"].values()}
+    if any(abs(left - right) <= 25000
+           for index, left in enumerate(sorted(split_seeds))
+           for right in sorted(split_seeds)[index + 1:]):
+        raise ValueError("coverage split seed ranges overlap")
     output = Path(config["output_dir"])
     output.mkdir(parents=True, exist_ok=True)
     checkpoints = Path(config["checkpoint_dir"])

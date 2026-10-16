@@ -7,8 +7,8 @@ reward_seed: 43
 regimes: [A, B, D]
 splits:
   train: 930000
-  validation: 940000
-  test: 950000
+  validation: 1030000
+  test: 1130000
 count_per_policy: 600
 episode_steps: 200
 mpc:
