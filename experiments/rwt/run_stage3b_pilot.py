@@ -237,7 +237,7 @@ def validation_metrics(models: dict, reward_model: RewardPredictor,
     return rows, dimensions, rewards
 
 
-def heldout_metrics(models: dict, reward_model: RewardPredictor,
+def heldout_metrics(models: dict, ridge: LinearRidgeDynamics, reward_model: RewardPredictor,
                     normalizer: TrainNormalizer, seeds: list[int], steps: int):
     """Evaluate frozen models on fresh trajectories; transitions are never saved for training."""
     rows, dimensions, rewards = [], [], []
@@ -291,6 +291,18 @@ def heldout_metrics(models: dict, reward_model: RewardPredictor,
                                        "raw_mse": float(squared[:, dimension].mean()),
                                        "normalized_mse": float((squared[:, dimension] /
                                            normalizer.delta_scale[dimension] ** 2).mean())})
+            ridge_prediction = ridge.predict(data["state"], data["action"])
+            ridge_squared = (ridge_prediction - data["next_state"]) ** 2
+            rows.append({"method": "ridge", "seed": -1, "regime": regime,
+                         "split": "heldout_online_eval", "raw_mse": float(ridge_squared.mean()),
+                         "normalized_mse": normalizer.normalized_mse(
+                             ridge_prediction, data["next_state"])})
+            for dimension in range(17):
+                dimensions.append({"method": "ridge", "seed": -1, "regime": regime,
+                                   "split": "heldout_online_eval", "dimension": dimension,
+                                   "raw_mse": float(ridge_squared[:, dimension].mean()),
+                                   "normalized_mse": float((ridge_squared[:, dimension] /
+                                       normalizer.delta_scale[dimension] ** 2).mean())})
             with torch.no_grad():
                 predicted_reward = reward_model(torch.as_tensor(data["state"]),
                                                 torch.as_tensor(data["action"])).numpy()
@@ -483,7 +495,7 @@ def main() -> None:
                                                         normalizer.delta_scale[dimension] ** 2).mean())})
     heldout_one, heldout_dimensions, heldout_rewards = heldout_metrics(
         {(kind, seed): model for (kind, seed), model in models.items() if kind != "reward"},
-        chosen["reward"], normalizer, [int(x) for x in config["heldout_seeds"]],
+        ridge, chosen["reward"], normalizer, [int(x) for x in config["heldout_seeds"]],
         int(config["heldout_steps"]))
     one.extend(heldout_one)
     dimensions.extend(heldout_dimensions)
