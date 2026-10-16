@@ -9,8 +9,12 @@ from time import perf_counter
 import numpy as np
 import torch
 
-from experiments.rwt.run_stage3b_pilot import _train
 from rwt.stage3b import StateDynamics
+
+if __package__:
+    from .run_stage3b_pilot import _train
+else:
+    from run_stage3b_pilot import _train
 
 
 def main() -> None:
