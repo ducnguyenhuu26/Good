@@ -219,12 +219,12 @@ def validation_metrics(models: dict, reward_model: RewardPredictor,
                 observed_histories(data))
             prediction = predict_state(model, data["state"], data["action"], context)
             squared = (prediction - data["next_state"]) ** 2
-            rows.append({"method": kind, "seed": seed, "regime": regime,
+            rows.append({"method": kind, "seed": seed, "eval_seed": -1, "regime": regime,
                          "split": "validation_abd",
                          "raw_mse": float(squared.mean()),
                          "normalized_mse": normalizer.normalized_mse(prediction, data["next_state"])})
             for dimension in range(17):
-                dimensions.append({"method": kind, "seed": seed, "regime": regime,
+                dimensions.append({"method": kind, "seed": seed, "eval_seed": -1, "regime": regime,
                                    "split": "validation_abd",
                                    "dimension": dimension, "raw_mse": float(squared[:, dimension].mean()),
                                    "normalized_mse": float((squared[:, dimension] /
@@ -232,7 +232,7 @@ def validation_metrics(models: dict, reward_model: RewardPredictor,
         with torch.no_grad():
             prediction = reward_model(torch.as_tensor(data["state"]),
                                       torch.as_tensor(data["action"])).numpy()
-        rewards.append({"regime": regime, "seed": -1, "split": "validation_abd",
+        rewards.append({"regime": regime, "seed": -1, "eval_seed": -1, "split": "validation_abd",
                         "reward_mse": float(np.mean((prediction - data["reward"]) ** 2))})
     return rows, dimensions, rewards
 
@@ -281,24 +281,24 @@ def heldout_metrics(models: dict, ridge: LinearRidgeDynamics, reward_model: Rewa
                     context = observed_histories(data)
                 prediction = predict_state(model, data["state"], data["action"], context)
                 squared = (prediction - data["next_state"]) ** 2
-                rows.append({"method": kind, "seed": model_seed, "regime": regime,
+                rows.append({"method": kind, "seed": model_seed, "eval_seed": seed, "regime": regime,
                              "split": "heldout_online_eval", "raw_mse": float(squared.mean()),
                              "normalized_mse": normalizer.normalized_mse(
                                  prediction, data["next_state"])})
                 for dimension in range(17):
-                    dimensions.append({"method": kind, "seed": model_seed, "regime": regime,
+                    dimensions.append({"method": kind, "seed": model_seed, "eval_seed": seed, "regime": regime,
                                        "split": "heldout_online_eval", "dimension": dimension,
                                        "raw_mse": float(squared[:, dimension].mean()),
                                        "normalized_mse": float((squared[:, dimension] /
                                            normalizer.delta_scale[dimension] ** 2).mean())})
             ridge_prediction = ridge.predict(data["state"], data["action"])
             ridge_squared = (ridge_prediction - data["next_state"]) ** 2
-            rows.append({"method": "ridge", "seed": -1, "regime": regime,
+            rows.append({"method": "ridge", "seed": -1, "eval_seed": seed, "regime": regime,
                          "split": "heldout_online_eval", "raw_mse": float(ridge_squared.mean()),
                          "normalized_mse": normalizer.normalized_mse(
                              ridge_prediction, data["next_state"])})
             for dimension in range(17):
-                dimensions.append({"method": "ridge", "seed": -1, "regime": regime,
+                dimensions.append({"method": "ridge", "seed": -1, "eval_seed": seed, "regime": regime,
                                    "split": "heldout_online_eval", "dimension": dimension,
                                    "raw_mse": float(ridge_squared[:, dimension].mean()),
                                    "normalized_mse": float((ridge_squared[:, dimension] /
@@ -306,7 +306,7 @@ def heldout_metrics(models: dict, ridge: LinearRidgeDynamics, reward_model: Rewa
             with torch.no_grad():
                 predicted_reward = reward_model(torch.as_tensor(data["state"]),
                                                 torch.as_tensor(data["action"])).numpy()
-            rewards.append({"regime": regime, "seed": seed, "split": "heldout_online_eval",
+            rewards.append({"regime": regime, "seed": seed, "eval_seed": seed, "split": "heldout_online_eval",
                             "reward_mse": float(np.mean((predicted_reward - data["reward"]) ** 2))})
     return rows, dimensions, rewards
 
@@ -483,12 +483,12 @@ def main() -> None:
         data = source["validation"][regime]
         prediction = ridge.predict(data["state"], data["action"])
         squared = (prediction - data["next_state"]) ** 2
-        one.append({"method": "ridge", "seed": -1, "regime": regime,
+        one.append({"method": "ridge", "seed": -1, "eval_seed": -1, "regime": regime,
                     "split": "validation_abd",
                     "raw_mse": float(squared.mean()),
                     "normalized_mse": normalizer.normalized_mse(prediction, data["next_state"])})
         for dimension in range(17):
-            dimensions.append({"method": "ridge", "seed": -1, "regime": regime,
+            dimensions.append({"method": "ridge", "seed": -1, "eval_seed": -1, "regime": regime,
                                "split": "validation_abd",
                                "dimension": dimension, "raw_mse": float(squared[:, dimension].mean()),
                                "normalized_mse": float((squared[:, dimension] /
