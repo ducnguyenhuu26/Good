@@ -20,3 +20,24 @@ build/
 .ipynb_checkpoints/
 *.log
 *.tmp
+
+# Local RWT/SCOPE research analysis and experiment artifacts.
+# Keep architecture modules under src/rwt/tif/ publishable on their own.
+/docs/scope_law_*.md
+/docs/theory_tide_hopper.md
+/docs/rwt_tif_*.md
+/experiments/rwt/configs/scope_law_*.json
+/experiments/rwt/configs/theory_tide_*.json
+/experiments/rwt/configs/gym_*scope_law_cpu.json
+/experiments/rwt/configs/gym_control_*.json
+/experiments/rwt/diagnose_*.py
+/experiments/rwt/audit_scope_*.py
+/experiments/rwt/summarize_scope_*.py
+/experiments/rwt/summarize_hopper_confirm.py
+/experiments/rwt/validate_scope_*.py
+/experiments/rwt/validate_state_only_checkpoint_choice.py
+/experiments/rwt/evaluate_scope_checkpoint_vs_state_only.py
+/experiments/rwt/run_scope_law*.py
+/experiments/rwt/run_theory_tide_hopper.py
+/tests/test_scope_law*.py
+/tests/test_theory_tide_hopper.py
