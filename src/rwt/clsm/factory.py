@@ -7,7 +7,7 @@ from .belief import LawFilter
 from .dynamics import ExecutableLaw
 from .evolution import LawEvolution
 from .forecast import LawForecaster
-from .memory import TheoryMemory
+from .memory import HierarchyParameters, TheoryMemory
 from .schemas import EnvSchema
 
 
@@ -15,6 +15,7 @@ from .schemas import EnvSchema
 class CLSM:
     law: ExecutableLaw
     evolution: LawEvolution
+    hierarchy: HierarchyParameters
     memory: TheoryMemory
     filter: LawFilter
     forecaster: LawForecaster
@@ -28,10 +29,13 @@ def build_clsm(schema: EnvSchema, config: dict) -> CLSM:
                         emission["variance_ceiling"], mechanics["delta_min"])
     evolution = LawEvolution(evolution_config["initial_parameter_reset_prob"],
                              evolution_config["q_min"])
-    memory = TheoryMemory(evolution_config["active_theta_prior_mean"],
-                          evolution_config["active_theta_prior_std"],
-                          scratch_weight=memory_config["scratch_prior_weight"])
+    hierarchy = HierarchyParameters(evolution_config["active_theta_prior_mean"],
+                                    evolution_config["active_theta_prior_std"],
+                                    scratch_weight=memory_config["scratch_prior_weight"])
+    memory = hierarchy.new_memory()
     filt = LawFilter(law, evolution, memory, filter_config["components"],
-                     filter_config["max_dropped_mass"])
+                     filter_config["max_dropped_mass"],
+                     filter_config["covariance_jitter_initial"],
+                     filter_config["covariance_jitter_max"])
     forecaster = LawForecaster(law, evolution, memory, forecast_config["samples"])
-    return CLSM(law, evolution, memory, filt, forecaster)
+    return CLSM(law, evolution, hierarchy, memory, filt, forecaster)

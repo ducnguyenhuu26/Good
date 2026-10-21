@@ -37,19 +37,23 @@ def _normal_log_prob(residual: Tensor, chol: Tensor) -> Tensor:
     return -0.5 * (residual @ solved + 2 * chol.diag().log().sum() + len(residual) * math.log(2 * math.pi))
 
 
-def _chol_with_jitter(matrix: Tensor) -> tuple[Tensor, float]:
+def _chol_with_jitter(matrix: Tensor, initial: float = 1e-9,
+                      maximum: float = 1e-3) -> tuple[Tensor, float]:
+    if not 0 < initial <= maximum:
+        raise ValueError("invalid Cholesky jitter range")
     eye = torch.eye(len(matrix), dtype=matrix.dtype, device=matrix.device)
     jitter = 0.0
-    for _ in range(8):
+    while jitter <= maximum:
         try:
             return torch.linalg.cholesky(matrix + jitter * eye), jitter
         except RuntimeError:
-            jitter = 1e-9 if jitter == 0 else 10 * jitter
+            jitter = initial if jitter == 0 else jitter * 10
     raise RuntimeError(f"Cholesky failed at jitter {jitter:g}")
 
 
 def ekf_correct(model, component: LawComponent, obs: Tensor, action: Tensor,
-                next_obs: Tensor) -> tuple[LawComponent, Tensor, float]:
+                next_obs: Tensor, jitter_initial: float = 1e-9,
+                jitter_max: float = 1e-3) -> tuple[LawComponent, Tensor, float]:
     """One nonlinear Gaussian emission update, with Joseph covariance form."""
     mask = torch.tensor([(component.code >> j) & 1 for j in range(3)], dtype=torch.bool,
                         device=component.mean.device)
@@ -72,7 +76,7 @@ def ekf_correct(model, component: LawComponent, obs: Tensor, action: Tensor,
         residual = next_obs - pred.detach()
         subcov = c[active[:, None], active[None, :]]
         innovation = noise + jac @ subcov @ jac.T
-        chol, jitter = _chol_with_jitter(innovation)
+        chol, jitter = _chol_with_jitter(innovation, jitter_initial, jitter_max)
         log_likelihood = _normal_log_prob(residual, chol)
         if len(active):
             gain = torch.cholesky_solve(jac @ subcov, chol).T
@@ -133,12 +137,17 @@ def compress_components(components: list[LawComponent], budget: int) -> tuple[li
 
 class LawFilter:
     def __init__(self, model, evolution: LawEvolution, memory: TheoryMemory | None = None,
-                 budget: int = 128, max_dropped_mass: float = 1e-3):
+                 budget: int = 128, max_dropped_mass: float = 1e-3,
+                 jitter_initial: float = 1e-9, jitter_max: float = 1e-3):
         self.model = model
         self.evolution = evolution
         self.memory = TheoryMemory() if memory is None else memory
         self.budget = int(budget)
         self.max_dropped_mass = float(max_dropped_mass)
+        self.jitter_initial = float(jitter_initial)
+        self.jitter_max = float(jitter_max)
+        if not 0 < self.jitter_initial <= self.jitter_max:
+            raise ValueError("invalid Cholesky jitter range")
         if self.budget < 16:
             raise ValueError("budget must preserve eight codes and two prior models")
         self.components: list[LawComponent] = []
@@ -167,11 +176,13 @@ class LawFilter:
         jitters = []
         prior_by_model = []
         for hypothesis in (0, 1):
-            values = torch.stack([c.log_weight for c in self.components if c.scratch_or_reuse == hypothesis])
-            prior_by_model.append(torch.logsumexp(values, 0))
+            values = [c.log_weight for c in self.components if c.scratch_or_reuse == hypothesis]
+            prior_by_model.append(torch.logsumexp(torch.stack(values), 0) if values else
+                                  torch.tensor(-torch.inf, dtype=torch.float64))
         self.memory.log_model_weights = torch.stack(prior_by_model).detach()
         for component in self.components:
-            corrected, emission, jitter = ekf_correct(self.model, component, obs, action, next_obs)
+            corrected, emission, jitter = ekf_correct(self.model, component, obs, action, next_obs,
+                                                       self.jitter_initial, self.jitter_max)
             updated.append(corrected)
             logits.append(component.log_weight + emission)
             jitters.append(jitter)
@@ -179,15 +190,18 @@ class LawFilter:
         evidence = torch.logsumexp(logits, 0)
         predictive_by_model = []
         for hypothesis in (0, 1):
-            selected = torch.stack([value for c, value in zip(self.components, logits)
-                                    if c.scratch_or_reuse == hypothesis])
-            predictive_by_model.append(float(torch.logsumexp(selected, 0) - prior_by_model[hypothesis]))
+            selected = [value for c, value in zip(self.components, logits)
+                        if c.scratch_or_reuse == hypothesis]
+            predictive_by_model.append(float(torch.logsumexp(torch.stack(selected), 0) - prior_by_model[hypothesis])
+                                       if selected and bool(torch.isfinite(prior_by_model[hypothesis])) else -torch.inf)
         for component, value in zip(updated, logits - evidence):
             component.log_weight = value.detach()
         self.components = updated
         self.memory.update_prequential_evidence(*predictive_by_model)
         posterior_by_model = torch.stack([
             torch.logsumexp(torch.stack([c.log_weight for c in self.components if c.scratch_or_reuse == hypothesis]), 0)
+            if any(c.scratch_or_reuse == hypothesis for c in self.components) else
+            torch.tensor(-torch.inf, dtype=torch.float64)
             for hypothesis in (0, 1)])
         if not torch.allclose(self.memory.log_model_weights, posterior_by_model, atol=1e-10):
             raise RuntimeError("scratch/reuse evidence was counted inconsistently")

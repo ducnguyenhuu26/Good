@@ -56,7 +56,9 @@ def backward_component_weights(filtered: list[Tensor], ancestry: list[StepAncest
 def backward_gaussian_moments(filtered: list[list[LawComponent]],
                               ancestry: list[StepAncestry],
                               discrete: DiscreteSmoothingResult,
-                              drift_variance: Tensor) -> GaussianSmoothingResult:
+                              drift_variance: Tensor,
+                              jitter_initial: float = 1e-9,
+                              jitter_max: float = 1e-3) -> GaussianSmoothingResult:
     """Event-aware approximate RTS moments on the retained component graph.
 
     A same-code drift uses its linear-Gaussian backward conditional. Reset and
@@ -102,7 +104,7 @@ def backward_gaussian_moments(filtered: list[list[LawComponent]],
                         if len(ids):
                             prior = parent.cov[ids[:,None], ids[None,:]]
                             predicted = prior + torch.diag(drift_variance[ids])
-                            chol, _ = _chol_with_jitter(predicted)
+                            chol, _ = _chol_with_jitter(predicted, jitter_initial, jitter_max)
                             gain = torch.cholesky_solve(prior, chol).T
                             child_mean = means[t+1][j][ids]
                             child_cov = covs[t+1][j][ids[:,None], ids[None,:]]

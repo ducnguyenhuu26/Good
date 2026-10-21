@@ -1,7 +1,7 @@
 method: clsm
 track: comp
 seed: 41
-world_length: 16
+world_length: 8
 transitions: {train: 32, validation: 16, test: 16}
 forecast_horizons: [1, 8, 24, 64]
 collector: smooth_random_smoke_v1

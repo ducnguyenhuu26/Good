@@ -72,3 +72,25 @@ def test_resampling_mass_and_support():
     assert 0 < dropped < 1
     assert len(kept)==2
     assert abs(sum(float(x.log_weight.exp()) for x in kept)-1)<1e-12
+
+
+def test_scratch_only_filter_keeps_zero_reuse_mass_without_nan():
+    model, evolution, _ = fixture()
+    filt = LawFilter(model, evolution, TheoryMemory(scratch_weight=1.))
+    obs = torch.zeros(3, dtype=torch.float64)
+    action = torch.ones(2, dtype=torch.float64)
+    for _ in range(2):
+        result = filt.observe(obs, action, obs)
+        assert np.isfinite(result["log_predictive"])
+        assert torch.equal(filt.memory.log_model_weights.exp(),
+                           torch.tensor([1., 0.], dtype=torch.float64))
+        filt.evolve()
+
+
+def test_zero_mass_branch_never_occupies_support_slot():
+    zero = torch.zeros(3, dtype=torch.float64)
+    cov = torch.zeros((3, 3), dtype=torch.float64)
+    components = [LawComponent(0, 0, zero, cov, torch.tensor(0., dtype=torch.float64)),
+                  LawComponent(7, 0, zero, cov, torch.tensor(-torch.inf, dtype=torch.float64))]
+    kept, dropped = compress_components(components, 1)
+    assert len(kept) == 1 and kept[0].code == 0 and dropped == 0

@@ -29,6 +29,7 @@ DEFAULTS = {
                  "gradient_steps_per_iteration": 300, "batch_size": 256,
                  "lr_dynamics": 0.0003, "lr_evolution": 0.001,
                  "weight_decay": 0.0001,
+                 "variance_penalty_weight": 0.01,
                  "validation_metric": "prequential_nll", "gradient_clip_norm": 5.0},
     "forecast": {"horizons": [1, 8, 24, 64], "samples": 256,
                  "signature_probes": 64},
@@ -84,4 +85,43 @@ def load_config(path: str | Path) -> dict:
         raise ValueError("reset probability outside allowed range")
     if config["training"]["validation_metric"] != "prequential_nll":
         raise ValueError("checkpoint selection metric is locked")
+    if not isinstance(config["network"]["hidden_dim"], int) or config["network"]["hidden_dim"] < 1:
+        raise ValueError("network.hidden_dim must be positive")
+    if not 0 < config["emission"]["variance_floor"] < config["emission"]["variance_ceiling"]:
+        raise ValueError("emission variance range is invalid")
+    if not 0 < config["filter"]["covariance_jitter_initial"] <= config["filter"]["covariance_jitter_max"]:
+        raise ValueError("filter Cholesky jitter range is invalid")
+    if not 0 <= config["filter"]["max_dropped_mass"] < 1:
+        raise ValueError("filter mass-loss gate is invalid")
+    for key in ("support_preserve_by_code", "independent_forecast_rng"):
+        if config["filter"][key] is not True:
+            raise ValueError(f"filter.{key} is required")
+    if (config["evolution"]["duration"] != "discrete_weibull" or
+            any(config["evolution"][key] is not True for key in
+                ("age_depends_on_popcount", "sparse_edits", "same_structure_reset")) or
+            config["evolution"]["q_min"] <= 0 or config["evolution"]["active_theta_prior_std"] <= 0):
+        raise ValueError("required semi-Markov Gaussian evolution configuration invalid")
+    if (config["memory"]["enabled"] is not True or config["memory"]["visit_level_updates"] is not True or
+            config["memory"]["max_theory_prototypes"] != 8 or
+            not 0 < config["memory"]["scratch_prior_weight"] < 1):
+        raise ValueError("required hierarchical scratch/reuse memory configuration invalid")
+    for key in ("reference_epochs", "outer_gem_iterations", "gradient_steps_per_iteration", "batch_size"):
+        if not isinstance(config["training"][key], int) or config["training"][key] < 1:
+            raise ValueError(f"training.{key} must be a positive integer")
+    for key in ("lr_dynamics", "lr_evolution", "gradient_clip_norm"):
+        if config["training"][key] <= 0:
+            raise ValueError(f"training.{key} must be positive")
+    for key in ("weight_decay", "variance_penalty_weight"):
+        if config["training"][key] < 0:
+            raise ValueError(f"training.{key} cannot be negative")
+    if config["forecast"]["samples"] < 2 or config["forecast"]["signature_probes"] < 2:
+        raise ValueError("forecast sample and probe counts must be at least two")
+    mode = config.get("mode")
+    if mode not in ("smoke", "full"):
+        raise ValueError("experiment mode must be smoke or full")
+    expected_collector = "smooth_random_smoke_v1" if mode == "smoke" else "nominal_controller_mixture_required"
+    if config.get("collector") != expected_collector:
+        raise ValueError("collector and experiment mode disagree")
+    if mode == "full" and config.get("collector_min_nominal_steps", 100000) < 1:
+        raise ValueError("full nominal collector budget must be positive")
     return config

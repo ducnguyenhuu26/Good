@@ -1,81 +1,75 @@
-# CLSM implementation audit
+# CLSM implementation audit — 21 October 2026
 
-## Implementation map (21 October 2026)
+## 1. Source, environment, and implementation map
 
-- Base source commit: `87b865b2a620ff473dfc246f73666f8ff310e8cc` (`btl/codex/scope-law-architectures`). First CLSM implementation commit: `4410671` on new branch `duc`. CLSM lives only in `src/rwt/clsm/`, `experiments/rwt/clsm/`, `tests/clsm/`, and new `docs/clsm_*` files, plus the additive `pyproject.toml` extra.
-- Existing source inspected: `src/rwt/stage3a.py` supplies a physics wrapper timing example; `src/rwt/stage3b.py` supplies the separate state-delta and reward-model pattern; `src/rwt/tif/scope_law.py` supplies a prior particle-filter diagnostic. These are references, not imported into the CLSM learner. `src/rwt/identifiability.py` provides an independent finite-state evidence example. No upstream functions are mutated or copied into the new package.
-- Installed: Python 3.11.9, PyTorch 2.13.0, Gymnasium 1.3.0, MuJoCo 3.3.7, NumPy 2.4.6, SciPy 1.17.1, PyYAML 6.0.3, pytest 9.1.1, Windows. ManiSkill has not been inspected or validated.
-- Learner boundary: public observation, commanded action, stationary public reward, next observation, and done flags only. Nominal actuator topology and nominal damping may be supplied as static setup metadata. Hidden masks, intervention parameters, switch/reset times, modified simulator arrays, and oracle counterfactual snapshots belong exclusively to evaluator modules and never enter learner arrays, model checkpoints, normalization, or checkpoint selection.
-- Scientific boundary: the attached specification defines a restricted Gaussian-drift/reset CLSM, whereas the formulation also permits broader Levy increments. C1, C2, and C3 require separate locked experiments. A smoke run is not a scientific confirmation.
+The new work is isolated on branch `duc`, based on source commit `87b865b2a620ff473dfc246f73666f8ff310e8cc` from `codex/scope-law-architectures`. The original `main` checkout is Git-clean; its former local work remains in two named recoverable stashes. No earlier Stage 1–3, TIF, NEO or results source was modified. CLSM code is under `src/rwt/clsm/`, evaluator and CLI code under `experiments/rwt/clsm/`, tests under `tests/clsm/`, and this documentation under `docs/clsm_*`; `pyproject.toml` adds only optional extras.
 
-## Implemented mathematical components and actual symbols
+The existing `stage3a.py`, `stage3b.py`, `tif/scope_law.py` and identifiability routines were inspected for timing, separate dynamics/reward treatment and prior failure modes; no old functions were mutated. Python 3.11.9, PyTorch 2.13.0 CPU, Gymnasium 1.3.0, MuJoCo 3.3.7, NumPy 2.4.6, SciPy 1.17.1, PyYAML 6.0.3, pytest 9.1.1, Stable-Baselines3 2.9.0 and Windows are installed. CUDA is unavailable to PyTorch; ManiSkill is not installed. Current run artifacts are local and ignored by Git. Each checkpoint records its source commit, source fingerprint, dirty status, resolved config, public-data hashes, versions and RNG/optimizer state. Only clean-source checkpoint replay is accepted by evaluators.
 
-| Specification | Implemented symbol | Verification boundary |
+## 2. Executable mathematical components
+
+| Specification | Executable symbols | Current verification |
 |---|---|---|
-| (3)–(7) executable motor/damping effort | `MechanismForce.forward`, `.W`, `.regularizer` | Nominal/mask/gradient/dissipation unit tests |
-| (8)–(9) shared force-to-delta Gaussian law | `ExecutableLaw.forward`, `.log_prob` | Shape/finite tests and reference-only initialization |
-| (10)–(13) Weibull hazard, sparse edits, drift/reset | `LawEvolution.hazard`, `.structural_log_transition`, `.predict_branches` | Exact algebra and age tests |
-| (14)–(15) hierarchy and entry prior | `TheoryMemory.prior_for_entry`, `.update_from_completed_visit`, `LawFilter._update_completed_visit_memory` | Causal soft exit-mass update and expected-visit accounting tested; no completed C3 experiment |
-| (17)–(18) Gaussian update | `ekf_correct`, `LawFilter.observe` | Cholesky/Joseph, nominal subspace, causality tests |
-| Discrete timing reference | `forward_log_evidence_discrete` | 3-state trajectory enumeration at `<1e-10` |
-| (19) approximate backward trajectory inference | `StepAncestry`, `backward_component_weights`, `backward_gaussian_moments`, `approximate_estep` | Exact two-state enumeration, Gaussian drift conditional, toy and four-transition MuJoCo smoke |
-| (20)–(22) projected-law samples and score | `LawForecaster.sample_laws`, `.sample_signatures`, `energy_score` | `h=0`, frozen-belief and RNG-isolation tests; no trained-law evaluation |
+| (3)–(7) force pathway | `MechanismForce.forward`, learned nonnegative normalized `W`, positive damping shape | Nominal anchor, inactive-coordinate gradient, dissipation and environment shape tests |
+| (8)–(9) Gaussian emission | `ExecutableLaw.forward`, `.log_prob`; variance bounds and reference calibration | Reference initialization and emission gradient test |
+| (10)–(13) law evolution | `LawEvolution.hazard`, `.structural_log_transition`, `.predict_branches` | Weibull, sparse kernel, same-code reset age and exact finite-state timing tests |
+| (14)–(15) hierarchical memory | `TheoryMemory`, `HierarchyParameters`, scratch/reuse evidence | Expected completed-visit mass, scratch-only and one-update tests |
+| (16)–(18) current-law filter | `LawFilter.observe`, `.evolve`, `ekf_correct`, `compress_components` | Float64 Cholesky/Joseph, ancestry, support and zero-mass tests |
+| (19) approximate GEM | `approximate_estep`, `backward_*`, `expected_*_nll`, `generalized_em_mstep` | Toy gradients through dynamics, `W`, evolution, hierarchy; HalfCheetah CPU smoke |
+| (20)–(22) future laws | `LawForecaster.sample_laws`, `.sample_signatures`, `energy_score` | All horizons, frozen same-current-belief comparator, fixed independent probe bank and evaluator-only oracle snapshots |
 
-The filter now retains proposal/pruning-corrected ancestry and updates scratch/reuse predictive evidence. Structural exit mass makes one soft moment update per code and step, with expected completed-visit mass recorded; this is a filtering approximation whose serial-dependence calibration is not validated. The event-aware backward routine is available for an offline E-step. `run_train.py` explicitly refuses to call the reference-initialized backbone a complete CLSM checkpoint. No optimizer has jointly fitted `W`, `K_eta`, variance, and prototype hyperparameters by generalized EM. The resolved §6.3 hyperparameter values are in `config.py` and validated by `test_config.py`; values not yet used by a full M-step or evaluation are configuration declarations, not trained settings.
+The M-step uses six-point latent Gaussian cubature for the expected emission loss, smoothed event probabilities for Weibull/sparse-edit/reset loss, approximate Gaussian drift second moments, and mean-field hierarchy loss. Optimization is bounded, clipped and selected by validation prequential NLL. This is *approximate* generalized EM, not exact EM or a guarantee of monotonic likelihood improvement. The soft online prototype updates remain a mean-field approximation that needs serial-dependence calibration.
 
-## Deviations, failures, and user-visible effect
+## 3. Deviations and hard gates
 
-1. **Swimmer-v5 excluded before test scores.** Installed nominal `dof_damping=[0,0,0,0,0]` and controlled DOFs `[3,4]`. Multiplicative damping cannot implement the specified third mechanism. Evidence and reason: `experiments/rwt/clsm/benchmark_exclusions.json`. The four-environment MuJoCo panel is therefore unavailable under this installed model without a separately approved benchmark redesign.
-2. **ManiSkill PD adapter unavailable.** Its actual controller semantics have not been inspected, so no PushCube-v1 claim or fake torque interface is present.
-3. **Smoke collection uses smooth random public actions.** The required nominal-controller mixture is not implemented. Full collection configuration errors deliberately. Smoke coverage cannot validate sustained policy occupancy or law identifiability.
-4. **No generalized-EM M-step or trained memory result.** Online memory evidence and soft exit summaries are integrated, and an approximate event-aware E-step runs, but the complete-data optimizer, prototype hyperparameter fitting, validation checkpoint selection and serial-dependence calibration remain missing. This blocks full generalized EM, C1/C2/C3 claims and all full-model CLI evaluations.
-5. **No full matched baselines, independent oracle signature evaluator, or hierarchical statistical report.** Existing code can sample learned-model future laws but cannot make a confirmatory C2 comparison. Evaluation scripts and full per-track result directories are not delivered as complete implementations.
-6. **Forecast and filter numerical limits.** The fixed-budget filter logs discarded mass and has an approximate continuous backward smoother, but has no sigma-point likelihood cross-check or merge-cost approximation report. These missing acceptance tests keep the full experiment gate closed.
+1. **Long-world inference fails the registered mass gate.** With the specified 128 components and a 16-step HalfCheetah validation world, discarded mass is 3.37% at step 8 and rises to 4.47% by step 15, versus the 0.1% maximum. No different-age or different-code mixtures were merged to hide that loss. The CPU smoke uses eight-step worlds *only to exercise the training path*; it is not an accuracy fix. The 500-step full world configuration must not be promoted until this is resolved by a named accuracy/computation ablation or a justified model revision.
+2. **Swimmer-v5 is excluded before test scores.** The installed nominal controlled DOFs `[3,4]` have zero damping; the required multiplicative damping mechanism cannot act. `benchmark_exclusions.json` preserves the exact finding. The four-environment panel cannot be claimed under this installed model.
+3. **ManiSkill PushCube-v1 remains blocked.** Official controller documentation defines PD target-position semantics, not direct torque actions. The optional package and controller/physics audit are unavailable locally; `full_maniskill.yaml` exists but runners error explicitly rather than silently using a MuJoCo torque adapter. The native PD interface requires a separate validated implementation.
+4. **Baseline panel is incomplete.** `pooled_mlp` has an independent validation checkpoint; scratch-only and frozen-current are executable matched-data comparators. Causal history MLP, noncompositional switching experts, geometric-duration, factorization ablation, matched-compute scratch and privileged oracle upper bound are not implemented. No native published RL baseline or downstream control result is claimed.
+5. **Confirmatory data and uncertainty are absent.** Only HalfCheetah short smoke datasets and one-seed diagnostics have run. Full 150k/30k/30k data per track and environment, five training seeds, twenty evaluation worlds, long-horizon age-support validation and paired confidence intervals have not run. The aggregate script returns a diagnostic summary and leaves confirmatory intervals null.
+6. **Remaining numerical and coverage checks.** No sigma-point likelihood cross-check, measured merge approximation bound, model uncertainty calibration, joint/action occupancy sufficiency proof, state-dependent ManiSkill adapter, or long-world resume repeat is available. No model was selected on held-out composition, oracle probes, or downstream return.
 
-These are incomplete requirements, not favorable scientific results. No architecture or evaluation rule was changed to make the smoke run pass.
+## 4. Learner/evaluator information boundary
 
-## Learner/evaluator boundary evidence
+The learner accepts only public `obs`, `action`, `next_obs` arrays and static nominal `EnvSchema`. Its likelihood does not use reward; public reward is the stationary function `-0.001||o||²-0.01||a||²`. The strict loader permits exactly `obs, action, reward, next_obs, terminated, truncated, world_id, world_step`, checks hashes and world ordering, and rejects an injected `code` column even when its file hash matches the manifest. No module in `src/rwt/clsm/` imports the evaluator physics wrapper or world schedules.
 
-- `src/rwt/clsm/` imports only `EnvSchema`, which contains nominal static topology, nominal damping, bounds, time step, and explicit public-observation velocity indices. No module under this learner namespace imports `experiments/rwt/clsm/physics_wrappers.py` or `world_schedule.py`.
-- The public dataset contains only `obs, action, reward, next_obs, terminated, truncated, world_id, world_step`. The public manifest contains data hashes, world IDs, and collector ID, without oracle labels or oracle paths. Oracle arrays and oracle manifest are under a separate `results/rwt/clsm_evaluator/` namespace. This is namespace separation, not an operating-system access-control guarantee.
-- Reference-only checkpoint stores model state, resolved config, data hash, source commit and versions. It receives nominal reference data collected with fixed default physics; it contains no intervention labels. Current tests check public keys and code-level interface. A complete checkpoint leakage audit remains pending.
+Evaluator-only code owns modified physics arrays, code/parameter/reset schedules and full MuJoCo snapshots. Oracle signatures and hidden schedule files are under `results/rwt/clsm_evaluator/`; learner checkpoints contain no such fields. The fixed 64-probe calibration bank is shared by methods and evaluation worlds, and its full-state snapshots stay evaluator-only. This directory separation is not an operating-system ACL guarantee.
 
-## Commands, exit status, and observed artifacts
+## 5. Executed commands and reproducibility
 
-All commands below were run in the `duc` worktree with `PYTHONPATH=src;.` on Windows PowerShell unless noted.
+Commands were run in the `duc` worktree on Windows PowerShell after editable installation with `python -m pip install -e '.[rwt-clsm,test]' --no-deps`. Local smoke artifacts generated while source edits were in progress are diagnostic; clean-source replay and provenance checking are required before a result is treated as reproducible.
 
-| Command | Exit | Observation |
+| Command or check | Exit | Observation |
 |---|---:|---|
-| `python -m pytest tests/clsm -q` | 0 | 31 tests passed, including exact backward enumeration, Gaussian conditional, E-step, hyperparameter resolution, and expected visit count; editable installation used `python -m pip install -e '.[rwt-clsm,test]' --no-deps` |
-| `python experiments/rwt/clsm/audit_physics.py --env HalfCheetah-v5 --config experiments/rwt/clsm/configs/comp.yaml --probes 8` | 0 | Repeated-query max absolute error 0; physics arrays restored; stationary reward invariant |
-| Same audit for `Walker2d-v5` and `Reacher-v5` | 0 each | Repeated-query max absolute error 0; physics arrays restored; stationary reward invariant |
-| `python experiments/rwt/clsm/build_datasets.py --env HalfCheetah-v5 --track comp --config experiments/rwt/clsm/configs/cpu_smoke.yaml` | 0 | Public transition counts 32 train, 16 validation, 16 test; manifest hash reproduced byte-for-byte on rerun |
-| `python experiments/rwt/clsm/run_train.py --env HalfCheetah-v5 --track comp --config experiments/rwt/clsm/configs/cpu_smoke.yaml --device cpu --reference-only` | 0 | Three-epoch nominal reference initialization, latest final normalized MSE 0.9656083702544055 with 256-wide model. Earlier configuration produced byte-identical repeated checkpoint hashes; latest configuration has not had that repeat check. |
-| Four-transition `approximate_estep` on HalfCheetah validation public data | 0 | Four finite predictive log densities; maximum retained-mixture mass loss 2.22e-16; all three event categories represented. This is execution evidence, not model validation. |
-| Same `run_train.py` without `--reference-only` | 1 | Deliberate release gate: missing joint M-step, validation checkpoint selection and full experiment protocol. |
-| `python experiments/rwt/clsm/run_forecast_eval.py --env HalfCheetah-v5 --track evol --checkpoint results/rwt/clsm/comp/HalfCheetah-v5/reference_only/41/checkpoint_reference.pt` | 1 | Deliberate gate: reference checkpoint is not a locked joint CLSM model. |
-| `python experiments/rwt/clsm/summarize.py --results-dir results/rwt/clsm` | 1 | Deliberate gate: full score and memory-adaptation files are absent. |
+| `python -m pytest tests/clsm -q` | 0 | 41 tests passed, including exact discrete enumeration, continuous backward conditional, zero-mass support, hidden-column rejection and probe restoration. |
+| `audit_physics.py` on HalfCheetah, Walker2d, Reacher (`--probes 8`) | 0 each | Repeated-query error 0, physics restored and declared reward invariant. |
+| `build_datasets.py` on HalfCheetah COMP/EVOL/MEM with their CPU smoke configs | 0 each | Separate 32/16/16 public transitions and hashed manifests. Eight-step validation/test worlds happened to contain only code 000. |
+| `run_train.py` on HalfCheetah COMP/EVOL/MEM CPU smoke, default full-model path | 0 each | Three nominal epochs, one GEM outer iteration, five M-steps, validation-selected best/latest checkpoints. Validation prequential NLL: COMP 9.4412; EVOL/MEM 9.4460. These are smoke diagnostics. |
+| `run_train.py --evaluate-only` and `--resume` on COMP smoke | 0 each | Loaded checkpoint and repeated validation NLL 9.4412; resume found no remaining outer iteration. This is not a multi-step resumed-training equivalence test. |
+| `run_baselines.py --method pooled_mlp` on COMP smoke | 0 | Same public/reference hashes; pooled validation NLL 9.1432, better than CLSM's 9.4412. |
+| `run_comp_eval.py` with 64 fixed probes, four held-out codes | 0 | One-seed diagnostic; pooled beats CLSM on all four codes. |
+| `run_forecast_eval.py` on COMP and EVOL with horizons `0,1,8,24,64` | 0 | One-world projected-law forecast and same-belief frozen comparator. EVOL skill negative at `h=1,24,64`. |
+| `run_memory_eval.py` on MEM with budgets `4,8` | 0 | One-world same-data scratch/reuse diagnostic; gain negative at budget 8. Candidate count and compute differ. |
+| `fit_nominal_controller.py --env Reacher-v5 --steps 20`, then isolated full-collector interface test of 8/4/4 transitions | 0 | Controller/collector wiring only. The actual full config requires at least 100,000 nominal fit steps. |
+| `summarize.py --results-dir results/rwt/clsm` | 0 | Includes negative effects; no confidence interval or confirmatory label from one seed. |
 
-Local ignored smoke outputs: `results/rwt/clsm/physics_audits/*.json`, `results/rwt/clsm/comp/HalfCheetah-v5/data/`, `results/rwt/clsm/comp/HalfCheetah-v5/reference_only/41/`, and `results/rwt/clsm_evaluator/comp/HalfCheetah-v5/`. These are reproducible from the committed commands and are not full research result directories.
+## 6. Physical audit and coverage
 
-The original `main` checkout is Git-clean after two named, recoverable stashes: `pre-CLSM local work 2026-10-21` and `pre-CLSM formerly ignored local files 2026-10-21`. No previous tracked source or result artifact was deleted by this branch.
+Eight matched MuJoCo probes per valid environment gave strictly positive nominal/intervention separations in at least the sampled perturbations. Across five variants the ranges of raw next-observation norm separation were HalfCheetah 0.511–3.345, Walker2d 0.020–2.044 and Reacher 0.010–0.626. These small audits establish intervention execution, restoration and deterministic repeatability, not sufficient policy occupancy or structural identifiability. New dataset manifests report action-coordinate, joint-velocity and observation-norm quantiles; contact strata and oracle pairwise separation *under the full collector distribution* remain unmeasured.
 
-## Physical audit and coverage
+## 7. Results by claim (diagnostic only)
 
-Eight matched probes per valid environment yielded strictly positive measured nominal-vs-intervention separation in this small sample. The pooled ranges across five intervention variants were: HalfCheetah 0.511–3.345, Walker2d 0.020–2.044, Reacher 0.010–0.626 in raw next-observation Euclidean norm. These values are diagnostics on eight sampled probes, not policy-occupancy coverage or structural identification. Contact, low/high action, and low/high velocity strata have not been reported; this is another full-run gate.
+- **Current law / C1:** COMP pooled validation NLL 9.1432 versus CLSM 9.4412 on the same short validation data. On four held-out masks with four public adaptation transitions and one fixed 64-probe bank, `ES_pooled - ES_CLSM` was `-0.3591, -0.4414, -0.3157, -0.2902` for codes `3,5,6,7`. All favor pooled. One seed and short worlds cannot establish general superiority or failure.
+- **C2:** EVOL single-world `ES_frozen - ES_CLSM` at `h=0,1,8,24,64` was `0, -0.00415, +0.04837, -0.00079, -0.02486`. Improvement at only one horizon is not evolution success; this diagnostic does not support C2.
+- **C3:** MEM one-world `ES_scratch - ES_reuse` at budgets `4,8` was `+0.000353, -0.000936`. Reuse used 64/128 components versus scratch 32/64 and 15.1 versus 9.5 observed seconds across this diagnostic. The matched-compute baseline and budgets 16/32/64 are missing; this does not support C3.
+- **Downstream:** no policy, action-value, ranking or return result.
 
-## Results by scientific claim
+These values came from local smoke checkpoints before clean-source replay. Raw model predictions, oracle signatures, fixed probe hash, checkpoint hash and all rows are retained in ignored local result directories. They are not paper-facing estimates.
 
-- **Current law:** no held-out law score; only reference nominal training loss.
-- **C1 composition:** no held-out pair/triple law result or matched baselines.
-- **C2 evolution:** no locked multi-horizon oracle Energy Score; model sampling unit tests do not show forecast skill.
-- **C3 memory:** no matched adaptation-risk result; memory is not yet integrated.
-- **Downstream:** no action-value or return experiment.
+## 8. Computation and diagnostics
 
-## Computation and diagnostics
+The 41-test suite took 7.7 seconds; one HalfCheetah COMP GEM CPU smoke took roughly two minutes. No GPU was available, and peak CPU memory was not measured. The eight-step smoke had discarded mass at numerical-roundoff scale; the sixteen-step diagnostic breached the gate substantially. The best COMP validation NLL was worse than pooled. Posterior collapse, actuator support identification, covariance calibration, event/hazard learning and memory negative transfer need larger paired studies. The score files keep negative rows and do not select a best horizon or seed.
 
-Observed 31-test unit suite completed in 6.42 seconds; a four-transition HalfCheetah E-step smoke completed in about eight seconds including Python process startup and checkpoint loading. Peak CPU/GPU memory and per-step training/inference latency were not measured. There is no CUDA device visible to PyTorch, and `nvidia-smi` is unavailable. Posterior collapse, W-group identifiability, hazard fitting, covariance inflation, OOD probe coverage, memory negative transfer, and repeated mixture mass loss have not been measured on a trained CLSM.
+## 9. Open scientific questions versus implementation defects
 
-## Unresolved research assumptions separate from implementation defects
-
-The finite public probe projection may merge physically different laws. The locked actuator weakening and damping-increase family may not produce well-separated, policy-relevant effects in every environment. Five training seeds and independent world sequences are needed to test C1–C3; a good nominal fit or successful physics restoration does not imply any claim. The zero-damping Swimmer finding is an environment-schema incompatibility; the missing M-step, baselines, and oracle evaluator are implementation work.
+The finite probe projection can equate different physical laws; the locked weakening/increased-damping family may not produce sufficiently separated effects under every policy. A good next-observation fit cannot identify future-law evolution. The 128-component long-world mass loss, missing baseline panel, missing ManiSkill PD adapter and missing full run are implementation/acceptance failures, not negative scientific conclusions. Five train seeds and independent world schedules are needed before testing C1–C3.

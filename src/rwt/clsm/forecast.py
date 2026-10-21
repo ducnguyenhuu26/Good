@@ -34,6 +34,14 @@ class LawForecaster:
             paths.append((item.code, item.age, theta, item.scratch_or_reuse))
         out = {}
         initial_laws = torch.as_tensor(np.stack([np.r_[code, theta] for code, _, theta, _ in paths]), dtype=torch.float64)
+        with torch.no_grad():
+            max_age = max(age for _, age, _, _ in paths) + max(horizons) + 1
+            code_grid = torch.arange(8, dtype=torch.long)[:, None].expand(8, max_age)
+            age_grid = torch.arange(max_age, dtype=torch.long)[None, :].expand(8, max_age)
+            hazards = self.evolution.hazard(code_grid, age_grid).cpu().numpy()
+            transitions = self.evolution.structural_log_transition().exp().cpu().numpy()
+            reset_probability = float(self.evolution.reset_prob)
+            drift_std = np.sqrt(self.evolution.q.cpu().numpy())
         for step in range(max(horizons) + 1):
             if step in horizons:
                 out[step] = torch.as_tensor(np.stack([np.r_[code, theta] for code, _, theta, _ in paths]), dtype=torch.float64)
@@ -41,15 +49,14 @@ class LawForecaster:
                 continue
             next_paths = []
             for code, age, theta, hypothesis in paths:
-                h = float(self.evolution.hazard(torch.tensor([code]), torch.tensor([age]))[0].detach())
+                h = hazards[code, age]
                 if rng.random() < h:
-                    probabilities = self.evolution.structural_log_transition()[code].detach().exp().cpu().numpy()
-                    new_code = int(rng.choice(8, p=probabilities))
+                    new_code = int(rng.choice(8, p=transitions[code]))
                     new_age = 0
                     event = "entry"
                 else:
                     new_code, new_age = code, age + 1
-                    event = "entry" if rng.random() < float(self.evolution.reset_prob.detach()) else "drift"
+                    event = "entry" if rng.random() < reset_probability else "drift"
                 active = np.array([(new_code >> j) & 1 for j in range(3)], dtype=bool)
                 new_theta = np.zeros(3, dtype=np.float64)
                 if active.any():
@@ -57,7 +64,7 @@ class LawForecaster:
                         mean, cov = self.memory.prior_for_entry(new_code, hypothesis)
                         new_theta[active] = rng.multivariate_normal(mean.numpy()[active], cov.numpy()[np.ix_(active, active)])
                     else:
-                        new_theta[active] = theta[active] + rng.normal(0, np.sqrt(self.evolution.q.detach().numpy()[active]))
+                        new_theta[active] = theta[active] + rng.normal(0, drift_std[active])
                 next_paths.append((new_code, new_age, new_theta, hypothesis))
             paths = next_paths
         if frozen:

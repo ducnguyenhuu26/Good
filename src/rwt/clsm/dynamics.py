@@ -23,6 +23,8 @@ class ExecutableLaw(nn.Module):
             nn.Linear(hidden_dim, schema.observation_dim, dtype=torch.float64),
         )
         self.log_variance = nn.Parameter(torch.full((schema.observation_dim,), -3.0, dtype=torch.float64))
+        self.register_buffer("reference_log_variance",
+                             torch.full((schema.observation_dim,), -3.0, dtype=torch.float64))
         self.variance_floor = float(variance_floor)
         self.variance_ceiling = float(variance_ceiling)
         if not 0 < self.variance_floor < self.variance_ceiling:

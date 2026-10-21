@@ -13,7 +13,7 @@ import numpy as np
 
 from rwt.clsm.config import load_config
 from rwt.clsm.schemas import mujoco_nominal_schema
-from experiments.rwt.clsm.collectors import SmoothActionCollector
+from experiments.rwt.clsm.collectors import SmoothActionCollector, NominalControllerMixture
 from experiments.rwt.clsm.physics_wrappers import HiddenPhysicsWorld
 from experiments.rwt.clsm.world_schedule import make_schedule
 
@@ -29,16 +29,48 @@ def _sha256(path: Path) -> str:
     return digest.hexdigest()
 
 
-def build(env_id: str, track: str, config: dict, output_dir: Path) -> dict:
+def build(env_id: str, track: str, config: dict, output_dir: Path,
+          controller_checkpoint: Path | None = None) -> dict:
     if track not in ("comp", "evol", "mem"):
         raise ValueError("invalid track")
     if config["track"] != track:
         raise ValueError("CLI track and config track disagree")
-    if config.get("collector") != "smooth_random_smoke_v1" or config.get("mode") != "smoke":
-        raise RuntimeError("full collection blocked: predeclared nominal controller mixture is not implemented; use cpu_smoke.yaml")
+    mode = config.get("mode")
+    if mode == "smoke":
+        if config.get("collector") != SmoothActionCollector.policy_id:
+            raise ValueError("smoke collector ID mismatch")
+        collector_class = SmoothActionCollector
+        controller = None
+    elif mode == "full":
+        if config.get("collector") != "nominal_controller_mixture_required":
+            raise ValueError("full collection requires registered nominal policy mixture")
+        if controller_checkpoint is None or not controller_checkpoint.is_file():
+            raise FileNotFoundError("full collection requires --controller-checkpoint from nominal SAC fit")
+        controller_manifest_path = controller_checkpoint.parent / "manifest.json"
+        if not controller_manifest_path.is_file():
+            raise FileNotFoundError("nominal controller provenance manifest missing")
+        controller_manifest = json.loads(controller_manifest_path.read_text(encoding="utf-8"))
+        if (controller_manifest.get("env") != env_id or
+                controller_manifest.get("policy_sha256") != _sha256(controller_checkpoint) or
+                controller_manifest.get("timesteps", 0) < config.get("collector_min_nominal_steps", 100000)):
+            raise ValueError("nominal controller provenance, hash, or training budget invalid")
+        try:
+            from stable_baselines3 import SAC
+        except ImportError as error:
+            raise RuntimeError("install rwt-clsm-controller extra for full collection") from error
+        controller = SAC.load(controller_checkpoint, device="cpu")
+        collector_class = NominalControllerMixture
+    else:
+        raise ValueError("mode must be smoke or full")
     schema = mujoco_nominal_schema(env_id)
+    if controller is not None and (controller.observation_space.shape != (schema.observation_dim,)
+                                   or controller.action_space.shape != (schema.action_dim,)):
+        raise ValueError("nominal controller action/observation schema mismatch")
     public_root = output_dir / track / env_id / "data"
     evaluator_root = output_dir.parent / "clsm_evaluator" / track / env_id
+    previous_manifest = public_root / "manifest.json"
+    if previous_manifest.exists() and json.loads(previous_manifest.read_text(encoding="utf-8")).get("mode") != mode:
+        raise RuntimeError("existing dataset has another mode; choose an isolated --output-dir")
     public_root.mkdir(parents=True, exist_ok=True)
     evaluator_root.mkdir(parents=True, exist_ok=True)
     split_manifest = {}
@@ -58,8 +90,10 @@ def build(env_id: str, track: str, config: dict, output_dir: Path) -> dict:
             env = HiddenPhysicsWorld(env_id, schedule, schema)
             try:
                 obs, _ = env.reset(seed=config["seed"] + 200000 * split_index + world_number)
-                collector = SmoothActionCollector(schema.action_low, schema.action_high,
-                                                  config["seed"] + 300000 * split_index + world_number)
+                collector_seed = config["seed"] + 300000 * split_index + world_number
+                collector = (collector_class(schema.action_low, schema.action_high, collector_seed)
+                             if controller is None else
+                             collector_class(schema.action_low, schema.action_high, controller, collector_seed))
                 for t in range(length):
                     action = collector.act(obs)
                     current = env.law_at
@@ -83,15 +117,24 @@ def build(env_id: str, track: str, config: dict, output_dir: Path) -> dict:
         oracle_path = evaluator_root / f"{split}_oracle.npz"
         np.savez_compressed(public_path, **{key: np.asarray(value) for key, value in arrays.items()})
         np.savez_compressed(oracle_path, **{key: np.asarray(value) for key, value in hidden.items()})
+        action_values = np.asarray(arrays["action"])
+        observation_values = np.asarray(arrays["obs"])
+        velocity_values = observation_values[:, list(schema.joint_velocity_indices)]
+        coverage = {"action_quantiles_10_50_90": np.quantile(action_values, [.1, .5, .9], axis=0).tolist(),
+                    "joint_velocity_quantiles_10_50_90": np.quantile(velocity_values, [.1, .5, .9], axis=0).tolist(),
+                    "observation_norm_quantiles_10_50_90": np.quantile(
+                        np.linalg.norm(observation_values, axis=1), [.1, .5, .9]).tolist(),
+                    "finite_transition_fraction": 1.0}
         split_manifest[split] = {"public_file": str(public_path), "public_sha256": _sha256(public_path),
                                   "transitions": len(arrays["reward"]), "world_ids": world_ids,
-                                  "collector_id": SmoothActionCollector.policy_id}
+                                  "collector_id": collector_class.policy_id, "coverage": coverage}
         evaluator_manifest[split] = {"evaluator_file": str(oracle_path),
                                      "evaluator_sha256": _sha256(oracle_path),
                                      "codes_present": sorted(set(hidden["code"]))}
     if set(split_manifest["train"]["world_ids"]) & set(split_manifest["test"]["world_ids"]):
         raise AssertionError("split world overlap")
-    manifest = {"mode": "smoke", "track": track, "env": env_id, "seed": config["seed"],
+    manifest = {"mode": mode, "track": track, "env": env_id, "seed": config["seed"],
+                "controller_sha256": _sha256(controller_checkpoint) if controller_checkpoint else None,
                 "schema": {"obs_dim": schema.observation_dim, "act_dim": schema.action_dim,
                             "velocity_indices": schema.joint_velocity_indices,
                             "controlled_dofs": schema.controlled_dof_indices},
@@ -107,12 +150,15 @@ def main() -> None:
     parser.add_argument("--track", required=True, choices=("comp", "evol", "mem"))
     parser.add_argument("--config", required=True)
     parser.add_argument("--output-dir", type=Path, default=Path("results/rwt/clsm"))
+    parser.add_argument("--controller-checkpoint", type=Path)
     parser.add_argument("--dry-run", action="store_true")
     parser.add_argument("--check-data", action="store_true")
     args = parser.parse_args()
     config = load_config(args.config)
     if config["track"] != args.track:
         raise SystemExit("config track and --track disagree")
+    if config.get("environment_family") == "maniskill_pd":
+        raise SystemExit("PushCube-v1 PD adapter has not passed a local ManiSkill controller/physics audit")
     if args.dry_run:
         print(json.dumps({"env": args.env, "track": args.track, "config": config}, indent=2))
         return
@@ -122,7 +168,7 @@ def main() -> None:
             raise SystemExit(f"missing dataset manifest: {path}")
         print(path.read_text(encoding="utf-8"))
         return
-    result = build(args.env, args.track, config, args.output_dir)
+    result = build(args.env, args.track, config, args.output_dir, args.controller_checkpoint)
     print(json.dumps({"track": result["track"], "env": result["env"],
                       "counts": {k: v["transitions"] for k, v in result["splits"].items()}}, indent=2))
 

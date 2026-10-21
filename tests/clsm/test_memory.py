@@ -40,3 +40,12 @@ def test_soft_visit_count_uses_responsibility_not_update_calls():
     memory.update_from_completed_visit(summary)
     memory.update_from_completed_visit(summary)
     assert abs(memory.completed_visits - .4) < 1e-12
+
+
+def test_scratch_copy_is_a_true_scratch_only_prior():
+    memory = TheoryMemory()
+    memory.update_prequential_evidence(-3., 0.)
+    scratch = memory.scratch_copy()
+    assert torch.equal(scratch.log_model_weights.exp(),
+                       torch.tensor([1., 0.], dtype=torch.float64))
+    assert scratch.completed_visits == 0

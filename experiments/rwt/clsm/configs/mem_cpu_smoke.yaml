@@ -1,0 +1,9 @@
+method: clsm
+track: mem
+seed: 41
+world_length: 8
+transitions: {train: 32, validation: 16, test: 16}
+forecast_horizons: [1, 8, 24, 64]
+collector: smooth_random_smoke_v1
+mode: smoke
+training: {reference_epochs: 3, outer_gem_iterations: 1, gradient_steps_per_iteration: 5}

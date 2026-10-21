@@ -1,6 +1,8 @@
 import numpy as np
 import pytest
+import torch
 
+from experiments.rwt.clsm.oracle_probes import fixed_probe_bank, oracle_signature
 from experiments.rwt.clsm.physics_wrappers import HiddenLaw, HiddenPhysicsWorld, stationary_public_reward
 
 
@@ -36,3 +38,14 @@ def test_physics_restoration_and_timing():
 def test_bad_physics_range():
     with pytest.raises(ValueError):
         HiddenLaw(1, motor_1=1.2)
+
+
+def test_fixed_probe_bank_and_oracle_repeat(tmp_path):
+    bank, path = fixed_probe_bank("Reacher-v5", 2, tmp_path)
+    second, second_path = fixed_probe_bank("Reacher-v5", 2, tmp_path)
+    assert path == second_path and np.array_equal(bank.states, second.states)
+    first_signature = oracle_signature("Reacher-v5", bank, HiddenLaw(0),
+                                       torch.ones(10, dtype=torch.float64))
+    second_signature = oracle_signature("Reacher-v5", bank, HiddenLaw(0),
+                                        torch.ones(10, dtype=torch.float64))
+    assert torch.equal(first_signature, second_signature)
