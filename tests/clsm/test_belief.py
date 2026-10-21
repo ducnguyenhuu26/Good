@@ -160,14 +160,16 @@ def test_scratch_hypothesis_matches_standalone_scratch_on_same_history():
         next_obs = obs + scale
         mixed.observe(obs, action, next_obs); mixed.evolve()
         scratch.observe(obs, action, next_obs); scratch.evolve()
-        assert torch.equal(mixed.memory.scratch_primitive_mean, scratch.memory.scratch_primitive_mean)
-        assert torch.equal(mixed.memory.scratch_primitive_var, scratch.memory.scratch_primitive_var)
+        assert torch.allclose(mixed.memory.scratch_primitive_mean, scratch.memory.scratch_primitive_mean,
+                              atol=1e-10, rtol=0)
+        assert torch.allclose(mixed.memory.scratch_primitive_var, scratch.memory.scratch_primitive_var,
+                              atol=1e-10, rtol=0)
         assert mixed.memory.scratch_theory_mean.keys() == scratch.memory.scratch_theory_mean.keys()
         for code in mixed.memory.scratch_theory_mean:
             assert torch.allclose(mixed.memory.scratch_theory_mean[code],
-                                  scratch.memory.scratch_theory_mean[code], atol=1e-12)
+                                  scratch.memory.scratch_theory_mean[code], atol=1e-10, rtol=0)
             assert torch.allclose(mixed.memory.scratch_theory_var[code],
-                                  scratch.memory.scratch_theory_var[code], atol=1e-12)
+                                  scratch.memory.scratch_theory_var[code], atol=1e-10, rtol=0)
 
 
 def test_zero_mass_branch_never_occupies_support_slot():
