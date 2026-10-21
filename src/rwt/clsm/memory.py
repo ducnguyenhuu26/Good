@@ -32,7 +32,8 @@ class TheoryMemory:
         self.theory_mean: dict[int, Tensor] = {}
         self.theory_var: dict[int, Tensor] = {}
         self.log_model_weights = torch.tensor([scratch_weight, 1 - scratch_weight], dtype=torch.float64).log()
-        self.completed_visits = 0
+        # Expected completed-visit count, not the number of soft update calls.
+        self.completed_visits = 0.0
 
     @staticmethod
     def _mask(code: int) -> Tensor:
@@ -76,7 +77,7 @@ class TheoryMemory:
         p_mean = p_var * (self.primitive_mean / self.primitive_var + visit_summary.responsibility * visit_summary.mean / (noise + self.interaction_var))
         self.primitive_mean = torch.where(mask, p_mean, self.primitive_mean)
         self.primitive_var = torch.where(mask, p_var, self.primitive_var)
-        self.completed_visits += 1
+        self.completed_visits += visit_summary.responsibility
 
     def update_prequential_evidence(self, scratch_log_predictive: float, reuse_log_predictive: float) -> None:
         """Call once *after* the transition whose predictive densities these are."""

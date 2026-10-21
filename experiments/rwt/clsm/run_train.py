@@ -17,7 +17,7 @@ import scipy
 import torch
 
 from rwt.clsm.config import load_config
-from rwt.clsm.dynamics import ExecutableLaw
+from rwt.clsm.factory import build_clsm
 from rwt.clsm.schemas import mujoco_nominal_schema
 from rwt.clsm.train import train_reference
 from experiments.rwt.clsm.build_datasets import _sha256
@@ -71,9 +71,9 @@ def main():
     if args.device == "cuda" and not torch.cuda.is_available():
         parser.error("CUDA requested but unavailable in installed PyTorch")
     if args.resume or args.evaluate_only:
-        parser.error("resume/evaluate-only require full CLSM checkpoints; generalized EM is not implemented")
+        parser.error("resume/evaluate-only require full CLSM checkpoints; the M-step and checkpoint selection are not implemented")
     if not args.reference_only:
-        parser.error("full CLSM training blocked: approximate smoother, prototype-posterior integration and generalized EM are not implemented; reference-only is not full CLSM")
+        parser.error("full CLSM training blocked: the joint generalized-EM M-step, validation checkpoint selection, and full experiment protocol are not implemented; reference-only is not full CLSM")
     seed = config["seed"] if args.seed is None else args.seed
     output = args.output_dir / args.track / args.env / "reference_only" / str(seed)
     data_path = output / "reference_nominal.npz"
@@ -87,9 +87,10 @@ def main():
     obs, action, next_obs = collect_reference(args.env, n, seed)
     np.savez_compressed(data_path, obs=obs, action=action, next_obs=next_obs)
     torch.manual_seed(seed)
-    model = ExecutableLaw(mujoco_nominal_schema(args.env), hidden_dim=32 if config.get("mode") == "smoke" else 256)
+    model = build_clsm(mujoco_nominal_schema(args.env), config).law
     curve = train_reference(model, torch.from_numpy(obs), torch.from_numpy(action), torch.from_numpy(next_obs),
-                            epochs=3 if config.get("mode") == "smoke" else 100, seed=seed)
+                            epochs=config["training"]["reference_epochs"],
+                            lr=config["training"]["lr_dynamics"], seed=seed)
     versions = {"python": platform.python_version(), "torch": str(torch.__version__),
                 "gymnasium": gymnasium.__version__, "mujoco": mujoco.__version__,
                 "numpy": np.__version__, "scipy": scipy.__version__}

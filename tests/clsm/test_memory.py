@@ -31,3 +31,12 @@ def test_no_future_memory_input():
     _ = memory.prior_for_entry(7,1)
     before = memory.primitive_mean.clone()
     assert torch.equal(memory.primitive_mean,before)
+
+
+def test_soft_visit_count_uses_responsibility_not_update_calls():
+    memory = TheoryMemory()
+    summary = VisitSummary(1, torch.tensor([-1., 0., 0.], dtype=torch.float64),
+                           torch.diag(torch.tensor([.1, 0., 0.], dtype=torch.float64)), .2)
+    memory.update_from_completed_visit(summary)
+    memory.update_from_completed_visit(summary)
+    assert abs(memory.completed_visits - .4) < 1e-12

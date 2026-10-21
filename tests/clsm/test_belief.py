@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 import torch
 
 from rwt.clsm.belief import LawComponent, LawFilter, compress_components, ekf_correct
@@ -32,10 +33,20 @@ def test_filter_observe_then_evolve():
     predicted = model(obs[None], action[None], torch.tensor([0]), torch.zeros((1,3),dtype=torch.float64))[0][0].detach()
     state = filt.observe(obs, action, predicted)
     assert state["time"] == 0 and filt.time == 0
+    assert torch.allclose(filt.memory.log_model_weights.exp().sum(),
+                          torch.tensor(1., dtype=torch.float64))
     assert all(c.age == 0 for c in filt.components)
-    filt.evolve()
+    ancestry = filt.evolve()
     assert filt.time == 1 and all(c.age in (0,1) for c in filt.components)
     assert abs(sum(float(c.log_weight.exp()) for c in filt.components) - 1) < 1e-10
+    assert torch.allclose(ancestry.filtered_weight @ ancestry.transition,
+                          ancestry.predicted_weight, atol=1e-10)
+    assert torch.allclose(sum(ancestry.event_transition.values()), ancestry.transition, atol=1e-12)
+    assert 0 <= filt.diagnostics[-1]["completed_visit_mass"] <= 1
+    visits = filt.memory.completed_visits
+    with pytest.raises(RuntimeError, match="observe"):
+        filt.evolve()
+    assert filt.memory.completed_visits == visits
 
 
 def test_joseph_covariance_and_nominal_empty_subspace():

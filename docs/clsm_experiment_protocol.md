@@ -19,4 +19,4 @@
 
 ## Release gate
 
-Full training/evaluation stays closed. The continuous smoother with proposal-corrected ancestry, integrated causal prototype updates, full generalized EM, matched baselines, independent oracle law probes, ManiSkill PD adapter, and hierarchical statistical reports are not implemented. The command without `--reference-only` fails explicitly. No scientific claim is made from the smoke artifacts.
+Full training/evaluation stays closed. The proposal-corrected ancestry, approximate continuous E-step and causal soft prototype updates are implemented, but generalized-EM M-steps, validation checkpoint selection, matched baselines, independent oracle law probes, ManiSkill PD adapter, and hierarchical statistical reports are not. The command without `--reference-only` fails explicitly. No scientific claim is made from the smoke artifacts.

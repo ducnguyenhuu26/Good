@@ -23,6 +23,7 @@ def test_nominal_anchor_and_inactive_theta():
     assert torch.equal(nominal[1], other[1])
     assert torch.equal(nominal[2], other[2])
     assert torch.allclose(law.mechanics.W.norm(dim=0), torch.ones(2, dtype=torch.float64))
+    assert not torch.equal(law.mechanics.W[:, 0], law.mechanics.W[:, 1])
 
 
 def test_mask_paths_and_dissipation():

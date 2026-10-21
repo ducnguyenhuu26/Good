@@ -1,8 +1,56 @@
-"""Reference-only initialization; not a complete CLSM generalized-EM trainer."""
+"""Nominal initialization and public-data approximate CLSM E-step.
+
+The M-step and full checkpoint selection are still release gated. An E-step
+alone does not constitute trained CLSM.
+"""
 from __future__ import annotations
+
+from dataclasses import dataclass
 
 import torch
 from torch import Tensor
+
+from .belief import LawComponent, LawFilter, StepAncestry
+from .smoothing import GaussianSmoothingResult, backward_component_weights, backward_gaussian_moments
+
+
+@dataclass
+class EStepResult:
+    log_predictive: Tensor
+    filtered: list[list[LawComponent]]
+    ancestry: list[StepAncestry]
+    smoothed: GaussianSmoothingResult
+    gamma: list[Tensor]
+    max_dropped_mass: float
+
+
+def approximate_estep(filter_model: LawFilter, obs: Tensor, action: Tensor,
+                      next_obs: Tensor) -> EStepResult:
+    """Run emission-then-evolution filtering and an event-aware backward pass.
+
+    The three arrays describe one independent public world sequence. Callers
+    must construct a fresh filter and memory for each world boundary.
+    """
+    if obs.ndim != 2 or action.ndim != 2 or next_obs.shape != obs.shape or len(obs) != len(action) or len(obs) == 0:
+        raise ValueError("public world sequence shapes mismatch")
+    filtered: list[list[LawComponent]] = []
+    ancestry: list[StepAncestry] = []
+    evidence = []
+    for t in range(len(obs)):
+        result = filter_model.observe(obs[t], action[t], next_obs[t])
+        evidence.append(result["log_predictive"])
+        filtered.append([LawComponent(c.code, c.age, c.mean.clone(), c.cov.clone(),
+                                      c.log_weight.clone(), c.scratch_or_reuse)
+                         for c in filter_model.components])
+        if t + 1 < len(obs):
+            ancestry.append(filter_model.evolve())
+    weights = [torch.stack([c.log_weight.exp() for c in step]) for step in filtered]
+    discrete = backward_component_weights(weights, ancestry)
+    gaussian = backward_gaussian_moments(filtered, ancestry, discrete,
+                                         filter_model.evolution.q.detach())
+    return EStepResult(torch.tensor(evidence, dtype=torch.float64), filtered, ancestry,
+                       gaussian, discrete.gamma,
+                       max((step.dropped_mass for step in ancestry), default=0.0))
 
 
 def train_reference(model, obs: Tensor, action: Tensor, next_obs: Tensor,

@@ -8,7 +8,7 @@ import torch
 from torch import Tensor
 
 from .evolution import LawEvolution
-from .memory import TheoryMemory
+from .memory import TheoryMemory, VisitSummary
 
 
 @dataclass
@@ -19,6 +19,17 @@ class LawComponent:
     cov: Tensor
     log_weight: Tensor
     scratch_or_reuse: int = 1
+
+
+@dataclass
+class StepAncestry:
+    """Retained finite-mixture transition weights for an offline backward pass."""
+
+    filtered_weight: Tensor  # [K] after observation t
+    predicted_weight: Tensor  # [J] before observation t+1
+    transition: Tensor       # [K,J], proposal/pruning corrected
+    dropped_mass: float
+    event_transition: dict[str, Tensor] | None = None
 
 
 def _normal_log_prob(residual: Tensor, chol: Tensor) -> Tensor:
@@ -122,11 +133,12 @@ def compress_components(components: list[LawComponent], budget: int) -> tuple[li
 
 class LawFilter:
     def __init__(self, model, evolution: LawEvolution, memory: TheoryMemory | None = None,
-                 budget: int = 128):
+                 budget: int = 128, max_dropped_mass: float = 1e-3):
         self.model = model
         self.evolution = evolution
         self.memory = TheoryMemory() if memory is None else memory
         self.budget = int(budget)
+        self.max_dropped_mass = float(max_dropped_mass)
         if self.budget < 16:
             raise ValueError("budget must preserve eight codes and two prior models")
         self.components: list[LawComponent] = []
@@ -153,6 +165,11 @@ class LawFilter:
         updated = []
         logits = []
         jitters = []
+        prior_by_model = []
+        for hypothesis in (0, 1):
+            values = torch.stack([c.log_weight for c in self.components if c.scratch_or_reuse == hypothesis])
+            prior_by_model.append(torch.logsumexp(values, 0))
+        self.memory.log_model_weights = torch.stack(prior_by_model).detach()
         for component in self.components:
             corrected, emission, jitter = ekf_correct(self.model, component, obs, action, next_obs)
             updated.append(corrected)
@@ -160,9 +177,20 @@ class LawFilter:
             jitters.append(jitter)
         logits = torch.stack(logits)
         evidence = torch.logsumexp(logits, 0)
+        predictive_by_model = []
+        for hypothesis in (0, 1):
+            selected = torch.stack([value for c, value in zip(self.components, logits)
+                                    if c.scratch_or_reuse == hypothesis])
+            predictive_by_model.append(float(torch.logsumexp(selected, 0) - prior_by_model[hypothesis]))
         for component, value in zip(updated, logits - evidence):
             component.log_weight = value.detach()
         self.components = updated
+        self.memory.update_prequential_evidence(*predictive_by_model)
+        posterior_by_model = torch.stack([
+            torch.logsumexp(torch.stack([c.log_weight for c in self.components if c.scratch_or_reuse == hypothesis]), 0)
+            for hypothesis in (0, 1)])
+        if not torch.allclose(self.memory.log_model_weights, posterior_by_model, atol=1e-10):
+            raise RuntimeError("scratch/reuse evidence was counted inconsistently")
         # Predictive evidence is computed from the pre-observation prior.
         result = {"time": float(self.time), "log_predictive": float(evidence),
                   "max_cholesky_jitter": max(jitters)}
@@ -170,20 +198,67 @@ class LawFilter:
         self.needs_evolution = True
         return result
 
-    def evolve(self) -> None:
+    def _update_completed_visit_memory(self) -> float:
+        """One soft visit-level summary per code at its posterior switch mass.
+
+        This is an online moment approximation to the hierarchical posterior.
+        Within-visit transitions are filtered into one latent-parameter
+        posterior; only expected *structural exits* enter prototype precision.
+        Same-code parameter resets do not generate visit updates.
+        """
+        total_mass = 0.
+        for code in range(1, 8):
+            members = [c for c in self.components if c.code == code and c.scratch_or_reuse == 1]
+            if not members:
+                continue
+            masses = torch.stack([c.log_weight.exp() * self.evolution.hazard(
+                torch.tensor([c.code]), torch.tensor([c.age]))[0].detach() for c in members])
+            mass = masses.sum()
+            if float(mass) <= 0:
+                continue
+            normalized = masses / mass
+            mean = sum((w * c.mean for w, c in zip(normalized, members)), torch.zeros(3, dtype=torch.float64))
+            cov = torch.zeros((3,3), dtype=torch.float64)
+            for w, c in zip(normalized, members):
+                diff = c.mean - mean
+                cov += w * (c.cov + torch.outer(diff, diff))
+            self.memory.update_from_completed_visit(VisitSummary(code, mean, cov, float(mass)))
+            total_mass += float(mass)
+        return total_mass
+
+    def evolve(self) -> StepAncestry:
         if not self.needs_evolution:
             raise RuntimeError("observe the physical transition before evolution")
+        visit_mass = self._update_completed_visit_memory()
         branches = []
-        for component in self.components:
+        origins: list[tuple[int, float, str]] = []
+        corrected_weights = torch.stack([c.log_weight.exp() for c in self.components])
+        for parent, component in enumerate(self.components):
             for branch in self.evolution.predict_branches(component, self.memory):
                 if branch.probability > 0:
                     branches.append(LawComponent(branch.code, branch.age, branch.mean, branch.cov,
                         component.log_weight + math.log(branch.probability), component.scratch_or_reuse))
+                    origins.append((parent, branch.probability, branch.event))
         self.components, dropped = compress_components(branches, self.budget)
+        key_to_column = {(c.code, c.age, c.scratch_or_reuse): j for j, c in enumerate(self.components)}
+        transition = torch.zeros((len(corrected_weights), len(self.components)), dtype=torch.float64)
+        event_transition = {event: torch.zeros_like(transition) for event in ("stay_drift", "stay_reset", "switch")}
+        for branch, (parent, probability, event) in zip(branches, origins):
+            column = key_to_column.get((branch.code, branch.age, branch.scratch_or_reuse))
+            if column is not None:
+                transition[parent, column] += probability / (1 - dropped)
+                event_transition[event][parent, column] += probability / (1 - dropped)
+        predicted = torch.stack([c.log_weight.exp() for c in self.components])
+        if not torch.allclose(corrected_weights @ transition, predicted, atol=1e-8):
+            raise RuntimeError("ancestry weights do not reproduce predicted mixture")
+        if not torch.allclose(sum(event_transition.values()), transition, atol=1e-12):
+            raise RuntimeError("event ancestry does not sum to total ancestry")
         self.diagnostics[-1]["dropped_mass"] = dropped
-        self.diagnostics[-1]["inference_degraded"] = float(dropped > 1e-3)
+        self.diagnostics[-1]["completed_visit_mass"] = visit_mass
+        self.diagnostics[-1]["inference_degraded"] = float(dropped > self.max_dropped_mass)
         self.time += 1
         self.needs_evolution = False
+        return StepAncestry(corrected_weights, predicted, transition, dropped, event_transition)
 
     def state_dict(self) -> dict:
         return {"time": self.time, "needs_evolution": self.needs_evolution,

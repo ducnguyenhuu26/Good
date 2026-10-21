@@ -21,7 +21,12 @@ class MechanismForce(nn.Module):
             raise ValueError("positive structural separation required")
         self.schema = schema
         self.delta_min = float(delta_min)
-        self.W_raw = nn.Parameter(torch.full((schema.action_dim, 2), -1.0, dtype=torch.float64))
+        # Break the two otherwise identical unlabeled group initializations.
+        # This local RNG does not consume the experiment's sampling stream.
+        init_rng = torch.Generator().manual_seed(1729)
+        initial_support = -1.0 + 0.01 * torch.randn(
+            (schema.action_dim, 2), dtype=torch.float64, generator=init_rng)
+        self.W_raw = nn.Parameter(initial_support)
         self.damping_shape = nn.Sequential(
             nn.Linear(schema.observation_dim, 32, dtype=torch.float64), nn.SiLU(),
             nn.Linear(32, len(schema.controlled_dof_indices), dtype=torch.float64),

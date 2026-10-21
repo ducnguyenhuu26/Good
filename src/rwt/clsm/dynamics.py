@@ -11,10 +11,11 @@ from .schemas import EnvSchema
 
 
 class ExecutableLaw(nn.Module):
-    def __init__(self, schema: EnvSchema, hidden_dim: int = 256, variance_floor: float = 1e-5):
+    def __init__(self, schema: EnvSchema, hidden_dim: int = 256, variance_floor: float = 1e-5,
+                 variance_ceiling: float = 1e2, delta_min: float = 0.12):
         super().__init__()
         self.schema = schema
-        self.mechanics = MechanismForce(schema)
+        self.mechanics = MechanismForce(schema, delta_min=delta_min)
         dj = len(schema.controlled_dof_indices)
         self.net = nn.Sequential(
             nn.Linear(schema.observation_dim + dj, hidden_dim, dtype=torch.float64), nn.SiLU(),
@@ -23,6 +24,9 @@ class ExecutableLaw(nn.Module):
         )
         self.log_variance = nn.Parameter(torch.full((schema.observation_dim,), -3.0, dtype=torch.float64))
         self.variance_floor = float(variance_floor)
+        self.variance_ceiling = float(variance_ceiling)
+        if not 0 < self.variance_floor < self.variance_ceiling:
+            raise ValueError("invalid emission variance bounds")
         for name, width in (("obs", schema.observation_dim), ("force", dj), ("delta", schema.observation_dim)):
             self.register_buffer(f"{name}_mean", torch.zeros(width, dtype=torch.float64))
             self.register_buffer(f"{name}_scale", torch.ones(width, dtype=torch.float64))
@@ -43,7 +47,7 @@ class ExecutableLaw(nn.Module):
         features = torch.cat(((obs - self.obs_mean) / self.obs_scale,
                               (force - self.force_mean) / self.force_scale), dim=-1)
         delta = self.net(features) * self.delta_scale + self.delta_mean
-        variance = self.log_variance.exp().clamp(self.variance_floor, 1e2).expand_as(delta)
+        variance = self.log_variance.exp().clamp(self.variance_floor, self.variance_ceiling).expand_as(delta)
         return obs + delta, variance
 
     def log_prob(self, obs: Tensor, action: Tensor, next_obs: Tensor, code: Tensor, theta: Tensor) -> Tensor:
