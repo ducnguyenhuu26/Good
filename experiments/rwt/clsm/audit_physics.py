@@ -4,6 +4,11 @@ from __future__ import annotations
 import argparse
 import json
 from pathlib import Path
+import sys
+
+# Direct `python experiments/rwt/clsm/audit_physics.py` keeps the script's
+# directory on sys.path, so add the repository root for evaluator imports.
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
 import mujoco
 import numpy as np

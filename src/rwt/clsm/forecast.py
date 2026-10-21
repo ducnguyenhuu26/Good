@@ -79,6 +79,6 @@ class LawForecaster:
                     code = torch.full((len(obs),), int(row[0]), dtype=torch.long)
                     theta = row[1:].expand(len(obs), 3)
                     mean = self.model(obs, action, code, theta)[0]
-                    signatures.append((mean - obs).flatten())
+                    signatures.append(((mean - obs) / self.model.delta_scale).flatten())
             result[h] = torch.stack(signatures)
         return result

@@ -6,6 +6,9 @@ import json
 from pathlib import Path
 import platform
 import subprocess
+import sys
+
+sys.path.insert(0, str(Path(__file__).resolve().parents[3]))
 
 import gymnasium
 import mujoco
@@ -87,7 +90,7 @@ def main():
     model = ExecutableLaw(mujoco_nominal_schema(args.env), hidden_dim=32 if config.get("mode") == "smoke" else 256)
     curve = train_reference(model, torch.from_numpy(obs), torch.from_numpy(action), torch.from_numpy(next_obs),
                             epochs=3 if config.get("mode") == "smoke" else 100, seed=seed)
-    versions = {"python": platform.python_version(), "torch": torch.__version__,
+    versions = {"python": platform.python_version(), "torch": str(torch.__version__),
                 "gymnasium": gymnasium.__version__, "mujoco": mujoco.__version__,
                 "numpy": np.__version__, "scipy": scipy.__version__}
     commit = subprocess.check_output(["git","rev-parse","HEAD"], text=True).strip()
