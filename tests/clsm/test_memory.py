@@ -19,6 +19,28 @@ def test_memory_recurrence_theta_and_scratch():
     assert memory.completed_visits == 1
 
 
+def test_scratch_and_reuse_adapt_separately_from_observed_visits():
+    memory = TheoryMemory()
+    scratch_initial = memory.prior_for_entry(1, 0)
+    reuse_initial = memory.prior_for_entry(1, 1)
+    scratch_visit = VisitSummary(1, torch.tensor([-.5, 0., 0.], dtype=torch.float64),
+                                torch.diag(torch.tensor([.1, 0., 0.], dtype=torch.float64)),
+                                .5, scratch_or_reuse=0)
+    reuse_visit = VisitSummary(1, torch.tensor([-1.5, 0., 0.], dtype=torch.float64),
+                              torch.diag(torch.tensor([.1, 0., 0.], dtype=torch.float64)),
+                              .5, scratch_or_reuse=1)
+    memory.update_from_completed_visit(scratch_visit)
+    scratch_updated = memory.prior_for_entry(1, 0)
+    reuse_unchanged = memory.prior_for_entry(1, 1)
+    memory.update_from_completed_visit(reuse_visit)
+    reuse_updated = memory.prior_for_entry(1, 1)
+
+    assert not torch.equal(scratch_initial[0], scratch_updated[0])
+    assert torch.equal(reuse_initial[0], reuse_unchanged[0])
+    assert not torch.equal(reuse_unchanged[0], reuse_updated[0])
+    assert not torch.equal(scratch_updated[0], reuse_updated[0])
+
+
 def test_prequential_evidence_once():
     memory = TheoryMemory(scratch_weight=.5)
     memory.update_prequential_evidence(-1.,-2.)

@@ -41,6 +41,29 @@ def test_forecast_rng_isolation():
         assert torch.equal(c["mean"],d["mean"])
 
 
+def test_future_law_frequencies_match_one_step_markov_prediction():
+    law, evolution, memory, _ = setup()
+    component = LawFilter(law, evolution, memory).predict_current()[0]
+    # Isolate one known current law and age to compare bK with Monte Carlo.
+    component.code = 0
+    component.age = 5
+    component.mean.zero_()
+    component.cov.zero_()
+    component.log_weight.zero_()
+    evolution.log_kappa0.data.fill_(3.0)
+    evolution.log_kappa_pop.data.zero_()
+    evolution.alpha.data.zero_()
+    forecast = LawForecaster(law, evolution, memory, samples=6000)
+    observed = forecast.sample_laws([component], [1], np.random.default_rng(581))[1][:, 0].long()
+    hazard = float(evolution.hazard(torch.tensor([0]), torch.tensor([5]))[0])
+    transition = evolution.structural_log_transition()[0].exp()
+    expected = transition * hazard
+    expected[0] += 1 - hazard
+    empirical = torch.bincount(observed, minlength=8).to(torch.float64) / len(observed)
+    assert torch.max(torch.abs(empirical - expected)) < .025
+    assert torch.allclose(expected.sum(), torch.tensor(1., dtype=torch.float64), atol=1e-12)
+
+
 def test_energy_score_unbiased_pair_term():
     samples = torch.tensor([[0.],[2.]],dtype=torch.float64)
     assert torch.allclose(energy_score(samples,torch.tensor([0.],dtype=torch.float64)),torch.tensor(0.,dtype=torch.float64))

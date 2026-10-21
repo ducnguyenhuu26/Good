@@ -54,7 +54,12 @@ class LawEvolution(nn.Module):
         pop = torch.stack([((code.long() >> j) & 1) for j in range(3)], dim=-1).sum(-1)
         kappa = torch.exp(self.log_kappa0 + self.log_kappa_pop * pop)
         u = age.to(torch.float64)
-        rate = ((u + 1) / kappa).pow(self.nu) - (u / kappa).pow(self.nu)
+        # The exact current-age term is zero at u=0. Evaluate the power on a
+        # positive base before selecting that value so autograd never forms
+        # the undefined derivative of 0**nu when nu is below one.
+        current = torch.where(u == 0, torch.zeros_like(u),
+                              (u / kappa).clamp_min(1e-12).pow(self.nu))
+        rate = ((u + 1) / kappa).pow(self.nu) - current
         return -torch.expm1(-rate)
 
     def structural_log_transition(self) -> Tensor:

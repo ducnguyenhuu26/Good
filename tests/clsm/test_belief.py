@@ -1,6 +1,7 @@
 import numpy as np
 import pytest
 import torch
+from types import SimpleNamespace
 
 from rwt.clsm.belief import LawComponent, LawFilter, compress_components, ekf_correct
 from rwt.clsm.dynamics import ExecutableLaw
@@ -63,6 +64,64 @@ def test_joseph_covariance_and_nominal_empty_subspace():
             assert torch.equal(updated.mean,torch.zeros(3,dtype=torch.float64))
 
 
+def test_ekf_linear_gaussian_matches_closed_form():
+    class LinearLaw:
+        schema = SimpleNamespace(observation_dim=1, action_dim=1)
+
+        def __call__(self, obs, action, code, theta):
+            mean = obs + 2.0 * theta[:, :1]
+            variance = torch.full_like(mean, .2)
+            return mean, variance
+
+    prior_mean, prior_var = .3, .4
+    component = LawComponent(1, 0, torch.tensor([prior_mean, 0., 0.], dtype=torch.float64),
+                             torch.diag(torch.tensor([prior_var, 0., 0.], dtype=torch.float64)),
+                             torch.tensor(0., dtype=torch.float64))
+    obs = torch.tensor([.3], dtype=torch.float64)
+    next_obs = torch.tensor([1.4], dtype=torch.float64)
+    corrected, log_evidence, _ = ekf_correct(LinearLaw(), component, obs,
+        torch.zeros(1, dtype=torch.float64), next_obs)
+
+    residual = float(next_obs[0] - (obs[0] + 2 * prior_mean))
+    innovation_var = 4 * prior_var + .2
+    gain = prior_var * 2 / innovation_var
+    expected_mean = prior_mean + gain * residual
+    expected_var = (1 - gain * 2) ** 2 * prior_var + gain**2 * .2
+    expected_log_evidence = -.5 * (residual**2 / innovation_var + np.log(innovation_var) + np.log(2*np.pi))
+    assert abs(float(corrected.mean[0]) - expected_mean) < 1e-12
+    assert abs(float(corrected.cov[0, 0]) - expected_var) < 1e-12
+    assert abs(float(log_evidence) - expected_log_evidence) < 1e-12
+
+
+def test_filter_state_roundtrip_preserves_next_update():
+    model, evolution, memory = fixture()
+    filt = LawFilter(model, evolution, memory)
+    obs = torch.zeros(3, dtype=torch.float64)
+    action = torch.ones(2, dtype=torch.float64)
+    for _ in range(2):
+        filt.observe(obs, action, obs + .01)
+        filt.evolve()
+    snapshot = filt.state_dict()
+
+    restored_model, restored_evolution, restored_memory = fixture()
+    restored_model.load_state_dict(model.state_dict())
+    restored_evolution.load_state_dict(evolution.state_dict())
+    restored = LawFilter(restored_model, restored_evolution, restored_memory)
+    restored.load_state_dict(snapshot)
+    assert restored.time == filt.time
+    assert len(restored.components) == len(filt.components)
+    for left, right in zip(restored.components, filt.components):
+        assert left.code == right.code and left.age == right.age
+        assert left.scratch_or_reuse == right.scratch_or_reuse
+        assert torch.equal(left.mean, right.mean)
+        assert torch.equal(left.cov, right.cov)
+        assert torch.equal(left.log_weight, right.log_weight)
+
+    left = filt.observe(obs, action, obs + .02)
+    right = restored.observe(obs, action, obs + .02)
+    assert abs(left["log_predictive"] - right["log_predictive"]) < 1e-12
+
+
 def test_resampling_mass_and_support():
     zero = torch.zeros(3,dtype=torch.float64)
     cov = torch.zeros((3,3),dtype=torch.float64)
@@ -85,6 +144,7 @@ def test_scratch_only_filter_keeps_zero_reuse_mass_without_nan():
         assert torch.equal(filt.memory.log_model_weights.exp(),
                            torch.tensor([1., 0.], dtype=torch.float64))
         filt.evolve()
+    assert filt.memory.scratch_theory_mean  # The scratch model adapted from these observed transitions.
 
 
 def test_zero_mass_branch_never_occupies_support_slot():

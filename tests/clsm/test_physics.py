@@ -40,6 +40,21 @@ def test_bad_physics_range():
         HiddenLaw(1, motor_1=1.2)
 
 
+def test_time_limit_truncation_does_not_create_a_law_switch():
+    schedule = [HiddenLaw(0), HiddenLaw(0), HiddenLaw(0)]
+    env = HiddenPhysicsWorld("Reacher-v5", schedule)
+    try:
+        # Force the Gymnasium TimeLimit boundary on the first physical step.
+        env.env._max_episode_steps = 1
+        obs, _ = env.reset(seed=10)
+        _, _, terminated, truncated, _ = env.step(np.zeros(env.action_space.shape))
+        assert truncated and not terminated
+        assert env.position == 1
+        assert env.last_transition_law.code == env.law_at.code == 0
+    finally:
+        env.close()
+
+
 def test_fixed_probe_bank_and_oracle_repeat(tmp_path):
     bank, path = fixed_probe_bank("Reacher-v5", 2, tmp_path)
     second, second_path = fixed_probe_bank("Reacher-v5", 2, tmp_path)

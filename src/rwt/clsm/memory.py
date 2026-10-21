@@ -15,6 +15,7 @@ class VisitSummary:
     mean: Tensor
     cov: Tensor
     responsibility: float = 1.0
+    scratch_or_reuse: int = 1
 
 
 class TheoryMemory:
@@ -33,6 +34,12 @@ class TheoryMemory:
         self.primitive_var = torch.full((3,), self.prior_var, dtype=torch.float64)
         self.theory_mean: dict[int, Tensor] = {}
         self.theory_var: dict[int, Tensor] = {}
+        # Scratch and reuse are predictive models with separate causal
+        # posteriors. Scratch begins at the hierarchy prior and adapts online.
+        self.scratch_primitive_mean = self.primitive_mean.clone()
+        self.scratch_primitive_var = self.primitive_var.clone()
+        self.scratch_theory_mean: dict[int, Tensor] = {}
+        self.scratch_theory_var: dict[int, Tensor] = {}
         self.log_model_weights = torch.tensor([scratch_weight, 1 - scratch_weight], dtype=torch.float64).log()
         # Expected completed-visit count, not the number of soft update calls.
         self.completed_visits = 0.0
@@ -49,11 +56,13 @@ class TheoryMemory:
         if scratch_or_reuse not in (0, 1):
             raise ValueError("scratch_or_reuse must be 0 or 1")
         if scratch_or_reuse == 0:
-            mean = torch.full((3,), self.prior_mean, dtype=torch.float64)
-            var = torch.full((3,), self.prior_var + self.interaction_var, dtype=torch.float64)
+            primitive_mean, primitive_var = self.scratch_primitive_mean, self.scratch_primitive_var
+            theory_mean, theory_var = self.scratch_theory_mean, self.scratch_theory_var
         else:
-            mean = self.theory_mean.get(code, self.primitive_mean)
-            var = self.theory_var.get(code, self.primitive_var + self.interaction_var)
+            primitive_mean, primitive_var = self.primitive_mean, self.primitive_var
+            theory_mean, theory_var = self.theory_mean, self.theory_var
+        mean = theory_mean.get(code, primitive_mean)
+        var = theory_var.get(code, primitive_var + self.interaction_var)
         return mean * mask, torch.diag((var + self.recurrence_var) * mask)
 
     def update_from_completed_visit(self, visit_summary: VisitSummary) -> None:
@@ -63,27 +72,40 @@ class TheoryMemory:
             raise ValueError("visit posterior shape mismatch")
         if not 0 <= visit_summary.responsibility <= 1:
             raise ValueError("responsibility outside probability range")
+        if visit_summary.scratch_or_reuse not in (0, 1):
+            raise ValueError("visit summary model must be scratch (0) or reuse (1)")
         if not bool(mask.any()) or visit_summary.responsibility == 0:
             return
         # One precision increment per visit, never one per transition.
-        prev_mean = self.theory_mean.get(code, self.primitive_mean.clone()).clone()
-        prev_var = self.theory_var.get(code, (self.primitive_var + self.interaction_var).clone()).clone()
+        if visit_summary.scratch_or_reuse == 0:
+            primitive_mean, primitive_var = self.scratch_primitive_mean, self.scratch_primitive_var
+            theory_mean, theory_var = self.scratch_theory_mean, self.scratch_theory_var
+        else:
+            primitive_mean, primitive_var = self.primitive_mean, self.primitive_var
+            theory_mean, theory_var = self.theory_mean, self.theory_var
+        prev_mean = theory_mean.get(code, primitive_mean.clone()).clone()
+        prev_var = theory_var.get(code, (primitive_var + self.interaction_var).clone()).clone()
         noise = visit_summary.cov.diag().clamp_min(0) + self.recurrence_var
         precision = prev_var.reciprocal() + visit_summary.responsibility / noise
         updated_var = precision.reciprocal()
         updated_mean = updated_var * (prev_mean / prev_var + visit_summary.responsibility * visit_summary.mean / noise)
-        self.theory_mean[code] = torch.where(mask, updated_mean, torch.zeros_like(updated_mean))
-        self.theory_var[code] = torch.where(mask, updated_var, torch.zeros_like(updated_var))
+        theory_mean[code] = torch.where(mask, updated_mean, torch.zeros_like(updated_mean))
+        theory_var[code] = torch.where(mask, updated_var, torch.zeros_like(updated_var))
         # Primitive posterior receives one soft, visit-level observation.
-        p_precision = self.primitive_var.reciprocal() + visit_summary.responsibility / (noise + self.interaction_var)
+        p_precision = primitive_var.reciprocal() + visit_summary.responsibility / (noise + self.interaction_var)
         p_var = p_precision.reciprocal()
-        p_mean = p_var * (self.primitive_mean / self.primitive_var + visit_summary.responsibility * visit_summary.mean / (noise + self.interaction_var))
-        self.primitive_mean = torch.where(mask, p_mean, self.primitive_mean)
-        self.primitive_var = torch.where(mask, p_var, self.primitive_var)
+        p_mean = p_var * (primitive_mean / primitive_var + visit_summary.responsibility * visit_summary.mean / (noise + self.interaction_var))
+        if visit_summary.scratch_or_reuse == 0:
+            self.scratch_primitive_mean = torch.where(mask, p_mean, self.scratch_primitive_mean)
+            self.scratch_primitive_var = torch.where(mask, p_var, self.scratch_primitive_var)
+        else:
+            self.primitive_mean = torch.where(mask, p_mean, self.primitive_mean)
+            self.primitive_var = torch.where(mask, p_var, self.primitive_var)
         self.completed_visits += visit_summary.responsibility
         self.completed_summaries.append(VisitSummary(code, visit_summary.mean.detach().clone(),
                                                      visit_summary.cov.detach().clone(),
-                                                     visit_summary.responsibility))
+                                                     visit_summary.responsibility,
+                                                     visit_summary.scratch_or_reuse))
 
     def update_prequential_evidence(self, scratch_log_predictive: float, reuse_log_predictive: float) -> None:
         """Call once *after* the transition whose predictive densities these are."""
@@ -140,24 +162,37 @@ class HierarchyParameters(nn.Module):
         interaction = self.interaction_var
         recurrence = self.recurrence_var
         for memory in memories:
-            primitive_mean = memory.primitive_mean.detach()
-            primitive_var = memory.primitive_var.detach()
-            loss = loss + .5 * (3 * prior_var.log() +
-                                 ((primitive_mean - self.prior_mean).square() + primitive_var).sum() / prior_var)
-            count = count + 3
-            for code, theory_mean in memory.theory_mean.items():
-                active = TheoryMemory._mask(code).bool()
-                theory_var = memory.theory_var[code].detach()[active]
-                theory_mean = theory_mean.detach()[active]
-                primitive = primitive_mean[active]
-                primitive_uncertainty = primitive_var[active]
-                loss = loss + .5 * (active.sum() * interaction.log() +
-                        ((theory_mean - primitive).square() + theory_var + primitive_uncertainty).sum() / interaction)
-                count = count + active.sum()
+            models = (
+                (memory.scratch_primitive_mean, memory.scratch_primitive_var,
+                 memory.scratch_theory_mean, memory.scratch_theory_var),
+                (memory.primitive_mean, memory.primitive_var,
+                 memory.theory_mean, memory.theory_var),
+            )
+            for primitive_mean_value, primitive_var_value, theory_means, theory_vars in models:
+                primitive_mean = primitive_mean_value.detach()
+                primitive_var = primitive_var_value.detach()
+                loss = loss + .5 * (3 * prior_var.log() +
+                                     ((primitive_mean - self.prior_mean).square() + primitive_var).sum() / prior_var)
+                count = count + 3
+                for code, theory_mean in theory_means.items():
+                    active = TheoryMemory._mask(code).bool()
+                    theory_var = theory_vars[code].detach()[active]
+                    theory_mean = theory_mean.detach()[active]
+                    primitive = primitive_mean[active]
+                    primitive_uncertainty = primitive_var[active]
+                    loss = loss + .5 * (active.sum() * interaction.log() +
+                            ((theory_mean - primitive).square() + theory_var + primitive_uncertainty).sum() / interaction)
+                    count = count + active.sum()
             for summary in memory.completed_summaries:
                 active = TheoryMemory._mask(summary.code).bool()
-                prototype = memory.theory_mean.get(summary.code, memory.primitive_mean).detach()[active]
-                prototype_var = memory.theory_var.get(summary.code, memory.primitive_var).detach()[active]
+                if summary.scratch_or_reuse == 0:
+                    means, variances = memory.scratch_theory_mean, memory.scratch_theory_var
+                    primitive_mean, primitive_var = memory.scratch_primitive_mean, memory.scratch_primitive_var
+                else:
+                    means, variances = memory.theory_mean, memory.theory_var
+                    primitive_mean, primitive_var = memory.primitive_mean, memory.primitive_var
+                prototype = means.get(summary.code, primitive_mean).detach()[active]
+                prototype_var = variances.get(summary.code, primitive_var).detach()[active]
                 visit_mean = summary.mean.detach()[active]
                 visit_var = summary.cov.detach().diag()[active]
                 responsibility = summary.responsibility

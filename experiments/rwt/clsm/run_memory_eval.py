@@ -31,7 +31,8 @@ from experiments.rwt.clsm.world_schedule import make_schedule
 
 
 def evaluate(env_id: str, checkpoint: Path, output_dir: Path, seed: int,
-             budgets: list[int], probes: int | None = None) -> dict:
+             budgets: list[int], probes: int | None = None,
+             component_budget: int | None = None) -> dict:
     payload = torch.load(checkpoint, map_location="cpu", weights_only=True)
     if payload.get("kind") != "clsm_approximate_gem" or payload["config"]["track"] != "mem":
         raise ValueError("memory evaluation requires a MEM approximate-GEM checkpoint")
@@ -39,6 +40,9 @@ def evaluate(env_id: str, checkpoint: Path, output_dir: Path, seed: int,
     if not budgets or min(budgets) < 1 or len(set(budgets)) != len(budgets):
         raise ValueError("budgets must be distinct positive transition counts")
     config = payload["config"]
+    filter_budget = config["filter"]["components"] if component_budget is None else int(component_budget)
+    if filter_budget < 16:
+        raise ValueError("component budget must preserve all code/model hypotheses")
     schema = mujoco_nominal_schema(env_id)
     parts = build_clsm(schema, config)
     parts.law.load_state_dict(payload["law"])
@@ -68,11 +72,11 @@ def evaluate(env_id: str, checkpoint: Path, output_dir: Path, seed: int,
                                   float(parts.hierarchy.recurrence_var.detach()), 1.)
     filters = {
         "reuse_mixture": LawFilter(parts.law, parts.evolution, full_memory,
-                                    config["filter"]["components"], config["filter"]["max_dropped_mass"],
+                                    filter_budget, config["filter"]["max_dropped_mass"],
                                     config["filter"]["covariance_jitter_initial"],
                                     config["filter"]["covariance_jitter_max"]),
         "scratch_only": LawFilter(parts.law, parts.evolution, scratch_memory,
-                                   config["filter"]["components"], config["filter"]["max_dropped_mass"],
+                                   filter_budget, config["filter"]["max_dropped_mass"],
                                    config["filter"]["covariance_jitter_initial"],
                                    config["filter"]["covariance_jitter_max"]),
     }
@@ -121,13 +125,16 @@ def evaluate(env_id: str, checkpoint: Path, output_dir: Path, seed: int,
                 elapsed[name] += perf_counter() - start
                 worst_drop[name] = max(worst_drop[name], step.dropped_mass)
     np.savez_compressed(evaluator_dir / "oracle_signatures.npz", **targets)
-    run_dir = checkpoint.parent / f"memory_diagnostic_{seed}"
+    suffix = "" if filter_budget == config["filter"]["components"] else f"_components_{filter_budget}"
+    run_dir = checkpoint.parent / f"memory_diagnostic_{seed}{suffix}"
     run_dir.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(run_dir / "predictions.npz", **predictions)
     with (run_dir / "memory_adaptation.csv").open("w", newline="", encoding="utf-8") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
         writer.writeheader(); writer.writerows(rows)
     report = {"status": "single_world_memory_diagnostic_only", "budgets": budgets,
+              "component_budget": filter_budget,
+              "component_budget_ablation": filter_budget != config["filter"]["components"],
               "scores": rows, "seconds": elapsed, "max_dropped_mass": worst_drop,
               "inference_degraded": any(value > config["filter"]["max_dropped_mass"] for value in worst_drop.values()),
               "checkpoint_sha256": _sha256(checkpoint), "probe_sha256": _sha256(bank_path),
@@ -146,6 +153,8 @@ def main():
     parser.add_argument("--seed", type=int, default=801)
     parser.add_argument("--budgets", type=int, nargs="+", default=[4, 8, 16, 32, 64])
     parser.add_argument("--probes", type=int, help="diagnostic-only probe-count override")
+    parser.add_argument("--component-budget", type=int,
+                        help="separately reported accuracy/computation ablation; default is locked config")
     parser.add_argument("--dry-run", action="store_true")
     args = parser.parse_args()
     if args.dry_run:
@@ -155,7 +164,7 @@ def main():
     if not args.checkpoint.is_file():
         parser.error(f"checkpoint missing: {args.checkpoint}")
     result = evaluate(args.env, args.checkpoint, args.output_dir, args.seed,
-                      args.budgets, args.probes)
+                      args.budgets, args.probes, args.component_budget)
     print(json.dumps({"status": result["status"], "scores": result["scores"],
                       "inference_degraded": result["inference_degraded"]}))
 

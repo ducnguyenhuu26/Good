@@ -1,14 +1,23 @@
 import numpy as np
 import torch
+import gymnasium
+import mujoco
+import platform
+import scipy
 
 from rwt.clsm.belief import LawFilter
 from rwt.clsm.dynamics import ExecutableLaw
 from rwt.clsm.evolution import LawEvolution
+from rwt.clsm.factory import build_clsm
 from rwt.clsm.memory import HierarchyParameters, TheoryMemory
 from rwt.clsm.schemas import EnvSchema
+from rwt.clsm.config import load_config
 from rwt.clsm.train import (PublicSequence, approximate_estep,
                             collect_emission_statistics, expected_emission_nll,
-                            expected_evolution_nll, generalized_em_mstep)
+                            expected_evolution_nll, generalized_em_mstep,
+                            make_mstep_optimizer)
+from rwt.clsm.schemas import mujoco_nominal_schema
+from experiments.rwt.clsm.run_train import _load_checkpoint, _save_checkpoint
 
 
 def test_public_sequence_estep_event_masses_and_timing():
@@ -57,3 +66,42 @@ def test_mstep_routes_finite_gradients_through_emission_and_evolution():
     metrics = generalized_em_mstep(model, evolution, hierarchy, stats, [posterior], config, seed=41)
     assert len(metrics) == 1 and all(np.isfinite(x) for x in metrics[0].values())
     assert torch.isfinite(hierarchy.recurrence_raw.grad)
+
+
+def test_checkpoint_roundtrip_restores_optimizer_and_rng_for_resume(tmp_path):
+    config = load_config("experiments/rwt/clsm/configs/cpu_smoke.yaml")
+    parts = build_clsm(mujoco_nominal_schema("Reacher-v5"), config)
+    optimizer = make_mstep_optimizer(parts.law, parts.evolution, parts.hierarchy, config)
+    generator = torch.Generator().manual_seed(407)
+    optimizer.zero_grad()
+    sum(parameter.square().sum() for parameter in parts.law.parameters()).backward()
+    optimizer.step()
+    versions = {"python": platform.python_version(), "torch": str(torch.__version__),
+                "gymnasium": gymnasium.__version__, "mujoco": mujoco.__version__,
+                "numpy": np.__version__, "scipy": scipy.__version__}
+    path = tmp_path / "resume.pt"
+    hashes = {"train": "train-hash", "validation": "val-hash"}
+    _save_checkpoint(path, parts, optimizer, generator, config, hashes,
+                     outer=1, best_nll=2.5, versions=versions,
+                     commit="test-commit", source_dirty=False)
+
+    torch.rand(4, generator=generator)
+    multiplier_expected = torch.rand((), generator=generator)
+    optimizer.zero_grad()
+    (parts.law.log_variance.square().sum() * multiplier_expected).backward()
+    optimizer.step()
+    expected = {name: value.clone() for name, value in parts.law.state_dict().items()}
+
+    restored = build_clsm(mujoco_nominal_schema("Reacher-v5"), config)
+    restored_optimizer = make_mstep_optimizer(restored.law, restored.evolution,
+                                               restored.hierarchy, config)
+    restored_generator = torch.Generator().manual_seed(0)
+    _load_checkpoint(path, restored, restored_optimizer, restored_generator, config, hashes)
+    torch.rand(4, generator=restored_generator)
+    multiplier_actual = torch.rand((), generator=restored_generator)
+    restored_optimizer.zero_grad()
+    (restored.law.log_variance.square().sum() * multiplier_actual).backward()
+    restored_optimizer.step()
+    assert torch.equal(multiplier_expected, multiplier_actual)
+    for name, value in restored.law.state_dict().items():
+        assert torch.equal(value, expected[name])
