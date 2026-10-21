@@ -60,7 +60,8 @@ Commands were run in the `duc` worktree on Windows PowerShell after editable ins
 | Final branch recheck: `audit_physics.py` on HalfCheetah, Walker2d and Reacher (`--probes 8`) | 0 each | Repeated-query max error `0.0`; physics arrays restored on all three valid environments. Swimmer remains excluded by its zero nominal controlled damping. |
 | Final branch recheck: `run_train.py --check-data` on COMP/EVOL/MEM CPU smoke configs | 0 each | Train and validation splits load for all three tracks; manifests retain separate train hashes and shared smoke validation hash. |
 | Final branch recheck: `run_train.py --evaluate-only` on EVOL and MEM | 0 each | Both clean-source checkpoints replay at validation prequential NLL `9.4454564488`, maximum dropped mass `4.44e-16`. |
-| Final branch recheck: `python -m pytest tests/clsm -q` | 0 | 50 passed in 12.48 seconds. |
+| Added spec-gate regressions for terminal timing and stationary censored dwell fit | 0 | Terminal transition is retained under the old law before advancing; a no-event stationary sequence fits a low age-zero switch hazard. |
+| Final branch recheck: `python -m pytest tests/clsm -q` | 0 | 52 passed in 10.52 seconds; `compileall` and `git diff --check` also pass. |
 
 ## 6. Physical audit and coverage
 
@@ -77,7 +78,7 @@ COMP, EVOL and MEM checkpoints and all C1/C2/C3 evaluator results were generated
 
 ## 8. Computation and diagnostics
 
-The final 50-test suite passed in 16.44 seconds; each HalfCheetah GEM CPU smoke took roughly two minutes. The five-budget MEM evaluation took approximately 298 seconds of measured inference time across reuse and scratch. No GPU was available, and peak CPU memory was not measured. The eight-step training smoke had discarded mass at numerical-roundoff scale; 16–64-step diagnostics breached the gate substantially. The best COMP validation NLL was worse than pooled. Posterior collapse, actuator support identification, covariance calibration, event/hazard learning and memory negative transfer need larger paired studies. The score files keep negative rows and do not select a best horizon or seed.
+The latest 52-test suite passed in 10.52 seconds; each HalfCheetah GEM CPU smoke took roughly two minutes. The five-budget MEM evaluation took approximately 298 seconds of measured inference time across reuse and scratch. No GPU was available, and peak CPU memory was not measured. The eight-step training smoke had discarded mass at numerical-roundoff scale; 16–64-step diagnostics breached the gate substantially. The best COMP validation NLL was worse than pooled. Posterior collapse, actuator support identification, covariance calibration, event/hazard learning and memory negative transfer need larger paired studies. The score files keep negative rows and do not select a best horizon or seed.
 
 ## 9. Open scientific questions versus implementation defects
 

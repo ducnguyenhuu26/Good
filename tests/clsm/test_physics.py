@@ -55,6 +55,27 @@ def test_time_limit_truncation_does_not_create_a_law_switch():
         env.close()
 
 
+def test_terminal_transition_is_kept_before_advancing_the_law(monkeypatch):
+    schedule = [HiddenLaw(1), HiddenLaw(2)]
+    env = HiddenPhysicsWorld("Reacher-v5", schedule)
+    try:
+        obs, _ = env.reset(seed=11)
+        terminal_obs = np.asarray(obs).copy() + .01
+
+        def terminal_step(action):
+            return terminal_obs.copy(), 0.0, True, False, {}
+
+        monkeypatch.setattr(env.env, "step", terminal_step)
+        next_obs, _, terminated, truncated, info = env.step(np.zeros(env.action_space.shape))
+        assert terminated and not truncated
+        assert np.array_equal(next_obs, terminal_obs)
+        assert info == {}
+        assert env.last_transition_law.code == 1
+        assert env.law_at.code == 2  # The next law applies only after this emitted transition.
+    finally:
+        env.close()
+
+
 def test_fixed_probe_bank_and_oracle_repeat(tmp_path):
     bank, path = fixed_probe_bank("Reacher-v5", 2, tmp_path)
     second, second_path = fixed_probe_bank("Reacher-v5", 2, tmp_path)

@@ -104,3 +104,22 @@ def test_synthetic_fast_and_slow_dwell_fit_distinct_hazards():
     fast_hazard = _fit_duration(fast)
     slow_hazard = _fit_duration(slow)
     assert fast_hazard > 4 * slow_hazard
+
+
+def test_stationary_censored_world_fits_low_switch_hazard():
+    # A stationary sequence contributes survival evidence at every observed
+    # age. Fit the registered discrete-Weibull likelihood without switch events.
+    evolution = LawEvolution()
+    ages = torch.arange(100, dtype=torch.long)
+    codes = torch.zeros_like(ages)
+    initial = float(evolution.hazard(codes[:1], ages[:1]).detach()[0])
+    optimizer = torch.optim.Adam([evolution.log_kappa0, evolution.nu_raw], lr=.03)
+    for _ in range(250):
+        hazard = evolution.hazard(codes, ages).clamp(1e-10, 1 - 1e-10)
+        survival_nll = -torch.log1p(-hazard).mean()
+        optimizer.zero_grad()
+        survival_nll.backward()
+        optimizer.step()
+    fitted = float(evolution.hazard(codes[:1], ages[:1]).detach()[0])
+    assert fitted < initial / 4
+    assert fitted < .01
