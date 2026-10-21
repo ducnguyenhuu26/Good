@@ -199,6 +199,8 @@ def main():
     generator = torch.Generator().manual_seed(seed + 400000)
     latest, best = output / "checkpoint_latest.pt", output / "checkpoint_best.pt"
     curve_path = output / "training_curve.csv"
+    inference_diagnostic_path = output / "inference_diagnostics.csv"
+    evolution_diagnostic_path = output / "evolution_diagnostics.csv"
     hashes = {"train": train_hash, "validation": validation_hash}
     if args.resume or args.evaluate_only:
         if not data_path.exists():
@@ -206,6 +208,8 @@ def main():
         hashes["reference"] = _sha256(data_path)
     start, best_nll = 0, float("inf")
     rows = []
+    inference_rows = []
+    evolution_rows = []
     if args.resume or args.evaluate_only:
         path = best if args.evaluate_only else latest
         state = _load_checkpoint(path, parts, optimizer, generator, config, hashes)
@@ -213,6 +217,12 @@ def main():
         if curve_path.exists():
             with curve_path.open(newline="", encoding="utf-8") as handle:
                 rows = list(csv.DictReader(handle))
+        if args.resume:
+            for path, target in ((inference_diagnostic_path, inference_rows),
+                                 (evolution_diagnostic_path, evolution_rows)):
+                if path.exists():
+                    with path.open(newline="", encoding="utf-8") as handle:
+                        target.extend(csv.DictReader(handle))
         if args.evaluate_only:
             val_nll, dropped = _prequential_validation(parts, validation_sequences, config)
             print(json.dumps({"validation_prequential_nll": val_nll, "max_dropped_mass": dropped,
@@ -246,6 +256,13 @@ def main():
         parts.law.eval(); parts.evolution.eval(); parts.hierarchy.eval()
         posteriors = [approximate_estep(_fresh_filter(parts, config), seq.obs, seq.action, seq.next_obs)
                       for seq in train_sequences]
+        for world_index, posterior in enumerate(posteriors):
+            inference_rows.extend({"outer_iteration": outer + 1, "world_index": world_index, **row}
+                                  for row in posterior.inference_diagnostics)
+            evolution_rows.extend({"outer_iteration": outer + 1, "world_index": world_index, **row}
+                                  for row in posterior.evolution_diagnostics)
+        _write_csv(inference_diagnostic_path, inference_rows)
+        _write_csv(evolution_diagnostic_path, evolution_rows)
         lost = max(p.max_dropped_mass for p in posteriors)
         if lost > config["filter"]["max_dropped_mass"]:
             raise RuntimeError("training mixture mass loss exceeds configured gate")

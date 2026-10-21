@@ -37,6 +37,17 @@ def test_public_sequence_estep_event_masses_and_timing():
     assert abs(sum(float(x.sum()) for x in result.smoothed.event_xi[0].values()) - 1) < 1e-10
     assert filt.time == 1 and filt.needs_evolution
     assert result.max_dropped_mass < 1e-3
+    assert len(result.inference_diagnostics) == len(obs)
+    assert len(result.evolution_diagnostics) == len(obs)
+    assert abs(sum(result.inference_diagnostics[0][f"code_weight_{code}"]
+                   for code in range(8)) - 1) < 1e-12
+    evolution_row = result.evolution_diagnostics[0]
+    assert abs(evolution_row["expected_switch_probability"] +
+               evolution_row["expected_parameter_reset_probability"] +
+               evolution_row["expected_drift_probability"] - 1) < 1e-12
+    assert abs(sum(evolution_row[f"switch_mass_hamming_{distance}"]
+                   for distance in (1, 2, 3)) -
+               evolution_row["expected_switch_probability"]) < 1e-12
 
 
 def test_mstep_routes_finite_gradients_through_emission_and_evolution():

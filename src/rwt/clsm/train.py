@@ -12,6 +12,7 @@ import torch
 from torch import Tensor
 
 from .belief import LawComponent, LawFilter, StepAncestry
+from .diagnostics import evolution_diagnostic, inference_diagnostic
 from .memory import TheoryMemory
 from .smoothing import GaussianSmoothingResult, backward_component_weights, backward_gaussian_moments
 
@@ -26,6 +27,8 @@ class EStepResult:
     max_dropped_mass: float
     memory: TheoryMemory
     drift_variance: Tensor
+    inference_diagnostics: list[dict[str, float]]
+    evolution_diagnostics: list[dict[str, float]]
 
 
 def approximate_estep(filter_model: LawFilter, obs: Tensor, action: Tensor,
@@ -40,9 +43,14 @@ def approximate_estep(filter_model: LawFilter, obs: Tensor, action: Tensor,
     filtered: list[list[LawComponent]] = []
     ancestry: list[StepAncestry] = []
     evidence = []
+    inference_rows: list[dict[str, float]] = []
+    evolution_rows: list[dict[str, float]] = []
     for t in range(len(obs)):
         result = filter_model.observe(obs[t], action[t], next_obs[t])
         evidence.append(result["log_predictive"])
+        prior_step_loss = ancestry[-1].dropped_mass if ancestry else 0.0
+        inference_rows.append(inference_diagnostic(filter_model.components, t, prior_step_loss))
+        evolution_rows.append(evolution_diagnostic(filter_model.components, filter_model.evolution, t))
         filtered.append([LawComponent(c.code, c.age, c.mean.clone(), c.cov.clone(),
                                       c.log_weight.clone(), c.scratch_or_reuse)
                          for c in filter_model.components])
@@ -56,7 +64,8 @@ def approximate_estep(filter_model: LawFilter, obs: Tensor, action: Tensor,
     return EStepResult(torch.tensor(evidence, dtype=torch.float64), filtered, ancestry,
                        gaussian, discrete.gamma,
                        max((step.dropped_mass for step in ancestry), default=0.0),
-                       filter_model.memory, filter_model.evolution.q.detach().clone())
+                       filter_model.memory, filter_model.evolution.q.detach().clone(),
+                       inference_rows, evolution_rows)
 
 
 @dataclass
