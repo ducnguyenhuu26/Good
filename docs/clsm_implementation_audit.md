@@ -57,6 +57,10 @@ Commands were run in the `duc` worktree on Windows PowerShell after editable ins
 | `python -m pytest tests/clsm -q` after implementation changes | 0 | 50 passed in 16.44 seconds. |
 | `fit_nominal_controller.py --env Reacher-v5 --steps 20`, then isolated full-collector interface test of 8/4/4 transitions | 0 | Controller/collector wiring only. The actual full config requires at least 100,000 nominal fit steps. |
 | `summarize.py --results-dir results/rwt/clsm` | 0 | Includes negative effects; no confidence interval or confirmatory label from one seed. |
+| Final branch recheck: `audit_physics.py` on HalfCheetah, Walker2d and Reacher (`--probes 8`) | 0 each | Repeated-query max error `0.0`; physics arrays restored on all three valid environments. Swimmer remains excluded by its zero nominal controlled damping. |
+| Final branch recheck: `run_train.py --check-data` on COMP/EVOL/MEM CPU smoke configs | 0 each | Train and validation splits load for all three tracks; manifests retain separate train hashes and shared smoke validation hash. |
+| Final branch recheck: `run_train.py --evaluate-only` on EVOL and MEM | 0 each | Both clean-source checkpoints replay at validation prequential NLL `9.4454564488`, maximum dropped mass `4.44e-16`. |
+| Final branch recheck: `python -m pytest tests/clsm -q` | 0 | 50 passed in 12.48 seconds. |
 
 ## 6. Physical audit and coverage
 
