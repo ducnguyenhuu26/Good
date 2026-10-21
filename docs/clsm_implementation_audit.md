@@ -83,3 +83,22 @@ The latest 52-test suite passed in 10.52 seconds; each HalfCheetah GEM CPU smoke
 ## 9. Open scientific questions versus implementation defects
 
 The finite probe projection can equate different physical laws; the locked weakening/increased-damping family may not produce sufficiently separated effects under every policy. A good next-observation fit cannot identify future-law evolution. The 128-component long-world mass loss, missing baseline panel, missing ManiSkill PD adapter and missing full run are implementation/acceptance failures, not negative scientific conclusions. Five train seeds and independent world schedules are needed before testing C1–C3.
+
+## 10. Clean-source CPU verification on commit `fd433e4`
+
+A fresh, isolated output set was generated at `results/rwt/clsm_cpu_verification/` after committing the diagnostics and provenance-safe aggregation code. The three track datasets contain 32/16/16 train/validation/test transitions for HalfCheetah; all three runs use seed 41, one approximate-GEM iteration, and at most 128 filter components. Checkpoints report `source_dirty=false` and source fingerprint `1ce778f8323b252814b26985568152343d4956ffd580b9194eb47a68b11f17a0`. Public train hashes are `7d567ff2ad5918a3f8d415b0d6b1e146bfafa9bce2ad12ec405795a250035627` (COMP) and `9c212ae134d63b5b36703623d14af4f0a74be933397bf03425d0ab2d7da528c7` (EVOL/MEM); validation and nominal-reference hashes are recorded per track. Validation replay succeeded for all tracks.
+
+| Check | Result | Interpretation |
+|---|---|---|
+| `python -m pytest tests/clsm -q` | 53 passed in 12.11 s | Unit, synthetic, interface and checkpoint checks pass. |
+| CPU approximate-GEM COMP / EVOL / MEM | Validation NLL `9.4406775463 / 9.4454564488 / 9.4454564488`; peak dropped mass `6.66e-16` during each training smoke | Executable smoke only; not a full-data fit. |
+| Checkpoint-only validation replay COMP / EVOL / MEM | NLL `9.4406775463 / 9.4454564488 / 9.4454564488`; peak dropped mass at most `4.44e-16` | Clean-source checkpoints load and reproduce validation scoring. |
+| Pooled public MLP baseline, COMP | Validation NLL `9.1431884104` | Better than CLSM on this tiny smoke validation split. |
+| C1 held-out codes 3/5/6/7 | `ES_pooled - ES_CLSM = -0.36746, -0.46912, -0.32320, -0.28461` | Pooled wins all four; one seed and one evaluator world, no confidence interval. |
+| C2 horizons 0/1/8/24/64 | `ES_frozen - ES_CLSM = 0, -0.00415, +0.04824, -0.00079, -0.01935` | Only h=8 is positive; this does not support an evolution-skill claim. |
+| C3 budgets 4/8/16/32/64 | `ES_scratch - ES_reuse = ~0, 0, -0.02245, +0.02797, +0.01469` | Direction varies; scratch compute is unmatched. At 64, dropped mass peaks at 4.854% reuse / 4.203% scratch, failing the 0.1% gate. |
+| `summarize.py` on isolated output | 14 records, 14 per-slice effects; intervals null | It filters stale checkpoint results and keeps protocols/budgets separate. Diagnostic aggregation only. |
+
+Training emits `inference_diagnostics.csv` and `evolution_diagnostics.csv` per track, with posterior component count/ESS, code and hypothesis mass, active covariance eigenvalue range, dropped mass, expected switch/reset/drift probabilities, Weibull shape and sparse-edit Hamming-distance mass. The aggregate is `results/rwt/clsm_cpu_verification/diagnostic_summary.json`; raw evaluator scores and predictions remain in per-run directories. The results directory is Git-ignored and remains local for inspection.
+
+This run covers the executable CPU subset, not every scientific question in the task. Full C1–C3 acceptance still requires five independent train seeds, twenty independent evaluation worlds, the full transition budgets, the complete baseline panel, and passing long-world mass accounting. Full collection also needs a separately trained nominal SAC controller with 100,000 fit steps. Swimmer's locked damping intervention is invalid under its installed nominal schema, and the ManiSkill PD adapter remains unavailable. These gaps prevent claiming that the architecture passed the full acceptance specification.
