@@ -28,6 +28,8 @@ test = ["pytest>=8,<10"]
 rwt = ["gymnasium>=1,<2", "matplotlib>=3.8,<4"]
 rwt-law-architectures = ["torch>=2.7,<3", "scipy>=1.11,<2"]
 rwt-mujoco = ["gymnasium[mujoco]>=1,<2", "torch>=2.7,<3", "pyyaml>=6,<7", "scipy>=1.11,<2"]
+rwt-clsm = ["gymnasium[mujoco]>=1.3,<1.4", "mujoco>=3.3,<3.4", "torch>=2.13,<2.14", "scipy>=1.17,<1.18", "pyyaml>=6,<7"]
+rwt-clsm-maniskill = ["mani-skill>=3,<4"]
 # Image Editing primitives are defined through torchvision/Pillow.
 image-editing = ["torch>=2.7,<3", "torchvision>=0.22,<1", "pillow>=10,<12"]
 

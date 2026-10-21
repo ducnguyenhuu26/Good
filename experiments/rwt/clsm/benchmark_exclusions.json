@@ -1,0 +1,15 @@
+{
+  "pre_test_audit_date": "2026-10-21",
+  "environment": "Swimmer-v5",
+  "installed_gymnasium": "1.3.0",
+  "installed_mujoco": "3.3.7",
+  "code": "zero_nominal_controlled_damping",
+  "reason": "Nominal model.dof_damping at controlled DOFs [3,4] is [0.0,0.0]. Multiplying it cannot create the required increase-damping mechanism without a fictitious baseline.",
+  "raw_failed_audit": {
+    "actuator_trnid": [[3,-1],[4,-1]],
+    "controlled_dof_indices": [3,4],
+    "dof_damping": [0.0,0.0,0.0,0.0,0.0],
+    "actuator_gainprm_column_0": [1.0,1.0]
+  },
+  "test_metrics_examined": false
+}

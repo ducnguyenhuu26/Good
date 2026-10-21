@@ -1,0 +1,8 @@
+method: clsm
+track: evol
+seed: 41
+world_length: 500
+transitions: {train: 150000, validation: 30000, test: 30000}
+forecast_horizons: [1, 8, 24, 64]
+collector: nominal_controller_mixture_required
+mode: full
