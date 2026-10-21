@@ -147,6 +147,29 @@ def test_scratch_only_filter_keeps_zero_reuse_mass_without_nan():
     assert filt.memory.scratch_theory_mean  # The scratch model adapted from these observed transitions.
 
 
+def test_scratch_hypothesis_matches_standalone_scratch_on_same_history():
+    mixed_model, mixed_evolution, _ = fixture()
+    scratch_model, scratch_evolution, _ = fixture()
+    scratch_model.load_state_dict(mixed_model.state_dict())
+    scratch_evolution.load_state_dict(mixed_evolution.state_dict())
+    mixed = LawFilter(mixed_model, mixed_evolution, TheoryMemory(scratch_weight=.5))
+    scratch = LawFilter(scratch_model, scratch_evolution, TheoryMemory(scratch_weight=1.))
+    obs = torch.zeros(3, dtype=torch.float64)
+    action = torch.tensor([.5, -.2], dtype=torch.float64)
+    for scale in (.01, -.02, .015):
+        next_obs = obs + scale
+        mixed.observe(obs, action, next_obs); mixed.evolve()
+        scratch.observe(obs, action, next_obs); scratch.evolve()
+        assert torch.equal(mixed.memory.scratch_primitive_mean, scratch.memory.scratch_primitive_mean)
+        assert torch.equal(mixed.memory.scratch_primitive_var, scratch.memory.scratch_primitive_var)
+        assert mixed.memory.scratch_theory_mean.keys() == scratch.memory.scratch_theory_mean.keys()
+        for code in mixed.memory.scratch_theory_mean:
+            assert torch.allclose(mixed.memory.scratch_theory_mean[code],
+                                  scratch.memory.scratch_theory_mean[code], atol=1e-12)
+            assert torch.allclose(mixed.memory.scratch_theory_var[code],
+                                  scratch.memory.scratch_theory_var[code], atol=1e-12)
+
+
 def test_zero_mass_branch_never_occupies_support_slot():
     zero = torch.zeros(3, dtype=torch.float64)
     cov = torch.zeros((3, 3), dtype=torch.float64)

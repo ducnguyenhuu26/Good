@@ -227,7 +227,10 @@ class LawFilter:
                            if c.code == code and c.scratch_or_reuse == hypothesis]
                 if not members:
                     continue
-                masses = torch.stack([c.log_weight.exp() * self.evolution.hazard(
+                model_mass = torch.stack([c.log_weight.exp() for c in members]).sum()
+                if float(model_mass) <= 0:
+                    continue
+                masses = torch.stack([c.log_weight.exp() / model_mass * self.evolution.hazard(
                     torch.tensor([c.code]), torch.tensor([c.age]))[0].detach() for c in members])
                 mass = masses.sum()
                 if float(mass) <= 0:
@@ -239,9 +242,10 @@ class LawFilter:
                 for w, c in zip(normalized, members):
                     diff = c.mean - mean
                     cov += w * (c.cov + torch.outer(diff, diff))
+                model_weight = float(self.memory.log_model_weights[hypothesis].exp())
                 self.memory.update_from_completed_visit(
-                    VisitSummary(code, mean, cov, float(mass), hypothesis))
-                total_mass += float(mass)
+                    VisitSummary(code, mean, cov, float(mass), hypothesis, model_weight))
+                total_mass += float(mass * model_mass)
         return total_mass
 
     def evolve(self) -> StepAncestry:
@@ -299,7 +303,8 @@ class LawFilter:
                            "completed_visits": self.memory.completed_visits,
                            "completed_summaries": [{"code": s.code, "mean": s.mean.clone(),
                                "cov": s.cov.clone(), "responsibility": s.responsibility,
-                               "scratch_or_reuse": s.scratch_or_reuse}
+                               "scratch_or_reuse": s.scratch_or_reuse,
+                               "model_weight": s.model_weight}
                                for s in self.memory.completed_summaries]}}
 
     def load_state_dict(self, state: dict) -> None:
@@ -348,7 +353,8 @@ class LawFilter:
         self.memory.completed_summaries = [VisitSummary(
             int(row["code"]), row["mean"].detach().clone().to(torch.float64),
             row["cov"].detach().clone().to(torch.float64), float(row["responsibility"]),
-            int(row["scratch_or_reuse"])) for row in memory_state["completed_summaries"]]
+            int(row["scratch_or_reuse"]), float(row["model_weight"]))
+            for row in memory_state["completed_summaries"]]
         self.components = components
         self.time = time
         self.needs_evolution = needs_evolution

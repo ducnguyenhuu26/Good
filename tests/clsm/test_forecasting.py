@@ -55,8 +55,9 @@ def test_future_law_frequencies_match_one_step_markov_prediction():
     evolution.alpha.data.zero_()
     forecast = LawForecaster(law, evolution, memory, samples=6000)
     observed = forecast.sample_laws([component], [1], np.random.default_rng(581))[1][:, 0].long()
-    hazard = float(evolution.hazard(torch.tensor([0]), torch.tensor([5]))[0])
-    transition = evolution.structural_log_transition()[0].exp()
+    with torch.no_grad():
+        hazard = float(evolution.hazard(torch.tensor([0]), torch.tensor([5]))[0])
+        transition = evolution.structural_log_transition()[0].exp()
     expected = transition * hazard
     expected[0] += 1 - hazard
     empirical = torch.bincount(observed, minlength=8).to(torch.float64) / len(observed)

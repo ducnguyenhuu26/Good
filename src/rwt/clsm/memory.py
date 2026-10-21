@@ -16,6 +16,7 @@ class VisitSummary:
     cov: Tensor
     responsibility: float = 1.0
     scratch_or_reuse: int = 1
+    model_weight: float = 1.0
 
 
 class TheoryMemory:
@@ -74,6 +75,8 @@ class TheoryMemory:
             raise ValueError("responsibility outside probability range")
         if visit_summary.scratch_or_reuse not in (0, 1):
             raise ValueError("visit summary model must be scratch (0) or reuse (1)")
+        if not 0 <= visit_summary.model_weight <= 1:
+            raise ValueError("visit summary model weight outside probability range")
         if not bool(mask.any()) or visit_summary.responsibility == 0:
             return
         # One precision increment per visit, never one per transition.
@@ -101,11 +104,12 @@ class TheoryMemory:
         else:
             self.primitive_mean = torch.where(mask, p_mean, self.primitive_mean)
             self.primitive_var = torch.where(mask, p_var, self.primitive_var)
-        self.completed_visits += visit_summary.responsibility
+        self.completed_visits += visit_summary.responsibility * visit_summary.model_weight
         self.completed_summaries.append(VisitSummary(code, visit_summary.mean.detach().clone(),
                                                      visit_summary.cov.detach().clone(),
                                                      visit_summary.responsibility,
-                                                     visit_summary.scratch_or_reuse))
+                                                     visit_summary.scratch_or_reuse,
+                                                     visit_summary.model_weight))
 
     def update_prequential_evidence(self, scratch_log_predictive: float, reuse_log_predictive: float) -> None:
         """Call once *after* the transition whose predictive densities these are."""
@@ -168,21 +172,24 @@ class HierarchyParameters(nn.Module):
                 (memory.primitive_mean, memory.primitive_var,
                  memory.theory_mean, memory.theory_var),
             )
-            for primitive_mean_value, primitive_var_value, theory_means, theory_vars in models:
+            for hypothesis, (primitive_mean_value, primitive_var_value, theory_means, theory_vars) in enumerate(models):
+                model_weight = memory.log_model_weights[hypothesis].exp().detach()
                 primitive_mean = primitive_mean_value.detach()
                 primitive_var = primitive_var_value.detach()
-                loss = loss + .5 * (3 * prior_var.log() +
-                                     ((primitive_mean - self.prior_mean).square() + primitive_var).sum() / prior_var)
-                count = count + 3
+                model_loss = .5 * (3 * prior_var.log() +
+                                    ((primitive_mean - self.prior_mean).square() + primitive_var).sum() / prior_var)
+                model_count = torch.tensor(3., dtype=torch.float64)
                 for code, theory_mean in theory_means.items():
                     active = TheoryMemory._mask(code).bool()
                     theory_var = theory_vars[code].detach()[active]
                     theory_mean = theory_mean.detach()[active]
                     primitive = primitive_mean[active]
                     primitive_uncertainty = primitive_var[active]
-                    loss = loss + .5 * (active.sum() * interaction.log() +
+                    model_loss = model_loss + .5 * (active.sum() * interaction.log() +
                             ((theory_mean - primitive).square() + theory_var + primitive_uncertainty).sum() / interaction)
-                    count = count + active.sum()
+                    model_count = model_count + active.sum()
+                loss = loss + model_weight * model_loss
+                count = count + model_weight * model_count
             for summary in memory.completed_summaries:
                 active = TheoryMemory._mask(summary.code).bool()
                 if summary.scratch_or_reuse == 0:
@@ -195,7 +202,7 @@ class HierarchyParameters(nn.Module):
                 prototype_var = variances.get(summary.code, primitive_var).detach()[active]
                 visit_mean = summary.mean.detach()[active]
                 visit_var = summary.cov.detach().diag()[active]
-                responsibility = summary.responsibility
+                responsibility = summary.responsibility * summary.model_weight
                 loss = loss + .5 * responsibility * (active.sum() * recurrence.log() +
                          ((visit_mean - prototype).square() + visit_var + prototype_var).sum() / recurrence)
                 count = count + responsibility * active.sum()
