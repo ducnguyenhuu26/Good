@@ -114,8 +114,15 @@ def collect_emission_statistics(sequences: list[PublicSequence],
                               torch.stack([r[6] for r in rows]).detach())
 
 
-def expected_emission_nll(model, stats: EmissionStatistics, indices: Tensor | None = None) -> Tensor:
-    """Six-point Gaussian cubature for E_q[-log P_phi] in three latent dimensions."""
+def expected_emission_nll(model, stats: EmissionStatistics, indices: Tensor | None = None,
+                          *, sampled_by_weight: bool = False) -> Tensor:
+    """Six-point cubature with an unbiased estimator for either row sampler.
+
+    The full-data objective weights each row by its frozen E-step mass. Rows
+    sampled proportionally to that mass use an ordinary mean. Uniformly
+    sampled rows use the corresponding fixed-total importance correction.
+    """
+    is_sample = indices is not None
     if indices is None:
         indices = torch.arange(len(stats.weight))
     codes = stats.code[indices]
@@ -135,7 +142,14 @@ def expected_emission_nll(model, stats: EmissionStatistics, indices: Tensor | No
                           codes.repeat_interleave(6), points.reshape(count * 6, 3))
     per_component = -logp.reshape(count, 6).mean(1)
     weights = stats.weight[indices]
-    return (weights * per_component).sum() / weights.sum().clamp_min(1e-12)
+    total_weight = stats.weight.sum().clamp_min(1e-12)
+    if sampled_by_weight:
+        if not is_sample:
+            raise ValueError("weighted sampling requires explicit row indices")
+        return per_component.mean()
+    if is_sample:
+        return (weights * per_component).mean() * len(stats.weight) / total_weight
+    return (weights * per_component).sum() / total_weight
 
 
 def expected_evolution_nll(evolution, posteriors: list[EStepResult]) -> Tensor:
@@ -211,9 +225,11 @@ def generalized_em_mstep(model, evolution, hierarchy, stats: EmissionStatistics,
     if optimizer is None:
         optimizer = make_mstep_optimizer(model, evolution, hierarchy, config)
     metrics = []
+    probabilities = (stats.weight / stats.weight.sum()).to("cpu")
     for _ in range(cfg["gradient_steps_per_iteration"]):
-        indices = torch.randint(len(stats.weight), (cfg["batch_size"],), generator=generator)
-        emission = expected_emission_nll(model, stats, indices)
+        indices = torch.multinomial(probabilities, cfg["batch_size"],
+                                    replacement=True, generator=generator)
+        emission = expected_emission_nll(model, stats, indices, sampled_by_weight=True)
         transition = expected_evolution_nll(evolution, posteriors)
         hierarchy_nll = hierarchy.expected_complete_nll([p.memory for p in posteriors])
         penalty = model.mechanics.regularizer(

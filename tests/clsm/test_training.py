@@ -12,7 +12,7 @@ from rwt.clsm.factory import build_clsm
 from rwt.clsm.memory import HierarchyParameters, TheoryMemory
 from rwt.clsm.schemas import EnvSchema
 from rwt.clsm.config import load_config
-from rwt.clsm.train import (PublicSequence, approximate_estep,
+from rwt.clsm.train import (EmissionStatistics, PublicSequence, approximate_estep,
                             collect_emission_statistics, expected_emission_nll,
                             expected_evolution_nll, generalized_em_mstep,
                             make_mstep_optimizer)
@@ -77,6 +77,40 @@ def test_mstep_routes_finite_gradients_through_emission_and_evolution():
     metrics = generalized_em_mstep(model, evolution, hierarchy, stats, [posterior], config, seed=41)
     assert len(metrics) == 1 and all(np.isfinite(x) for x in metrics[0].values())
     assert torch.isfinite(hierarchy.recurrence_raw.grad)
+
+
+def test_emission_weighted_batch_gradient():
+    class LinearNll(torch.nn.Module):
+        def __init__(self):
+            super().__init__()
+            self.slope = torch.nn.Parameter(torch.tensor(1., dtype=torch.float64))
+
+        def log_prob(self, obs, action, next_obs, code, theta):
+            return -self.slope * obs[:, 0]
+
+    stats = EmissionStatistics(
+        obs=torch.tensor([[0.], [10.]], dtype=torch.float64),
+        action=torch.zeros((2, 1), dtype=torch.float64),
+        next_obs=torch.zeros((2, 1), dtype=torch.float64),
+        code=torch.zeros(2, dtype=torch.long),
+        theta=torch.zeros((2, 3), dtype=torch.float64),
+        cov=torch.zeros((2, 3, 3), dtype=torch.float64),
+        weight=torch.tensor([.99, .01], dtype=torch.float64),
+    )
+    model = LinearNll()
+
+    def gradient(indices=None, **kwargs):
+        loss = expected_emission_nll(model, stats, indices, **kwargs)
+        return float(torch.autograd.grad(loss, model.slope)[0])
+
+    exact = gradient()
+    assert abs(exact - .1) < 1e-12
+    uniform_expectation = sum(gradient(torch.tensor([i])) for i in range(2)) / 2
+    assert abs(uniform_expectation - exact) < 1e-12
+    probabilities = stats.weight / stats.weight.sum()
+    weighted_expectation = sum(float(probabilities[i]) * gradient(
+        torch.tensor([i]), sampled_by_weight=True) for i in range(2))
+    assert abs(weighted_expectation - exact) < 1e-12
 
 
 def test_checkpoint_roundtrip_restores_optimizer_and_rng_for_resume(tmp_path):
