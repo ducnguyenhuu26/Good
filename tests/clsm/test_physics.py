@@ -4,6 +4,7 @@ import torch
 
 from experiments.rwt.clsm.oracle_probes import fixed_probe_bank, oracle_signature
 from experiments.rwt.clsm.physics_wrappers import HiddenLaw, HiddenPhysicsWorld, stationary_public_reward
+from experiments.rwt.clsm.world_schedule import make_schedule
 
 
 def test_reward_stationary_public():
@@ -85,3 +86,13 @@ def test_fixed_probe_bank_and_oracle_repeat(tmp_path):
     second_signature = oracle_signature("Reacher-v5", bank, HiddenLaw(0),
                                         torch.ones(10, dtype=torch.float64))
     assert torch.equal(first_signature, second_signature)
+
+
+def test_zero_code_reset_is_observationally_null(tmp_path):
+    schedule = make_schedule("mem", "test", 500, 100, "in_family")
+    assert any(law.code == 0 and law.reset for law in schedule)
+    bank, _ = fixed_probe_bank("Reacher-v5", 2, tmp_path)
+    scale = torch.ones(10, dtype=torch.float64)
+    low = oracle_signature("Reacher-v5", bank, HiddenLaw(0, .50, .50, 1.30, True), scale)
+    high = oracle_signature("Reacher-v5", bank, HiddenLaw(0, .85, .85, 2.00, False), scale)
+    assert torch.equal(low, high)

@@ -69,8 +69,11 @@ def build(env_id: str, track: str, config: dict, output_dir: Path,
     public_root = output_dir / track / env_id / "data"
     evaluator_root = output_dir.parent / "clsm_evaluator" / track / env_id
     previous_manifest = public_root / "manifest.json"
-    if previous_manifest.exists() and json.loads(previous_manifest.read_text(encoding="utf-8")).get("mode") != mode:
-        raise RuntimeError("existing dataset has another mode; choose an isolated --output-dir")
+    if previous_manifest.exists():
+        previous = json.loads(previous_manifest.read_text(encoding="utf-8"))
+        if (previous.get("mode") != mode or
+                previous.get("schedule_condition", "in_family") != config.get("schedule_condition", "in_family")):
+            raise RuntimeError("existing dataset has another mode or schedule; choose an isolated --output-dir")
     public_root.mkdir(parents=True, exist_ok=True)
     evaluator_root.mkdir(parents=True, exist_ok=True)
     split_manifest = {}
@@ -86,7 +89,8 @@ def build(env_id: str, track: str, config: dict, output_dir: Path,
             world_ids.append(world_id)
             remaining = count - len(arrays["reward"])
             length = min(config["world_length"], remaining)
-            schedule = make_schedule(track, split, length, config["seed"] + 100000 * split_index + world_number)
+            schedule = make_schedule(track, split, length, config["seed"] + 100000 * split_index + world_number,
+                                     condition=config.get("schedule_condition", "in_family"))
             env = HiddenPhysicsWorld(env_id, schedule, schema)
             try:
                 obs, _ = env.reset(seed=config["seed"] + 200000 * split_index + world_number)
@@ -134,6 +138,7 @@ def build(env_id: str, track: str, config: dict, output_dir: Path,
     if set(split_manifest["train"]["world_ids"]) & set(split_manifest["test"]["world_ids"]):
         raise AssertionError("split world overlap")
     manifest = {"mode": mode, "track": track, "env": env_id, "seed": config["seed"],
+                "schedule_condition": config.get("schedule_condition", "in_family"),
                 "controller_sha256": _sha256(controller_checkpoint) if controller_checkpoint else None,
                 "schema": {"obs_dim": schema.observation_dim, "act_dim": schema.action_dim,
                             "velocity_indices": schema.joint_velocity_indices,

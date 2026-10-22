@@ -27,6 +27,45 @@ def test_schedule_reproducible_and_reset_age_semantics():
     assert all(.5 <= law.motor_1 <= 1 for law in left)
 
 
+def test_generator_mem_independent_vs_correlated_theta():
+    pairs = {condition: [] for condition in ("mem_independent", "mem_correlated")}
+    for seed in range(100, 150):
+        independent = make_schedule("mem", "test", 500, seed, "mem_independent")
+        correlated = make_schedule("mem", "test", 500, seed, "mem_correlated")
+        # Separate RNG streams make the structural and reset event sequences
+        # identical; only the entry-strength law differs between conditions.
+        assert [(law.code, law.reset) for law in independent] == [
+            (law.code, law.reset) for law in correlated]
+        for condition, schedule in (("mem_independent", independent),
+                                    ("mem_correlated", correlated)):
+            previous_entry = {}
+            for t, law in enumerate(schedule):
+                if law.code == 0:
+                    assert not law.reset
+                if t and law.code != schedule[t - 1].code and law.code:
+                    active = next(j for j in range(3) if (law.code >> j) & 1)
+                    value = (law.motor_1, law.motor_2, law.damping)[active]
+                    if law.code in previous_entry:
+                        pairs[condition].append((active, previous_entry[law.code], value))
+                    previous_entry[law.code] = value
+    results = {}
+    for condition, values in pairs.items():
+        array = np.asarray(values)
+        assert len(array) > 400
+        active = array[:, 0].astype(int)
+        center = np.where(active == 2, 1.65, .675)
+        width = np.where(active == 2, .7, .35)
+        old = (array[:, 1] - center) / width
+        new = (array[:, 2] - center) / width
+        results[condition] = (float(np.corrcoef(old, new)[0, 1]),
+                              float(np.mean((new - old) ** 2)),
+                              float(np.mean(new ** 2)))
+    independent_corr, independent_cache_mse, independent_prior_mse = results["mem_independent"]
+    correlated_corr, correlated_cache_mse, correlated_prior_mse = results["mem_correlated"]
+    assert abs(independent_corr) < .15 and independent_cache_mse > independent_prior_mse
+    assert correlated_corr > .75 and correlated_cache_mse < correlated_prior_mse / 2
+
+
 def test_training_loader_rejects_oracle_column_even_with_valid_hash(tmp_path):
     arrays = {key: np.zeros(1) for key in PUBLIC_KEYS}
     arrays.update(obs=np.zeros((1, 3)), action=np.zeros((1, 2)), next_obs=np.zeros((1, 3)),

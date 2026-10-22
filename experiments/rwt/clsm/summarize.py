@@ -98,7 +98,8 @@ def _records(results_dir: Path):
         protocol = {"component_budget": summary.get("component_budget"),
                     "probe_hash": summary.get("probe_sha256"),
                     "budgets": summary.get("budgets"),
-                    "matched_compute_scratch": summary.get("matched_compute_scratch")}
+                    "matched_compute_scratch": summary.get("matched_compute_scratch"),
+                    "schedule_condition": summary.get("schedule_condition", "in_family")}
         with path.open(newline="", encoding="utf-8") as handle:
             for row in csv.DictReader(handle):
                 records.append({"claim": "C3", "slice": int(row["budget"]), "env": path.parts[-5],

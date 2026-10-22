@@ -49,7 +49,8 @@ def evaluate(env_id: str, checkpoint: Path, output_dir: Path, seed: int,
     parts.evolution.load_state_dict(payload["evolution"])
     parts.hierarchy.load_state_dict(payload["hierarchy"])
     parts.law.eval(); parts.evolution.eval(); parts.hierarchy.eval()
-    schedule = make_schedule("mem", "test", max(budgets), seed)
+    condition = config.get("schedule_condition", "in_family")
+    schedule = make_schedule("mem", "test", max(budgets), seed, condition=condition)
     world = HiddenPhysicsWorld(env_id, schedule, schema)
     transitions = []
     try:
@@ -82,7 +83,7 @@ def evaluate(env_id: str, checkpoint: Path, output_dir: Path, seed: int,
     }
     count = config["forecast"]["signature_probes"] if probes is None else probes
     bank, bank_path = fixed_probe_bank(env_id, count, output_dir.parent / "clsm_evaluator")
-    evaluator_dir = output_dir.parent / "clsm_evaluator" / "mem" / env_id / f"memory_{seed}"
+    evaluator_dir = output_dir.parent / "clsm_evaluator" / "mem" / env_id / f"memory_{condition}_{seed}"
     evaluator_dir.mkdir(parents=True, exist_ok=True)
     public_probes = (torch.as_tensor(bank.obs, dtype=torch.float64),
                      torch.as_tensor(bank.action, dtype=torch.float64))
@@ -126,6 +127,8 @@ def evaluate(env_id: str, checkpoint: Path, output_dir: Path, seed: int,
                 worst_drop[name] = max(worst_drop[name], step.dropped_mass)
     np.savez_compressed(evaluator_dir / "oracle_signatures.npz", **targets)
     suffix = "" if filter_budget == config["filter"]["components"] else f"_components_{filter_budget}"
+    if condition != "in_family":
+        suffix = f"_{condition}{suffix}"
     run_dir = checkpoint.parent / f"memory_diagnostic_{seed}{suffix}"
     run_dir.mkdir(parents=True, exist_ok=True)
     np.savez_compressed(run_dir / "predictions.npz", **predictions)
@@ -133,6 +136,7 @@ def evaluate(env_id: str, checkpoint: Path, output_dir: Path, seed: int,
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
         writer.writeheader(); writer.writerows(rows)
     report = {"status": "single_world_memory_diagnostic_only", "budgets": budgets,
+              "schedule_condition": condition,
               "component_budget": filter_budget,
               "component_budget_ablation": filter_budget != config["filter"]["components"],
               "scores": rows, "seconds": elapsed, "max_dropped_mass": worst_drop,

@@ -69,12 +69,23 @@ def test_summarizer_excludes_stale_checkpoints_and_separates_ablation_budgets(tm
             "probe_sha256": "fixed-probe-hash", "budgets": [16],
             "matched_compute_scratch": False,
         }), encoding="utf-8")
+    correlated_dir = mem_seed / "memory_diagnostic_801_mem_correlated"
+    _write_summary(correlated_dir / "memory_adaptation.csv", [{
+        "world_seed": 801, "budget": 16, "gain": 1.,
+        "reuse_max_dropped_mass": 0., "scratch_max_dropped_mass": 0.,
+    }])
+    (correlated_dir / "summary.json").write_text(json.dumps({
+        "checkpoint_sha256": _hash(checkpoint), "component_budget": 128,
+        "probe_sha256": "fixed-probe-hash", "budgets": [16],
+        "matched_compute_scratch": False, "schedule_condition": "mem_correlated",
+    }), encoding="utf-8")
 
     report = summarize(results)
     c1 = [row for row in report["effects"] if row["claim"] == "C1"]
     c3 = [row for row in report["effects"] if row["claim"] == "C3"]
     assert len(c1) == 1 and c1[0]["mean_effect"] == -1.
-    assert len(c3) == 2
+    assert len(c3) == 3
     assert {row["protocol"]["component_budget"] for row in c3} == {128, 256}
-    assert all(row["inference_degraded"] for row in c3)
+    assert {row["protocol"]["schedule_condition"] for row in c3} == {"in_family", "mem_correlated"}
+    assert all(row["inference_degraded"] for row in c3 if row["protocol"]["schedule_condition"] == "in_family")
     assert report["stale_or_unverified_run_directories_excluded"] == 1
