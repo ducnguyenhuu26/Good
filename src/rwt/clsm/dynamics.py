@@ -8,14 +8,15 @@ from torch import Tensor, nn
 
 from .mechanics import MechanismForce
 from .schemas import EnvSchema
+from .support import DisjointPartition
 
 
 class ExecutableLaw(nn.Module):
     def __init__(self, schema: EnvSchema, hidden_dim: int = 256, variance_floor: float = 1e-5,
-                 variance_ceiling: float = 1e2, delta_min: float = 0.12):
+                 variance_ceiling: float = 1e2, partition: torch.Tensor | None = None):
         super().__init__()
         self.schema = schema
-        self.mechanics = MechanismForce(schema, delta_min=delta_min)
+        self.mechanics = MechanismForce(schema, partition=partition)
         dj = len(schema.controlled_dof_indices)
         self.net = nn.Sequential(
             nn.Linear(schema.observation_dim + dj, hidden_dim, dtype=torch.float64), nn.SiLU(),

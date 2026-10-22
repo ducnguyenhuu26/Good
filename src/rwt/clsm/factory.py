@@ -3,11 +3,11 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-from .belief import LawFilter
 from .dynamics import ExecutableLaw
 from .evolution import LawEvolution
-from .forecast import LawForecaster
-from .memory import HierarchyParameters, TheoryMemory
+from .forecast import AgeLawForecaster
+from .inference_dp import AgeLawFilter
+from .memory import PopulationHierarchy, WorldTheoryMemory
 from .schemas import EnvSchema
 
 
@@ -15,27 +15,26 @@ from .schemas import EnvSchema
 class CLSM:
     law: ExecutableLaw
     evolution: LawEvolution
-    hierarchy: HierarchyParameters
-    memory: TheoryMemory
-    filter: LawFilter
-    forecaster: LawForecaster
+    hierarchy: PopulationHierarchy
+    memory: WorldTheoryMemory
+    filter: AgeLawFilter
+    forecaster: AgeLawForecaster
 
 
 def build_clsm(schema: EnvSchema, config: dict) -> CLSM:
-    network, mechanics, emission = (config[k] for k in ("network", "mechanisms", "emission"))
+    network, emission = (config[k] for k in ("network", "emission"))
     evolution_config, memory_config = config["evolution"], config["memory"]
     filter_config, forecast_config = config["filter"], config["forecast"]
     law = ExecutableLaw(schema, network["hidden_dim"], emission["variance_floor"],
-                        emission["variance_ceiling"], mechanics["delta_min"])
+                        emission["variance_ceiling"])
     evolution = LawEvolution(evolution_config["initial_parameter_reset_prob"],
-                             evolution_config["q_min"])
-    hierarchy = HierarchyParameters(evolution_config["active_theta_prior_mean"],
-                                    evolution_config["active_theta_prior_std"],
-                                    scratch_weight=memory_config["scratch_prior_weight"])
-    memory = hierarchy.new_memory()
-    filt = LawFilter(law, evolution, memory, filter_config["components"],
-                     filter_config["max_dropped_mass"],
-                     filter_config["covariance_jitter_initial"],
-                     filter_config["covariance_jitter_max"])
-    forecaster = LawForecaster(law, evolution, memory, forecast_config["samples"])
+                             evolution_config["q_min"],
+                             evolution_config["duration_scale_init"],
+                             evolution_config["duration_shape_init"])
+    hierarchy = PopulationHierarchy(memory_config["population_variance_floor"],
+                                    memory_config["within_visit_variance_floor"])
+    memory = hierarchy.new_world()
+    filt = AgeLawFilter(law, evolution, memory, filter_config["max_world_length"],
+                        config["initial_law_information"])
+    forecaster = AgeLawForecaster(law, evolution, memory, forecast_config["samples"])
     return CLSM(law, evolution, hierarchy, memory, filt, forecaster)

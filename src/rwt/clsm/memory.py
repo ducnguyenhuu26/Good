@@ -209,3 +209,129 @@ class HierarchyParameters(nn.Module):
                          ((visit_mean - prototype).square() + visit_var + prototype_var).sum() / recurrence)
                 count = count + responsibility * active.sum()
         return loss / count.clamp_min(1)
+
+
+class PopulationHierarchy(nn.Module):
+    """Train-world population and within-world recurrence hyperparameters."""
+
+    def __init__(self, prior_floor: float = 1e-4, omega_floor: float = 0.05):
+        super().__init__()
+        if prior_floor <= 0 or omega_floor <= 0:
+            raise ValueError("hierarchy variance floors must be positive")
+        self.population_mean = nn.Parameter(torch.zeros((8, 3), dtype=torch.float64))
+        self.log_population_var = nn.Parameter(torch.zeros((8, 3), dtype=torch.float64))
+        self.log_within_var = nn.Parameter(torch.full((8, 3), math.log(0.25), dtype=torch.float64))
+        self.prior_floor = float(prior_floor)
+        self.omega_floor = float(omega_floor)
+
+    @property
+    def population_var(self) -> Tensor:
+        return self.log_population_var.exp().clamp_min(self.prior_floor)
+
+    @property
+    def within_var(self) -> Tensor:
+        return self.log_within_var.exp().clamp_min(self.omega_floor)
+
+    def new_world(self) -> "WorldTheoryMemory":
+        return WorldTheoryMemory(self)
+
+    def expected_complete_nll(self, visits: list[tuple[int, Tensor, Tensor, float]]) -> Tensor:
+        """Visit-level Gaussian objective with each posterior boundary counted once."""
+        losses = []
+        for code, mean, covariance, responsibility in visits:
+            if code == 0 or responsibility <= 0:
+                continue
+            active = torch.tensor([(code >> j) & 1 for j in range(3)], dtype=torch.bool,
+                                  device=mean.device)
+            indices = active.nonzero(as_tuple=True)[0]
+            if not len(indices):
+                continue
+            residual = mean[indices] - self.population_mean[code, indices]
+            total_var = (self.population_var[code, indices] + self.within_var[code, indices] +
+                         covariance[indices, indices])
+            losses.append(float(responsibility) * 0.5 *
+                          (residual.square() / total_var + total_var.log()).sum())
+        return torch.stack(losses).sum() if losses else self.population_mean.sum() * 0.
+
+
+class WorldTheoryMemory:
+    """One independent-world posterior over per-code recurring prototypes."""
+
+    def __init__(self, population: PopulationHierarchy):
+        self.population = population
+        self.mean = population.population_mean.detach().clone()
+        self.variance = population.population_var.detach().clone()
+        self.visits: list[tuple[int, Tensor, Tensor, float]] = []
+        self.ledger: dict[tuple[int, int], float] = {}
+
+    @staticmethod
+    def _active(code: int, device=None) -> Tensor:
+        if not 0 <= code <= 7:
+            raise ValueError("code outside 0..7")
+        return torch.tensor([(code >> j) & 1 for j in range(3)], dtype=torch.bool, device=device)
+
+    def entry_prior(self, code: int, *, scratch: bool = False) -> tuple[Tensor, Tensor]:
+        active = self._active(code, self.mean.device)
+        if code == 0:
+            return torch.zeros(3, dtype=torch.float64, device=self.mean.device), torch.zeros((3, 3), dtype=torch.float64, device=self.mean.device)
+        if scratch:
+            mean = self.population.population_mean[code].detach().clone()
+            variance = self.population.population_var[code].detach().clone()
+        else:
+            mean, variance = self.mean[code], self.variance[code]
+        covariance = torch.zeros((3, 3), dtype=torch.float64, device=mean.device)
+        covariance[active, active] = (self.population.within_var[code] + variance)[active]
+        return torch.where(active, mean, torch.zeros_like(mean)).detach().clone(), covariance.detach()
+
+    def record_completed_visit(self, boundary_id: int, code: int, mean: Tensor,
+                               covariance: Tensor, responsibility: float) -> bool:
+        """Apply one soft Gaussian conjugate update per completed visit."""
+        key = (int(boundary_id), int(code))
+        if key in self.ledger:
+            raise ValueError(f"completed parameter visit {boundary_id} already processed")
+        if not 0 <= responsibility <= 1:
+            raise ValueError("visit responsibility must lie in [0,1]")
+        mean = torch.as_tensor(mean, dtype=torch.float64, device=self.mean.device)
+        covariance = torch.as_tensor(covariance, dtype=torch.float64, device=self.mean.device)
+        if mean.shape != (3,) or covariance.shape != (3, 3):
+            raise ValueError("visit summary must contain a 3-vector and 3x3 covariance")
+        self.ledger[key] = float(responsibility)
+        if code == 0 or responsibility == 0:
+            return False
+        indices = self._active(code).nonzero(as_tuple=True)[0]
+        prior_var = self.variance[code, indices]
+        prior_precision = torch.diag(prior_var.reciprocal())
+        measurement = covariance[indices[:, None], indices[None, :]]
+        omega = torch.diag(self.population.within_var[code, indices])
+        noise = (omega + measurement + (omega + measurement).T) * .5
+        noise_precision = torch.linalg.inv(noise)
+        posterior_cov = torch.linalg.inv(prior_precision + responsibility * noise_precision)
+        information = (prior_precision @ self.mean[code, indices] +
+                       responsibility * noise_precision @ mean[indices])
+        self.mean[code, indices] = posterior_cov @ information
+        self.variance[code, indices] = torch.diagonal(posterior_cov)
+        self.visits.append((int(code), mean.detach().clone(), covariance.detach().clone(), float(responsibility)))
+        return True
+
+    def new_world(self) -> "WorldTheoryMemory":
+        return self.population.new_world()
+
+    def state_dict(self) -> dict:
+        return {"mean": self.mean.clone(), "variance": self.variance.clone(),
+                "ledger": {f"{time}:{code}": weight for (time, code), weight in self.ledger.items()},
+                "visits": [(code, mean.clone(), covariance.clone(), weight)
+                           for code, mean, covariance, weight in self.visits]}
+
+    def load_state_dict(self, state: dict) -> None:
+        mean, variance = state.get("mean"), state.get("variance")
+        if not isinstance(mean, Tensor) or mean.shape != (8, 3) or not isinstance(variance, Tensor) or variance.shape != (8, 3):
+            raise ValueError("invalid world-memory state")
+        self.mean = mean.detach().to(torch.float64).clone()
+        self.variance = variance.detach().to(torch.float64).clone()
+        self.ledger = {}
+        for key, weight in state.get("ledger", {}).items():
+            time, code = key.split(":")
+            self.ledger[(int(time), int(code))] = float(weight)
+        self.visits = [(int(code), m.detach().to(torch.float64).clone(),
+                        cov.detach().to(torch.float64).clone(), float(weight))
+                       for code, m, cov, weight in state.get("visits", [])]

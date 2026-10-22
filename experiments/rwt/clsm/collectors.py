@@ -56,3 +56,24 @@ class NominalControllerMixture:
             action += .1 * self.rng.normal(size=len(self.low))
         self.time += 1
         return np.clip(action, self.low, self.high)
+
+
+class R2StationaryExcitationCollector:
+    """Independent multisine actions for the preregistered R2 support pilot."""
+    policy_id = "r2_stationary_excitation_v1"
+
+    def __init__(self, action_low, action_high, seed):
+        self.low = np.asarray(action_low, dtype=np.float64)
+        self.high = np.asarray(action_high, dtype=np.float64)
+        self.rng = np.random.default_rng(seed)
+        self.phase = self.rng.uniform(0, 2 * np.pi, len(self.low))
+        self.frequency = self.rng.uniform(.025, .19, len(self.low))
+        self.amplitude = self.rng.uniform(.35, .85, len(self.low))
+        self.time = 0
+
+    def act(self, observation):
+        self.time += 1
+        signal = self.amplitude * np.sin(self.phase + 2 * np.pi * self.frequency * self.time)
+        signal += .12 * self.rng.normal(size=len(self.low))
+        normalized = np.clip(signal, -1, 1)
+        return self.low + (normalized + 1) * .5 * (self.high - self.low)
