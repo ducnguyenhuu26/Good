@@ -32,6 +32,19 @@ Train-occupancy diagnostics, computed after support freeze, found 1,000 transiti
 
 With the train-selected support frozen, held-out public profile NLL on 1,000 test transitions was `-2.0871` (test SHA above). This is a diagnostic profile likelihood, not a C1 score or a comparison to a scientific baseline.
 
+### Held-out one-step effectiveness diagnostic
+
+I also ran the causal R2 filter on the first 16 and 32 transitions of **all 10** held-out test worlds, comparing it to the same frozen nominal anchor with code `000`. Each score is one-step predictive Gaussian NLL per observation dimension, averaged equally over worlds. A paired bootstrap resampled the 10 worlds 20,000 times. The evaluator-only code/physical-strength comparator uses the same decoder as a plug-in diagnostic; it is not a strict Bayes-risk upper bound.
+
+| Prefix per world | Transitions | R2 filter NLL | Nominal-only NLL | Paired R2 − nominal (95% CI) | Worlds R2 better | Code accuracy |
+|---:|---:|---:|---:|---:|---:|---:|
+| 16 | 160 | `-0.2110` | `-0.0266` | `-0.1843` (`[-0.3270,-0.0620]`) | 7/10 | 71.9% |
+| 32 | 320 | `-0.2225` | `-0.0320` | `-0.1905` (`[-0.3395,-0.0684]`) | 8/10 | 74.7% |
+
+At 32 steps, mean absolute physical multiplier errors were `0.0205` for motor 1, `0.0239` for motor 2, and `0.1391` for damping. The evaluator-conditioned plug-in NLL was `-0.2020`, numerically above the R2 mixture's `-0.2225`; marginalization can score better than a single plug-in when the posterior is uncertain, so this result is not treated as a contradiction or as an oracle bound. Checkpoint source fingerprint matched the tested source, and `checkpoint_training_dirty=false`.
+
+This is positive short-prefix evidence that online code/strength inference improves one-step prediction over nominal-only on these stationary HalfCheetah worlds. It does not establish performance through the full 100-step worlds, switching forecasts, composition generalization, or memory. A full 100-step-per-world diagnostic exceeded 150 seconds in an initial CPU run and was interrupted; the bounded 16/32-step runs completed in about 44/140 seconds for 10 worlds. This reveals a CPU throughput issue that should be addressed before larger sweeps.
+
 ### Reproduction commands
 
 Run from the repository root with `PYTHONPATH=src;.` in PowerShell:
@@ -45,6 +58,7 @@ python -m experiments.rwt.clsm.run_train --env HalfCheetah-v5 --track comp --con
 python -m experiments.rwt.clsm.run_train --env HalfCheetah-v5 --track comp --config experiments/rwt/clsm/configs/clsm_r2_cpu_pilot.yaml --output-dir results/rwt/clsm_r2_pilot --train
 python -m experiments.rwt.clsm.run_train --env HalfCheetah-v5 --track comp --config experiments/rwt/clsm/configs/clsm_r2_cpu_pilot.yaml --output-dir results/rwt/clsm_r2_pilot --evaluate
 python experiments/rwt/clsm/audit_r2_pilot.py --env HalfCheetah-v5 --config experiments/rwt/clsm/configs/clsm_r2_cpu_pilot.yaml --output-dir results/rwt/clsm_r2_pilot
+python scripts/evaluate_clsm_r2_effectiveness.py --env HalfCheetah-v5 --config experiments/rwt/clsm/configs/clsm_r2_cpu_pilot.yaml --output-dir results/rwt/clsm_r2_pilot --seed 4100 --max-steps 32
 ```
 
 The runner's `--train` stage currently performs nominal-anchor loading and the train-only finite partition profile M-step. It does **not** perform the full alternating generalized-EM updates of `F_phi`, evolution, and population hierarchy; the generated report says so. `--evaluate` therefore reports only frozen-support public profile likelihood.
@@ -56,8 +70,8 @@ Test source fingerprint for this run: `66120427728b8c7b9514678c7c8da6b6976c18ee2
 | Gate | Result | Evidence / remaining work |
 |---|---|---|
 | 0 — informative data | **PASS for this CPU pilot** | 6,000 balanced stationary intervention transitions, three predeclared seeds, full-rank local sensitivity, repeated independent strengths, support bootstrap, held-out public split. No claim of sufficient sample size beyond this generator/environment. |
-| A — oracle decoder | **NOT RUN** | Need isolated oracle-G/true-z/true-strength decoder and the two required ablations on held-out physical-state probes. |
-| B — known-code strength identification | **NOT RUN** | Fisher rank was measured, but no known-z/unknown-xi posterior calibration or multiplier recovery was run. |
+| A — oracle decoder | **NOT RUN** | Need isolated oracle-G/true-z/true-strength decoder and the two required ablations on held-out physical-state probes. The plug-in diagnostic above is not a trained oracle decoder. |
+| B — known-code strength identification | **PARTIAL** | Fisher rank and an end-to-end strength-error diagnostic were measured; the required known-z/unknown-xi posterior-calibration experiment was not run. |
 | C — exact age and hybrid filter | **PARTIAL** | Exact discrete 500-step arbitrary-emission and short exhaustive event tests pass. The small continuous quadrature-grid comparison, cubature error curve, predictive calibration, and batched/scalar timing remain unrun. |
 | D — evolution | **NOT RUN** | Need switching-rich worlds, duration parameter recovery, event-stratified forecasts, oracle-current/learned-K and frozen-persistence comparisons. |
 | E — memory | **NOT RUN** | Need paired `mem_correlated` and `mem_independent` runs with fresh test prototypes, budgets `{4,8,16,32,64}`, confidence intervals, and full hierarchy training. |
@@ -65,6 +79,6 @@ Test source fingerprint for this run: `66120427728b8c7b9514678c7c8da6b6976c18ee2
 
 ## Interpretation and decision
 
-The exact categorical age recursion and support grammar passed the implemented software checks. The controlled HalfCheetah pilot recovered the known disjoint partition consistently across three network initializations and resampled worlds. The nominal reference model fit the separate nominal data, and public held-out profile likelihood is available for review.
+The exact categorical age recursion and support grammar passed the implemented software checks. The controlled HalfCheetah pilot recovered the known disjoint partition consistently across three network initializations and resampled worlds. On short prefixes from all held-out worlds, the filter improved one-step NLL over nominal-only and reached 74.7% code accuracy after 32 observations. The CPU throughput and damping-strength error remain concerns.
 
-This is not a completed empirical CLSM-R2 study. Full generalized EM, oracle decoder adequacy, posterior strength calibration, hybrid approximation error, evolution forecasting, and memory positive/negative controls remain open. C1/C2/C3 effectiveness is therefore **not established**, and the pilot should guide design changes rather than be cited as scientific confirmation.
+This is not a completed empirical CLSM-R2 study. Full generalized EM, oracle decoder adequacy, calibrated posterior strength recovery, hybrid approximation error, evolution forecasting, and memory positive/negative controls remain open. The short-prefix predictive gain is a promising pilot result; full-horizon and C1/C2/C3 effectiveness is **not established**.
