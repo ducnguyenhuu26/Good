@@ -1,5 +1,8 @@
+import math
+
 import torch
 
+from rwt.clsm.belief import LawComponent, LawFilter
 from rwt.clsm.memory import TheoryMemory, VisitSummary
 
 
@@ -71,3 +74,35 @@ def test_scratch_copy_is_a_true_scratch_only_prior():
     assert torch.equal(scratch.log_model_weights.exp(),
                        torch.tensor([1., 0.], dtype=torch.float64))
     assert scratch.completed_visits == 0
+
+
+def test_memory_exit_responsibility_global_normalizer():
+    class ConstantHazard:
+        def hazard(self, codes, ages):
+            return torch.full(codes.shape, .05, dtype=torch.float64)
+
+    memory = TheoryMemory(scratch_weight=.1)
+    filt = LawFilter(None, ConstantHazard(), memory)
+    components = []
+    for hypothesis, model_mass in ((0, .1), (1, .9)):
+        for code, conditional_mass in ((1, .001), (2, .999)):
+            mean = torch.tensor([-1., -1., 0.], dtype=torch.float64)
+            cov = torch.diag(torch.tensor([.1, .1, 0.], dtype=torch.float64))
+            components.append(LawComponent(
+                code, 0, mean, cov,
+                torch.tensor(math.log(model_mass * conditional_mass), dtype=torch.float64),
+                hypothesis))
+    filt.components = components
+    total = filt._update_completed_visit_memory()
+    summaries = {(s.scratch_or_reuse, s.code): s for s in memory.completed_summaries}
+    assert abs(total - .05) < 1e-12
+    for hypothesis, model_mass in ((0, .1), (1, .9)):
+        assert abs(summaries[hypothesis, 1].responsibility - .00005) < 1e-12
+        assert abs(summaries[hypothesis, 2].responsibility - .04995) < 1e-12
+        assert abs(sum(summaries[hypothesis, code].responsibility for code in (1, 2)) - .05) < 1e-12
+        assert abs(summaries[hypothesis, 1].model_weight - model_mass) < 1e-12
+    assert abs(memory.completed_visits - .05) < 1e-12
+    # A rare code must contribute only a rare-code precision increment.
+    before = memory.prior_var + memory.interaction_var
+    expected_var = (1 / before + .00005 / (.1 + memory.recurrence_var)) ** -1
+    assert abs(float(memory.theory_var[1][0]) - expected_var) < 1e-12

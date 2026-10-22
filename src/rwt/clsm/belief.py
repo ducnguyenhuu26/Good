@@ -218,19 +218,27 @@ class LawFilter:
         This is an online moment approximation to the hierarchical posterior.
         Within-visit transitions are filtered into one latent-parameter
         posterior; only expected *structural exits* enter prototype precision.
+        Responsibilities are conditional on the scratch/reuse hypothesis, not
+        on the code. The code probability must remain in each precision update.
         Same-code parameter resets do not generate visit updates.
         """
         total_mass = 0.
+        total_weight = torch.stack([c.log_weight.exp() for c in self.components]).sum()
         for hypothesis in (0, 1):
+            hypothesis_weights = [c.log_weight.exp() for c in self.components
+                                  if c.scratch_or_reuse == hypothesis]
+            if not hypothesis_weights:
+                continue
+            hypothesis_mass = torch.stack(hypothesis_weights).sum()
+            if float(hypothesis_mass) <= 0:
+                continue
+            model_weight = float((hypothesis_mass / total_weight).clamp(0, 1))
             for code in range(1, 8):
                 members = [c for c in self.components
                            if c.code == code and c.scratch_or_reuse == hypothesis]
                 if not members:
                     continue
-                model_mass = torch.stack([c.log_weight.exp() for c in members]).sum()
-                if float(model_mass) <= 0:
-                    continue
-                masses = torch.stack([c.log_weight.exp() / model_mass * self.evolution.hazard(
+                masses = torch.stack([c.log_weight.exp() / hypothesis_mass * self.evolution.hazard(
                     torch.tensor([c.code]), torch.tensor([c.age]))[0].detach() for c in members])
                 mass = masses.sum()
                 if float(mass) <= 0:
@@ -242,10 +250,9 @@ class LawFilter:
                 for w, c in zip(normalized, members):
                     diff = c.mean - mean
                     cov += w * (c.cov + torch.outer(diff, diff))
-                model_weight = float(self.memory.log_model_weights[hypothesis].exp())
                 self.memory.update_from_completed_visit(
                     VisitSummary(code, mean, cov, float(mass), hypothesis, model_weight))
-                total_mass += float(mass * model_mass)
+                total_mass += float(mass) * model_weight
         return total_mass
 
     def evolve(self) -> StepAncestry:
