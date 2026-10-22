@@ -42,3 +42,9 @@ def verify_checkpoint_source(payload: dict, *, require_clean: bool = True) -> No
         raise ValueError("checkpoint architecture/evaluator source fingerprint differs from current checkout")
     if require_clean and (payload.get("source_dirty", True) or current_dirty):
         raise ValueError("checkpoint or current source is uncommitted; reproducible evaluation requires clean source")
+
+
+def assert_deployable_checkpoint(payload: dict) -> None:
+    """Keep privileged oracle diagnostics out of the deployable CLSM path."""
+    if payload.get("role") == "oracle_diagnostic":
+        raise ValueError("oracle_diagnostic checkpoint cannot be loaded as deployable_clsm_r2")

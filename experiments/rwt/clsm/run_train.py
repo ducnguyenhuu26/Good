@@ -19,7 +19,7 @@ from rwt.clsm.config import load_config
 from rwt.clsm.factory import build_clsm
 from rwt.clsm.schemas import mujoco_nominal_schema
 from rwt.clsm.support import DisjointPartition
-from rwt.clsm.serialization import git_source_state, source_fingerprint
+from rwt.clsm.serialization import assert_deployable_checkpoint, git_source_state, source_fingerprint
 from rwt.clsm.train import train_reference
 from experiments.rwt.clsm.build_datasets import _sha256
 from experiments.rwt.clsm.collectors import R2StationaryExcitationCollector
@@ -64,6 +64,7 @@ def _load_reference(path, config, data_path):
 
 
 def validate_r2_checkpoint(payload, config=None):
+    assert_deployable_checkpoint(payload)
     if payload.get("architecture_revision") != 2:
         raise ValueError("checkpoint architecture_revision mismatch: expected CLSM-R2 revision 2")
     if config is not None and payload.get("config") != config:
@@ -124,7 +125,8 @@ def main():
                                 batch_size=config["training"]["batch_size"],
                                 weight_decay=config["training"].get("weight_decay", 1e-4),
                                 gradient_clip_norm=config["training"]["gradient_clip_norm"])
-        payload = {"architecture_revision": 2, "law": parts.law.state_dict(), "config": config,
+        payload = {"architecture_revision": 2, "role": "deployable_clsm_r2",
+                   "law": parts.law.state_dict(), "config": config,
                    "seed": seed, "data_sha256": _sha256(reference_data),
                    "curve": curve, "source_fingerprint": source_fingerprint(),
                    "git_commit": git_source_state()[0], "source_dirty": git_source_state()[1],
@@ -168,7 +170,8 @@ def main():
             winner_counts[int(per_world_scores[:, sample].sum(1).argmax())] += 1
         winner_order = np.argsort(-winner_counts)
         parts.law.mechanics.set_partition(scores[0][1])
-        payload = {"architecture_revision": 2, "law": parts.law.state_dict(),
+        payload = {"architecture_revision": 2, "role": "deployable_clsm_r2",
+                   "law": parts.law.state_dict(),
                    "evolution": parts.evolution.state_dict(), "hierarchy": parts.hierarchy.state_dict(),
                    "partition_scores": [score for score, _ in scores],
                    "selected_partition": scores[0][1].int().tolist(),
@@ -191,6 +194,7 @@ def main():
         print(json.dumps(report, indent=2)); return
 
     payload = torch.load(model_path, map_location="cpu", weights_only=True)
+    assert_deployable_checkpoint(payload)
     if payload.get("architecture_revision") != 2 or payload.get("config") != config:
         raise ValueError("model checkpoint is incompatible with CLSM-R2")
     if payload.get("source_fingerprint") != source_fingerprint():

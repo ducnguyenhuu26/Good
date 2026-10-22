@@ -21,7 +21,7 @@ from rwt.clsm.factory import build_clsm
 from rwt.clsm.forecast import LawForecaster
 from rwt.clsm.memory import TheoryMemory
 from rwt.clsm.schemas import mujoco_nominal_schema
-from rwt.clsm.serialization import verify_checkpoint_source
+from rwt.clsm.serialization import assert_deployable_checkpoint, verify_checkpoint_source
 from rwt.clsm.scoring import energy_score
 from experiments.rwt.clsm.build_datasets import _sha256
 from experiments.rwt.clsm.collectors import SmoothActionCollector
@@ -34,6 +34,7 @@ def evaluate(env_id: str, checkpoint: Path, output_dir: Path, seed: int,
              budgets: list[int], probes: int | None = None,
              component_budget: int | None = None) -> dict:
     payload = torch.load(checkpoint, map_location="cpu", weights_only=True)
+    assert_deployable_checkpoint(payload)
     if payload.get("kind") != "clsm_approximate_gem" or payload["config"]["track"] != "mem":
         raise ValueError("memory evaluation requires a MEM approximate-GEM checkpoint")
     verify_checkpoint_source(payload)

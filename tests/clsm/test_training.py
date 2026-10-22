@@ -48,3 +48,9 @@ def test_old_checkpoint_revision_is_explicitly_rejected():
     import pytest
     with pytest.raises(ValueError, match="architecture_revision mismatch"):
         validate_r2_checkpoint({"architecture_revision": 1, "law": {}}, config)
+
+
+def test_oracle_diagnostic_checkpoint_rejected_by_deployable_loader():
+    import pytest
+    with pytest.raises(ValueError, match="oracle_diagnostic"):
+        validate_r2_checkpoint({"architecture_revision": 2, "role": "oracle_diagnostic"})

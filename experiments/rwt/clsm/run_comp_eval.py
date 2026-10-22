@@ -17,7 +17,7 @@ from rwt.clsm.belief import LawFilter
 from rwt.clsm.factory import build_clsm
 from rwt.clsm.forecast import LawForecaster
 from rwt.clsm.schemas import mujoco_nominal_schema
-from rwt.clsm.serialization import verify_checkpoint_source
+from rwt.clsm.serialization import assert_deployable_checkpoint, verify_checkpoint_source
 from rwt.clsm.scoring import energy_score
 from experiments.rwt.clsm.build_datasets import _sha256
 from experiments.rwt.clsm.collectors import SmoothActionCollector
@@ -32,6 +32,7 @@ def evaluate(env_id: str, checkpoint: Path, pooled_checkpoint: Path,
              output_dir: Path, seed: int, adaptation_steps: int = 4,
              probes: int | None = None) -> dict:
     payload = torch.load(checkpoint, map_location="cpu", weights_only=True)
+    assert_deployable_checkpoint(payload)
     baseline_payload = torch.load(pooled_checkpoint, map_location="cpu", weights_only=True)
     if payload.get("kind") != "clsm_approximate_gem" or payload["config"]["track"] != "comp":
         raise ValueError("COMP approximate-GEM checkpoint required")

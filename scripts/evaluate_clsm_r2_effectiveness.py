@@ -18,7 +18,7 @@ from rwt.clsm.config import load_config
 from rwt.clsm.factory import build_clsm
 from rwt.clsm.inference_dp import AgeLawFilter
 from rwt.clsm.schemas import mujoco_nominal_schema
-from rwt.clsm.serialization import source_fingerprint
+from rwt.clsm.serialization import assert_deployable_checkpoint, source_fingerprint
 from experiments.rwt.clsm.build_datasets import _sha256
 from experiments.rwt.clsm.public_data import load_public_split
 
@@ -56,6 +56,7 @@ def main():
         hidden = {key: oracle[key].copy() for key in ("code", "motor_1", "motor_2", "damping")}
 
     model_payload = torch.load(run_root / "checkpoint_r2.pt", map_location="cpu", weights_only=True)
+    assert_deployable_checkpoint(model_payload)
     if model_payload.get("architecture_revision") != 2 or model_payload.get("config") != config:
         raise ValueError("test checkpoint architecture or resolved config mismatch")
     model_parts = build_clsm(mujoco_nominal_schema(args.env), config)
