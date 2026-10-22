@@ -1,0 +1,9 @@
+{
+  "status": "NOT_RUN",
+  "synthetic_diagnostic_runtime_seconds": 6.803033699980006,
+  "synthetic_history_count": 96,
+  "synthetic_observation_steps_per_history": 40,
+  "production_filter_profile": "not performed",
+  "scalar_batch_parity": "not implemented or tested",
+  "required_followup": "profile AgeLawFilter.observe/evolve/cubature_correct/memory/forecast at 16/32/64/100; add fixed-RNG scalar vs batched equivalence tests"
+}

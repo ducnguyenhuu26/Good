@@ -1,0 +1,25 @@
+{
+  "codes": [
+    1,
+    2,
+    4,
+    3,
+    5,
+    6,
+    7
+  ],
+  "world_counts": {
+    "1": 12,
+    "2": 12,
+    "4": 12,
+    "3": 12,
+    "5": 12,
+    "6": 12,
+    "7": 12
+  },
+  "public_only_filter_inputs": true,
+  "public_test_data_sha256": "8708d2dc7cb14cea7143d713f10c6c4df624755101a857374b034afa5725a72c",
+  "diagnostic_code_trajectory_source": "Gate A heldout composition diagnostic",
+  "common_probe_bank_sha256": "5dab1819d3b07ec8c45ed3f6e1b3160948a99750d7e821977a8ae6b3cfd05af5",
+  "confirmed_probe_restore_checks": "all passed at 1e-10"
+}

@@ -1,0 +1,71 @@
+{
+  "gate": "C",
+  "status": "INCONCLUSIVE",
+  "diagnostic_only": true,
+  "sequential_claim": "BLOCKED_BY_GATE_A_FAIL_AND_GATE_B_INCONCLUSIVE",
+  "categorical_reference": {
+    "status": "PASS",
+    "max_tv_tolerance": 1e-10,
+    "tests": [
+      "tests/clsm/test_inference_dp.py",
+      "tests/clsm/test_age_audit.py"
+    ],
+    "pytest_result": "6 passed in 12.53s",
+    "scope": "exact categorical regression only; does not establish continuous-strength or joint posterior exactness"
+  },
+  "independent_histories": 96,
+  "conditions": 16,
+  "steps_per_history": 40,
+  "world_bootstrap_draws": 10000,
+  "world_level_summary": {
+    "mean_joint_code_age_tv": {
+      "mean": 0.29807135926599077,
+      "ci95": [
+        0.277529102652886,
+        0.3196919068199941
+      ]
+    },
+    "mean_next_switch_abs_error": {
+      "mean": 0.018157517302993417,
+      "ci95": [
+        0.015327835352402518,
+        0.021100055520166597
+      ]
+    },
+    "mean_xi_age_conditional_mean_error_massweighted": {
+      "mean": 0.15413159064141638,
+      "ci95": [
+        0.14257261833469106,
+        0.16631291934319253
+      ]
+    },
+    "prequential_logscore_diff_approx_minus_grid": {
+      "mean": -0.05358212859590388,
+      "ci95": [
+        -0.0755788538149142,
+        -0.034852169354276076
+      ]
+    },
+    "mean_exact_xi_90pct_coverage": {
+      "mean": 0.9057291666666666,
+      "ci95": [
+        0.8908854166666665,
+        0.9192708333333334
+      ]
+    },
+    "mean_approx_xi_90pct_coverage": {
+      "mean": 0.8666666666666667,
+      "ci95": [
+        0.8458333333333332,
+        0.8856770833333334
+      ]
+    }
+  },
+  "interpretation": "The current shared-per-code Gaussian loses age-conditioned strength information. The discretized exact reference and factorized approximation disagree materially on joint code-age TV and conditional strength means, while prequential prediction is modestly worse and approximate 90% coverage is below nominal in this 96-history synthetic study. Gate C remains INCONCLUSIVE overall because the required production CPU profile and scalar/batched parity evidence were not run; the synthetic result is diagnostic evidence, not an R2 HalfCheetah claim.",
+  "limits": [
+    "finite xi grid [-4,4] with dx=0.04 and row-normalized convolution near boundaries",
+    "synthetic two-code emission/evolution family, not fitted HalfCheetah decoder",
+    "6 independent histories per factorial cell",
+    "production profile and scalar/batch parity absent"
+  ]
+}
