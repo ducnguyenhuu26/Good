@@ -38,7 +38,9 @@ def test_scratch_and_reuse_adapt_separately_from_observed_visits():
     memory.update_from_completed_visit(reuse_visit)
     reuse_updated = memory.prior_for_entry(1, 1)
 
-    assert not torch.equal(scratch_initial[0], scratch_updated[0])
+    assert torch.equal(scratch_initial[0], scratch_updated[0])
+    assert torch.equal(scratch_initial[1], scratch_updated[1])
+    assert memory.scratch_theory_mean  # same-segment statistics remain available
     assert torch.equal(reuse_initial[0], reuse_unchanged[0])
     assert not torch.equal(reuse_unchanged[0], reuse_updated[0])
     assert not torch.equal(scratch_updated[0], reuse_updated[0])
@@ -106,3 +108,19 @@ def test_memory_exit_responsibility_global_normalizer():
     before = memory.prior_var + memory.interaction_var
     expected_var = (1 / before + .00005 / (.1 + memory.recurrence_var)) ** -1
     assert abs(float(memory.theory_var[1][0]) - expected_var) < 1e-12
+
+
+def test_true_scratch_new_segment_does_not_reuse_completed_visit_theta():
+    memory = TheoryMemory()
+    scratch_before = memory.prior_for_entry(1, 0)
+    reuse_before = memory.prior_for_entry(1, 1)
+    visit = VisitSummary(1, torch.tensor([-.1, 0., 0.], dtype=torch.float64),
+                         torch.diag(torch.tensor([.01, 0., 0.], dtype=torch.float64)),
+                         1., scratch_or_reuse=0, model_weight=.5)
+    memory.update_from_completed_visit(visit)
+    scratch_after = memory.prior_for_entry(1, 0)
+    reuse_after = memory.prior_for_entry(1, 1)
+    assert torch.equal(scratch_before[0], scratch_after[0])
+    assert torch.equal(scratch_before[1], scratch_after[1])
+    assert torch.equal(reuse_before[0], reuse_after[0])
+    assert memory.scratch_theory_mean  # retained only for hierarchy diagnostics

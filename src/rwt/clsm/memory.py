@@ -35,8 +35,9 @@ class TheoryMemory:
         self.primitive_var = torch.full((3,), self.prior_var, dtype=torch.float64)
         self.theory_mean: dict[int, Tensor] = {}
         self.theory_var: dict[int, Tensor] = {}
-        # Scratch and reuse are predictive models with separate causal
-        # posteriors. Scratch begins at the hierarchy prior and adapts online.
+        # Scratch and reuse have separate causal sufficient statistics. A new
+        # scratch segment always enters from the shared generic hierarchy
+        # prior; within-segment adaptation resides in its filter component.
         self.scratch_primitive_mean = self.primitive_mean.clone()
         self.scratch_primitive_var = self.primitive_var.clone()
         self.scratch_theory_mean: dict[int, Tensor] = {}
@@ -57,11 +58,12 @@ class TheoryMemory:
         if scratch_or_reuse not in (0, 1):
             raise ValueError("scratch_or_reuse must be 0 or 1")
         if scratch_or_reuse == 0:
-            primitive_mean, primitive_var = self.scratch_primitive_mean, self.scratch_primitive_var
-            theory_mean, theory_var = self.scratch_theory_mean, self.scratch_theory_var
-        else:
-            primitive_mean, primitive_var = self.primitive_mean, self.primitive_var
-            theory_mean, theory_var = self.theory_mean, self.theory_var
+            mean = torch.full((3,), self.prior_mean, dtype=torch.float64) * mask
+            variance = torch.full((3,), self.prior_var + self.interaction_var +
+                                  self.recurrence_var, dtype=torch.float64)
+            return mean, torch.diag(variance * mask)
+        primitive_mean, primitive_var = self.primitive_mean, self.primitive_var
+        theory_mean, theory_var = self.theory_mean, self.theory_var
         mean = theory_mean.get(code, primitive_mean)
         var = theory_var.get(code, primitive_var + self.interaction_var)
         return mean * mask, torch.diag((var + self.recurrence_var) * mask)
