@@ -19,6 +19,8 @@ class EnvSchema:
     action_high: np.ndarray
     dt_env: float
     public_reward_spec: str = "stationary_public_v1"
+    motor_multiplier_bounds: tuple[float, float] = (0.50, 0.85)
+    damping_multiplier_bounds: tuple[float, float] = (1.30, 2.00)
 
     def __post_init__(self) -> None:
         j = len(self.controlled_dof_indices)
@@ -34,6 +36,10 @@ class EnvSchema:
             raise ValueError("velocity mapping exceeds public observation")
         if self.action_low.shape != (self.action_dim,) or self.action_high.shape != (self.action_dim,):
             raise ValueError("action bounds mismatch")
+        if not 0 < self.motor_multiplier_bounds[0] < self.motor_multiplier_bounds[1] <= 1:
+            raise ValueError("motor multiplier bounds must define a weakening interval")
+        if not 1 <= self.damping_multiplier_bounds[0] < self.damping_multiplier_bounds[1]:
+            raise ValueError("damping multiplier bounds must define an increasing interval")
 
 
 def mujoco_nominal_schema(env_id: str) -> EnvSchema:

@@ -2,6 +2,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+import math
 
 import torch
 from torch import Tensor, nn
@@ -19,13 +20,16 @@ class EvolutionBranch:
 
 
 class LawEvolution(nn.Module):
-    def __init__(self, reset_prob: float = 0.05, q_min: float = 1e-6):
+    def __init__(self, reset_prob: float = 0.05, q_min: float = 1e-6,
+                 duration_scale_init: float = 20.0, duration_shape_init: float = 1.4):
         super().__init__()
         if not 1e-4 <= reset_prob <= 0.25:
             raise ValueError("reset probability outside registered range")
-        self.log_kappa0 = nn.Parameter(torch.tensor(3.0, dtype=torch.float64))
+        if duration_scale_init <= 0 or duration_shape_init <= 0:
+            raise ValueError("positive Weibull duration initialization required")
+        self.log_kappa0 = nn.Parameter(torch.tensor(math.log(duration_scale_init), dtype=torch.float64))
         self.log_kappa_pop = nn.Parameter(torch.tensor(0.0, dtype=torch.float64))
-        self.nu_raw = nn.Parameter(torch.tensor(0.55, dtype=torch.float64))
+        self.nu_raw = nn.Parameter(torch.tensor(math.log(math.expm1(duration_shape_init)), dtype=torch.float64))
         self.beta_raw = nn.Parameter(torch.tensor(1.0, dtype=torch.float64))
         self.alpha = nn.Parameter(torch.zeros(3, dtype=torch.float64))
         self.q_raw = nn.Parameter(torch.full((3,), -6.0, dtype=torch.float64))
@@ -47,6 +51,24 @@ class LawEvolution(nn.Module):
     @property
     def reset_prob(self) -> Tensor:
         return self.reset_raw.sigmoid().clamp(1e-4, 0.25)
+
+    def reset_probability(self, code: int | Tensor) -> Tensor:
+        """Same-code parameter reset rate, fixed to zero for nominal code 000."""
+        if isinstance(code, Tensor):
+            return torch.where(code == 0, torch.zeros_like(code, dtype=torch.float64),
+                               self.reset_prob.expand_as(code).to(torch.float64))
+        if not 0 <= code <= 7:
+            raise ValueError("invalid structural code")
+        return torch.zeros((), dtype=torch.float64, device=self.reset_raw.device) if code == 0 else self.reset_prob
+
+    def hazard_table(self, max_age: int, *, device=None) -> Tensor:
+        if max_age < 1:
+            raise ValueError("max_age must be positive")
+        codes = torch.arange(8, device=device or self.log_kappa0.device)
+        ages = torch.arange(max_age, device=device or self.log_kappa0.device)
+        code_grid = codes[:, None].expand(8, max_age)
+        age_grid = ages[None, :].expand(8, max_age)
+        return self.hazard(code_grid.reshape(-1), age_grid.reshape(-1)).reshape(8, max_age)
 
     def hazard(self, code: Tensor, age: Tensor) -> Tensor:
         if torch.any((code < 0) | (code > 7)) or torch.any(age < 0):
@@ -74,7 +96,7 @@ class LawEvolution(nn.Module):
         """Branch probabilities include stay-drift, stay-reset and seven switches."""
         code, age = int(component.code), int(component.age)
         h = float(self.hazard(torch.tensor([code]), torch.tensor([age]))[0].detach())
-        rho = float(self.reset_prob.detach())
+        rho = float(self.reset_probability(code).detach())
         mask = self.active(code).to(component.mean.device)
         drift_cov = component.cov + torch.diag(self.q.detach().to(mask.device) * mask)
         branches = [EvolutionBranch(code, age + 1, component.mean.clone(), drift_cov,

@@ -1,11 +1,11 @@
-"""Typed actuation and damping mechanisms before the shared dynamics network."""
+"""Mechanism-structured bounded physical forces for CLSM-R2."""
 from __future__ import annotations
 
 import torch
 from torch import Tensor, nn
-from torch.nn import functional as F
 
 from .schemas import EnvSchema
+from .support import DisjointPartition, bounded_physical_strength
 
 
 def code_bits(code: Tensor) -> Tensor:
@@ -15,51 +15,49 @@ def code_bits(code: Tensor) -> Tensor:
 
 
 class MechanismForce(nn.Module):
-    def __init__(self, schema: EnvSchema, delta_min: float = 0.12):
+    """Known physical pathways with a selected, disjoint global partition.
+
+    The partition is a non-gradient buffer selected from training data by the
+    finite support M-step. No evaluator group assignment enters this module.
+    """
+
+    def __init__(self, schema: EnvSchema, partition: Tensor | None = None):
         super().__init__()
-        if delta_min <= 0:
-            raise ValueError("positive structural separation required")
         self.schema = schema
-        self.delta_min = float(delta_min)
-        # Break the two otherwise identical unlabeled group initializations.
-        # This local RNG does not consume the experiment's sampling stream.
-        init_rng = torch.Generator().manual_seed(1729)
-        initial_support = -1.0 + 0.01 * torch.randn(
-            (schema.action_dim, 2), dtype=torch.float64, generator=init_rng)
-        self.W_raw = nn.Parameter(initial_support)
-        self.damping_shape = nn.Sequential(
-            nn.Linear(schema.observation_dim, 32, dtype=torch.float64), nn.SiLU(),
-            nn.Linear(32, len(schema.controlled_dof_indices), dtype=torch.float64),
-        )
+        if partition is None:
+            partition = DisjointPartition.enumerate(schema.action_dim)[0]
+        partition = DisjointPartition.validate(partition, schema.action_dim)
+        self.register_buffer("group_mask", partition.to(torch.float64))
         self.register_buffer("B", torch.as_tensor(schema.actuator_to_dof.copy(), dtype=torch.float64))
         self.register_buffer("d_ref", torch.as_tensor(schema.nominal_damping.copy(), dtype=torch.float64))
         self.register_buffer("velocity_indices", torch.as_tensor(schema.joint_velocity_indices, dtype=torch.long))
 
+    @torch.no_grad()
+    def set_partition(self, partition: Tensor) -> None:
+        canonical = DisjointPartition.validate(partition, self.schema.action_dim)
+        self.group_mask.copy_(canonical.to(device=self.group_mask.device, dtype=self.group_mask.dtype))
+
     @property
     def W(self) -> Tensor:
-        positive = F.softplus(self.W_raw)
-        return positive / positive.norm(dim=0, keepdim=True).clamp_min(1e-8)
+        """Compatibility accessor for diagnostic code; columns are disjoint."""
+        return self.group_mask
 
-    def regularizer(self, sparse_weight: float = 1e-3, overlap_weight: float = 1e-2) -> Tensor:
-        w = self.W
-        return sparse_weight * w.abs().sum() + overlap_weight * (w[:, 0] * w[:, 1]).abs().sum()
-
-    def forward(self, obs: Tensor, action: Tensor, code: Tensor, theta: Tensor) -> tuple[Tensor, Tensor, Tensor]:
-        """Return effective, actuator and damping effort, each [B,n_joint]."""
+    def forward(self, obs: Tensor, action: Tensor, code: Tensor,
+                xi: Tensor) -> tuple[Tensor, Tensor, Tensor]:
+        """Return effective, actuator and damping effort, each [B,n_dof]."""
         n = obs.shape[0]
         if obs.ndim != 2 or obs.shape[1] != self.schema.observation_dim:
             raise ValueError("obs must be [B,observation_dim]")
-        if action.shape != (n, self.schema.action_dim) or theta.shape != (n, 3) or code.shape != (n,):
+        if action.shape != (n, self.schema.action_dim) or xi.shape != (n, 3) or code.shape != (n,):
             raise ValueError("batch dimensions do not match")
-        bits = code_bits(code).to(obs.dtype)
-        # Mask before the nonlinear map so inactive theta has exactly zero gradient.
-        active_theta = theta * bits
-        motor_log = -bits[:, :2] * (self.delta_min + F.softplus(active_theta[:, :2]))
-        motor_gain = torch.exp(motor_log @ self.W.to(obs.dtype).T)
-        tau_a = (motor_gain * action) @ self.B.to(obs.dtype).T
-        positive = F.softplus(self.damping_shape(obs))
-        valid = (self.d_ref > 0).to(obs.dtype)
-        shape = positive / ((positive * valid).sum(dim=1, keepdim=True) / valid.sum()).clamp_min(1e-8)
-        damping_multiplier = torch.exp(bits[:, 2] * (self.delta_min + F.softplus(active_theta[:, 2])))
-        tau_d = -damping_multiplier[:, None] * self.d_ref.to(obs.dtype) * shape * obs[:, self.velocity_indices]
+        bits = code_bits(code).to(device=obs.device, dtype=obs.dtype)
+        motor_multiplier, damping_multiplier = bounded_physical_strength(
+            xi, self.schema.motor_multiplier_bounds, self.schema.damping_multiplier_bounds)
+        # Multipliers are exactly one when their mechanism bit is inactive.
+        group_delta = (motor_multiplier - 1.0) * bits[:, :2]
+        actuator_gain = 1.0 + group_delta @ self.group_mask.to(obs.dtype).T
+        tau_a = (actuator_gain * action) @ self.B.to(obs.dtype).T
+        damping_scale = 1.0 + bits[:, 2:3] * (damping_multiplier - 1.0)
+        velocity = obs[:, self.velocity_indices]
+        tau_d = -damping_scale * self.d_ref.to(obs.dtype) * velocity
         return tau_a + tau_d, tau_a, tau_d

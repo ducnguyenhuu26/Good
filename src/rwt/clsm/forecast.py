@@ -6,6 +6,7 @@ import torch
 from torch import Tensor
 
 from .belief import LawComponent
+from .inference_dp import AgeLawFilter
 
 
 class LawForecaster:
@@ -89,3 +90,82 @@ class LawForecaster:
                     signatures.append(((mean - obs) / self.model.delta_scale).flatten())
             result[h] = torch.stack(signatures)
         return result
+
+
+class AgeLawForecaster:
+    """Forecast from exact code-age mass and factored strength Gaussians."""
+
+    def __init__(self, model, evolution, memory, samples: int = 256):
+        if samples < 2:
+            raise ValueError("at least two forecast samples required")
+        self.model, self.evolution, self.memory, self.samples = model, evolution, memory, samples
+
+    def sample_laws(self, belief: AgeLawFilter, horizons: list[int], rng: np.random.Generator,
+                    frozen: bool = False) -> dict[int, Tensor]:
+        if not horizons or min(horizons) < 0 or max(horizons) > belief.max_world_length - belief.time:
+            raise ValueError("forecast horizons must fit the remaining finite world")
+        probabilities = belief.probabilities.detach().cpu().numpy().reshape(-1)
+        probabilities /= probabilities.sum()
+        selected = rng.choice(len(probabilities), size=self.samples, p=probabilities)
+        paths = []
+        for index in selected:
+            code, age = divmod(int(index), belief.log_code_age.shape[1])
+            active = np.array([(code >> j) & 1 for j in range(3)], dtype=bool)
+            mean = belief.xi_mean[code].detach().cpu().numpy()
+            cov = belief.xi_cov[code].detach().cpu().numpy()
+            xi = np.zeros(3, dtype=np.float64)
+            if active.any():
+                xi[active] = rng.multivariate_normal(mean[active], cov[np.ix_(active, active)])
+            paths.append((code, age, xi))
+        transition = self.evolution.structural_log_transition().detach().exp().cpu().numpy()
+        drift_std = np.sqrt(self.evolution.q.detach().cpu().numpy())
+        reset = np.array([float(self.evolution.reset_probability(code).detach()) for code in range(8)])
+        result = {}
+        for step in range(max(horizons) + 1):
+            if step in horizons:
+                result[step] = torch.as_tensor(np.stack([[code, *xi] for code, _, xi in paths]),
+                                                dtype=torch.float64)
+            if step == max(horizons) or frozen:
+                continue
+            advanced = []
+            for code, age, xi in paths:
+                h = float(self.evolution.hazard(torch.tensor([code]), torch.tensor([age]))[0].detach())
+                if rng.random() < h:
+                    target = int(rng.choice(8, p=transition[code]))
+                    target_age = 0
+                    entry = True
+                else:
+                    target = code
+                    target_age = age + 1
+                    entry = (target != 0 and rng.random() < reset[target])
+                active = np.array([(target >> j) & 1 for j in range(3)], dtype=bool)
+                new_xi = np.zeros(3, dtype=np.float64)
+                if active.any():
+                    if entry:
+                        mean, covariance = self.memory.entry_prior(target)
+                        mean, covariance = mean.detach().cpu().numpy(), covariance.detach().cpu().numpy()
+                        new_xi[active] = rng.multivariate_normal(mean[active], covariance[np.ix_(active, active)])
+                    else:
+                        new_xi[active] = xi[active] + rng.normal(0., drift_std[active])
+                advanced.append((target, target_age, new_xi))
+            paths = advanced
+        return result
+
+    def sample_signatures(self, belief: AgeLawFilter, probes: tuple[Tensor, Tensor],
+                          horizons: list[int], rng: np.random.Generator,
+                          frozen: bool = False) -> dict[int, Tensor]:
+        obs, action = probes
+        if obs.ndim != 2 or action.ndim != 2 or len(obs) != len(action):
+            raise ValueError("probe batch mismatch")
+        laws = self.sample_laws(belief, horizons, rng, frozen=frozen)
+        outputs = {}
+        with torch.no_grad():
+            for horizon, samples in laws.items():
+                signatures = []
+                for row in samples:
+                    code = torch.full((len(obs),), int(row[0]), dtype=torch.long, device=obs.device)
+                    xi = row[1:].to(device=obs.device, dtype=obs.dtype).expand(len(obs), 3)
+                    mean = self.model(obs, action, code, xi)[0]
+                    signatures.append(((mean - obs) / self.model.delta_scale).flatten())
+                outputs[horizon] = torch.stack(signatures)
+        return outputs

@@ -13,8 +13,9 @@ import numpy as np
 
 from rwt.clsm.config import load_config
 from rwt.clsm.schemas import mujoco_nominal_schema
-from experiments.rwt.clsm.collectors import SmoothActionCollector, NominalControllerMixture
-from experiments.rwt.clsm.physics_wrappers import HiddenPhysicsWorld
+from experiments.rwt.clsm.collectors import (SmoothActionCollector, NominalControllerMixture,
+                                              R2StationaryExcitationCollector)
+from experiments.rwt.clsm.physics_wrappers import HiddenLaw, HiddenPhysicsWorld
 from experiments.rwt.clsm.world_schedule import make_schedule
 
 
@@ -60,8 +61,13 @@ def build(env_id: str, track: str, config: dict, output_dir: Path,
             raise RuntimeError("install rwt-clsm-controller extra for full collection") from error
         controller = SAC.load(controller_checkpoint, device="cpu")
         collector_class = NominalControllerMixture
+    elif mode == "pilot":
+        if config.get("collector") != R2StationaryExcitationCollector.policy_id or track != "comp":
+            raise ValueError("R2 pilot requires its registered COMP stationary excitation collector")
+        collector_class = R2StationaryExcitationCollector
+        controller = None
     else:
-        raise ValueError("mode must be smoke or full")
+        raise ValueError("mode must be smoke, pilot or full")
     schema = mujoco_nominal_schema(env_id)
     if controller is not None and (controller.observation_space.shape != (schema.observation_dim,)
                                    or controller.action_space.shape != (schema.action_dim,)):
@@ -71,8 +77,9 @@ def build(env_id: str, track: str, config: dict, output_dir: Path,
     previous_manifest = public_root / "manifest.json"
     if previous_manifest.exists():
         previous = json.loads(previous_manifest.read_text(encoding="utf-8"))
+        expected_condition = config.get("schedule_condition", "stationary_calibration" if mode == "pilot" else "in_family")
         if (previous.get("mode") != mode or
-                previous.get("schedule_condition", "in_family") != config.get("schedule_condition", "in_family")):
+                previous.get("schedule_condition", "in_family") != expected_condition):
             raise RuntimeError("existing dataset has another mode or schedule; choose an isolated --output-dir")
     public_root.mkdir(parents=True, exist_ok=True)
     evaluator_root.mkdir(parents=True, exist_ok=True)
@@ -89,8 +96,17 @@ def build(env_id: str, track: str, config: dict, output_dir: Path,
             world_ids.append(world_id)
             remaining = count - len(arrays["reward"])
             length = min(config["world_length"], remaining)
-            schedule = make_schedule(track, split, length, config["seed"] + 100000 * split_index + world_number,
-                                     condition=config.get("schedule_condition", "in_family"))
+            if mode == "pilot":
+                # Balanced stationary nominal/single-mechanism calibration worlds.
+                code = (0, 1, 2, 4)[world_number % 4]
+                strength_rng = np.random.default_rng(config["seed"] + 900000 * split_index + world_number)
+                motor_1, motor_2 = strength_rng.uniform(.50, .85, 2)
+                damping = strength_rng.uniform(1.30, 2.00)
+                law = HiddenLaw(code, float(motor_1), float(motor_2), float(damping), False)
+                schedule = [law] * length
+            else:
+                schedule = make_schedule(track, split, length, config["seed"] + 100000 * split_index + world_number,
+                                         condition=config.get("schedule_condition", "in_family"))
             env = HiddenPhysicsWorld(env_id, schedule, schema)
             try:
                 obs, _ = env.reset(seed=config["seed"] + 200000 * split_index + world_number)
@@ -138,11 +154,15 @@ def build(env_id: str, track: str, config: dict, output_dir: Path,
     if set(split_manifest["train"]["world_ids"]) & set(split_manifest["test"]["world_ids"]):
         raise AssertionError("split world overlap")
     manifest = {"mode": mode, "track": track, "env": env_id, "seed": config["seed"],
-                "schedule_condition": config.get("schedule_condition", "in_family"),
+                "schedule_condition": config.get("schedule_condition", "stationary_calibration" if mode == "pilot" else "in_family"),
+                "pilot_design": ({"codes": [0, 1, 2, 4], "stationary_worlds": True,
+                                  "strength_bounds": {"motor": [.50, .85], "damping": [1.30, 2.00]},
+                                  "labels_location": "evaluator-only"} if mode == "pilot" else None),
                 "controller_sha256": _sha256(controller_checkpoint) if controller_checkpoint else None,
                 "schema": {"obs_dim": schema.observation_dim, "act_dim": schema.action_dim,
                             "velocity_indices": schema.joint_velocity_indices,
                             "controlled_dofs": schema.controlled_dof_indices},
+                "resolved_config": config,
                 "splits": split_manifest}
     (public_root / "manifest.json").write_text(json.dumps(manifest, indent=2), encoding="utf-8")
     (evaluator_root / "manifest.json").write_text(json.dumps(evaluator_manifest, indent=2), encoding="utf-8")

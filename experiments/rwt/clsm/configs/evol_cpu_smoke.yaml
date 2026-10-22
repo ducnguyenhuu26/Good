@@ -1,6 +1,8 @@
 method: clsm
+architecture_revision: 2
 track: evol
 seed: 41
+initial_law_information: known_nominal
 world_length: 8
 transitions: {train: 32, validation: 16, test: 16}
 forecast_horizons: [1, 8, 24, 64]

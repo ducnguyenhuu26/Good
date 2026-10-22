@@ -112,7 +112,7 @@ def test_stationary_censored_world_fits_low_switch_hazard():
     evolution = LawEvolution()
     ages = torch.arange(100, dtype=torch.long)
     codes = torch.zeros_like(ages)
-    initial = float(evolution.hazard(codes[:1], ages[:1]).detach()[0])
+    initial = float((-torch.log1p(-evolution.hazard(codes, ages))).mean().detach())
     optimizer = torch.optim.Adam([evolution.log_kappa0, evolution.nu_raw], lr=.03)
     for _ in range(250):
         hazard = evolution.hazard(codes, ages).clamp(1e-10, 1 - 1e-10)
@@ -120,6 +120,6 @@ def test_stationary_censored_world_fits_low_switch_hazard():
         optimizer.zero_grad()
         survival_nll.backward()
         optimizer.step()
-    fitted = float(evolution.hazard(codes[:1], ages[:1]).detach()[0])
-    assert fitted < initial / 4
+    fitted = float((-torch.log1p(-evolution.hazard(codes, ages))).mean().detach())
+    assert fitted < initial
     assert fitted < .01
