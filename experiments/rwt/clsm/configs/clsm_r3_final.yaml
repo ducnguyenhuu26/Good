@@ -1,0 +1,47 @@
+method: clsm
+architecture_revision: 3
+candidate_id: clsm_r3_intervention_resolved_nominal_anchored
+environment: HalfCheetah-v5
+mechanism_bits:
+  motor_group_1: 1
+  motor_group_2: 2
+  damping: 4
+physical_bounds:
+  motor: [0.50, 0.85]
+  damping: [1.30, 2.00]
+decoder:
+  f0: independently_nominal_trained_r2_executable_law
+  freeze_f0: true
+  residual_hidden_layers: 2
+  residual_activation: silu
+  residual_width_policy: minimize_absolute_parameter_count_difference_vs_oracle_conditioned_mlp
+  residual_width_search: [64, 320]
+  nominal_anchor_subtraction: true
+  gaussian_diagonal_variance: true
+  standardized_variance_floor: 0.00001
+  standardized_variance_ceiling: 100.0
+  channel_scale_floor: 0.00001
+training:
+  train_seeds: [4100, 4101, 4102]
+  optimizer: AdamW
+  learning_rate: 0.0003
+  weight_decay: 0.0001
+  batch_size: 256
+  max_epochs: 100
+  early_stopping_patience: 12
+  checkpoint_metric: regime_specific_validation_standardized_nll
+  nominal_replay_transitions: 4000
+evaluation:
+  diagnostic_codes: [3, 5, 6, 7]
+  evaluation_worlds_per_code: 40
+  world_length: 50
+  matched_probe_count: 128
+  bootstrap_unit: independent_world
+  bootstrap_draws: 10000
+  noninferiority_mse_fraction: 0.05
+  noninferiority_signature_fraction: 0.05
+  singleton_macro_mse_improvement_required: true
+  open_old_confirmatory_after_freeze: true
+provenance:
+  role: oracle_diagnostic
+  oracle_labels_are_diagnostic_only: true

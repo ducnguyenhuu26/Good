@@ -1,0 +1,146 @@
+{
+  "gate": "R1",
+  "candidate_id": "clsm_r3_intervention_resolved_nominal_anchored",
+  "source_commit_at_freeze": "2818503bf0fe90aa79e31ecad795b80343424ba5",
+  "source_fingerprint": "c2693bacd295adbad1b034a0b3e2b785b7051ad702f5d2a18652ba5c40a7fb22",
+  "config": {
+    "method": "clsm",
+    "architecture_revision": 3,
+    "candidate_id": "clsm_r3_intervention_resolved_nominal_anchored",
+    "environment": "HalfCheetah-v5",
+    "mechanism_bits": {
+      "motor_group_1": 1,
+      "motor_group_2": 2,
+      "damping": 4
+    },
+    "physical_bounds": {
+      "motor": [
+        0.5,
+        0.85
+      ],
+      "damping": [
+        1.3,
+        2.0
+      ]
+    },
+    "decoder": {
+      "f0": "independently_nominal_trained_r2_executable_law",
+      "freeze_f0": true,
+      "residual_hidden_layers": 2,
+      "residual_activation": "silu",
+      "residual_width_policy": "minimize_absolute_parameter_count_difference_vs_oracle_conditioned_mlp",
+      "residual_width_search": [
+        64,
+        320
+      ],
+      "nominal_anchor_subtraction": true,
+      "gaussian_diagonal_variance": true,
+      "standardized_variance_floor": 1e-05,
+      "standardized_variance_ceiling": 100.0,
+      "channel_scale_floor": 1e-05
+    },
+    "training": {
+      "train_seeds": [
+        4100,
+        4101,
+        4102
+      ],
+      "optimizer": "AdamW",
+      "learning_rate": 0.0003,
+      "weight_decay": 0.0001,
+      "batch_size": 256,
+      "max_epochs": 100,
+      "early_stopping_patience": 12,
+      "checkpoint_metric": "regime_specific_validation_standardized_nll",
+      "nominal_replay_transitions": 4000
+    },
+    "evaluation": {
+      "diagnostic_codes": [
+        3,
+        5,
+        6,
+        7
+      ],
+      "evaluation_worlds_per_code": 40,
+      "world_length": 50,
+      "matched_probe_count": 128,
+      "bootstrap_unit": "independent_world",
+      "bootstrap_draws": 10000,
+      "noninferiority_mse_fraction": 0.05,
+      "noninferiority_signature_fraction": 0.05,
+      "singleton_macro_mse_improvement_required": true,
+      "open_old_confirmatory_after_freeze": true
+    },
+    "provenance": {
+      "role": "oracle_diagnostic",
+      "oracle_labels_are_diagnostic_only": true
+    }
+  },
+  "config_sha256": "74bb3453601530ba4c988f51f4d46857457fb7b9f7eb1c33083a957911c2f56b",
+  "reference_config_sha256": "30138b4327b044e6a3ee091bebd085f2aeeeab6444e098b0b859d082efdef653",
+  "residual_width_selection": {
+    "width": 244,
+    "candidate_trainable_parameters": 76406,
+    "matched_oracle_mlp_parameters": 76187,
+    "absolute_difference": 219,
+    "relative_difference": 0.0028745061493430637
+  },
+  "criteria": {
+    "mixed_seen_each_code_mse_and_signature_upper_95_one_sided_below_5pct_mlp": true,
+    "singleton_each_code_mse_and_signature_upper_95_one_sided_below_5pct_mlp": true,
+    "singleton_macro_probe_mse_95_ci_upper_below_zero": true,
+    "trajectory_regression_material_if_lower_ci_of_r3_minus_baseline_exceeds_5pct": true
+  },
+  "training_seeds": [
+    4100,
+    4101,
+    4102
+  ],
+  "checkpoint_rule": "regime-specific validation standardized Gaussian NLL",
+  "oracle_role": "diagnostic only; never deployable learner feature",
+  "old_confirmatory_opened": false,
+  "input_hashes": {
+    "singleton_train": {
+      "public_sha256": "3a893eb49fb5cef0bf36582855ec0287966c46e3ab4f449dca251de4ab5fa38b",
+      "private_sha256": "4543a6bdc43a1be82bc5e74a8b900123048147b79c75f7e0bb5bfc74241fbfe0",
+      "world_count": 40,
+      "transitions": 4000
+    },
+    "singleton_validation": {
+      "public_sha256": "d8a1560446674c792ee464ca29adeac0ab8e598c71d6325d04e9071adc95c970",
+      "private_sha256": "fd189fbd32e5b734165c29fa6a8d7cc9bbef2d2a56076d7f51b09d94899e0608",
+      "world_count": 10,
+      "transitions": 1000
+    },
+    "mixed_train_public_sha256": "0d0c2b934a7d2a5410cf714e1e2c4919a10778761be5f47c7b770409ede8cc04",
+    "mixed_train_oracle_sha256": "585531b0c66f859a7ed697dc6877b0c3d7c893f9e41924c0bc0e25f03a84d7e5",
+    "mixed_validation_public_sha256": "2f200d3119d995f5a01e0dedc114efb1a685c36925422828612b57e69365772f",
+    "mixed_validation_oracle_sha256": "c57af2e100217b0707adc4c64773bda1f541b858b291ca85756309d4fc6afbc3",
+    "nominal_reference_sha256": "64883477d07cf637d8af852963e567d9d22aaf6af999f35fc45f3f1f99dd33ed",
+    "nominal_checkpoint_sha256": "86fc1f55f8ef9cfc4dbf5893f7ca2f7494dc743b7fd255493505384bfa9365bb"
+  },
+  "probe_bank": {
+    "public_sha256": "781a223a09ae680460ce8c82ad247946eb0749b0a449b8a1eb453ed74a03a703",
+    "evaluator_sha256": "c072db36422960f61a0507072b6c8b3c99c26a0e5e25d9dc8652e320a8415626",
+    "count": 128,
+    "seed": 45101
+  },
+  "fresh_eval_manifest": {
+    "trajectory": {
+      "public_sha256": "1f5107e63b14f3cc5a1b0445f05464fb66ade44806f06a2f0f145e8ac3a54e58",
+      "evaluator_sha256": "a522211a2768bf36e73616c0e000f7e5bb22e577fbc47ff9a1a364b08189ef90",
+      "world_count": 160,
+      "transitions": 8000,
+      "seed": 45102,
+      "role": "r1_fresh_confirmatory_evaluator"
+    },
+    "matched_probes": {
+      "public_sha256": "1b3bdafcc324d0325629ddff144186b0e38a3ae8f95875ba052fd251e877bb0a",
+      "evaluator_sha256": "e7fa3beb039767ad0100aa65b55172d9b3430ab790744793671080776eeb5d20",
+      "world_count": 160,
+      "transitions": 20480,
+      "seed": 45103,
+      "role": "r1_fresh_confirmatory_evaluator"
+    }
+  }
+}

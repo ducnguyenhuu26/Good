@@ -1,0 +1,146 @@
+{
+  "gate": "R0",
+  "status": "COMPLETE_WITH_LIMITATIONS",
+  "diagnostic_only": true,
+  "source_fingerprint": "637283a8a693340b1fb8fed614753812b2572f11511d85b233e45c0f9477369e",
+  "source_artifact_commit": "b72ceebe82dfb4bed715ae9832954c4a9f36d66e",
+  "matched_data_comparison": {
+    "models": [
+      "R2_structured_singleton",
+      "oracle_conditioned_MLP_singleton",
+      "R2_structured_mixed_seen",
+      "oracle_conditioned_MLP_mixed_seen"
+    ],
+    "within_regime_only": true,
+    "contrast_file": "C:\\Users\\CNC-NVCUONG-PGD\\.codex\\worktrees\\clsm-r3-final\\learning-to-theorize\\results\\rwt\\clsm_r3_final\\r0\\four_way_contrasts.csv",
+    "world_score_file": "C:\\Users\\CNC-NVCUONG-PGD\\.codex\\worktrees\\clsm-r3-final\\learning-to-theorize\\results\\rwt\\clsm_r3_final\\r0\\four_way_world_scores.csv",
+    "mixed_mlp_training_file": "C:\\Users\\CNC-NVCUONG-PGD\\.codex\\worktrees\\clsm-r3-final\\learning-to-theorize\\results\\rwt\\clsm_r3_final\\r0\\matched_mlp_training.json",
+    "old_confound": "The prior mixed-seen structured-vs-singleton-MLP contrast was distribution-mismatched. A mixed-seen MLP was now fit to the identical mixed transitions and nominal replay.",
+    "code_101_matched_probe_development_contrast": {
+      "normalized_mse_structured_minus_mlp": 0.038272171486086304,
+      "normalized_mse_ci95": [
+        0.030276228176177894,
+        0.04643360268599191
+      ],
+      "signature_structured_minus_mlp": 0.055654295595434146,
+      "signature_ci95": [
+        0.044549628925916185,
+        0.0669377017925192
+      ]
+    },
+    "interpretation": "Old Gate-A evaluation worlds are reused strictly as development evidence to audit the comparator confound; they are not confirmatory."
+  },
+  "finite_step_force_sufficiency": {
+    "candidate_pairs": 128,
+    "force_matched_feasible_pairs": 128,
+    "pair_fraction": 1.0,
+    "max_force_relative_error": 1.1407747440740148e-16,
+    "max_replay_abs_error": 0.0,
+    "mean_normalized_next_obs_rmse": 0.33422253083459147,
+    "mean_ci95": [
+      0.3178674221864281,
+      0.3503338248629029
+    ],
+    "velocity_contact_strata": {
+      "no_contact_low": {
+        "matched_pairs": 20,
+        "mean_normalized_next_obs_rmse": 0.3361033432010918,
+        "ci95_world_bootstrap": [
+          0.2866093865441654,
+          0.384081519415171
+        ],
+        "mean_action_motor_norm": 0.6960407940087496,
+        "mean_action_damping_norm": 0.6297648181935063
+      },
+      "no_contact_mid": {
+        "matched_pairs": 16,
+        "mean_normalized_next_obs_rmse": 0.30027706412312394,
+        "ci95_world_bootstrap": [
+          0.25295336634962196,
+          0.3497173597071413
+        ],
+        "mean_action_motor_norm": 0.6686718972731367,
+        "mean_action_damping_norm": 0.6181365921246551
+      },
+      "no_contact_high": {
+        "matched_pairs": 23,
+        "mean_normalized_next_obs_rmse": 0.3512901330811121,
+        "ci95_world_bootstrap": [
+          0.31367905503255666,
+          0.38950020602300234
+        ],
+        "mean_action_motor_norm": 0.6769529047747708,
+        "mean_action_damping_norm": 0.6394517758950528
+      },
+      "contact_low": {
+        "matched_pairs": 23,
+        "mean_normalized_next_obs_rmse": 0.30943136896587115,
+        "ci95_world_bootstrap": [
+          0.27400365585126346,
+          0.34572035886752084
+        ],
+        "mean_action_motor_norm": 0.6843865764910898,
+        "mean_action_damping_norm": 0.6096392236489471
+      },
+      "contact_mid": {
+        "matched_pairs": 26,
+        "mean_normalized_next_obs_rmse": 0.3352829989133524,
+        "ci95_world_bootstrap": [
+          0.3102444025620173,
+          0.3602595035480607
+        ],
+        "mean_action_motor_norm": 0.6821713290905886,
+        "mean_action_damping_norm": 0.6964644120072296
+      },
+      "contact_high": {
+        "matched_pairs": 20,
+        "mean_normalized_next_obs_rmse": 0.3670015769004058,
+        "ci95_world_bootstrap": [
+          0.32649533152374643,
+          0.4063672400099541
+        ],
+        "mean_action_motor_norm": 0.7150224076040648,
+        "mean_action_damping_norm": 0.7565116769615885
+      }
+    },
+    "scalar_damped_system": {
+      "v0": 0.0,
+      "initial_net_force_each": 1.0,
+      "dt": 0.1,
+      "damping_values": [
+        1.0,
+        2.0
+      ],
+      "next_velocities": [
+        0.09516258196404048,
+        0.09063462346100909
+      ],
+      "absolute_next_velocity_difference": 0.004527958503031393
+    }
+  },
+  "joint_input_coverage": {
+    "rows": 6692,
+    "train_only_velocity_cutpoints": [
+      7.277804718570002,
+      10.039483255768193
+    ],
+    "reference_cutoff_method": "95th percentile leave-one-out nearest-neighbor distance within each train reference; descriptive only",
+    "coverage_csv": "C:\\Users\\CNC-NVCUONG-PGD\\.codex\\worktrees\\clsm-r3-final\\learning-to-theorize\\results\\rwt\\clsm_r3_final\\r0\\joint_input_coverage.csv",
+    "note": "R2 input includes normalized obs and effective initial force; R3 descriptive input includes obs, action, eta, and three separate delta-tau channels. R3 mixed support is structurally outside singleton combinations; no PASS threshold is applied."
+  },
+  "confirmatory_reserved_opened": false,
+  "residual_vs_distance": {
+    "per_world_rows": 3807,
+    "curve_rows": 32,
+    "worlds_bootstrapped_after_seed_average": true,
+    "curve_file": "C:\\Users\\CNC-NVCUONG-PGD\\.codex\\worktrees\\clsm-r3-final\\learning-to-theorize\\results\\rwt\\clsm_r3_final\\r0\\residual_vs_distance_curve.csv",
+    "per_world_file": "C:\\Users\\CNC-NVCUONG-PGD\\.codex\\worktrees\\clsm-r3-final\\learning-to-theorize\\results\\rwt\\clsm_r3_final\\r0\\residual_vs_distance_by_world.csv",
+    "distance_definition": "Euclidean nearest-neighbor distance on R2 normalized (obs, effective initial generalized force); training-only nominal/R2 buffers; singleton+nominal training references"
+  },
+  "runtime_seconds": 36.272575899987714,
+  "limitations": [
+    "Matched-data baseline is evaluated on previously scored Gate-A development worlds.",
+    "R0 mixed-seen comparator audit does not replace fresh R1 worlds.",
+    "Physical force pairs are limited to feasible action-bounded solutions on the frozen nominal probe bank."
+  ]
+}

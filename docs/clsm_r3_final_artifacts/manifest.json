@@ -1,0 +1,77 @@
+{
+  "purpose": "CLSM-R3 final attempt aggregate results; raw evaluator-only arrays and checkpoints omitted",
+  "source_commit": "2818503bf0fe90aa79e31ecad795b80343424ba5",
+  "branch": "codex/clsm-r3-final",
+  "files": [
+    {
+      "path": "r0/fairness_audit.md",
+      "sha256": "a29bdafd2519b9d01dd2416312deee6a06a90d3e70ba51a9c81783586cdc9b4b",
+      "bytes": 3982
+    },
+    {
+      "path": "r0/finite_step_force_sufficiency.json",
+      "sha256": "4491b557a0c997d944f2a6e09e618efb4484ff1f91a0988ac9006b6fef568f87",
+      "bytes": 72401
+    },
+    {
+      "path": "r0/four_way_contrasts.csv",
+      "sha256": "47dd5deed81396f0126d25f8079dd3ab6a813c0b9183751267d7a4a149ca2d65",
+      "bytes": 28560
+    },
+    {
+      "path": "r0/four_way_world_scores.csv",
+      "sha256": "758c122eedf15ee71cc9d423d84911922b9352b37287ba368d7c2a41e3d43589",
+      "bytes": 156948
+    },
+    {
+      "path": "r0/joint_input_coverage.csv",
+      "sha256": "157a5437677332bf14fd2f2d226766af5ac15ad43d103445e4ba9223522bcf00",
+      "bytes": 834657
+    },
+    {
+      "path": "r0/matched_mlp_training.json",
+      "sha256": "0974d440d193e19e2a8256866e72c3f94a49f908414f146afb2dd858a14099f1",
+      "bytes": 1549
+    },
+    {
+      "path": "r0/r0_decision.json",
+      "sha256": "e5f8428c626f4bc9cf662eef15a116c98fd0a0a6e77154635271fd8b12fc8985",
+      "bytes": 6392
+    },
+    {
+      "path": "r0/residual_vs_distance_by_world.csv",
+      "sha256": "66b747ebf9021f39d75e76f2fed9461f414bf88c1f1eb12cfc2de562a2106c2d",
+      "bytes": 455255
+    },
+    {
+      "path": "r0/residual_vs_distance_curve.csv",
+      "sha256": "c2c07c61fa116a908f622392faf3d9aef2bbbeec1619996fb5905246c80c655d",
+      "bytes": 5198
+    },
+    {
+      "path": "r1/decision.md",
+      "sha256": "4d642eb93e21d5748f68b5ecb7df96b9acf35a9576d824ba4a46aaa65052057e",
+      "bytes": 16665
+    },
+    {
+      "path": "r1/per_world_seed_scores.csv",
+      "sha256": "cccf7a0df5fb709266621ec1b37d505746319363fadc78cf97574626ba125242",
+      "bytes": 1291785
+    },
+    {
+      "path": "r1/preregistration.json",
+      "sha256": "e6d6721dd81585b3edba95e171415778f5f2c29fd8515331afaf3f5cfe757184",
+      "bytes": 5468
+    },
+    {
+      "path": "r1/r1_decision.json",
+      "sha256": "7c41422fd8fcfc5cd8b5efe17baa5d7e3fa1a4e3601a0cf29dc0727d9da0c713",
+      "bytes": 60949
+    },
+    {
+      "path": "r1/training.json",
+      "sha256": "51575135fc4464fd20b3864fcd15d46a03c5cc6b58c0a56db2f799ac5c755c10",
+      "bytes": 2516
+    }
+  ]
+}

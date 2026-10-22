@@ -1,0 +1,77 @@
+{
+  "width_report": {
+    "width": 244,
+    "candidate_trainable_parameters": 76406,
+    "matched_oracle_mlp_parameters": 76187,
+    "absolute_difference": 219,
+    "relative_difference": 0.0028745061493430637
+  },
+  "training_runs": [
+    {
+      "regime": "singleton",
+      "seed": 4100,
+      "best_epoch": 100,
+      "best_validation_nll": 0.6630701245228372,
+      "epochs_run": null,
+      "runtime_seconds": null,
+      "checkpoint_sha256": "e22bc2cf0b1353136bce7ffc61b53fb72be6f751ad00b0ff18befd8123ce8f54",
+      "trainable_parameters": 76406,
+      "reused_existing_checkpoint": true
+    },
+    {
+      "regime": "singleton",
+      "seed": 4101,
+      "best_epoch": 100,
+      "best_validation_nll": 0.6610537541942954,
+      "epochs_run": null,
+      "runtime_seconds": null,
+      "checkpoint_sha256": "ecfd36b40b8e5bb6060d47c7ed4f570083d0e44f7f810e6b972d31f4a75fbfad",
+      "trainable_parameters": 76406,
+      "reused_existing_checkpoint": true
+    },
+    {
+      "regime": "singleton",
+      "seed": 4102,
+      "best_epoch": 100,
+      "best_validation_nll": 0.6616157368386342,
+      "epochs_run": null,
+      "runtime_seconds": null,
+      "checkpoint_sha256": "918db159da4e1a0156009a880f0d7239d8345cc4a4cca409419040e55b4c9123",
+      "trainable_parameters": 76406,
+      "reused_existing_checkpoint": true
+    },
+    {
+      "regime": "mixed_seen",
+      "seed": 4100,
+      "best_epoch": 100,
+      "best_validation_nll": 0.49455487602961606,
+      "epochs_run": null,
+      "runtime_seconds": null,
+      "checkpoint_sha256": "7067e545de1905851afbb2cf07dee5f867fe338b5de9437e70a8e17d959ce569",
+      "trainable_parameters": 76406,
+      "reused_existing_checkpoint": true
+    },
+    {
+      "regime": "mixed_seen",
+      "seed": 4101,
+      "best_epoch": 100,
+      "best_validation_nll": 0.4958548298403269,
+      "epochs_run": null,
+      "runtime_seconds": null,
+      "checkpoint_sha256": "b68cda7a0e135a0a2d4988242e254838aa77d2e9571a2546b7bd234386255079",
+      "trainable_parameters": 76406,
+      "reused_existing_checkpoint": true
+    },
+    {
+      "regime": "mixed_seen",
+      "seed": 4102,
+      "best_epoch": 100,
+      "best_validation_nll": 0.4920578153242433,
+      "epochs_run": null,
+      "runtime_seconds": null,
+      "checkpoint_sha256": "74a6d0a2d05ee89b5489487ce25b208dd31fc2d47854dc1997d5ba55ee57aefe",
+      "trainable_parameters": 76406,
+      "reused_existing_checkpoint": true
+    }
+  ]
+}

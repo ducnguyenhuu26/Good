@@ -1,0 +1,45 @@
+{
+  "role": "oracle_diagnostic",
+  "training_seeds": [
+    4100,
+    4101,
+    4102
+  ],
+  "epochs": 100,
+  "patience": 12,
+  "batch_size": 256,
+  "optimizer": "AdamW(lr=3e-4,weight_decay=1e-4)",
+  "mixed_public_sha256": "0d0c2b934a7d2a5410cf714e1e2c4919a10778761be5f47c7b770409ede8cc04",
+  "mixed_evaluator_sha256": "585531b0c66f859a7ed697dc6877b0c3d7c893f9e41924c0bc0e25f03a84d7e5",
+  "mixed_validation_sha256": "2f200d3119d995f5a01e0dedc114efb1a685c36925422828612b57e69365772f",
+  "confirmatory_reserved_opened": false,
+  "training_runs": [
+    {
+      "seed": 4100,
+      "best_epoch": 100,
+      "best_validation_nll": 0.4586192643956969,
+      "runtime_seconds": 21.192506100022,
+      "checkpoint_sha256": "e4c3e02dba40019b27e3d6b9895cc36879d8fec7bea3d27f1dd8fcf3a8fe0a43",
+      "parameter_count": 76187,
+      "reused_verified_checkpoint": true
+    },
+    {
+      "seed": 4101,
+      "best_epoch": 100,
+      "best_validation_nll": 0.4587736708068653,
+      "runtime_seconds": 20.702086100005545,
+      "checkpoint_sha256": "ce5165d53e1fc6ed17133377823dbb3079c3b0888f66f65b926c2918412888f4",
+      "parameter_count": 76187,
+      "reused_verified_checkpoint": true
+    },
+    {
+      "seed": 4102,
+      "best_epoch": 100,
+      "best_validation_nll": 0.4570622971520541,
+      "runtime_seconds": 23.260870500002056,
+      "checkpoint_sha256": "94df628c3244af4d1fdc9b055bdba769d435700d34880c757463fd48a895ed24",
+      "parameter_count": 76187,
+      "reused_verified_checkpoint": true
+    }
+  ]
+}
