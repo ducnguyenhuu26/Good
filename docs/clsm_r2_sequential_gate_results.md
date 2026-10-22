@@ -13,7 +13,7 @@
 | Gate | Status | Evidence / reason | Next action |
 |---|---|---|---|
 | Preflight | **PASS** | `python -m pytest tests/clsm -q`: 70 passed in 50.00 s. Public train/validation/test hashes match the pilot manifest; evaluator label hashes match the separate evaluator manifest. The held-out 16- and 32-step replay completed from the existing checkpoint, with checkpoint/source fingerprints matching and no refit. | Gate A only. |
-| A: force-compositional decoder | **INCONCLUSIVE** | No diagnostic split for codes `{3,5,6,7}`, no genuinely trained oracle-conditioned decoder or matched MLP controls, and no joint mixed-code 3×3 Fisher audit. The existing test worlds contain only singleton/nominal codes `{0,1,2,4}`. | Create preregistered Gate A splits and train/evaluate all prescribed models and diagnostics. |
+| A: force-compositional decoder | **FAIL** | Updated by the independent Gate A experiment below: the mixed-seen structured control fails against the oracle-conditioned MLP on code `101` matched probes despite 20 mixed-training worlds, substantial force-space support, and full conditional Fisher rank. | Review force-response representation before posterior/generalized-EM gates. |
 | B: continuous posterior reference | **NOT RUN** | Sequential policy stopped at A. | Wait for Gate A PASS. |
 | C: evolution forecasting | **NOT RUN** | Sequential policy stopped at A. | Wait for Gate B PASS. |
 | D: generalized EM and law learning | **NOT RUN** | Sequential policy stopped at A. | Wait for Gate C PASS. |
@@ -46,3 +46,10 @@ Required before attempting Gate B:
 5. Decide Gate A from the registered criteria without tuning against confirmatory test worlds.
 
 No Gate B–E experiment was run. No result in this report supports C1, C2, C3, or full-method acceptance.
+
+
+## Gate A updated result (2026-10-22)
+
+The prior INCONCLUSIVE status above described the state before the composition experiment. The completed, preregistered experiment supersedes it. See [clsm_r2_gate_a_results.md](clsm_r2_gate_a_results.md) for the full evidence. Gate A is **FAIL for the tested representation on the registered probe domain**: code `101` mixed-seen structured minus oracle-conditioned MLP had matched-probe normalized MSE difference `+0.0221` (95% world-bootstrap CI `[+0.0132,+0.0307]`) and signature difference `+0.0312` (`[+0.0186,+0.0431]`). The trajectory-occupancy results favor structured models, so the failure is domain-specific and does not imply all mixed-composition prediction failed.
+
+The runner wrote the final decision from existing fitted checkpoints and scores; no confirmatory worlds were scored. Gate B–E remain unrun because Gate A did not pass.

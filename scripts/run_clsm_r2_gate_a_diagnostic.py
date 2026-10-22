@@ -25,10 +25,12 @@ import mujoco
 import numpy as np
 import torch
 from scipy.special import ndtri
+from scipy.spatial import cKDTree
 from torch import nn
 
 from rwt.clsm.config import load_config
 from rwt.clsm.dynamics import ExecutableLaw
+from rwt.clsm.mechanics import MechanismForce
 from rwt.clsm.schemas import mujoco_nominal_schema
 from rwt.clsm.serialization import source_fingerprint
 from rwt.clsm.support import DisjointPartition
@@ -807,26 +809,112 @@ def make_residual_plot(rows: list[dict], root: Path) -> None:
     fig.tight_layout(); fig.savefig(root / "heldout_per_world_normalized_mse.png", dpi=160); plt.close(fig)
 
 
-def decide_gate_a(summary: dict, fisher: dict, replay_error: float, root: Path) -> dict:
+def effective_force_coverage(root: Path, schema, oracle_partition: torch.Tensor,
+                             singleton_public: dict, singleton_hidden: dict,
+                             nominal: dict, mixed_public: dict, mixed_hidden: dict,
+                             probe_public: dict, probe_hidden: dict) -> dict:
+    """Describe mixed-probe effective-force support against train-only force clouds.
+
+    The 95th percentile leave-one-out nearest-neighbor distance is a descriptive
+    train-derived reference, not a Gate threshold. Distances are standardized by
+    singleton-training force SD and worlds are the resampling unit.
+    """
+    mechanics = MechanismForce(schema, oracle_partition).eval()
+    def force(public: dict, hidden: dict) -> np.ndarray:
+        codes = hidden["code"].astype(np.int64)
+        xi = strength_xi(codes, hidden["motor_1"], hidden["motor_2"], hidden["damping"])
+        with torch.no_grad():
+            out = mechanics(torch.as_tensor(public["obs"], dtype=torch.float64),
+                            torch.as_tensor(public["action"], dtype=torch.float64),
+                            torch.as_tensor(codes, dtype=torch.long),
+                            torch.as_tensor(xi, dtype=torch.float64))[0]
+        return out.numpy()
+    train_force = force(singleton_public, singleton_hidden)
+    nominal_public = {"obs": nominal["obs"], "action": nominal["action"]}
+    nominal_hidden = {"code": np.zeros(len(nominal["obs"]), dtype=np.int64),
+                      "motor_1": np.ones(len(nominal["obs"])),
+                      "motor_2": np.ones(len(nominal["obs"])),
+                      "damping": np.ones(len(nominal["obs"]))}
+    train_force = np.concatenate((train_force, force(nominal_public, nominal_hidden)))
+    scale = np.maximum(train_force.std(0), 1e-6)
+    standard_train = train_force / scale
+    singleton_tree = cKDTree(standard_train)
+    singleton_loo = singleton_tree.query(standard_train, k=2)[0][:, 1]
+    singleton_cutoff = float(np.quantile(singleton_loo, .95))
+    mixed_force = force(mixed_public, mixed_hidden)
+    codes = mixed_hidden["code"].astype(np.int64)
+    probes_force = force(probe_public, probe_hidden)
+    probe_codes = probe_hidden["code"].astype(np.int64)
+    result = {"method": "oracle effective generalized force; standardized by singleton train SD; train-only 95th percentile LOO nearest-neighbor distance",
+              "threshold_is_registered_gate": False,
+              "singleton_reference": {"training_transitions_including_nominal_replay": int(len(train_force)),
+                                      "loo_q95_distance": singleton_cutoff},
+              "codes": {}}
+    for code in MIXED_CODES:
+        mixed_support = mixed_force[codes == code] / scale
+        tree = cKDTree(mixed_support)
+        loo = tree.query(mixed_support, k=2)[0][:, 1]
+        cutoff = float(np.quantile(loo, .95))
+        qidx = np.flatnonzero(probe_codes == code)
+        q = probes_force[qidx] / scale
+        singleton_dist = singleton_tree.query(q, k=1)[0]
+        mixed_dist = tree.query(q, k=1)[0]
+        ids = probe_public["world_id"][qidx]
+        per_world = []
+        for world_id in np.unique(ids):
+            m = ids == world_id
+            per_world.append({"world_id": int(world_id),
+                              "singleton_reference_fraction_within_q95": float(np.mean(singleton_dist[m] <= singleton_cutoff)),
+                              "mixed_code_train_fraction_within_own_q95": float(np.mean(mixed_dist[m] <= cutoff))})
+        singleton_vals = np.asarray([r["singleton_reference_fraction_within_q95"] for r in per_world])
+        mixed_vals = np.asarray([r["mixed_code_train_fraction_within_own_q95"] for r in per_world])
+        result["codes"][str(code)] = {
+            "mixed_train_world_count": int(len(np.unique(mixed_public["world_id"][codes == code]))),
+            "mixed_train_transition_count": int(np.sum(codes == code)),
+            "mixed_code_train_loo_q95_distance": cutoff,
+            "matched_probe_world_count": len(per_world),
+            "singleton_train_support_fraction_mean_ci95": [float(singleton_vals.mean()), *metric_ci(singleton_vals, 121_000 + code)],
+            "mixed_code_train_support_fraction_mean_ci95": [float(mixed_vals.mean()), *metric_ci(mixed_vals, 122_000 + code)],
+            "per_world": per_world}
+    return result
+
+
+def decide_gate_a(summary: dict, matched_summary: dict, fisher: dict, replay_error: float,
+                  coverage: dict, root: Path) -> dict:
     comp = summary["paired_comparisons"]
+    matched_comp = matched_summary["paired_comparisons"]
     primary_single = comp["oracle_G_z_xi_singletons_minus_oracle_conditioned_unstructured_MLP"]
     mixed_vs_unstructured = comp["oracle_G_z_xi_mixed_seen_minus_oracle_conditioned_unstructured_MLP"]
     single_vs_mixed = comp["oracle_G_z_xi_singletons_minus_oracle_G_z_xi_mixed_seen"]
     learned_vs_oracle = comp["learned_G_oracle_z_xi_singletons_minus_oracle_G_z_xi_singletons"]
+    matched_single = matched_comp["oracle_G_z_xi_singletons_minus_oracle_conditioned_unstructured_MLP"]
+    matched_mixed = matched_comp["oracle_G_z_xi_mixed_seen_minus_oracle_conditioned_unstructured_MLP"]
+    matched_single_vs_mixed = matched_comp["oracle_G_z_xi_singletons_minus_oracle_G_z_xi_mixed_seen"]
+    matched_learned_vs_oracle = matched_comp["learned_G_oracle_z_xi_singletons_minus_oracle_G_z_xi_singletons"]
     decision = "INCONCLUSIVE"
-    reason = "The criteria are not decisively satisfied by paired independent-world evidence."
-    representation_fail = any(mixed_vs_unstructured[str(code)][metric]["ci95"][0] > 0
-                               for code in MIXED_CODES for metric in ("normalized_mse", "normalized_signature_error"))
+    reason = "Trajectory and matched-probe evidence do not jointly establish the registered PASS or FAIL criteria."
+    # Mixed-seen code-specific training and validation coverage is a prerequisite for calling this a
+    # representation failure. The independent force-space audit is included as supporting evidence.
+    representation_fail_codes = [f"{code:03b}" for code in MIXED_CODES
+        if any(source[str(code)][metric]["ci95"][0] > 0
+               for source in (mixed_vs_unstructured, matched_mixed)
+               for metric in ("normalized_mse", "normalized_signature_error"))
+        and coverage["codes"][str(code)]["mixed_train_world_count"] >= 10]
     per_code_fail = [int(code) for code in MIXED_CODES
-                     if primary_single[str(code)]["normalized_mse"]["ci95"][0] > 0
-                     and primary_single[str(code)]["normalized_signature_error"]["ci95"][0] > 0
-                     and single_vs_mixed[str(code)]["normalized_mse"]["ci95"][0] > 0]
+        if any(source[str(code)]["normalized_mse"]["ci95"][0] > 0
+               and source[str(code)]["normalized_signature_error"]["ci95"][0] > 0
+               for source in (primary_single, matched_single))
+        and any(source[str(code)]["normalized_mse"]["ci95"][0] > 0
+                for source in (single_vs_mixed, matched_single_vs_mixed))]
     # Capacity and zero-shot gaps are kept distinct. An absent mixed-seen baseline contrast is inconclusive.
     if replay_error > 1e-10:
         reason = "Matched-state simulator replay exceeded 1e-10; matched-probe evidence is invalid."
-    elif representation_fail:
+    elif representation_fail_codes:
         decision = "FAIL"
-        reason = "The oracle-G mixed-seen structured positive control is worse than the oracle-conditioned unstructured baseline on at least one registered composition metric with paired-world 95% CI above zero."
+        reason = ("The oracle-G mixed-seen structured positive control is worse than the oracle-conditioned unstructured "
+                  f"baseline on registered MSE/signature metrics for composition codes {representation_fail_codes}; "
+                  "these codes had at least ten independent mixed-training worlds and the paired-world 95% CI excludes zero. "
+                  "This is evidence against the tested structured representation on those compositions.")
     elif per_code_fail:
         decision = "FAIL"
         reason = f"Mixed-seen structured fits better, while singleton-trained structured is worse than both the mixed-seen control and oracle-conditioned MLP on codes {per_code_fail} with paired-world CIs above zero."
@@ -835,20 +923,36 @@ def decide_gate_a(summary: dict, fisher: dict, replay_error: float, root: Path) 
         decision = "FAIL"
         reason = "Train-selected support is materially worse than oracle support on the held-out compositions with paired-world confidence intervals excluding zero."
     else:
-        all_noninferior = all(primary_single[str(code)][metric]["ci95"][1] <= 0
+        all_noninferior = all(source[str(code)][metric]["ci95"][1] <= 0
+                              for source in (primary_single, matched_single)
                               for code in MIXED_CODES for metric in ("normalized_mse", "normalized_signature_error"))
         mixed_capacity_supported = all(mixed_vs_unstructured[str(code)][metric]["ci95"][1] <= 0
                                        for code in MIXED_CODES for metric in ("normalized_mse", "normalized_signature_error"))
         no_support_penalty = all(learned_vs_oracle[str(code)][metric]["ci95"][1] <= 0
                                  for code in MIXED_CODES for metric in ("normalized_mse", "normalized_signature_error"))
+        no_support_penalty = no_support_penalty and all(
+            matched_learned_vs_oracle[str(code)][metric]["ci95"][1] <= 0
+            for code in MIXED_CODES for metric in ("normalized_mse", "normalized_signature_error"))
         full_fisher = all(fisher["models"]["oracle_G_z_xi_singletons"][str(code)]["rank_conditional_on_fitted_decoder"]
                           == int(code.bit_count()) for code in MIXED_CODES)
-        if all_noninferior and mixed_capacity_supported and no_support_penalty and full_fisher:
+        matched_capacity_supported = all(matched_mixed[str(code)][metric]["ci95"][1] <= 0
+                                         for code in MIXED_CODES for metric in ("normalized_mse", "normalized_signature_error"))
+        if all_noninferior and mixed_capacity_supported and matched_capacity_supported and no_support_penalty and full_fisher:
             decision = "PASS"
-            reason = "On the registered probe family, singleton-trained structured is not worse than oracle-conditioned MLP by paired-world CIs for MSE/signature; mixed-seen capacity and learned-support controls pass, with full conditional active-set Fisher rank."
+            reason = "Across both registered trajectory and matched-probe domains, singleton-trained structured is not worse than oracle-conditioned MLP by paired-world CIs; the mixed-seen control and learned support pass, with full conditional active-set Fisher rank."
+        elif all_noninferior and mixed_capacity_supported and no_support_penalty and full_fisher:
+            reason = "Trajectory evidence supports zero-shot transfer, but matched-probe paired intervals do not establish the registered all-composition PASS."
+    compact_coverage = {"method": coverage["method"], "threshold_is_registered_gate": False,
+        "singleton_reference": coverage["singleton_reference"],
+        "codes": {code: {key: entry[key] for key in (
+            "mixed_train_world_count", "mixed_train_transition_count",
+            "singleton_train_support_fraction_mean_ci95", "mixed_code_train_support_fraction_mean_ci95")}
+            for code, entry in coverage["codes"].items()}}
     result = {"gate": "A", "status": decision, "reason": reason,
               "registered_protocol": "docs/clsm_r2_gate_a_protocol.md",
               "simulator_replay_max_abs_error": replay_error,
+              "effective_force_coverage": compact_coverage,
+              "representation_fail_codes": representation_fail_codes,
               "zero_shot_codes_with_clear_mse_and_signature_deterioration": per_code_fail,
               "mixed_seen_vs_unstructured_summary": mixed_vs_unstructured,
               "limitations": ["Decision applies only to HalfCheetah-v5 declared intervention family and sampled coverage.",
@@ -944,7 +1048,7 @@ def run(root: Path, args) -> dict:
         "confirmatory_scores": "reserved and not opened"})
     # Reuse same aggregator without overwriting the trajectory-world table.
     tmp_root = root / "matched_metrics"; tmp_root.mkdir(exist_ok=True)
-    matched_summary, _ = aggregate_scores(matched_rows, tmp_root)
+    matched_summary, matched_world_rows = aggregate_scores(matched_rows, tmp_root)
     write_json(root / "matched_probe_scores.json", {
         "scope": "fixed common matched state/action snapshots; oracle diagnostic only",
         "probe_count": PROBE_COUNT, "models": matched_summary["per_composition"],
@@ -958,11 +1062,72 @@ def run(root: Path, args) -> dict:
     make_residual_plot(world_rows, root)
     fisher = fisher_analysis(model_adapters, probe_pub, matched_pub, matched_hidden,
                              delta_mean, delta_scale, root)
-    decision = decide_gate_a(summary, fisher, data_manifest["splits"]["matched_probe_outcomes"]["deterministic_replay_max_abs_error"], root)
+    coverage = effective_force_coverage(root, schema, oracle_partition, train_pub, train_hidden,
+                                        nominal, mixed_train_pub, mixed_train_hidden,
+                                        matched_pub, matched_hidden)
+    write_json(root / "effective_force_coverage.json", coverage)
+    decision = decide_gate_a(summary, matched_summary, fisher,
+                             data_manifest["splits"]["matched_probe_outcomes"]["deterministic_replay_max_abs_error"],
+                             coverage, root)
     result = {"gate_A": decision, "dataset_manifest": data_manifest,
               "training_runs": len(training), "trajectory_world_rows": len(world_rows),
-              "matched_probe_world_rows": len(matched_world_rows or []),
+              "matched_probe_world_rows": len(matched_world_rows),
               "fisher_model_seed": TRAIN_SEEDS[0], "runtime_seconds": None}
+    write_json(root / "gate_A_summary.json", result)
+    return result
+
+
+def finalize_existing(root: Path) -> dict:
+    """Rebuild aggregates and Gate A decision from completed per-world outputs."""
+    with (root / "heldout_world_metrics.csv").open(newline="", encoding="utf-8") as stream:
+        trajectory_rows = [{**r, "code": int(r["code"]), "world_id": int(r["world_id"]),
+                            **{k: float(r[k]) for k in ("nll_per_dim", "normalized_mse", "normalized_signature_error")}}
+                           for r in csv.DictReader(stream)]
+    summary, world_rows = aggregate_scores(trajectory_rows, root)
+    matched_root = root / "matched_metrics"
+    with (matched_root / "heldout_world_metrics.csv").open(newline="", encoding="utf-8") as stream:
+        matched_rows = [{**r, "code": int(r["code"]), "world_id": int(r["world_id"]),
+                         **{k: float(r[k]) for k in ("nll_per_dim", "normalized_mse", "normalized_signature_error")}}
+                        for r in csv.DictReader(stream)]
+    matched_summary, matched_world_rows = aggregate_scores(matched_rows, matched_root)
+    write_json(root / "heldout_composition.json", {
+        "scope": "trajectory occupancy, 4 independent held-out composition codes, no adaptation",
+        "codes": {f"{code:03b}": code for code in MIXED_CODES},
+        "models": summary["per_composition"], "paired_comparisons": summary["paired_comparisons"],
+        "macro_average_normalized_mse": summary["macro_average"],
+        "worlds_per_code": EVAL_WORLDS_PER_CODE, "training_seeds_averaged_within_world": list(TRAIN_SEEDS),
+        "confirmatory_scores": "reserved and not opened"})
+    write_json(root / "matched_probe_scores.json", {
+        "scope": "fixed common matched state/action snapshots; oracle diagnostic only",
+        "probe_count": PROBE_COUNT, "models": matched_summary["per_composition"],
+        "paired_comparisons": matched_summary["paired_comparisons"],
+        "macro_average_normalized_mse": matched_summary["macro_average"],
+        "worlds_per_code": EVAL_WORLDS_PER_CODE})
+    manifest = json.loads((root / "dataset_manifest.json").read_text(encoding="utf-8"))
+    schema = mujoco_nominal_schema(ENV_ID)
+    oracle_groups = fixed_motor_groups(schema)
+    oracle_partition = torch.zeros((schema.action_dim, 2), dtype=torch.bool)
+    oracle_partition[np.asarray(oracle_groups[0]), 0] = True
+    oracle_partition[np.asarray(oracle_groups[1]), 1] = True
+    train_pub, train_hidden = load_joined("train")
+    mixed_train_pub, mixed_train_hidden = load_diagnostic_split(root, "mixed_train")
+    matched_pub, matched_hidden = load_diagnostic_split(root, "matched_probe_outcomes")
+    nominal_npz = np.load(ROOT / "results/rwt/clsm_r2_pilot/comp/HalfCheetah-v5/r2/4100/reference_nominal.npz")
+    nominal_raw = {k: nominal_npz[k].copy() for k in ("obs", "action", "next_obs")}; nominal_npz.close()
+    choice = np.random.default_rng(41_111).choice(len(nominal_raw["obs"]), size=4_000, replace=False)
+    nominal = {k: v[choice] for k, v in nominal_raw.items()}
+    coverage = effective_force_coverage(root, schema, oracle_partition, train_pub, train_hidden,
+                                        nominal, mixed_train_pub, mixed_train_hidden,
+                                        matched_pub, matched_hidden)
+    write_json(root / "effective_force_coverage.json", coverage)
+    fisher = json.loads((root / "full_fisher.json").read_text(encoding="utf-8"))
+    decision = decide_gate_a(summary, matched_summary, fisher,
+        manifest["splits"]["matched_probe_outcomes"]["deterministic_replay_max_abs_error"], coverage, root)
+    result = {"gate_A": decision, "dataset_manifest": manifest,
+              "training_runs": 15, "trajectory_world_rows": len(world_rows),
+              "matched_probe_world_rows": len(matched_world_rows),
+              "fisher_model_seed": TRAIN_SEEDS[0], "runtime_seconds": None,
+              "finalized_from_existing_scores": True}
     write_json(root / "gate_A_summary.json", result)
     return result
 
@@ -997,6 +1162,7 @@ def main() -> int:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--output-dir", type=Path, default=Path("results/rwt/clsm_r2_gates/gate_a_diagnostic"))
     parser.add_argument("--prepare-only", action="store_true")
+    parser.add_argument("--finalize-only", action="store_true")
     parser.add_argument("--epochs", type=int, default=100)
     parser.add_argument("--patience", type=int, default=12)
     parser.add_argument("--batch-size", type=int, default=256)
@@ -1004,6 +1170,10 @@ def main() -> int:
     if args.epochs < 1 or args.patience < 1 or args.batch_size < 1:
         parser.error("epochs, patience, and batch-size must be positive")
     root = args.output_dir.resolve(); root.mkdir(parents=True, exist_ok=True)
+    if args.finalize_only:
+        result = finalize_existing(root)
+        print(json.dumps(result["gate_A"], indent=2))
+        return 0 if result["gate_A"]["status"] == "PASS" else 2
     schema = mujoco_nominal_schema(ENV_ID)
     manifest = prepare_data(root, schema)
     if args.prepare_only:
