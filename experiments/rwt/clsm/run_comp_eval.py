@@ -54,6 +54,9 @@ def evaluate(env_id: str, checkpoint: Path, pooled_checkpoint: Path,
                                config["emission"]["variance_ceiling"])
     pooled.load_state_dict(baseline_payload["model"])
     pooled.eval()
+    if not (torch.equal(parts.law.delta_scale, pooled.delta_scale)
+            and torch.equal(parts.law.delta_mean, pooled.delta_mean)):
+        raise ValueError("CLSM and pooled baseline have different evaluator target normalization")
     count = config["forecast"]["signature_probes"] if probes is None else probes
     bank, bank_path = fixed_probe_bank(env_id, count, output_dir.parent / "clsm_evaluator")
     evaluator_dir = output_dir.parent / "clsm_evaluator" / "comp" / env_id / f"composition_{seed}"
