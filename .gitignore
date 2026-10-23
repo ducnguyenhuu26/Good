@@ -21,6 +21,14 @@ build/
 /results/q1/*
 !/results/q1/m1_deterministic_validation/
 !/results/q1/m1_validation_low_noise/
+!/results/q1/m1_validation_initial/
+!/results/q1/cpu_development_pilot/
+!/results/q1/cpu_development_pilot/**
+/results/q1/cpu_development_pilot/**/*.pt
+/results/q1/cpu_development_pilot/**/*.pth
+/results/q1/cpu_development_pilot/**/*.ckpt
+/results/q1/cpu_development_pilot/m3_nll_debug/
+/results/q1/cpu_development_pilot/m4_nll_debug/
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/

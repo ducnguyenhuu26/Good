@@ -4515,5 +4515,13 @@
       }
     }
   },
-  "noncommuting_probe_rmse_u1_u2_vs_u2_u1": 0.005344100376286355
+  "noncommuting_probe_rmse_u1_u2_vs_u2_u1": 0.005344100376286355,
+  "m1_oracle_gate": {
+    "status": "PASS",
+    "thresholds": {
+      "m1_min_functional_class_accuracy_n20": 0.9,
+      "m1_min_order_accuracy": 1.0,
+      "m1_min_order_probe_rmse": 0.001
+    }
+  }
 }

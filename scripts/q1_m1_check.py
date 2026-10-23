@@ -44,6 +44,20 @@ def main() -> None:
         action_signal_scale=float(exploration["action_signal_scale"]),
         action_jitter=float(exploration["action_jitter"]),
     )
+    n20 = oracle["budgets"]["20"]
+    order_scores = n20["noncommuting_order_class_accuracy"]
+    m1_gates = config["gates"]
+    oracle_pass = (
+        n20["functional_class_accuracy"] >= float(m1_gates["m1_min_functional_class_accuracy_n20"])
+        and all(v is not None and v >= float(m1_gates["m1_min_order_accuracy"])
+                for v in order_scores.values())
+        and oracle["noncommuting_probe_rmse_u1_u2_vs_u2_u1"] >= float(m1_gates["m1_min_order_probe_rmse"])
+    )
+    oracle["m1_oracle_gate"] = {
+        "status": "PASS" if oracle_pass else "FAIL",
+        "thresholds": {k: m1_gates[k] for k in (
+            "m1_min_functional_class_accuracy_n20", "m1_min_order_accuracy", "m1_min_order_probe_rmse")},
+    }
     out = Path(args.output)
     out.mkdir(parents=True, exist_ok=True)
     (out / "oracle_metrics.json").write_text(json.dumps(oracle, indent=2), encoding="utf-8")
@@ -96,6 +110,7 @@ def main() -> None:
         f"tolerance {oracle['equivalence_tolerance']}. The U1→U2 / U2→U1 response RMSE is "
         f"{oracle['noncommuting_probe_rmse_u1_u2_vs_u2_u1']:.6g}.", "",
         "## Decision", "",
+        f"Oracle M1 gate: **{'PASS' if oracle_pass else 'FAIL'}** against predeclared config thresholds. "
         f"This run is **{config['run_kind']}**. Smoke results are not scientific evidence. This validation-only "
         "development diagnostic does not use final-test backgrounds or select a checkpoint. Neural stages remain gated on M1.",
     ])

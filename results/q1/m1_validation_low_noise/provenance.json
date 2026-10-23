@@ -1,5 +1,5 @@
 {
-  "git_commit": "a2bc395fcbea813f52df415d58aeee44e9a43346",
+  "git_commit": "9b3caafb102e6ceb78b4f94dedf60b6f4a84040a",
   "python": "3.11.9",
   "numpy": "2.4.6",
   "torch": "2.13.0+cpu",

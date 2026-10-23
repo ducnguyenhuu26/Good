@@ -20,4 +20,4 @@ Functional equivalence used 256 fixed state-action probes and max-response toler
 
 ## Decision
 
-This run is **SMOKE**. Smoke results are not scientific evidence. This validation-only development diagnostic does not use final-test backgrounds or select a checkpoint. Neural stages remain gated on M1.
+Oracle M1 gate: **PASS** against predeclared config thresholds. This run is **SMOKE**. Smoke results are not scientific evidence. This validation-only development diagnostic does not use final-test backgrounds or select a checkpoint. Neural stages remain gated on M1.

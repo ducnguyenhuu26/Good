@@ -19,6 +19,8 @@ The oracle knows the pre-change physical parameters and scores each candidate ag
 | Deterministic, smoke | 20 | 0.762 | 1.000 | 1.000 | 1.000 |
 | Deterministic, smoke | 50 | 0.762 | 1.000 | 1.000 | 1.000 |
 | Deterministic, smoke | 100 | 0.762 | 1.000 | 1.000 | 1.000 |
+| sigma=0.01, initial validation diagnostic | 20 | 0.384 | 0.490 | 0.812 | 0.875 |
+| sigma=0.01, initial validation diagnostic | 100 | 0.461 | 0.598 | 1.000 | 1.000 |
 | sigma=0.0005, development | 5 | 0.667 | 0.874 | 1.000 | 1.000 |
 | sigma=0.0005, development | 10 | 0.695 | 0.912 | 1.000 | 1.000 |
 | sigma=0.0005, development | 20 | 0.732 | 0.961 | 1.000 | 1.000 |
@@ -27,7 +29,7 @@ The oracle knows the pre-change physical parameters and scores each candidate ag
 
 The noncommuting pair's fixed-probe response RMSE is `0.0053441`. Per-budget confusion matrices, best-versus-second-best MSE margins, equivalence classes, split manifests, resolved configs, and provenance are in `results/q1/m1_deterministic_validation/` and `results/q1/m1_validation_low_noise/`.
 
-An initial validation-only diagnostic at `sigma=0.01` reached only 0.604 functional-class accuracy at `N=100`. Following the prescribed development-only adjustment, initial position/velocity spread was raised from `(0.15, 0.08)` to `(0.25, 0.25)`, action excitation was increased from a 0.65 signal plus 0.35 jitter to a 0.85 signal plus 0.15 jitter, and noise was reduced to `sigma=0.0005`. The report preserves the before/after diagnostics under `results/q1/m1_validation/` and `results/q1/m1_validation_tuned/`; those intermediate folders are intentionally not part of the committed final M1 artifact. No final-test background or withheld composition was used for tuning.
+The initial validation-only diagnostic at `sigma=0.01` reached 0.598 functional-class accuracy at `N=100` and failed the configured `N=20` class-accuracy threshold of 0.90. Following the prescribed development-only adjustment, initial position/velocity spread was raised from `(0.15, 0.08)` to `(0.25, 0.25)`, action excitation was increased from a 0.65 signal plus 0.35 jitter to a 0.85 signal plus 0.15 jitter, and noise was reduced to `sigma=0.0005`. Before/after artifacts and resolved configs are in `results/q1/m1_validation_initial/` and `results/q1/m1_validation_low_noise/`. No final-test background or withheld composition was used for tuning.
 
 ## Gate decision
 
@@ -39,6 +41,7 @@ These are simulator and oracle diagnostics, not learned-method results or scient
 
 ```bash
 python -m pytest -q tests/test_q1_simulator.py tests/test_q1_splits.py
+python scripts/q1_m1_check.py --config configs/q1_m1_initial_diagnostic.yaml --output results/q1/m1_validation_initial
 python scripts/q1_m1_check.py --config configs/q1_smoke.yaml --output results/q1/m1_deterministic_validation
 python scripts/q1_m1_check.py --config configs/q1_cpu.yaml --output results/q1/m1_validation_low_noise
 ```
