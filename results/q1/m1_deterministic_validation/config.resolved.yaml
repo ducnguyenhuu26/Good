@@ -1,0 +1,34 @@
+run_kind: SMOKE
+seed: 20261023
+dt: 0.05
+episode_length: 120
+action_limit: 1.0
+noise_sigma: 0.0
+exploration:
+  initial_q_std: 0.25
+  initial_v_std: 0.25
+  action_limit: 1.0
+  action_signal_scale: 0.85
+  action_jitter: 0.15
+oracle:
+  split: validation
+  backgrounds: 16
+  cases_per_program: 4
+  budgets:
+  - 5
+  - 10
+  - 20
+  - 50
+  - 100
+  train_envs: 4
+  validation_envs: 2
+  test_envs: 2
+model:
+  context_dim: 16
+  hidden_dim: 64
+  predictive_variance: 0.0001
+training:
+  dynamics_epochs: 5
+  primitive_epochs: 5
+  batch_size: 32
+  learning_rate: 0.001

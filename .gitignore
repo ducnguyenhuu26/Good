@@ -15,6 +15,12 @@ build/
 *.pth
 *.ckpt
 /results/
+!/results/
+/results/*
+!/results/q1/
+/results/q1/*
+!/results/q1/m1_deterministic_validation/
+!/results/q1/m1_validation_low_noise/
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/
