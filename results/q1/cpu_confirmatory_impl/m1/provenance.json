@@ -1,0 +1,16 @@
+{
+  "git_commit": "eb9f5bda5f17423e2a7ee057532ae9652ac38e59",
+  "python": "3.11.9",
+  "numpy": "2.4.6",
+  "torch": "2.13.0+cpu",
+  "seed": 20261023,
+  "split": "validation",
+  "background_count": 16,
+  "cases_per_program": 32,
+  "random_streams": {
+    "parameter": "environment_seeds in split_manifest.json",
+    "initial_state": "case_seed",
+    "actions": "case_seed+104729",
+    "dynamics_noise": "case_seed+209759"
+  }
+}

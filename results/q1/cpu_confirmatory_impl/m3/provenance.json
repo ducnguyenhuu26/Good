@@ -1,0 +1,16 @@
+{
+  "git_commit": "eb9f5bda5f17423e2a7ee057532ae9652ac38e59",
+  "python": "3.11.9",
+  "torch": "2.13.0+cpu",
+  "numpy": "2.4.6",
+  "seed": 20261023,
+  "device": "cpu",
+  "training_supervision": "opaque intervention group plus known training group order",
+  "m2_parameters_frozen": true,
+  "group_to_code": {
+    "0": 1,
+    "1": 0,
+    "2": 3,
+    "3": 2
+  }
+}

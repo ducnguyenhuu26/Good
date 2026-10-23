@@ -1,0 +1,12 @@
+{
+  "git_commit": "eb9f5bda5f17423e2a7ee057532ae9652ac38e59",
+  "python": "3.11.9",
+  "torch": "2.13.0+cpu",
+  "numpy": "2.4.6",
+  "seed": 20261023,
+  "device": "cpu",
+  "train_environment_count": 48,
+  "validation_environment_count": 16,
+  "normalization_fit": "training support and query transitions only",
+  "held_out_composition_trajectories_in_m2": false
+}

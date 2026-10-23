@@ -1,0 +1,582 @@
+{
+  "seed": 20261023,
+  "counts": {
+    "train_transfer_tasks": 192,
+    "validation_transfer_tasks": 64
+  },
+  "group_to_code": {
+    "0": 1,
+    "1": 0,
+    "2": 3,
+    "3": 2
+  },
+  "validation": {
+    "per_code": {
+      "0": {
+        "operator_mse": 0.04015623882878572,
+        "operator_mse_delta_v": 2.577645534529438e-05,
+        "operator_nll_per_delta_v_dimension": -3.557349383831024,
+        "persistence_mse": 0.3153168559074402,
+        "wrong_code_mse": 0.32635511954625446,
+        "direct_update_mse": 0.0317832178552635
+      },
+      "1": {
+        "operator_mse": 0.037199798971414566,
+        "operator_mse_delta_v": 2.3577703473165457e-05,
+        "operator_nll_per_delta_v_dimension": -3.568343013525009,
+        "persistence_mse": 0.06181789957918227,
+        "wrong_code_mse": 0.1695507535090049,
+        "direct_update_mse": 0.03914427221752703
+      },
+      "2": {
+        "operator_mse": 0.04244927491527051,
+        "operator_mse_delta_v": 2.661566719552866e-05,
+        "operator_nll_per_delta_v_dimension": -3.5531532615423203,
+        "persistence_mse": 0.04246119037270546,
+        "wrong_code_mse": 0.09623131338351718,
+        "direct_update_mse": 0.03825770004186779
+      },
+      "3": {
+        "operator_mse": 0.03404512698762119,
+        "operator_mse_delta_v": 2.0789301515833358e-05,
+        "operator_nll_per_delta_v_dimension": -3.5822851061820984,
+        "persistence_mse": 0.032655568909831345,
+        "wrong_code_mse": 0.08731927827466279,
+        "direct_update_mse": 0.03367532917764038
+      }
+    },
+    "average_operator_mse": 0.038462609925772995,
+    "average_persistence_mse": 0.11306287869228981,
+    "average_wrong_code_mse": 0.16986411617835984,
+    "minimum_relative_gain_over_controls": 0.6598122180273488,
+    "functional_distance_rmse": [
+      [
+        0.0,
+        0.3606294095516205,
+        0.13906921446323395,
+        0.140630841255188
+      ],
+      [
+        0.3606294095516205,
+        0.0,
+        0.2775726318359375,
+        0.275739461183548
+      ],
+      [
+        0.13906921446323395,
+        0.2775726318359375,
+        0.0,
+        0.004396106582134962
+      ],
+      [
+        0.140630841255188,
+        0.275739461183548,
+        0.004396106582134962,
+        0.0
+      ]
+    ],
+    "minimum_pairwise_functional_rmse": 0.004396106582134962
+  },
+  "learning_curve": [
+    {
+      "epoch": 1,
+      "single_operator_nll_per_delta_v_dimension": -3.4535733660062156,
+      "direct_update_nll_per_delta_v_dimension": -3.4893614649772644
+    },
+    {
+      "epoch": 2,
+      "single_operator_nll_per_delta_v_dimension": -3.482713838418325,
+      "direct_update_nll_per_delta_v_dimension": -3.6102826992670694
+    },
+    {
+      "epoch": 3,
+      "single_operator_nll_per_delta_v_dimension": -3.4862492084503174,
+      "direct_update_nll_per_delta_v_dimension": -3.641953408718109
+    },
+    {
+      "epoch": 4,
+      "single_operator_nll_per_delta_v_dimension": -3.492053131262461,
+      "direct_update_nll_per_delta_v_dimension": -3.6438112258911133
+    },
+    {
+      "epoch": 5,
+      "single_operator_nll_per_delta_v_dimension": -3.4967562556266785,
+      "direct_update_nll_per_delta_v_dimension": -3.6475430925687156
+    },
+    {
+      "epoch": 6,
+      "single_operator_nll_per_delta_v_dimension": -3.5168164571126304,
+      "direct_update_nll_per_delta_v_dimension": -3.649021863937378
+    },
+    {
+      "epoch": 7,
+      "single_operator_nll_per_delta_v_dimension": -3.5380226572354636,
+      "direct_update_nll_per_delta_v_dimension": -3.6517030596733093
+    },
+    {
+      "epoch": 8,
+      "single_operator_nll_per_delta_v_dimension": -3.573755125204722,
+      "direct_update_nll_per_delta_v_dimension": -3.650943915049235
+    },
+    {
+      "epoch": 9,
+      "single_operator_nll_per_delta_v_dimension": -3.60296501715978,
+      "direct_update_nll_per_delta_v_dimension": -3.651121119658152
+    },
+    {
+      "epoch": 10,
+      "single_operator_nll_per_delta_v_dimension": -3.6226070324579873,
+      "direct_update_nll_per_delta_v_dimension": -3.6508390307426453
+    },
+    {
+      "epoch": 11,
+      "single_operator_nll_per_delta_v_dimension": -3.629387636979421,
+      "direct_update_nll_per_delta_v_dimension": -3.649533132712046
+    },
+    {
+      "epoch": 12,
+      "single_operator_nll_per_delta_v_dimension": -3.637043277422587,
+      "direct_update_nll_per_delta_v_dimension": -3.651243348916372
+    },
+    {
+      "epoch": 13,
+      "single_operator_nll_per_delta_v_dimension": -3.6399776140848794,
+      "direct_update_nll_per_delta_v_dimension": -3.6528088649113974
+    },
+    {
+      "epoch": 14,
+      "single_operator_nll_per_delta_v_dimension": -3.640256345272064,
+      "direct_update_nll_per_delta_v_dimension": -3.6523752013842263
+    },
+    {
+      "epoch": 15,
+      "single_operator_nll_per_delta_v_dimension": -3.640679438908895,
+      "direct_update_nll_per_delta_v_dimension": -3.6513848106066384
+    },
+    {
+      "epoch": 16,
+      "single_operator_nll_per_delta_v_dimension": -3.6434752543767295,
+      "direct_update_nll_per_delta_v_dimension": -3.6531747579574585
+    },
+    {
+      "epoch": 17,
+      "single_operator_nll_per_delta_v_dimension": -3.64516274134318,
+      "direct_update_nll_per_delta_v_dimension": -3.6531946659088135
+    },
+    {
+      "epoch": 18,
+      "single_operator_nll_per_delta_v_dimension": -3.644367297490438,
+      "direct_update_nll_per_delta_v_dimension": -3.652639925479889
+    },
+    {
+      "epoch": 19,
+      "single_operator_nll_per_delta_v_dimension": -3.6456843614578247,
+      "direct_update_nll_per_delta_v_dimension": -3.6538206934928894
+    },
+    {
+      "epoch": 20,
+      "single_operator_nll_per_delta_v_dimension": -3.6454188028971353,
+      "direct_update_nll_per_delta_v_dimension": -3.65276046593984
+    },
+    {
+      "epoch": 21,
+      "single_operator_nll_per_delta_v_dimension": -3.646278361479441,
+      "direct_update_nll_per_delta_v_dimension": -3.6521438161532083
+    },
+    {
+      "epoch": 22,
+      "single_operator_nll_per_delta_v_dimension": -3.6476828257242837,
+      "direct_update_nll_per_delta_v_dimension": -3.6542247533798218
+    },
+    {
+      "epoch": 23,
+      "single_operator_nll_per_delta_v_dimension": -3.646837532520294,
+      "direct_update_nll_per_delta_v_dimension": -3.6527006427447
+    },
+    {
+      "epoch": 24,
+      "single_operator_nll_per_delta_v_dimension": -3.6467636227607727,
+      "direct_update_nll_per_delta_v_dimension": -3.6534777879714966
+    },
+    {
+      "epoch": 25,
+      "single_operator_nll_per_delta_v_dimension": -3.6480695803960166,
+      "direct_update_nll_per_delta_v_dimension": -3.6533607045809426
+    },
+    {
+      "epoch": 26,
+      "single_operator_nll_per_delta_v_dimension": -3.6472549438476562,
+      "direct_update_nll_per_delta_v_dimension": -3.653304934501648
+    },
+    {
+      "epoch": 27,
+      "single_operator_nll_per_delta_v_dimension": -3.6479284962018332,
+      "direct_update_nll_per_delta_v_dimension": -3.653746803601583
+    },
+    {
+      "epoch": 28,
+      "single_operator_nll_per_delta_v_dimension": -3.6502090295155845,
+      "direct_update_nll_per_delta_v_dimension": -3.654550552368164
+    },
+    {
+      "epoch": 29,
+      "single_operator_nll_per_delta_v_dimension": -3.6490901509920755,
+      "direct_update_nll_per_delta_v_dimension": -3.6536163687705994
+    },
+    {
+      "epoch": 30,
+      "single_operator_nll_per_delta_v_dimension": -3.648388842741648,
+      "direct_update_nll_per_delta_v_dimension": -3.6539838115374246
+    },
+    {
+      "epoch": 31,
+      "single_operator_nll_per_delta_v_dimension": -3.650880773862203,
+      "direct_update_nll_per_delta_v_dimension": -3.6549842953681946
+    },
+    {
+      "epoch": 32,
+      "single_operator_nll_per_delta_v_dimension": -3.6489216883977256,
+      "direct_update_nll_per_delta_v_dimension": -3.6543206373850503
+    },
+    {
+      "epoch": 33,
+      "single_operator_nll_per_delta_v_dimension": -3.6497950752576194,
+      "direct_update_nll_per_delta_v_dimension": -3.654067118962606
+    },
+    {
+      "epoch": 34,
+      "single_operator_nll_per_delta_v_dimension": -3.6504271427790322,
+      "direct_update_nll_per_delta_v_dimension": -3.6546477476755777
+    },
+    {
+      "epoch": 35,
+      "single_operator_nll_per_delta_v_dimension": -3.648658812046051,
+      "direct_update_nll_per_delta_v_dimension": -3.6526970664660134
+    },
+    {
+      "epoch": 36,
+      "single_operator_nll_per_delta_v_dimension": -3.651276250680288,
+      "direct_update_nll_per_delta_v_dimension": -3.6545838514963784
+    },
+    {
+      "epoch": 37,
+      "single_operator_nll_per_delta_v_dimension": -3.6517436504364014,
+      "direct_update_nll_per_delta_v_dimension": -3.6553133924802146
+    },
+    {
+      "epoch": 38,
+      "single_operator_nll_per_delta_v_dimension": -3.651371479034424,
+      "direct_update_nll_per_delta_v_dimension": -3.6546793778737388
+    },
+    {
+      "epoch": 39,
+      "single_operator_nll_per_delta_v_dimension": -3.6514735023180642,
+      "direct_update_nll_per_delta_v_dimension": -3.6544549067815146
+    },
+    {
+      "epoch": 40,
+      "single_operator_nll_per_delta_v_dimension": -3.651064614454905,
+      "direct_update_nll_per_delta_v_dimension": -3.65398508310318
+    },
+    {
+      "epoch": 41,
+      "single_operator_nll_per_delta_v_dimension": -3.6512914101282754,
+      "direct_update_nll_per_delta_v_dimension": -3.654452323913574
+    },
+    {
+      "epoch": 42,
+      "single_operator_nll_per_delta_v_dimension": -3.6511141657829285,
+      "direct_update_nll_per_delta_v_dimension": -3.6545411745707193
+    },
+    {
+      "epoch": 43,
+      "single_operator_nll_per_delta_v_dimension": -3.651171922683716,
+      "direct_update_nll_per_delta_v_dimension": -3.654000679651896
+    },
+    {
+      "epoch": 44,
+      "single_operator_nll_per_delta_v_dimension": -3.6515294512112937,
+      "direct_update_nll_per_delta_v_dimension": -3.6550686756769815
+    },
+    {
+      "epoch": 45,
+      "single_operator_nll_per_delta_v_dimension": -3.651668210824331,
+      "direct_update_nll_per_delta_v_dimension": -3.6553295056025186
+    },
+    {
+      "epoch": 46,
+      "single_operator_nll_per_delta_v_dimension": -3.6515820225079856,
+      "direct_update_nll_per_delta_v_dimension": -3.6538946429888406
+    },
+    {
+      "epoch": 47,
+      "single_operator_nll_per_delta_v_dimension": -3.6523414055506387,
+      "direct_update_nll_per_delta_v_dimension": -3.6546738545099893
+    },
+    {
+      "epoch": 48,
+      "single_operator_nll_per_delta_v_dimension": -3.650271693865458,
+      "direct_update_nll_per_delta_v_dimension": -3.653591434160868
+    },
+    {
+      "epoch": 49,
+      "single_operator_nll_per_delta_v_dimension": -3.6521324117978415,
+      "direct_update_nll_per_delta_v_dimension": -3.6552553375562034
+    },
+    {
+      "epoch": 50,
+      "single_operator_nll_per_delta_v_dimension": -3.651987830797831,
+      "direct_update_nll_per_delta_v_dimension": -3.654908756415049
+    },
+    {
+      "epoch": 51,
+      "single_operator_nll_per_delta_v_dimension": -3.652081330617269,
+      "direct_update_nll_per_delta_v_dimension": -3.654271682103475
+    },
+    {
+      "epoch": 52,
+      "single_operator_nll_per_delta_v_dimension": -3.6514797806739807,
+      "direct_update_nll_per_delta_v_dimension": -3.6547226309776306
+    },
+    {
+      "epoch": 53,
+      "single_operator_nll_per_delta_v_dimension": -3.6518428126970925,
+      "direct_update_nll_per_delta_v_dimension": -3.6547603209813437
+    },
+    {
+      "epoch": 54,
+      "single_operator_nll_per_delta_v_dimension": -3.65195761124293,
+      "direct_update_nll_per_delta_v_dimension": -3.6548834244410195
+    },
+    {
+      "epoch": 55,
+      "single_operator_nll_per_delta_v_dimension": -3.6516263484954834,
+      "direct_update_nll_per_delta_v_dimension": -3.6552093029022217
+    },
+    {
+      "epoch": 56,
+      "single_operator_nll_per_delta_v_dimension": -3.6520506938298545,
+      "direct_update_nll_per_delta_v_dimension": -3.6556416153907776
+    },
+    {
+      "epoch": 57,
+      "single_operator_nll_per_delta_v_dimension": -3.6519813338915506,
+      "direct_update_nll_per_delta_v_dimension": -3.6551223198572793
+    },
+    {
+      "epoch": 58,
+      "single_operator_nll_per_delta_v_dimension": -3.6528995037078857,
+      "direct_update_nll_per_delta_v_dimension": -3.6559964617093406
+    },
+    {
+      "epoch": 59,
+      "single_operator_nll_per_delta_v_dimension": -3.6506364941596985,
+      "direct_update_nll_per_delta_v_dimension": -3.653527021408081
+    },
+    {
+      "epoch": 60,
+      "single_operator_nll_per_delta_v_dimension": -3.65311062335968,
+      "direct_update_nll_per_delta_v_dimension": -3.656070113182068
+    },
+    {
+      "epoch": 61,
+      "single_operator_nll_per_delta_v_dimension": -3.6520935694376626,
+      "direct_update_nll_per_delta_v_dimension": -3.655110796292623
+    },
+    {
+      "epoch": 62,
+      "single_operator_nll_per_delta_v_dimension": -3.6525519688924155,
+      "direct_update_nll_per_delta_v_dimension": -3.6550949811935425
+    },
+    {
+      "epoch": 63,
+      "single_operator_nll_per_delta_v_dimension": -3.6530165870984397,
+      "direct_update_nll_per_delta_v_dimension": -3.6555782159169516
+    },
+    {
+      "epoch": 64,
+      "single_operator_nll_per_delta_v_dimension": -3.6532912850379944,
+      "direct_update_nll_per_delta_v_dimension": -3.655937651793162
+    },
+    {
+      "epoch": 65,
+      "single_operator_nll_per_delta_v_dimension": -3.6530142426490784,
+      "direct_update_nll_per_delta_v_dimension": -3.6557441552480063
+    },
+    {
+      "epoch": 66,
+      "single_operator_nll_per_delta_v_dimension": -3.6526816487312317,
+      "direct_update_nll_per_delta_v_dimension": -3.655649940172831
+    },
+    {
+      "epoch": 67,
+      "single_operator_nll_per_delta_v_dimension": -3.6520310242970786,
+      "direct_update_nll_per_delta_v_dimension": -3.65425713857015
+    },
+    {
+      "epoch": 68,
+      "single_operator_nll_per_delta_v_dimension": -3.6516767342885337,
+      "direct_update_nll_per_delta_v_dimension": -3.65435254573822
+    },
+    {
+      "epoch": 69,
+      "single_operator_nll_per_delta_v_dimension": -3.653213540712992,
+      "direct_update_nll_per_delta_v_dimension": -3.655420939127604
+    },
+    {
+      "epoch": 70,
+      "single_operator_nll_per_delta_v_dimension": -3.654000778992971,
+      "direct_update_nll_per_delta_v_dimension": -3.656169891357422
+    },
+    {
+      "epoch": 71,
+      "single_operator_nll_per_delta_v_dimension": -3.6522798935572305,
+      "direct_update_nll_per_delta_v_dimension": -3.655170718828837
+    },
+    {
+      "epoch": 72,
+      "single_operator_nll_per_delta_v_dimension": -3.6532105803489685,
+      "direct_update_nll_per_delta_v_dimension": -3.6555166045824685
+    },
+    {
+      "epoch": 73,
+      "single_operator_nll_per_delta_v_dimension": -3.652107000350952,
+      "direct_update_nll_per_delta_v_dimension": -3.6554115811983743
+    },
+    {
+      "epoch": 74,
+      "single_operator_nll_per_delta_v_dimension": -3.6503084103266397,
+      "direct_update_nll_per_delta_v_dimension": -3.6544007460276284
+    },
+    {
+      "epoch": 75,
+      "single_operator_nll_per_delta_v_dimension": -3.6534989277521768,
+      "direct_update_nll_per_delta_v_dimension": -3.654963493347168
+    },
+    {
+      "epoch": 76,
+      "single_operator_nll_per_delta_v_dimension": -3.6533804535865784,
+      "direct_update_nll_per_delta_v_dimension": -3.655668079853058
+    },
+    {
+      "epoch": 77,
+      "single_operator_nll_per_delta_v_dimension": -3.653181175390879,
+      "direct_update_nll_per_delta_v_dimension": -3.655433257420858
+    },
+    {
+      "epoch": 78,
+      "single_operator_nll_per_delta_v_dimension": -3.6518945892651877,
+      "direct_update_nll_per_delta_v_dimension": -3.6548117995262146
+    },
+    {
+      "epoch": 79,
+      "single_operator_nll_per_delta_v_dimension": -3.6530762116114297,
+      "direct_update_nll_per_delta_v_dimension": -3.6556092302004495
+    },
+    {
+      "epoch": 80,
+      "single_operator_nll_per_delta_v_dimension": -3.651653448740641,
+      "direct_update_nll_per_delta_v_dimension": -3.654536565144857
+    },
+    {
+      "epoch": 81,
+      "single_operator_nll_per_delta_v_dimension": -3.651956061522166,
+      "direct_update_nll_per_delta_v_dimension": -3.655146300792694
+    },
+    {
+      "epoch": 82,
+      "single_operator_nll_per_delta_v_dimension": -3.6543047229448953,
+      "direct_update_nll_per_delta_v_dimension": -3.6557758847872415
+    },
+    {
+      "epoch": 83,
+      "single_operator_nll_per_delta_v_dimension": -3.653405467669169,
+      "direct_update_nll_per_delta_v_dimension": -3.655591090520223
+    },
+    {
+      "epoch": 84,
+      "single_operator_nll_per_delta_v_dimension": -3.6532909075419107,
+      "direct_update_nll_per_delta_v_dimension": -3.656238238016764
+    },
+    {
+      "epoch": 85,
+      "single_operator_nll_per_delta_v_dimension": -3.6531484921773276,
+      "direct_update_nll_per_delta_v_dimension": -3.65551495552063
+    },
+    {
+      "epoch": 86,
+      "single_operator_nll_per_delta_v_dimension": -3.651589790980021,
+      "direct_update_nll_per_delta_v_dimension": -3.654464840888977
+    },
+    {
+      "epoch": 87,
+      "single_operator_nll_per_delta_v_dimension": -3.652903378009796,
+      "direct_update_nll_per_delta_v_dimension": -3.6550745368003845
+    },
+    {
+      "epoch": 88,
+      "single_operator_nll_per_delta_v_dimension": -3.652193327744802,
+      "direct_update_nll_per_delta_v_dimension": -3.6551525791486106
+    },
+    {
+      "epoch": 89,
+      "single_operator_nll_per_delta_v_dimension": -3.653697888056437,
+      "direct_update_nll_per_delta_v_dimension": -3.6560201048851013
+    },
+    {
+      "epoch": 90,
+      "single_operator_nll_per_delta_v_dimension": -3.651969313621521,
+      "direct_update_nll_per_delta_v_dimension": -3.654781719048818
+    },
+    {
+      "epoch": 91,
+      "single_operator_nll_per_delta_v_dimension": -3.6529197096824646,
+      "direct_update_nll_per_delta_v_dimension": -3.6547663807868958
+    },
+    {
+      "epoch": 92,
+      "single_operator_nll_per_delta_v_dimension": -3.652933736642202,
+      "direct_update_nll_per_delta_v_dimension": -3.6555940310160318
+    },
+    {
+      "epoch": 93,
+      "single_operator_nll_per_delta_v_dimension": -3.6519864002863565,
+      "direct_update_nll_per_delta_v_dimension": -3.6543535590171814
+    },
+    {
+      "epoch": 94,
+      "single_operator_nll_per_delta_v_dimension": -3.653369585673014,
+      "direct_update_nll_per_delta_v_dimension": -3.6560271779696145
+    },
+    {
+      "epoch": 95,
+      "single_operator_nll_per_delta_v_dimension": -3.653771718343099,
+      "direct_update_nll_per_delta_v_dimension": -3.6559071143468223
+    },
+    {
+      "epoch": 96,
+      "single_operator_nll_per_delta_v_dimension": -3.6533509890238443,
+      "direct_update_nll_per_delta_v_dimension": -3.655222773551941
+    },
+    {
+      "epoch": 97,
+      "single_operator_nll_per_delta_v_dimension": -3.654152234395345,
+      "direct_update_nll_per_delta_v_dimension": -3.6566051244735718
+    },
+    {
+      "epoch": 98,
+      "single_operator_nll_per_delta_v_dimension": -3.6539384524027505,
+      "direct_update_nll_per_delta_v_dimension": -3.6556848088900247
+    },
+    {
+      "epoch": 99,
+      "single_operator_nll_per_delta_v_dimension": -3.6528945366541543,
+      "direct_update_nll_per_delta_v_dimension": -3.6555360754330954
+    },
+    {
+      "epoch": 100,
+      "single_operator_nll_per_delta_v_dimension": -3.6527788241704306,
+      "direct_update_nll_per_delta_v_dimension": -3.6550766626993814
+    }
+  ]
+}

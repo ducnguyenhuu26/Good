@@ -1,0 +1,55 @@
+run_kind: DEVELOPMENT
+seed: 20261023
+dt: 0.05
+episode_length: 240
+action_limit: 1.0
+noise_sigma: 0.0005
+old_context_support: 96
+exploration:
+  initial_q_std: 0.25
+  initial_v_std: 0.25
+  action_limit: 1.0
+  action_signal_scale: 0.85
+  action_jitter: 0.15
+oracle:
+  split: validation
+  backgrounds: 16
+  cases_per_program: 32
+  budgets:
+  - 5
+  - 10
+  - 20
+  - 50
+  - 100
+  train_envs: 48
+  validation_envs: 16
+  test_envs: 4
+model:
+  context_dim: 32
+  hidden_dim: 128
+  depth: 2
+  dropout: 0.0
+  predictive_variance: 0.0001
+inference:
+  length_penalty_candidates:
+  - 0.0
+  - 0.1
+  - 1.0
+  - 10.0
+training:
+  dynamics_epochs: 100
+  primitive_epochs: 100
+  batch_size: 128
+  learning_rate: 0.001
+  direct_context_steps: 10
+  direct_context_regularization: 0.001
+gates:
+  m1_min_functional_class_accuracy_n20: 0.9
+  m1_min_order_accuracy: 1.0
+  m1_min_order_probe_rmse: 0.001
+  m2_min_relative_improvement: 0.05
+  m2_min_context_swap_response_rmse: 0.0001
+  m3_min_relative_gain: 0.02
+  m3_min_functional_distance: 1.0e-05
+  m4_min_relative_gain_vs_direct: 0.02
+  m4_min_ood_class_accuracy: 0.5

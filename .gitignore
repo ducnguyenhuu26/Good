@@ -29,6 +29,12 @@ build/
 /results/q1/cpu_development_pilot/**/*.ckpt
 /results/q1/cpu_development_pilot/m3_nll_debug/
 /results/q1/cpu_development_pilot/m4_nll_debug/
+/results/q1/cpu_development_pilot/**
+!/results/q1/cpu_confirmatory_impl/
+!/results/q1/cpu_confirmatory_impl/**
+/results/q1/cpu_confirmatory_impl/**/*.pt
+/results/q1/cpu_confirmatory_impl/**/*.pth
+/results/q1/cpu_confirmatory_impl/**/*.ckpt
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/
