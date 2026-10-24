@@ -1,0 +1,146 @@
+{
+  "new_split_seeds_disjoint": true,
+  "sources": [
+    {
+      "path": "results/q1/cpu_confirmatory_impl/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_confirmatory_impl/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_confirmatory_impl/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_development_pilot/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_development_pilot/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_development_pilot/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_final_pilot/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_final_pilot/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_final_pilot/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_pipeline/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_pipeline/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_pipeline/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/feasibility_abc_v1/original_split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/feasibility_abc_v1/protocol_manifest.json",
+      "sha256": "d4bc4fd8a5d47293f4d3ad13876e7e8cd92137c7726bc8ef8bd2c60b96ed94c4",
+      "unique_seed_count": 128
+    },
+    {
+      "path": "results/q1/m1_deterministic_validation/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m1_validation_initial/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m1_validation_low_noise/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m2_smoke_nll/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m2_smoke_nll/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m2_smoke_nll/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/smoke_pipeline/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/smoke_pipeline/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/smoke_pipeline/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/q1_v2_bayesian_operators_dev1/split_manifest.json",
+      "sha256": "cd517576bdb44824196e028893d1f03a5eb03f906999bfecec321baf921103ab",
+      "unique_seed_count": 80
+    },
+    {
+      "path": "results/q1/q1_v2_operator_retrain_dev1/split_manifest.json",
+      "sha256": "4e323fe867859bc7b052bc3988a81ed997f541c8ccac62a6228dab0c071b5c3c",
+      "unique_seed_count": 80
+    },
+    {
+      "path": "results/q1/q1_v2_root_repair_dev3/protocol.json",
+      "sha256": "c7e582b0eff23a623181e1d8d6bd8b81c0e9fed351b9b25651f440b379f714c7",
+      "unique_seed_count": 80
+    },
+    {
+      "path": "results/q1/q1_v3_mechanism_dev1/diagnostics/failed_attempt01/protocol.json",
+      "sha256": "a6c66a3cd95f572d80787a3e528ea6778cdfa027281747b9083b71a41339689e",
+      "unique_seed_count": 80
+    }
+  ],
+  "new_seed_counts": {
+    "train": 40,
+    "inner": 8,
+    "idlike": 16,
+    "ood": 16
+  }
+}

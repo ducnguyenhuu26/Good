@@ -1,0 +1,202 @@
+{
+  "curve": [
+    {
+      "epoch": 1,
+      "train_objective": 127.00058246623533,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.0959600876015143,
+      "psi_residual_rms": 0.0008532355487089274,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 2,
+      "train_objective": 98.31841479714487,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.0902820574508487,
+      "psi_residual_rms": 0.0017037621502471614,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 3,
+      "train_objective": 75.14720439237027,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.0845928978611052,
+      "psi_residual_rms": 0.0025490164883469483,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 4,
+      "train_objective": 56.73861005201981,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.078941182597286,
+      "psi_residual_rms": 0.0033859019645931607,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 5,
+      "train_objective": 42.16755415116274,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.073274847336298,
+      "psi_residual_rms": 0.004209969068490587,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 6,
+      "train_objective": 30.859084661722967,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.067567087120308,
+      "psi_residual_rms": 0.0050163842152248315,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 7,
+      "train_objective": 22.224578511453867,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.061652516001664,
+      "psi_residual_rms": 0.0057976219697374425,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 8,
+      "train_objective": 15.715211454870888,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.0551460806785418,
+      "psi_residual_rms": 0.0065465399003697125,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 9,
+      "train_objective": 11.109597702227294,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.0473238231377957,
+      "psi_residual_rms": 0.007249753014192864,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 10,
+      "train_objective": 8.067364098442763,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.0369934650216726,
+      "psi_residual_rms": 0.00788307941156726,
+      "inner_map_converged": 8
+    }
+  ],
+  "best_epoch": 10,
+  "inner_selection_only": true,
+  "inner_map_diagnostics": [
+    {
+      "converged": true,
+      "singular_values": [
+        0.6856872936626379,
+        0.6853072129205413,
+        0.6735224139071864,
+        0.6733263401735505,
+        0.046753140457502194,
+        0.034234134037836685,
+        0.0008887047278263311
+      ],
+      "nll": 2450.1674019486554
+    },
+    {
+      "converged": true,
+      "singular_values": [
+        0.6892331207907496,
+        0.6892023094024469,
+        0.6732398359487143,
+        0.6729799042196545,
+        0.056476883093021076,
+        0.027324923641771835,
+        0.0008849130204093305
+      ],
+      "nll": 4040.2344794539467
+    },
+    {
+      "converged": true,
+      "singular_values": [
+        0.6894177202300898,
+        0.6891953007646257,
+        0.6707817570119534,
+        0.6706661375945828,
+        0.04190951256827688,
+        0.027593061112345045,
+        0.0008336740424556826
+      ],
+      "nll": 3668.1030167626996
+    },
+    {
+      "converged": true,
+      "singular_values": [
+        0.6821390037426337,
+        0.6819544998713576,
+        0.6704052322473028,
+        0.6703590048092053,
+        0.07976023920249187,
+        0.04834872165491699,
+        0.001531609166981383
+      ],
+      "nll": 3032.0859924520432
+    },
+    {
+      "converged": true,
+      "singular_values": [
+        0.6820761805174083,
+        0.6816339586242764,
+        0.6692076027491991,
+        0.6690324343257592,
+        0.060083627171608485,
+        0.0470031964591457,
+        0.0021025384811897627
+      ],
+      "nll": 3180.900174999877
+    },
+    {
+      "converged": true,
+      "singular_values": [
+        0.6842882189610068,
+        0.6841148675542441,
+        0.6766091307943612,
+        0.6761924304111105,
+        0.046994682063961166,
+        0.02580704710720661,
+        0.0006987744394163369
+      ],
+      "nll": 3114.2184078843657
+    },
+    {
+      "converged": true,
+      "singular_values": [
+        0.6841667572494277,
+        0.6841250610885098,
+        0.6663971327735659,
+        0.666158688583771,
+        0.059828723981928504,
+        0.055116595579875666,
+        0.003581741585127268
+      ],
+      "nll": 2278.5263481775755
+    },
+    {
+      "converged": true,
+      "singular_values": [
+        0.6838082283004685,
+        0.6837854238813321,
+        0.6735783733996396,
+        0.6735528580892763,
+        0.06191086104644389,
+        0.05726791249979502,
+        0.0015136447307542939
+      ],
+      "nll": 3114.8146437783807
+    }
+  ]
+}

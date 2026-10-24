@@ -1,0 +1,18 @@
+{
+  "inner_train_only": true,
+  "candidates": [
+    {
+      "penalty": 0.0,
+      "mean_inner_known_program_marginal_nll": 294.3609846671929
+    },
+    {
+      "penalty": 0.01,
+      "mean_inner_known_program_marginal_nll": 294.37765133385955
+    },
+    {
+      "penalty": 0.1,
+      "mean_inner_known_program_marginal_nll": 294.5276513338595
+    }
+  ],
+  "selected": 0.0
+}

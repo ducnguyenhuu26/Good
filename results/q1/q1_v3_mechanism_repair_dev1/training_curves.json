@@ -1,0 +1,821 @@
+{
+  "action": [
+    {
+      "epoch": 1,
+      "train_objective": 127.38621970347549,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.0832477725503957,
+      "psi_residual_rms": 0.0004811368219772688,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 2,
+      "train_objective": 98.98697751041469,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.0645822413199513,
+      "psi_residual_rms": 0.0009651004434659015,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 3,
+      "train_objective": 75.94231594471538,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.04586693807681,
+      "psi_residual_rms": 0.0014503795106812238,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 4,
+      "train_objective": 57.498145412879616,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.0271497664602434,
+      "psi_residual_rms": 0.0019350325772179088,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 5,
+      "train_objective": 42.965863655295095,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 3.0085658130234183,
+      "psi_residual_rms": 0.0024165207132347565,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 6,
+      "train_objective": 31.58874274404028,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 2.99031815032561,
+      "psi_residual_rms": 0.00289182818883074,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 7,
+      "train_objective": 22.823599885509246,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 2.972544438497569,
+      "psi_residual_rms": 0.0033579885634130342,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 8,
+      "train_objective": 16.20469060852129,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 2.9552953485889093,
+      "psi_residual_rms": 0.00381203000460548,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 9,
+      "train_objective": 11.513362389354631,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 2.938628009851799,
+      "psi_residual_rms": 0.004251190632499852,
+      "inner_map_converged": 8
+    },
+    {
+      "epoch": 10,
+      "train_objective": 8.349019977478367,
+      "training_transition_count": 20480,
+      "unique_training_transitions": 20480,
+      "inner_map_nll_per_observation": 2.9226343565866775,
+      "psi_residual_rms": 0.004672613778270948,
+      "inner_map_converged": 8
+    }
+  ],
+  "operators": {
+    "4201": {
+      "sparse": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 123.09221178769492,
+            "inner_nll_per_observation": 66.94724387993557,
+            "group_sparsity_penalty": 1.651377900178139,
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": 40.2342139471128,
+            "inner_nll_per_observation": 18.278804271127278,
+            "group_sparsity_penalty": 1.9654080594867762,
+            "selected": true
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": 12.252350763225179,
+            "inner_nll_per_observation": 8.991914740476167,
+            "group_sparsity_penalty": 2.08895888696171,
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": 9.917676659749175,
+            "inner_nll_per_observation": 9.04601732650091,
+            "group_sparsity_penalty": 2.12681792120033,
+            "selected": false
+          },
+          {
+            "epoch": 5,
+            "train_nll_per_observation": 9.91161957436328,
+            "inner_nll_per_observation": 9.032687001874516,
+            "group_sparsity_penalty": 2.1199069638470807,
+            "selected": false
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4201
+          },
+          {
+            "epoch": 2,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4202
+          },
+          {
+            "epoch": 3,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4203
+          },
+          {
+            "epoch": 4,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4204
+          },
+          {
+            "epoch": 5,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4205
+          }
+        ],
+        "best_epoch": 3,
+        "inner_selection_only": true,
+        "best_inner_nll_per_observation": 8.991914740476167
+      },
+      "nll_only": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 123.65045802985561,
+            "inner_nll_per_observation": 66.89420678576157,
+            "group_sparsity_penalty": 1.5558355963433816,
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": 42.14298624905417,
+            "inner_nll_per_observation": 18.80847337335046,
+            "group_sparsity_penalty": 1.9603820858402328,
+            "selected": true
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": 13.0292718830134,
+            "inner_nll_per_observation": 9.000210095095936,
+            "group_sparsity_penalty": 2.1297458010748556,
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": 9.90686002574723,
+            "inner_nll_per_observation": 9.029918417209851,
+            "group_sparsity_penalty": 2.161778938853981,
+            "selected": false
+          },
+          {
+            "epoch": 5,
+            "train_nll_per_observation": 9.8930107444842,
+            "inner_nll_per_observation": 9.060576815348272,
+            "group_sparsity_penalty": 2.2015983623971707,
+            "selected": false
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 12201
+          },
+          {
+            "epoch": 2,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 12202
+          },
+          {
+            "epoch": 3,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 12203
+          },
+          {
+            "epoch": 4,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 12204
+          },
+          {
+            "epoch": 5,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 12205
+          }
+        ],
+        "best_epoch": 3,
+        "inner_selection_only": true,
+        "best_inner_nll_per_observation": 9.000210095095936
+      }
+    },
+    "4202": {
+      "sparse": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 119.67834553546012,
+            "inner_nll_per_observation": 66.25696601050822,
+            "group_sparsity_penalty": 1.6223459122068769,
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": 41.158813148248456,
+            "inner_nll_per_observation": 19.842003616899607,
+            "group_sparsity_penalty": 1.9621850309749556,
+            "selected": true
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": 13.276524151947342,
+            "inner_nll_per_observation": 9.034899935806344,
+            "group_sparsity_penalty": 2.0816834328729588,
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": 9.90760612841766,
+            "inner_nll_per_observation": 9.023152812045355,
+            "group_sparsity_penalty": 2.108147008600195,
+            "selected": true
+          },
+          {
+            "epoch": 5,
+            "train_nll_per_observation": 9.902113955386163,
+            "inner_nll_per_observation": 9.034860678973653,
+            "group_sparsity_penalty": 2.136150036392454,
+            "selected": false
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4202
+          },
+          {
+            "epoch": 2,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4203
+          },
+          {
+            "epoch": 3,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4204
+          },
+          {
+            "epoch": 4,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4205
+          },
+          {
+            "epoch": 5,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4206
+          }
+        ],
+        "best_epoch": 4,
+        "inner_selection_only": true,
+        "best_inner_nll_per_observation": 9.023152812045355
+      },
+      "nll_only": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 123.08319386148709,
+            "inner_nll_per_observation": 65.94039278103351,
+            "group_sparsity_penalty": 1.4885521231559082,
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": 42.35786714958644,
+            "inner_nll_per_observation": 19.118666478931146,
+            "group_sparsity_penalty": 1.866802257289145,
+            "selected": true
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": 12.982551834110069,
+            "inner_nll_per_observation": 9.026274354145743,
+            "group_sparsity_penalty": 2.1314188613893315,
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": 9.902628645685601,
+            "inner_nll_per_observation": 9.065647692198631,
+            "group_sparsity_penalty": 2.204842458970568,
+            "selected": false
+          },
+          {
+            "epoch": 5,
+            "train_nll_per_observation": 9.913835996856792,
+            "inner_nll_per_observation": 9.00858536323721,
+            "group_sparsity_penalty": 2.1239004571207754,
+            "selected": true
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 12202
+          },
+          {
+            "epoch": 2,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 12203
+          },
+          {
+            "epoch": 3,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 12204
+          },
+          {
+            "epoch": 4,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 12205
+          },
+          {
+            "epoch": 5,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 12206
+          }
+        ],
+        "best_epoch": 5,
+        "inner_selection_only": true,
+        "best_inner_nll_per_observation": 9.00858536323721
+      }
+    },
+    "fixed_tanh_diagnostic": {
+      "curve": [
+        {
+          "epoch": 1,
+          "train_nll_per_observation": 124.56298379892063,
+          "inner_nll_per_observation": 66.16039636946533,
+          "group_sparsity_penalty": 1.643778289324689,
+          "selected": true
+        },
+        {
+          "epoch": 2,
+          "train_nll_per_observation": 39.98603283196233,
+          "inner_nll_per_observation": 16.206984308661532,
+          "group_sparsity_penalty": 2.1001001201230705,
+          "selected": true
+        },
+        {
+          "epoch": 3,
+          "train_nll_per_observation": 6.002697277766944,
+          "inner_nll_per_observation": 0.7743492645443482,
+          "group_sparsity_penalty": 2.26626260472239,
+          "selected": true
+        },
+        {
+          "epoch": 4,
+          "train_nll_per_observation": 0.5514791219080767,
+          "inner_nll_per_observation": 0.5178616675947691,
+          "group_sparsity_penalty": 2.1953437159183613,
+          "selected": true
+        },
+        {
+          "epoch": 5,
+          "train_nll_per_observation": 0.5137319598119403,
+          "inner_nll_per_observation": 0.5176131895711747,
+          "group_sparsity_penalty": 2.133670687531131,
+          "selected": true
+        }
+      ],
+      "epoch_coverage": [
+        {
+          "epoch": 1,
+          "episode_count": 480,
+          "unique_episode_count": 480,
+          "program_episode_counts": {
+            "(2,)": 40,
+            "(1,)": 40,
+            "(0,)": 40,
+            "(3,)": 40,
+            "(2, 2)": 40,
+            "(2, 0)": 40,
+            "(1, 1)": 40,
+            "(1, 3)": 40,
+            "(0, 2)": 40,
+            "(0, 0)": 40,
+            "(3, 1)": 40,
+            "(3, 3)": 40
+          },
+          "shuffle_seed": 20201
+        },
+        {
+          "epoch": 2,
+          "episode_count": 480,
+          "unique_episode_count": 480,
+          "program_episode_counts": {
+            "(2,)": 40,
+            "(1,)": 40,
+            "(0,)": 40,
+            "(3,)": 40,
+            "(2, 2)": 40,
+            "(2, 0)": 40,
+            "(1, 1)": 40,
+            "(1, 3)": 40,
+            "(0, 2)": 40,
+            "(0, 0)": 40,
+            "(3, 1)": 40,
+            "(3, 3)": 40
+          },
+          "shuffle_seed": 20202
+        },
+        {
+          "epoch": 3,
+          "episode_count": 480,
+          "unique_episode_count": 480,
+          "program_episode_counts": {
+            "(2,)": 40,
+            "(1,)": 40,
+            "(0,)": 40,
+            "(3,)": 40,
+            "(2, 2)": 40,
+            "(2, 0)": 40,
+            "(1, 1)": 40,
+            "(1, 3)": 40,
+            "(0, 2)": 40,
+            "(0, 0)": 40,
+            "(3, 1)": 40,
+            "(3, 3)": 40
+          },
+          "shuffle_seed": 20203
+        },
+        {
+          "epoch": 4,
+          "episode_count": 480,
+          "unique_episode_count": 480,
+          "program_episode_counts": {
+            "(2,)": 40,
+            "(1,)": 40,
+            "(0,)": 40,
+            "(3,)": 40,
+            "(2, 2)": 40,
+            "(2, 0)": 40,
+            "(1, 1)": 40,
+            "(1, 3)": 40,
+            "(0, 2)": 40,
+            "(0, 0)": 40,
+            "(3, 1)": 40,
+            "(3, 3)": 40
+          },
+          "shuffle_seed": 20204
+        },
+        {
+          "epoch": 5,
+          "episode_count": 480,
+          "unique_episode_count": 480,
+          "program_episode_counts": {
+            "(2,)": 40,
+            "(1,)": 40,
+            "(0,)": 40,
+            "(3,)": 40,
+            "(2, 2)": 40,
+            "(2, 0)": 40,
+            "(1, 1)": 40,
+            "(1, 3)": 40,
+            "(0, 2)": 40,
+            "(0, 0)": 40,
+            "(3, 1)": 40,
+            "(3, 3)": 40
+          },
+          "shuffle_seed": 20205
+        }
+      ],
+      "best_epoch": 5,
+      "inner_selection_only": true,
+      "best_inner_nll_per_observation": 0.5176131895711747
+    },
+    "training_runtime_seconds": 1090.9175245761871
+  }
+}

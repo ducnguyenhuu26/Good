@@ -1,0 +1,9 @@
+{
+  "seconds": 868.1441342830658,
+  "evaluation_rows": 48384,
+  "effect_rows": 1536,
+  "same_fresh_protocol_as_original_v3": true,
+  "same_observed_train_transitions": true,
+  "same_evaluation_stage_pair_seeds": true,
+  "seed_disjoint": true
+}

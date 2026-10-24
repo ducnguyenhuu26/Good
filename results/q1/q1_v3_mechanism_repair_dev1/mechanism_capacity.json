@@ -1,0 +1,22 @@
+{
+  "type": "offline privileged local matched-input linearized mechanism ceiling; simulator response labels excluded from learner",
+  "mean_skill_by_regime_variant_code": {
+    "IDLIKE_DEVELOPMENT|learned_odd|U1": 0.9931802878500741,
+    "IDLIKE_DEVELOPMENT|learned_odd|U2": 0.9795721071520684,
+    "IDLIKE_DEVELOPMENT|learned_odd|U3": 1.0,
+    "IDLIKE_DEVELOPMENT|learned_odd|U4": 1.0,
+    "IDLIKE_DEVELOPMENT|fixed_tanh_diagnostic|U1": 0.997535458469188,
+    "IDLIKE_DEVELOPMENT|fixed_tanh_diagnostic|U2": 0.9975186002380162,
+    "IDLIKE_DEVELOPMENT|fixed_tanh_diagnostic|U3": 1.0,
+    "IDLIKE_DEVELOPMENT|fixed_tanh_diagnostic|U4": 1.0,
+    "BACKGROUND_OOD_DEVELOPMENT|learned_odd|U1": 0.9829374400192077,
+    "BACKGROUND_OOD_DEVELOPMENT|learned_odd|U2": 0.9500578700173448,
+    "BACKGROUND_OOD_DEVELOPMENT|learned_odd|U3": 1.0,
+    "BACKGROUND_OOD_DEVELOPMENT|learned_odd|U4": 1.0,
+    "BACKGROUND_OOD_DEVELOPMENT|fixed_tanh_diagnostic|U1": 0.994044045589568,
+    "BACKGROUND_OOD_DEVELOPMENT|fixed_tanh_diagnostic|U2": 0.9944596969573256,
+    "BACKGROUND_OOD_DEVELOPMENT|fixed_tanh_diagnostic|U3": 1.0,
+    "BACKGROUND_OOD_DEVELOPMENT|fixed_tanh_diagnostic|U4": 1.0
+  },
+  "n_rows": 256
+}

@@ -3,7 +3,7 @@ import ast
 from pathlib import Path
 import numpy as np
 import torch
-from q1_v3.mechanisms import FixedTanhAction,OddActionResponse,mean_delta_v
+from q1_v3.mechanisms import FixedTanhAction,LegacyBoundedOddAction,OddActionResponse,mean_delta_v
 from q1_v3.operators import MechanismOperatorBank
 from q1_v3.program_search import mean_jacobian
 from q1_v3.task_inference import fit_task_map
@@ -14,6 +14,35 @@ def test_odd_action_has_exact_anchor_slope_and_is_odd():
     assert f(z).item()==0.;assert torch.autograd.grad(f(z),z)[0].item()==1.
     x=torch.linspace(-2,2,51,dtype=torch.float64)
     assert torch.allclose(f(-x),-f(x),atol=1e-12)
+
+def test_learned_odd_response_fits_curvature_and_stays_strictly_monotone():
+    torch.manual_seed(119);f=OddActionResponse(num_knots=61).double()
+    x=torch.linspace(-2.5,2.5,101,dtype=torch.float64)
+    # Smooth odd saturating observations; this is only a response-shape unit
+    # target, and is not imported into the learner or used as simulator data.
+    y=x/torch.sqrt(1.+x.square())
+    start=float((f(x)-y).square().mean().detach())
+    opt=torch.optim.Adam(f.parameters(),lr=.01)
+    for _ in range(100):
+        loss=(f(x)-y).square().mean();opt.zero_grad();loss.backward();opt.step()
+    assert float((f(x)-y).square().mean().detach())<start*.2
+    z=torch.linspace(-3,3,101,dtype=torch.float64,requires_grad=True)
+    slope=torch.autograd.grad(f(z).sum(),z)[0]
+    assert f(torch.zeros((),dtype=torch.float64)).item()==0.
+    assert torch.allclose(torch.autograd.grad(f(z)[50],z,retain_graph=False)[0][50],torch.tensor(1.,dtype=torch.float64),atol=1e-8)
+    assert torch.all(slope>0.)
+
+def test_legacy_action_checkpoint_shape_is_preserved():
+    legacy=LegacyBoundedOddAction()
+    saved=torch.load(Path(__file__).parents[1]/'results/q1/q1_v3_mechanism_dev1/action_learned_odd.pt',weights_only=False)
+    legacy.load_state_dict(saved['state_dict'])
+    assert torch.isfinite(legacy(torch.linspace(-2,2,11,dtype=torch.float32))).all()
+
+def test_learned_action_has_no_tanh_or_simulator_response_dependency():
+    import inspect
+    source=inspect.getsource(OddActionResponse)
+    assert 'tanh' not in source.lower()
+    assert 'q1.simulator' not in inspect.getsourcefile(OddActionResponse)
 
 def test_mechanism_mean_and_analytic_jacobian_match_autodiff():
     torch.manual_seed(2);x=torch.randn(9,6,dtype=torch.float64);theta=torch.tensor([1.,.1,-.2,.8,np.log(.3),np.log(.1),np.log(.2)],dtype=torch.float64,requires_grad=True)
@@ -83,3 +112,10 @@ def test_observed_transition_training_smoke_and_complete_balanced_epoch():
     assert other_meta['epoch_coverage'][0]['shuffle_seed']==4202
     assert not (torch.equal(bank.L,other_seed.L) and torch.equal(bank.alpha,other_seed.alpha))
     assert torch.isfinite(pc).all() and torch.isfinite(pm).all()
+    selective_bank,selective_meta=fit_operator_bank(fitted,op_train,op_inner,seed=4201,epochs=1,
+        sigma=.0005,selective=True,sparsity=.001,selectivity_weight=.001)
+    probs=selective_bank.assignment_probabilities
+    assert probs.shape==(4,4) and torch.allclose(probs.sum(-1),torch.ones(4,dtype=probs.dtype))
+    assert torch.isfinite(selective_bank.assignment_logits).all()
+    assert selective_meta['selective'] is True
+    assert selective_meta['epoch_coverage'][0]['unique_episode_count']==len(op_train)

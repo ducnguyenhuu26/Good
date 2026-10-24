@@ -1,0 +1,62 @@
+{
+  "branch": "codex/q1-v3-mechanism-structured",
+  "protocol_base_commit": "067814e5a6b8c348c08ef4d8d75dc6961a28f5bd",
+  "head_at_finalization": "067814e5a6b8c348c08ef4d8d75dc6961a28f5bd",
+  "device": "cpu",
+  "python": "3.13.5",
+  "torch": "2.14.1+cpu",
+  "dt": 0.05,
+  "sigma": 0.0005,
+  "frozen_fresh_protocol": true,
+  "background_counts": {
+    "train": 40,
+    "inner": 8,
+    "id_like_dev": 16,
+    "background_ood_dev": 16
+  },
+  "seed_sets_disjoint": true,
+  "original_test_split_used": false,
+  "q2_run": false,
+  "source_sha256": {
+    "configs/q1_v3_mechanism_repair.yaml": "07e186e65378fb494c720ba495326377a2cd2412a13940c9a8215afb75a8015f",
+    "q1_v3/mechanisms.py": "c138e06ade1baffd2c3a05f6f6583216fad0277fbb07025480034ea5c579677f",
+    "q1_v3/operators.py": "c35dcb6c558f52ec8c738ee851a7b9a735e2db9436d15f0f8571c7e672889518",
+    "q1_v3/training.py": "f38fdcddb004fabd4edd1adbe97072f16e15b2a2a1b2dae1fcc9932863680bd2",
+    "q1_v3/task_inference.py": "5491e6dd3a9c2f39e1ac5d7c40f33e0f765247b27f492d767b2bc60b02d6f2b0",
+    "q1_v3/program_search.py": "393341772afb5eb93d8af0808c0807bb86d2e46e29e2a6b32b41d6c276ac435f",
+    "scripts/q1_v3_repair_ablation.py": "4e4d54b6fb28d1dc2b847b50cd1b11d8409c179dacdd1b4916d471de1e71b24d",
+    "scripts/q1_v3_repair_report.py": "0bd4dd18e48ab0dcd237dd9429d3de23d8df558e8ead712f3d7ac799e7415fba",
+    "scripts/q1_v3_repair_finalize.py": "67f17782b75ba0157e82a9ec27508111a130003571de91080e11ef7cc5cc4f26",
+    "tests/test_q1_v3_mechanisms.py": "29b6c365af5c250d29916f4c658129cd2198758f7e95ad338c13d909bf0c20ec"
+  },
+  "checkpoint_sha256": {
+    "action_flexible_odd.pt": "da958185d227f0579af5e93c7484be42a64db5520c14e22d305e16ea8f8a81f4",
+    "action_learned_odd.pt": "548cbfd64c6700061bed8baf8d98dae26df2e8856c3588eb0d0b31f18cdddaac",
+    "action_response_only_operator_seed4201.pt": "1c053db65dde90a43769135743da15279b92fb52d93ba864ed31a188cf123e24",
+    "action_response_only_operator_seed4202.pt": "78927b6a85c23ff0584141be84358c72607d088ac4858084ebf659df330706de",
+    "combined_action_and_operator_operator_seed4201.pt": "f348a76b63fe7c1defa0c0939c79b6ebf8a6f1e64b1fb6d924432c5dc7d66e93",
+    "combined_action_and_operator_operator_seed4202.pt": "30dc9e9f75f839d516819d1f7356ae9bfe016483a98952a162ce08d0353c5923",
+    "operator_fixed_tanh_diagnostic.pt": "c0ce8efc1a2b0369f65b7b8bb7931a0a973ff0be885384426a88e3ab6281b575",
+    "operator_seed4201_nll_only.pt": "aed6ebbea42df4b0ceed9a50b69dcbde739338d6c1c91870eb423edbcd9e9642",
+    "operator_seed4201_sparse.pt": "af49a7712ea98a53813a243c9c8c41cdac75c28e86bc28af2acd80e7b1a618b6",
+    "operator_seed4202_nll_only.pt": "b378e92a0353075b286bbc3b2261a56b9c54943b08de8eed5918d5ec53889eb1",
+    "operator_seed4202_sparse.pt": "0f5050eaa24b8a1abdf34f9daf1de92a9e829deddbd7d6cc4a85b20218a8620f",
+    "operator_selectivity_only_operator_seed4201.pt": "4034c0fdbecb59ef5c4f82a87594a9fdbb157e02575c43459e68943ab39fda26",
+    "operator_selectivity_only_operator_seed4202.pt": "3befa6127a1df36e93c980d7c914956db15b5bb07f07df24b149db1c9090f87f",
+    "original_v3_operator_copy.pt": "3b7f905ab0b24b1c8305823cc401ef5f69da0ac7e418bee007f4e88f41210147",
+    "v3_primary.pt": "764bc8ee61227bdac182991bd622530401d765b2011a3468cacf0758e03c4275"
+  },
+  "evaluation_rows": {
+    "original_v3": 53760,
+    "legacy_v2_m4": 20160,
+    "repair_ablation": 48384,
+    "repair_effect": 1536
+  },
+  "tests": "85 passed, 0 failed",
+  "metrics_verdicts": {
+    "action_response_only": "FAIL",
+    "operator_selectivity_only": "FAIL",
+    "combined_action_and_operator": "FAIL"
+  },
+  "training_plot": "repair_training_curves.png"
+}

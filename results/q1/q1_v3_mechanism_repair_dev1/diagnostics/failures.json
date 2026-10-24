@@ -1,0 +1,38 @@
+{
+  "status": "resolved; final run completed",
+  "events": [
+    {
+      "stage": "original V3 baseline aggregation",
+      "event": "empty-mean warnings came from unavailable diagnostic context cells for fixed-tanh, not from learned-V3 evaluation rows",
+      "handling": "final paired report aggregates only nonempty evaluated cells; retained original raw baseline files"
+    },
+    {
+      "stage": "V2 root-repair comparator invocation",
+      "event": "the legacy script has no --run-dir option and used its hard-coded prior run directory",
+      "handling": "the prior tracked artifact remained unchanged; current fresh-split comparison uses V2 original and retrained checkpoints via the supported legacy comparator"
+    },
+    {
+      "stage": "repair ablation runner, first attempt",
+      "event": "MAP fit helper arguments were passed in the wrong order; no ablation metrics were emitted",
+      "handling": "fixed call order and reran on the same frozen manifest"
+    },
+    {
+      "stage": "repair ablation runner, second attempt",
+      "event": "MAPResult object was passed to program scorer instead of its theta vector; training checkpoints were saved but no evaluation rows were accepted",
+      "handling": "passed MAPResult.theta and resumed scoring from the same checkpoints"
+    },
+    {
+      "stage": "repair report, first attempt",
+      "event": "standalone report lacked repository root on sys.path; per-program tuple/list matching also omitted rows",
+      "handling": "fixed import path and normalized programs to tuples; final report contains all program rows"
+    },
+    {
+      "stage": "final verification",
+      "event": "all Q1-focused tests passed after fixes",
+      "handling": "84 passed, 0 failed; source compilation passed"
+    }
+  ],
+  "development_gate": "FAIL",
+  "original_test_split_used": false,
+  "q2_run": false
+}

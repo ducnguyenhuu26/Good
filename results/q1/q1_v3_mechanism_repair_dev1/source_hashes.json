@@ -1,0 +1,9 @@
+{
+  "q1_v3/mechanisms.py": "405d2efee0bd4b941e18c101cea66772a31222b609e26d4083e7278e3ef3b2e1",
+  "q1_v3/task_inference.py": "5491e6dd3a9c2f39e1ac5d7c40f33e0f765247b27f492d767b2bc60b02d6f2b0",
+  "q1_v3/operators.py": "c35dcb6c558f52ec8c738ee851a7b9a735e2db9436d15f0f8571c7e672889518",
+  "q1_v3/training.py": "f38fdcddb004fabd4edd1adbe97072f16e15b2a2a1b2dae1fcc9932863680bd2",
+  "q1_v3/program_search.py": "393341772afb5eb93d8af0808c0807bb86d2e46e29e2a6b32b41d6c276ac435f",
+  "scripts/q1_v3_run.py": "99135e9a81fb984876706b4f1f3c4bf9cb7f352ac643e3dea46ad51a1d5a28ba",
+  "configs/q1_v3_mechanism_repair.yaml": "07e186e65378fb494c720ba495326377a2cd2412a13940c9a8215afb75a8015f"
+}

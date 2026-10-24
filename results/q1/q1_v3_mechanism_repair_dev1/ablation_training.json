@@ -1,0 +1,1958 @@
+{
+  "action_response": {
+    "curve": [
+      {
+        "epoch": 1,
+        "train_objective": 127.00058246623533,
+        "training_transition_count": 20480,
+        "unique_training_transitions": 20480,
+        "inner_map_nll_per_observation": 3.0959600876015143,
+        "psi_residual_rms": 0.0008532355487089274,
+        "inner_map_converged": 8
+      },
+      {
+        "epoch": 2,
+        "train_objective": 98.31841479714487,
+        "training_transition_count": 20480,
+        "unique_training_transitions": 20480,
+        "inner_map_nll_per_observation": 3.0902820574508487,
+        "psi_residual_rms": 0.0017037621502471614,
+        "inner_map_converged": 8
+      },
+      {
+        "epoch": 3,
+        "train_objective": 75.14720439237027,
+        "training_transition_count": 20480,
+        "unique_training_transitions": 20480,
+        "inner_map_nll_per_observation": 3.0845928978611052,
+        "psi_residual_rms": 0.0025490164883469483,
+        "inner_map_converged": 8
+      },
+      {
+        "epoch": 4,
+        "train_objective": 56.73861005201981,
+        "training_transition_count": 20480,
+        "unique_training_transitions": 20480,
+        "inner_map_nll_per_observation": 3.078941182597286,
+        "psi_residual_rms": 0.0033859019645931607,
+        "inner_map_converged": 8
+      },
+      {
+        "epoch": 5,
+        "train_objective": 42.16755415116274,
+        "training_transition_count": 20480,
+        "unique_training_transitions": 20480,
+        "inner_map_nll_per_observation": 3.073274847336298,
+        "psi_residual_rms": 0.004209969068490587,
+        "inner_map_converged": 8
+      },
+      {
+        "epoch": 6,
+        "train_objective": 30.859084661722967,
+        "training_transition_count": 20480,
+        "unique_training_transitions": 20480,
+        "inner_map_nll_per_observation": 3.067567087120308,
+        "psi_residual_rms": 0.0050163842152248315,
+        "inner_map_converged": 8
+      },
+      {
+        "epoch": 7,
+        "train_objective": 22.224578511453867,
+        "training_transition_count": 20480,
+        "unique_training_transitions": 20480,
+        "inner_map_nll_per_observation": 3.061652516001664,
+        "psi_residual_rms": 0.0057976219697374425,
+        "inner_map_converged": 8
+      },
+      {
+        "epoch": 8,
+        "train_objective": 15.715211454870888,
+        "training_transition_count": 20480,
+        "unique_training_transitions": 20480,
+        "inner_map_nll_per_observation": 3.0551460806785418,
+        "psi_residual_rms": 0.0065465399003697125,
+        "inner_map_converged": 8
+      },
+      {
+        "epoch": 9,
+        "train_objective": 11.109597702227294,
+        "training_transition_count": 20480,
+        "unique_training_transitions": 20480,
+        "inner_map_nll_per_observation": 3.0473238231377957,
+        "psi_residual_rms": 0.007249753014192864,
+        "inner_map_converged": 8
+      },
+      {
+        "epoch": 10,
+        "train_objective": 8.067364098442763,
+        "training_transition_count": 20480,
+        "unique_training_transitions": 20480,
+        "inner_map_nll_per_observation": 3.0369934650216726,
+        "psi_residual_rms": 0.00788307941156726,
+        "inner_map_converged": 8
+      }
+    ],
+    "best_epoch": 10,
+    "inner_selection_only": true,
+    "inner_map_diagnostics": [
+      {
+        "converged": true,
+        "singular_values": [
+          0.6856872936626379,
+          0.6853072129205413,
+          0.6735224139071864,
+          0.6733263401735505,
+          0.046753140457502194,
+          0.034234134037836685,
+          0.0008887047278263311
+        ],
+        "nll": 2450.1674019486554
+      },
+      {
+        "converged": true,
+        "singular_values": [
+          0.6892331207907496,
+          0.6892023094024469,
+          0.6732398359487143,
+          0.6729799042196545,
+          0.056476883093021076,
+          0.027324923641771835,
+          0.0008849130204093305
+        ],
+        "nll": 4040.2344794539467
+      },
+      {
+        "converged": true,
+        "singular_values": [
+          0.6894177202300898,
+          0.6891953007646257,
+          0.6707817570119534,
+          0.6706661375945828,
+          0.04190951256827688,
+          0.027593061112345045,
+          0.0008336740424556826
+        ],
+        "nll": 3668.1030167626996
+      },
+      {
+        "converged": true,
+        "singular_values": [
+          0.6821390037426337,
+          0.6819544998713576,
+          0.6704052322473028,
+          0.6703590048092053,
+          0.07976023920249187,
+          0.04834872165491699,
+          0.001531609166981383
+        ],
+        "nll": 3032.0859924520432
+      },
+      {
+        "converged": true,
+        "singular_values": [
+          0.6820761805174083,
+          0.6816339586242764,
+          0.6692076027491991,
+          0.6690324343257592,
+          0.060083627171608485,
+          0.0470031964591457,
+          0.0021025384811897627
+        ],
+        "nll": 3180.900174999877
+      },
+      {
+        "converged": true,
+        "singular_values": [
+          0.6842882189610068,
+          0.6841148675542441,
+          0.6766091307943612,
+          0.6761924304111105,
+          0.046994682063961166,
+          0.02580704710720661,
+          0.0006987744394163369
+        ],
+        "nll": 3114.2184078843657
+      },
+      {
+        "converged": true,
+        "singular_values": [
+          0.6841667572494277,
+          0.6841250610885098,
+          0.6663971327735659,
+          0.666158688583771,
+          0.059828723981928504,
+          0.055116595579875666,
+          0.003581741585127268
+        ],
+        "nll": 2278.5263481775755
+      },
+      {
+        "converged": true,
+        "singular_values": [
+          0.6838082283004685,
+          0.6837854238813321,
+          0.6735783733996396,
+          0.6735528580892763,
+          0.06191086104644389,
+          0.05726791249979502,
+          0.0015136447307542939
+        ],
+        "nll": 3114.8146437783807
+      }
+    ]
+  },
+  "operator_fits": {
+    "action_response_only": {
+      "4201": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 123.15078624965692,
+            "inner_nll_per_observation": 67.0364360319516,
+            "group_sparsity_penalty": 1.6471612402982796,
+            "selectivity_penalty": 0.0,
+            "assignment_probabilities": [
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": 40.45655286286773,
+            "inner_nll_per_observation": 18.557334752214597,
+            "group_sparsity_penalty": 1.9572413639096637,
+            "selectivity_penalty": 0.0,
+            "assignment_probabilities": [
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": 12.653936207745867,
+            "inner_nll_per_observation": 9.390022436055967,
+            "group_sparsity_penalty": 2.08116192752879,
+            "selectivity_penalty": 0.0,
+            "assignment_probabilities": [
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": 10.358814335941151,
+            "inner_nll_per_observation": 9.444868532676807,
+            "group_sparsity_penalty": 2.119606683767499,
+            "selectivity_penalty": 0.0,
+            "assignment_probabilities": [
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ],
+            "selected": false
+          },
+          {
+            "epoch": 5,
+            "train_nll_per_observation": 10.353537356380864,
+            "inner_nll_per_observation": 9.432426147591455,
+            "group_sparsity_penalty": 2.11411637788211,
+            "selectivity_penalty": 0.0,
+            "assignment_probabilities": [
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ],
+            "selected": false
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4201
+          },
+          {
+            "epoch": 2,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4202
+          },
+          {
+            "epoch": 3,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4203
+          },
+          {
+            "epoch": 4,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4204
+          },
+          {
+            "epoch": 5,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4205
+          }
+        ],
+        "best_epoch": 3,
+        "inner_selection_only": true,
+        "best_inner_nll_per_observation": 9.390022436055967,
+        "selective": false,
+        "selectivity_weight": 0.0,
+        "sparsity_weight": 0.0002
+      },
+      "4202": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 119.74843388906098,
+            "inner_nll_per_observation": 66.34413173271065,
+            "group_sparsity_penalty": 1.6188492895377014,
+            "selectivity_penalty": 0.0,
+            "assignment_probabilities": [
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": 41.36760257162523,
+            "inner_nll_per_observation": 20.101124108136023,
+            "group_sparsity_penalty": 1.9552094899001466,
+            "selectivity_penalty": 0.0,
+            "assignment_probabilities": [
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": 13.668193585750762,
+            "inner_nll_per_observation": 9.433830418941318,
+            "group_sparsity_penalty": 2.074384619239081,
+            "selectivity_penalty": 0.0,
+            "assignment_probabilities": [
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": 10.34853209074219,
+            "inner_nll_per_observation": 9.42283882448255,
+            "group_sparsity_penalty": 2.1022612206214344,
+            "selectivity_penalty": 0.0,
+            "assignment_probabilities": [
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 5,
+            "train_nll_per_observation": 10.343075785566713,
+            "inner_nll_per_observation": 9.433649318351819,
+            "group_sparsity_penalty": 2.1305860635001292,
+            "selectivity_penalty": 0.0,
+            "assignment_probabilities": [
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ],
+              [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+              ]
+            ],
+            "selected": false
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4202
+          },
+          {
+            "epoch": 2,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4203
+          },
+          {
+            "epoch": 3,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4204
+          },
+          {
+            "epoch": 4,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4205
+          },
+          {
+            "epoch": 5,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4206
+          }
+        ],
+        "best_epoch": 4,
+        "inner_selection_only": true,
+        "best_inner_nll_per_observation": 9.42283882448255,
+        "selective": false,
+        "selectivity_weight": 0.0,
+        "sparsity_weight": 0.0002
+      }
+    },
+    "operator_selectivity_only": {
+      "4201": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 169.80875730330973,
+            "inner_nll_per_observation": 134.937620571886,
+            "group_sparsity_penalty": 0.5875040012685547,
+            "selectivity_penalty": 1.3749500710628684,
+            "assignment_probabilities": [
+              [
+                0.3088244367913206,
+                0.23152209863202308,
+                0.2298904459701063,
+                0.22976301860654993
+              ],
+              [
+                0.3251422442929733,
+                0.22495462544194283,
+                0.22496761622277564,
+                0.2249355140423081
+              ],
+              [
+                0.32926775300956657,
+                0.22359088523721038,
+                0.2235793905378332,
+                0.22356197121538987
+              ],
+              [
+                0.3008077325917001,
+                0.23329704923395686,
+                0.23305214798963644,
+                0.23284307018470665
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": 108.09373565563037,
+            "inner_nll_per_observation": 75.32691620015162,
+            "group_sparsity_penalty": 1.02864198466668,
+            "selectivity_penalty": 1.3364457363460869,
+            "assignment_probabilities": [
+              [
+                0.355455608895165,
+                0.21849015628161556,
+                0.2132036115547693,
+                0.21285062326845025
+              ],
+              [
+                0.4187156163997567,
+                0.19370085141457052,
+                0.19384978511946335,
+                0.1937337470662095
+              ],
+              [
+                0.4465355475960276,
+                0.18450328707955677,
+                0.18449482202146214,
+                0.1844663433029534
+              ],
+              [
+                0.32256902935241255,
+                0.22622225638023136,
+                0.22586890137249205,
+                0.2253398128948641
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": 53.245908733418574,
+            "inner_nll_per_observation": 30.850626278011635,
+            "group_sparsity_penalty": 1.3541908676626748,
+            "selectivity_penalty": 1.2846720372574325,
+            "assignment_probabilities": [
+              [
+                0.34229273951038447,
+                0.22695185109964677,
+                0.2157732687514675,
+                0.21498214063850116
+              ],
+              [
+                0.5186022676486661,
+                0.16032783097197512,
+                0.16062922271394733,
+                0.16044067866541148
+              ],
+              [
+                0.5562130214477816,
+                0.14795980276279605,
+                0.14793037662966632,
+                0.1478967991597561
+              ],
+              [
+                0.3067302347131169,
+                0.23134135906564476,
+                0.2312654274202406,
+                0.23066297880099776
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": 19.60668449767768,
+            "inner_nll_per_observation": 9.88449450921266,
+            "group_sparsity_penalty": 1.6499578853573842,
+            "selectivity_penalty": 1.2375706113785934,
+            "assignment_probabilities": [
+              [
+                0.29548766715141406,
+                0.2534224597153022,
+                0.22646506065967123,
+                0.2246248124736125
+              ],
+              [
+                0.5662488506937472,
+                0.14430659558030692,
+                0.1449246354153798,
+                0.14451991831056593
+              ],
+              [
+                0.653631856716063,
+                0.11553813711348813,
+                0.11544502667637298,
+                0.11538497949407586
+              ],
+              [
+                0.2807491697033209,
+                0.23995384843073392,
+                0.24003073018200793,
+                0.23926625168393723
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 5,
+            "train_nll_per_observation": 10.084839621320604,
+            "inner_nll_per_observation": 9.070237505861185,
+            "group_sparsity_penalty": 1.7951602166977696,
+            "selectivity_penalty": 1.2263777623148813,
+            "assignment_probabilities": [
+              [
+                0.27433902600596793,
+                0.29809400882060466,
+                0.21634517461065547,
+                0.21122179056277204
+              ],
+              [
+                0.5724088861741848,
+                0.14214300043398012,
+                0.14300347995618903,
+                0.14244463343564592
+              ],
+              [
+                0.6718758092195288,
+                0.10943531652065984,
+                0.10942506566945119,
+                0.1092638085903602
+              ],
+              [
+                0.2757065411888941,
+                0.24150360874525018,
+                0.24219842209955567,
+                0.2405914279663
+              ]
+            ],
+            "selected": true
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4201
+          },
+          {
+            "epoch": 2,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4202
+          },
+          {
+            "epoch": 3,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4203
+          },
+          {
+            "epoch": 4,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4204
+          },
+          {
+            "epoch": 5,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4205
+          }
+        ],
+        "best_epoch": 5,
+        "inner_selection_only": true,
+        "best_inner_nll_per_observation": 9.070237505861185,
+        "selective": true,
+        "selectivity_weight": 0.001,
+        "sparsity_weight": 0.001
+      },
+      "4202": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 167.6512102817229,
+            "inner_nll_per_observation": 134.10612785319617,
+            "group_sparsity_penalty": 0.5820568637071851,
+            "selectivity_penalty": 1.3747484050017205,
+            "assignment_probabilities": [
+              [
+                0.30970687588981155,
+                0.2306562180349512,
+                0.22985039646109667,
+                0.22978650961414068
+              ],
+              [
+                0.31908404912582844,
+                0.22696716590904553,
+                0.2272032511742142,
+                0.22674553379091197
+              ],
+              [
+                0.33267297197220386,
+                0.2224455196237487,
+                0.22244346407293755,
+                0.22243804433110984
+              ],
+              [
+                0.3058709380369008,
+                0.23156680327492435,
+                0.23133381134344128,
+                0.23122844734473366
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": 108.59074031358513,
+            "inner_nll_per_observation": 76.4464521691494,
+            "group_sparsity_penalty": 1.0132588702714198,
+            "selectivity_penalty": 1.337176928737564,
+            "assignment_probabilities": [
+              [
+                0.3358166372816217,
+                0.22415295554410086,
+                0.22015608931196418,
+                0.2198743178623133
+              ],
+              [
+                0.42428210382194675,
+                0.19182785390142942,
+                0.19217233793908645,
+                0.19171770433753738
+              ],
+              [
+                0.4443361271054906,
+                0.18523866327121194,
+                0.18522694052670954,
+                0.18519826909658788
+              ],
+              [
+                0.3323751486771757,
+                0.2228354633824722,
+                0.22257300072360187,
+                0.2222163872167501
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": 55.04825376070163,
+            "inner_nll_per_observation": 30.421838415113797,
+            "group_sparsity_penalty": 1.342508855293376,
+            "selectivity_penalty": 1.2837869838604246,
+            "assignment_probabilities": [
+              [
+                0.324980394936939,
+                0.23177733812261767,
+                0.221994928301392,
+                0.22124733863905144
+              ],
+              [
+                0.5208495204287398,
+                0.15957377376851603,
+                0.1600332618035386,
+                0.15954344399920553
+              ],
+              [
+                0.5594795956659278,
+                0.14687374506142248,
+                0.14684127081574955,
+                0.14680538845690044
+              ],
+              [
+                0.3184466950581396,
+                0.22740105578504433,
+                0.2272841854713047,
+                0.2268680636855115
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": 18.97033073966961,
+            "inner_nll_per_observation": 9.957056117932511,
+            "group_sparsity_penalty": 1.6324468026926908,
+            "selectivity_penalty": 1.2375578600213784,
+            "assignment_probabilities": [
+              [
+                0.2809084617856247,
+                0.2565262281709677,
+                0.23215429820152358,
+                0.23041101184188392
+              ],
+              [
+                0.5654666679416608,
+                0.144593916543093,
+                0.1453028772981053,
+                0.14463653821714104
+              ],
+              [
+                0.6550640294220217,
+                0.1150473619361084,
+                0.114973637866538,
+                0.11491497077533185
+              ],
+              [
+                0.2900325401421922,
+                0.23675883393198163,
+                0.23686052186791168,
+                0.23634810405791448
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 5,
+            "train_nll_per_observation": 10.118162903427754,
+            "inner_nll_per_observation": 9.07806907573839,
+            "group_sparsity_penalty": 1.7864636674999945,
+            "selectivity_penalty": 1.2252531863652008,
+            "assignment_probabilities": [
+              [
+                0.25886766317622745,
+                0.30333011801824483,
+                0.22152856939892265,
+                0.21627364940660496
+              ],
+              [
+                0.572012859364647,
+                0.14232566214237066,
+                0.14324890979084076,
+                0.14241256870214158
+              ],
+              [
+                0.6748723550458997,
+                0.10846086573654708,
+                0.1084162670256515,
+                0.10825051219190167
+              ],
+              [
+                0.28296032064088733,
+                0.2391185800536105,
+                0.23961092675878645,
+                0.23831017254671572
+              ]
+            ],
+            "selected": true
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4202
+          },
+          {
+            "epoch": 2,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4203
+          },
+          {
+            "epoch": 3,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4204
+          },
+          {
+            "epoch": 4,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4205
+          },
+          {
+            "epoch": 5,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4206
+          }
+        ],
+        "best_epoch": 5,
+        "inner_selection_only": true,
+        "best_inner_nll_per_observation": 9.07806907573839,
+        "selective": true,
+        "selectivity_weight": 0.001,
+        "sparsity_weight": 0.001
+      }
+    },
+    "combined_action_and_operator": {
+      "4201": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 169.87727129276607,
+            "inner_nll_per_observation": 134.94143907395127,
+            "group_sparsity_penalty": 0.5870897876322003,
+            "selectivity_penalty": 1.3749632820617272,
+            "assignment_probabilities": [
+              [
+                0.3087602380302606,
+                0.23154327814789782,
+                0.22991233183281698,
+                0.2297841519890245
+              ],
+              [
+                0.32516843137657697,
+                0.22494597626226565,
+                0.22495892526704955,
+                0.22492666709410777
+              ],
+              [
+                0.3292456648268368,
+                0.2235982309172871,
+                0.22358671348714623,
+                0.2235693907687299
+              ],
+              [
+                0.3006698419962076,
+                0.2333416896854098,
+                0.233098606290821,
+                0.2328898620275617
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": 108.14285780343735,
+            "inner_nll_per_observation": 75.38197001503154,
+            "group_sparsity_penalty": 1.0271999882000844,
+            "selectivity_penalty": 1.336531090606104,
+            "assignment_probabilities": [
+              [
+                0.3552970133518149,
+                0.21855253372978656,
+                0.21325338384938927,
+                0.21289706906900924
+              ],
+              [
+                0.41879134254249273,
+                0.19367601689600247,
+                0.1938243839760948,
+                0.19370825658541013
+              ],
+              [
+                0.4464789358499493,
+                0.18452221490636134,
+                0.18451356410446715,
+                0.1844852851392222
+              ],
+              [
+                0.32180770510177414,
+                0.22647460791513027,
+                0.22612229733205866,
+                0.22559538965103687
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": 53.40067707789761,
+            "inner_nll_per_observation": 31.029282759541985,
+            "group_sparsity_penalty": 1.3520768029803525,
+            "selectivity_penalty": 1.2849114370011625,
+            "assignment_probabilities": [
+              [
+                0.3418811388811207,
+                0.22711166161133892,
+                0.21590252484085382,
+                0.21510467466668654
+              ],
+              [
+                0.5181994192579016,
+                0.16046239628125766,
+                0.16076316234260446,
+                0.16057502211823643
+              ],
+              [
+                0.5562631193513531,
+                0.14794317552502217,
+                0.14791365320196873,
+                0.14788005192165612
+              ],
+              [
+                0.305409867459009,
+                0.2317800856297143,
+                0.23170312423013165,
+                0.2311069226811451
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": 19.915971759901133,
+            "inner_nll_per_observation": 10.257805480178016,
+            "group_sparsity_penalty": 1.6453626831317396,
+            "selectivity_penalty": 1.238650001546618,
+            "assignment_probabilities": [
+              [
+                0.2951465366138224,
+                0.25361553654841423,
+                0.22654914124326653,
+                0.2246887855944968
+              ],
+              [
+                0.5631113699108357,
+                0.14535207517849713,
+                0.14597154560134892,
+                0.14556500930931843
+              ],
+              [
+                0.6536959246638455,
+                0.11551643050218462,
+                0.11542420659360005,
+                0.1153634382403698
+              ],
+              [
+                0.28013380003412425,
+                0.24016786391565217,
+                0.2402322628516232,
+                0.2394660731986003
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 5,
+            "train_nll_per_observation": 10.522629354950274,
+            "inner_nll_per_observation": 9.469007159263054,
+            "group_sparsity_penalty": 1.78999708086483,
+            "selectivity_penalty": 1.2276200072628807,
+            "assignment_probabilities": [
+              [
+                0.2744686593753382,
+                0.2976375804289337,
+                0.21650468335393908,
+                0.2113890768417892
+              ],
+              [
+                0.5692427047638948,
+                0.14320136894287921,
+                0.14405574612652206,
+                0.14350018016670404
+              ],
+              [
+                0.6716475652883355,
+                0.10951287187151584,
+                0.1094991338993306,
+                0.10934042894081811
+              ],
+              [
+                0.2752952886346051,
+                0.24164757607231713,
+                0.24231983450158692,
+                0.24073730079149075
+              ]
+            ],
+            "selected": true
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4201
+          },
+          {
+            "epoch": 2,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4202
+          },
+          {
+            "epoch": 3,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4203
+          },
+          {
+            "epoch": 4,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4204
+          },
+          {
+            "epoch": 5,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4205
+          }
+        ],
+        "best_epoch": 5,
+        "inner_selection_only": true,
+        "best_inner_nll_per_observation": 9.469007159263054,
+        "selective": true,
+        "selectivity_weight": 0.001,
+        "sparsity_weight": 0.001
+      },
+      "4202": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 167.7172983883987,
+            "inner_nll_per_observation": 134.10869504528293,
+            "group_sparsity_penalty": 0.581534392131642,
+            "selectivity_penalty": 1.3747567463140076,
+            "assignment_probabilities": [
+              [
+                0.30966403086160804,
+                0.23067004239749822,
+                0.22986475474230014,
+                0.22980117199859357
+              ],
+              [
+                0.31913021201569824,
+                0.226951685480362,
+                0.22718725736856415,
+                0.22673084513537559
+              ],
+              [
+                0.33265337826653113,
+                0.2224520921027868,
+                0.22244995526244185,
+                0.22244457436824017
+              ],
+              [
+                0.3057688125465673,
+                0.23160156541550006,
+                0.2313663655739531,
+                0.23126325646397958
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": 108.63866868819018,
+            "inner_nll_per_observation": 76.50249638328741,
+            "group_sparsity_penalty": 1.0116364988872608,
+            "selectivity_penalty": 1.3372628354576324,
+            "assignment_probabilities": [
+              [
+                0.33569161490705884,
+                0.22419606866774044,
+                0.22019809853917577,
+                0.2199142178860249
+              ],
+              [
+                0.42436473909450273,
+                0.19180044474868843,
+                0.19214374483632443,
+                0.19169107132048446
+              ],
+              [
+                0.4442580115950432,
+                0.18526478794514986,
+                0.18525285428445767,
+                0.18522434617534922
+              ],
+              [
+                0.331652216753905,
+                0.22307647592471808,
+                0.2228110013705411,
+                0.22246030595083593
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": 55.20719010680135,
+            "inner_nll_per_observation": 30.598934247651574,
+            "group_sparsity_penalty": 1.3396748104899765,
+            "selectivity_penalty": 1.2840186202355024,
+            "assignment_probabilities": [
+              [
+                0.3246709792119431,
+                0.23189249180546975,
+                0.2220947209931998,
+                0.22134180798938727
+              ],
+              [
+                0.5204371742235593,
+                0.1597112983234283,
+                0.1601702587055495,
+                0.15968126874746277
+              ],
+              [
+                0.5595451576138389,
+                0.14685205301202248,
+                0.14681938073655224,
+                0.14678340863758638
+              ],
+              [
+                0.31720995881716013,
+                0.22781347611112981,
+                0.2276918434665808,
+                0.2272847216051292
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": 19.278520410899095,
+            "inner_nll_per_observation": 10.330646352336,
+            "group_sparsity_penalty": 1.6283271187043376,
+            "selectivity_penalty": 1.238549195742853,
+            "assignment_probabilities": [
+              [
+                0.28071055292440855,
+                0.2566252430572346,
+                0.2322092470338828,
+                0.23045495698447396
+              ],
+              [
+                0.5625421124651224,
+                0.14556824786050696,
+                0.14627848090675247,
+                0.1456111587676182
+              ],
+              [
+                0.6551513104188421,
+                0.11501787085754855,
+                0.11494510407554408,
+                0.11488571464806517
+              ],
+              [
+                0.28942170444677945,
+                0.23697073855054002,
+                0.2370584988174132,
+                0.23654905818526714
+              ]
+            ],
+            "selected": true
+          },
+          {
+            "epoch": 5,
+            "train_nll_per_observation": 10.558076958444712,
+            "inner_nll_per_observation": 9.47586504585252,
+            "group_sparsity_penalty": 1.7810828684632078,
+            "selectivity_penalty": 1.2265354792933978,
+            "assignment_probabilities": [
+              [
+                0.25904103258562267,
+                0.30270690617801027,
+                0.22173810694493978,
+                0.21651395429142734
+              ],
+              [
+                0.5688545746769669,
+                0.1433805899276585,
+                0.1442985827715414,
+                0.14346625262383314
+              ],
+              [
+                0.6745748264233341,
+                0.10856074042381904,
+                0.10851388159310667,
+                0.1083505515597402
+              ],
+              [
+                0.28268709169420064,
+                0.2392127357151453,
+                0.23968687007871647,
+                0.23841330251193765
+              ]
+            ],
+            "selected": true
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4202
+          },
+          {
+            "epoch": 2,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4203
+          },
+          {
+            "epoch": 3,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4204
+          },
+          {
+            "epoch": 4,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4205
+          },
+          {
+            "epoch": 5,
+            "episode_count": 480,
+            "unique_episode_count": 480,
+            "program_episode_counts": {
+              "(2,)": 40,
+              "(1,)": 40,
+              "(0,)": 40,
+              "(3,)": 40,
+              "(2, 2)": 40,
+              "(2, 0)": 40,
+              "(1, 1)": 40,
+              "(1, 3)": 40,
+              "(0, 2)": 40,
+              "(0, 0)": 40,
+              "(3, 1)": 40,
+              "(3, 3)": 40
+            },
+            "shuffle_seed": 4206
+          }
+        ],
+        "best_epoch": 5,
+        "inner_selection_only": true,
+        "best_inner_nll_per_observation": 9.47586504585252,
+        "selective": true,
+        "selectivity_weight": 0.001,
+        "sparsity_weight": 0.001
+      }
+    }
+  },
+  "shared_observation_cache": true,
+  "training_programs": [
+    [
+      0
+    ],
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      3
+    ]
+  ],
+  "transitions_per_background_program": 512,
+  "physical_to_opaque_fixed_from_original_training_seed": {
+    "0": 2,
+    "1": 1,
+    "2": 0,
+    "3": 3
+  }
+}

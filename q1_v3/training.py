@@ -35,10 +35,10 @@ def _inner_score(action,episodes,prior_mean,prior_cov,*,dt,sigma,epoch_seed):
         scores.append(fit.nll/max(1,ep.y.numel()))
     return float(np.mean(scores)),fits
 
-def fit_shared_response(train_episodes,inner_episodes,*,seed=20261101,epochs=10,dt=.05,sigma=.0005):
+def fit_shared_response(train_episodes,inner_episodes,*,seed=20261101,epochs=10,dt=.05,sigma=.0005,action_factory=OddActionResponse):
     """Fit one shared odd response and task parameters from noisy observed old laws."""
     torch.manual_seed(int(seed));torch.set_num_threads(1)
-    action=OddActionResponse().to(dtype=torch.float64)
+    action=action_factory().to(dtype=torch.float64)
     rng=np.random.default_rng(seed)
     init=[]
     for _ in train_episodes:
@@ -75,9 +75,9 @@ def fit_shared_response(train_episodes,inner_episodes,*,seed=20261101,epochs=10,
       'inner_selection_only':True,'inner_map_diagnostics':[{'converged':f.converged,'singular_values':f.jacobian_singular_values,'nll':f.nll} for f in best_inner]}
 
 def fit_operator_bank(action,train_episodes,inner_episodes,*,seed=4201,dt=.05,sigma=.0005,
-  epochs=5,lr=.003,sparsity=2e-4,stability=1e-4):
+  epochs=5,lr=.003,sparsity=2e-4,stability=1e-4,selective=False,selectivity_weight=0.):
     """Train all four uniform operators using observed after-stage delta-v only."""
-    torch.manual_seed(int(seed));bank=MechanismOperatorBank(dtype=torch.float64)
+    torch.manual_seed(int(seed));bank=MechanismOperatorBank(dtype=torch.float64,selective=selective)
     optimizer=torch.optim.Adam(bank.parameters(),lr=lr);history=[];coverage=[];best=float('inf');best_state=None
     for epoch in range(epochs):
         rng=np.random.default_rng(seed+epoch);order=rng.permutation(len(train_episodes));train_losses=[]
@@ -93,18 +93,22 @@ def fit_operator_bank(action,train_episodes,inner_episodes,*,seed=4201,dt=.05,si
                 prediction=mean_delta_v(ep.x,theta,action,dt)
                 losses.append(.5*((prediction-ep.y)/sigma).square().mean())
             nll=torch.stack(losses).mean()
-            penalty=sparsity*bank.sparsity_penalty()+stability*((bank.L-torch.eye(2,dtype=torch.float64)).square().mean()+bank.alpha.square().mean())
+            effective_L,effective_alpha=bank.effective_parameters()
+            penalty=sparsity*bank.sparsity_penalty()+stability*((effective_L-torch.eye(2,dtype=torch.float64)).square().mean()+effective_alpha.square().mean())
+            penalty=penalty+selectivity_weight*bank.selectivity_penalty()
             loss=nll+penalty
             optimizer.zero_grad(set_to_none=True);loss.backward();clip_grad_norm_(bank.parameters(),5.);optimizer.step()
             train_losses.append(float(nll.detach()))
         val=operator_validation_nll(action,bank,inner_episodes,dt=dt,sigma=sigma)
         history.append({'epoch':epoch+1,'train_nll_per_observation':float(np.mean(train_losses)),'inner_nll_per_observation':val,
-          'group_sparsity_penalty':float(bank.sparsity_penalty().detach()),'selected':val<best})
+          'group_sparsity_penalty':float(bank.sparsity_penalty().detach()),'selectivity_penalty':float(bank.selectivity_penalty().detach()),
+          'assignment_probabilities':bank.assignment_probabilities.detach().tolist(),'selected':val<best})
         if val<best:
             best=val;best_state={k:v.detach().clone() for k,v in bank.state_dict().items()}
     bank.load_state_dict(best_state)
     return bank,{'curve':history,'epoch_coverage':coverage,'best_epoch':int(np.argmin([r['inner_nll_per_observation'] for r in history])+1),
-      'inner_selection_only':True,'best_inner_nll_per_observation':best}
+      'inner_selection_only':True,'best_inner_nll_per_observation':best,'selective':bool(selective),
+      'selectivity_weight':float(selectivity_weight),'sparsity_weight':float(sparsity)}
 
 def operator_validation_nll(action,bank,episodes,*,dt,sigma):
     vals=[]
