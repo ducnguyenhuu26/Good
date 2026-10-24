@@ -1,0 +1,752 @@
+{
+  "opaque_code_map": {
+    "0": 3,
+    "1": 2,
+    "2": 1,
+    "3": 0
+  },
+  "train_only_effect_normalizers": {
+    "3": 0.0001316569114351296,
+    "2": 2.8354351616144414e-05,
+    "1": 5.097705823686738e-07,
+    "0": 2.572333753780853e-08
+  },
+  "crossfit_train_noise_diagnostics": {
+    "0": {
+      "crossfit_target_energy": 0.0001316569114351296,
+      "estimated_crossfit_noise_variance": 2.777544517584829e-06,
+      "target_to_noise_ratio": 47.40046850792146,
+      "loss_normalizer_train_only": 0.0001316569114351296,
+      "backgrounds": 40
+    },
+    "1": {
+      "crossfit_target_energy": 2.8354351616144414e-05,
+      "estimated_crossfit_noise_variance": 4.6865076583912926e-07,
+      "target_to_noise_ratio": 60.50209171295248,
+      "loss_normalizer_train_only": 2.8354351616144414e-05,
+      "backgrounds": 40
+    },
+    "2": {
+      "crossfit_target_energy": 5.097705823686738e-07,
+      "estimated_crossfit_noise_variance": 1.8995096251472887e-07,
+      "target_to_noise_ratio": 2.683695705564777,
+      "loss_normalizer_train_only": 5.097705823686738e-07,
+      "backgrounds": 40
+    },
+    "3": {
+      "crossfit_target_energy": 2.549477318147808e-08,
+      "estimated_crossfit_noise_variance": 2.572333753780853e-08,
+      "target_to_noise_ratio": 0.9911145139702613,
+      "loss_normalizer_train_only": 2.572333753780853e-08,
+      "backgrounds": 40
+    }
+  },
+  "crossfit_inner_noise_diagnostics": {
+    "0": {
+      "crossfit_target_energy": 0.00013005944128963165,
+      "estimated_crossfit_noise_variance": 2.778176821038869e-06,
+      "target_to_noise_ratio": 46.81467367544926,
+      "loss_normalizer_train_only": 0.00013005944128963165,
+      "backgrounds": 8
+    },
+    "1": {
+      "crossfit_target_energy": 2.8679258093688986e-05,
+      "estimated_crossfit_noise_variance": 4.662774699681904e-07,
+      "target_to_noise_ratio": 61.50684933510833,
+      "loss_normalizer_train_only": 2.8679258093688986e-05,
+      "backgrounds": 8
+    },
+    "2": {
+      "crossfit_target_energy": 4.780803060100425e-07,
+      "estimated_crossfit_noise_variance": 2.3397002113512144e-07,
+      "target_to_noise_ratio": 2.043340012923893,
+      "loss_normalizer_train_only": 4.780803060100425e-07,
+      "backgrounds": 8
+    },
+    "3": {
+      "crossfit_target_energy": 1.9038968679385704e-08,
+      "estimated_crossfit_noise_variance": 1.990888320868578e-08,
+      "target_to_noise_ratio": 0.9563052070685435,
+      "loss_normalizer_train_only": 1.990888320868578e-08,
+      "backgrounds": 8
+    }
+  },
+  "per_seed": {
+    "4201": {
+      "nll_only": {
+        "curve": [
+          {
+            "epoch": 1,
+            "training_episode_count": 480,
+            "train_nll": 123.29271842638651,
+            "regularization": 1.2391960273969622e-07,
+            "max_jitter": 0.0,
+            "inner_nll": -73.8680506547292,
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "training_episode_count": 480,
+            "train_nll": -57.681742111841835,
+            "regularization": 5.570819014977246e-07,
+            "max_jitter": 0.0,
+            "inner_nll": -73.38895253340404,
+            "selected": false
+          },
+          {
+            "epoch": 3,
+            "training_episode_count": 480,
+            "train_nll": -67.45027471383413,
+            "regularization": 1.4609474066655062e-06,
+            "max_jitter": 0.0,
+            "inner_nll": -117.1071225007375,
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "training_episode_count": 480,
+            "train_nll": -79.83610716660817,
+            "regularization": 2.833156301088972e-06,
+            "max_jitter": 0.0,
+            "inner_nll": -117.80618456999461,
+            "selected": true
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "optimizer_seed": 4201,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "0,2": 40,
+              "3": 40,
+              "1,1": 40,
+              "3,1": 40,
+              "0,0": 40,
+              "2,2": 40,
+              "2": 40,
+              "1,3": 40,
+              "0": 40,
+              "1": 40,
+              "2,0": 40,
+              "3,3": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 2119087965
+          },
+          {
+            "epoch": 2,
+            "optimizer_seed": 4201,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "2": 40,
+              "1,1": 40,
+              "0": 40,
+              "3,3": 40,
+              "2,0": 40,
+              "1,3": 40,
+              "0,0": 40,
+              "0,2": 40,
+              "2,2": 40,
+              "3,1": 40,
+              "1": 40,
+              "3": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 1178210739
+          },
+          {
+            "epoch": 3,
+            "optimizer_seed": 4201,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "2,0": 40,
+              "1,1": 40,
+              "3": 40,
+              "0,2": 40,
+              "3,3": 40,
+              "2,2": 40,
+              "1,3": 40,
+              "0,0": 40,
+              "2": 40,
+              "3,1": 40,
+              "1": 40,
+              "0": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 1358182518
+          },
+          {
+            "epoch": 4,
+            "optimizer_seed": 4201,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "1": 40,
+              "1,3": 40,
+              "2,0": 40,
+              "0,2": 40,
+              "3,3": 40,
+              "0,0": 40,
+              "3": 40,
+              "3,1": 40,
+              "2,2": 40,
+              "1,1": 40,
+              "0": 40,
+              "2": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 588147586
+          }
+        ],
+        "regularization": 0.0001,
+        "inner_nll": -117.80618456999461,
+        "best_epoch": 4,
+        "seed": 4201,
+        "selection_split": "inner-train backgrounds only",
+        "training_episode_count_per_epoch": 480,
+        "nll_normalized_per_observation": true,
+        "uses_old_support": true
+      },
+      "effect_aware": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 3.8528974508245786,
+            "train_effect_normalized_mse": 22.080870467922797,
+            "inner_nll": -66.48377466201782,
+            "identity_inner_nll": 4818.461590846379,
+            "inner_after_nll_improvement": 1.0135873631167414,
+            "inner_effect_skill_by_code": {
+              "3": 0.9887611299790171,
+              "2": 0.9912101759478171,
+              "1": -0.355485721613946,
+              "0": -191.89640267562376
+            },
+            "inner_U12_guard_pass": true,
+            "combined_selection_score": -96.02458546230719,
+            "selected": true,
+            "mean_effect_gradient_norm_by_code": {
+              "0": 52214.106768798825,
+              "1": 2947.2135932922365,
+              "2": 40.10609477162361,
+              "3": 9.860590398311615
+            }
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": -1.8086603214343389,
+            "train_effect_normalized_mse": 22.047681180151994,
+            "inner_nll": -124.59084296226501,
+            "identity_inner_nll": 4818.461590846379,
+            "inner_after_nll_improvement": 1.0256441182552427,
+            "inner_effect_skill_by_code": {
+              "3": 0.9758633515815213,
+              "2": 0.9796736797967593,
+              "1": 0.33626032164455877,
+              "0": -37.69553626757376
+            },
+            "inner_U12_guard_pass": true,
+            "combined_selection_score": -18.577073561139073,
+            "selected": true,
+            "mean_effect_gradient_norm_by_code": {
+              "0": 56461.315185546875,
+              "1": 2766.235677909851,
+              "2": 38.102733951807025,
+              "3": 10.087970119714736
+            }
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": -2.5333976961672304,
+            "train_effect_normalized_mse": 16.492791386767202,
+            "inner_nll": -97.5505963563919,
+            "identity_inner_nll": 4818.461590846379,
+            "inner_after_nll_improvement": 1.02003348186025,
+            "inner_effect_skill_by_code": {
+              "3": 0.9918563017250666,
+              "2": 0.9839591000955957,
+              "1": -4.849322001758335,
+              "0": -276.4111628753413
+            },
+            "inner_U12_guard_pass": true,
+            "combined_selection_score": -140.52823909036377,
+            "selected": false,
+            "mean_effect_gradient_norm_by_code": {
+              "0": 48997.54191894531,
+              "1": 3018.0952125549315,
+              "2": 41.52889180779457,
+              "3": 11.986975353956222
+            }
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": -2.7293022451301416,
+            "train_effect_normalized_mse": 22.281160177362473,
+            "inner_nll": -95.5000234444936,
+            "identity_inner_nll": 4818.461590846379,
+            "inner_after_nll_improvement": 1.019608004268356,
+            "inner_effect_skill_by_code": {
+              "3": 0.9863389438461757,
+              "2": 0.7581834407783675,
+              "1": -0.6089040795969953,
+              "0": -15.55677042145998
+            },
+            "inner_U12_guard_pass": true,
+            "combined_selection_score": -7.980876450101652,
+            "selected": true,
+            "mean_effect_gradient_norm_by_code": {
+              "0": 55860.62004394531,
+              "1": 2434.0006614685058,
+              "2": 52.074342656135556,
+              "3": 10.143322995305061
+            }
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "optimizer_seed": 4201,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 1178210739,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 2119087965
+          },
+          {
+            "epoch": 2,
+            "optimizer_seed": 4201,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 588147586,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1358182518
+          },
+          {
+            "epoch": 3,
+            "optimizer_seed": 4201,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 1046545106,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 537010522
+          },
+          {
+            "epoch": 4,
+            "optimizer_seed": 4201,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 454983235,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1400861563
+          }
+        ],
+        "seed": 4201,
+        "effect_weight": 1.0,
+        "regularization": 0.0001,
+        "effect_scales_train_only": {
+          "3": 0.0001316569114351296,
+          "2": 2.8354351616144414e-05,
+          "1": 5.097705823686738e-07,
+          "0": 2.572333753780853e-08
+        },
+        "inner_effect_scales_train_inner": {
+          "3": 0.0001316569114351296,
+          "2": 2.8354351616144414e-05,
+          "1": 5.097705823686738e-07,
+          "0": 2.572333753780853e-08
+        },
+        "best_epoch": 4,
+        "best_combined_score": -7.980876450101652,
+        "selection_metric": "mean inner U3/U4 cross-fit effect skill + 0.1 normalized after-NLL improvement; U1/U2 skill guard",
+        "u12_guard_passed_any_epoch": true,
+        "selection_split": "inner-training backgrounds only"
+      }
+    },
+    "4202": {
+      "nll_only": {
+        "curve": [
+          {
+            "epoch": 1,
+            "training_episode_count": 480,
+            "train_nll": 102.6496693054835,
+            "regularization": 1.5777655931831804e-07,
+            "max_jitter": 0.0,
+            "inner_nll": -85.97350243727367,
+            "selected": true
+          },
+          {
+            "epoch": 2,
+            "training_episode_count": 480,
+            "train_nll": -68.8432835261027,
+            "regularization": 5.737937496993103e-07,
+            "max_jitter": 0.0,
+            "inner_nll": -7.424391229947408,
+            "selected": false
+          },
+          {
+            "epoch": 3,
+            "training_episode_count": 480,
+            "train_nll": -88.47017223040262,
+            "regularization": 1.0247436377378941e-06,
+            "max_jitter": 0.0,
+            "inner_nll": -95.96300232410431,
+            "selected": true
+          },
+          {
+            "epoch": 4,
+            "training_episode_count": 480,
+            "train_nll": -85.16794396241507,
+            "regularization": 1.5150518708632414e-06,
+            "max_jitter": 0.0,
+            "inner_nll": -111.10193014144897,
+            "selected": true
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "optimizer_seed": 4202,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "1,3": 40,
+              "0,2": 40,
+              "3": 40,
+              "1,1": 40,
+              "1": 40,
+              "2,0": 40,
+              "3,1": 40,
+              "2,2": 40,
+              "0": 40,
+              "0,0": 40,
+              "3,3": 40,
+              "2": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 1968992352
+          },
+          {
+            "epoch": 2,
+            "optimizer_seed": 4202,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "0,2": 40,
+              "3,1": 40,
+              "3": 40,
+              "2,0": 40,
+              "1,1": 40,
+              "1,3": 40,
+              "2,2": 40,
+              "0,0": 40,
+              "3,3": 40,
+              "1": 40,
+              "2": 40,
+              "0": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 1227309881
+          },
+          {
+            "epoch": 3,
+            "optimizer_seed": 4202,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "0,2": 40,
+              "3": 40,
+              "1": 40,
+              "3,1": 40,
+              "2,2": 40,
+              "2,0": 40,
+              "3,3": 40,
+              "1,1": 40,
+              "0,0": 40,
+              "0": 40,
+              "1,3": 40,
+              "2": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 1511329897
+          },
+          {
+            "epoch": 4,
+            "optimizer_seed": 4202,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "3,3": 40,
+              "1": 40,
+              "2,0": 40,
+              "0,2": 40,
+              "3,1": 40,
+              "1,1": 40,
+              "1,3": 40,
+              "2,2": 40,
+              "0": 40,
+              "2": 40,
+              "3": 40,
+              "0,0": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 925773991
+          }
+        ],
+        "regularization": 0.0001,
+        "inner_nll": -111.10193014144897,
+        "best_epoch": 4,
+        "seed": 4202,
+        "selection_split": "inner-train backgrounds only",
+        "training_episode_count_per_epoch": 480,
+        "nll_normalized_per_observation": true,
+        "uses_old_support": true
+      },
+      "effect_aware": {
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll_per_observation": 3.2078021657963594,
+            "train_effect_normalized_mse": 17.59713926277909,
+            "inner_nll": -116.25696039199829,
+            "identity_inner_nll": 4818.461590846379,
+            "inner_after_nll_improvement": 1.0239149038164153,
+            "inner_effect_skill_by_code": {
+              "3": 0.9782839350938208,
+              "2": 0.985210267293819,
+              "1": -1.3666145448003966,
+              "0": -26.5675735464032
+            },
+            "inner_U12_guard_pass": true,
+            "combined_selection_score": -13.864702555220155,
+            "selected": true,
+            "mean_effect_gradient_norm_by_code": {
+              "0": 47237.65750732422,
+              "1": 2851.762742233276,
+              "2": 43.7350895345211,
+              "3": 10.815978628396987
+            }
+          },
+          {
+            "epoch": 2,
+            "train_nll_per_observation": -1.7790337319175402,
+            "train_effect_normalized_mse": 18.33601581561161,
+            "inner_nll": -124.29525065422058,
+            "identity_inner_nll": 4818.461590846379,
+            "inner_after_nll_improvement": 1.025582785199159,
+            "inner_effect_skill_by_code": {
+              "3": 0.9878142600949904,
+              "2": 0.9893726416890095,
+              "1": -1.6568060148634913,
+              "0": -102.63122272006915
+            },
+            "inner_U12_guard_pass": true,
+            "combined_selection_score": -52.041456088946404,
+            "selected": false,
+            "mean_effect_gradient_norm_by_code": {
+              "0": 50779.68677978516,
+              "1": 2414.1874717712403,
+              "2": 45.32136707305908,
+              "3": 10.593075621128083
+            }
+          },
+          {
+            "epoch": 3,
+            "train_nll_per_observation": -2.1209685675799848,
+            "train_effect_normalized_mse": 31.440878807634363,
+            "inner_nll": -78.3843126296997,
+            "identity_inner_nll": 4818.461590846379,
+            "inner_after_nll_improvement": 1.0160566302212422,
+            "inner_effect_skill_by_code": {
+              "3": 0.9396229956206167,
+              "2": 0.9586395483029343,
+              "1": -5.782908632734649,
+              "0": -167.16222617554553
+            },
+            "inner_U12_guard_pass": true,
+            "combined_selection_score": -86.37096174111797,
+            "selected": false,
+            "mean_effect_gradient_norm_by_code": {
+              "0": 67685.3140258789,
+              "1": 2511.3442626953124,
+              "2": 42.96482572555542,
+              "3": 13.476286001503468
+            }
+          },
+          {
+            "epoch": 4,
+            "train_nll_per_observation": -2.6440546549856663,
+            "train_effect_normalized_mse": 20.91237363442051,
+            "inner_nll": -133.88885525862375,
+            "identity_inner_nll": 4818.461590846379,
+            "inner_after_nll_improvement": 1.0275733819543287,
+            "inner_effect_skill_by_code": {
+              "3": 0.9602520678575742,
+              "2": 0.9815554237229581,
+              "1": -11.096259529849458,
+              "0": -17.235399805845066
+            },
+            "inner_U12_guard_pass": true,
+            "combined_selection_score": -14.06307232965183,
+            "selected": false,
+            "mean_effect_gradient_norm_by_code": {
+              "0": 53787.55715332031,
+              "1": 2635.9839401245117,
+              "2": 48.202427661418916,
+              "3": 12.485795930027962
+            }
+          }
+        ],
+        "epoch_coverage": [
+          {
+            "epoch": 1,
+            "optimizer_seed": 4202,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 1227309881,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1968992352
+          },
+          {
+            "epoch": 2,
+            "optimizer_seed": 4202,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 925773991,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1511329897
+          },
+          {
+            "epoch": 3,
+            "optimizer_seed": 4202,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 1349163754,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1770646579
+          },
+          {
+            "epoch": 4,
+            "optimizer_seed": 4202,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 545082665,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1164063301
+          }
+        ],
+        "seed": 4202,
+        "effect_weight": 1.0,
+        "regularization": 0.0001,
+        "effect_scales_train_only": {
+          "3": 0.0001316569114351296,
+          "2": 2.8354351616144414e-05,
+          "1": 5.097705823686738e-07,
+          "0": 2.572333753780853e-08
+        },
+        "inner_effect_scales_train_inner": {
+          "3": 0.0001316569114351296,
+          "2": 2.8354351616144414e-05,
+          "1": 5.097705823686738e-07,
+          "0": 2.572333753780853e-08
+        },
+        "best_epoch": 1,
+        "best_combined_score": -13.864702555220155,
+        "selection_metric": "mean inner U3/U4 cross-fit effect skill + 0.1 normalized after-NLL improvement; U1/U2 skill guard",
+        "u12_guard_passed_any_epoch": true,
+        "selection_split": "inner-training backgrounds only"
+      }
+    }
+  }
+}

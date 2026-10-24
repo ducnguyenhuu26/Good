@@ -1,0 +1,819 @@
+{
+  "basis_capacity_selection": {
+    "train_inner_only": true,
+    "predeclared_selector": "choose velocity width 8 only if inner predictive NLL improves by at least 2% and U1/U2 cross-fit coefficient repeatability does not drop by more than 0.10; otherwise choose width 4",
+    "inner_nll_relative_improvement_width8": -0.009058100078452916,
+    "u1_u2_repeatability_guard": false,
+    "selected_candidate": "velocity4",
+    "candidate_metrics": {
+      "velocity4": {
+        "widths": [
+          6,
+          4,
+          2
+        ],
+        "inner_predictive_nll": -380.31111174363355,
+        "selected_basis_epoch": 17,
+        "train_effect_repeatability": {
+          "0": {
+            "crossfit_coefficient_repeatability": 0.997335300612976,
+            "backgrounds": 40
+          },
+          "1": {
+            "crossfit_coefficient_repeatability": 0.9897892412073124,
+            "backgrounds": 40
+          },
+          "2": {
+            "crossfit_coefficient_repeatability": 0.9679749046046909,
+            "backgrounds": 40
+          },
+          "3": {
+            "crossfit_coefficient_repeatability": -0.5804262316704298,
+            "backgrounds": 40
+          }
+        },
+        "inner_effect_repeatability": {
+          "0": {
+            "crossfit_coefficient_repeatability": 0.9975373302159805,
+            "backgrounds": 8
+          },
+          "1": {
+            "crossfit_coefficient_repeatability": 0.9854063893261868,
+            "backgrounds": 8
+          },
+          "2": {
+            "crossfit_coefficient_repeatability": 0.9466501563271693,
+            "backgrounds": 8
+          },
+          "3": {
+            "crossfit_coefficient_repeatability": -0.6408646054663001,
+            "backgrounds": 8
+          }
+        },
+        "inner_u4_repeatability_mean": -0.6408646054663001,
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll": -77.8349984389085,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -304.10688062814563
+          },
+          {
+            "epoch": 2,
+            "train_nll": -321.90817401592545,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -329.93045220008264
+          },
+          {
+            "epoch": 3,
+            "train_nll": -336.79529818021336,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -339.49626636505127
+          },
+          {
+            "epoch": 4,
+            "train_nll": -349.3198796198918,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -352.62471133012036
+          },
+          {
+            "epoch": 5,
+            "train_nll": -355.23275897686295,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -359.11266767061676
+          },
+          {
+            "epoch": 6,
+            "train_nll": -357.99009821965143,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -356.08871349921594
+          },
+          {
+            "epoch": 7,
+            "train_nll": -361.4503220778245,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -363.34254396878754
+          },
+          {
+            "epoch": 8,
+            "train_nll": -367.4551955003005,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -367.46677347329944
+          },
+          {
+            "epoch": 9,
+            "train_nll": -373.49650315504806,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -372.60589694976807
+          },
+          {
+            "epoch": 10,
+            "train_nll": -375.37137638972354,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -376.45075783362756
+          },
+          {
+            "epoch": 11,
+            "train_nll": -376.85926701472357,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -376.79260341937726
+          },
+          {
+            "epoch": 12,
+            "train_nll": -377.02871281550483,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -377.82589545616736
+          },
+          {
+            "epoch": 13,
+            "train_nll": -378.26626868614784,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -377.9545830946702
+          },
+          {
+            "epoch": 14,
+            "train_nll": -378.53460083007815,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -373.8742066163283
+          },
+          {
+            "epoch": 15,
+            "train_nll": -379.1834040715144,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -380.00634149404675
+          },
+          {
+            "epoch": 16,
+            "train_nll": -379.63045701246995,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -376.74861907958984
+          },
+          {
+            "epoch": 17,
+            "train_nll": -380.04315561147837,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -380.31111174363355
+          },
+          {
+            "epoch": 18,
+            "train_nll": -380.7909602238582,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -380.2559397770808
+          }
+        ],
+        "train_effect_normalization": {
+          "0": {
+            "crossfit_target_energy": 0.0001316569114351296,
+            "estimated_crossfit_noise_variance": 2.777544517584829e-06,
+            "target_to_noise_ratio": 47.40046850792146,
+            "loss_normalizer_train_only": 0.0001316569114351296,
+            "backgrounds": 40
+          },
+          "1": {
+            "crossfit_target_energy": 2.8354351616144414e-05,
+            "estimated_crossfit_noise_variance": 4.6865076583912926e-07,
+            "target_to_noise_ratio": 60.50209171295248,
+            "loss_normalizer_train_only": 2.8354351616144414e-05,
+            "backgrounds": 40
+          },
+          "2": {
+            "crossfit_target_energy": 5.097705823686738e-07,
+            "estimated_crossfit_noise_variance": 1.8995096251472887e-07,
+            "target_to_noise_ratio": 2.683695705564777,
+            "loss_normalizer_train_only": 5.097705823686738e-07,
+            "backgrounds": 40
+          },
+          "3": {
+            "crossfit_target_energy": 2.549477318147808e-08,
+            "estimated_crossfit_noise_variance": 2.572333753780853e-08,
+            "target_to_noise_ratio": 0.9911145139702613,
+            "loss_normalizer_train_only": 2.572333753780853e-08,
+            "backgrounds": 40
+          }
+        },
+        "inner_effect_noise_diagnostic": {
+          "0": {
+            "crossfit_target_energy": 0.00013005944128963165,
+            "estimated_crossfit_noise_variance": 2.778176821038869e-06,
+            "target_to_noise_ratio": 46.81467367544926,
+            "loss_normalizer_train_only": 0.00013005944128963165,
+            "backgrounds": 8
+          },
+          "1": {
+            "crossfit_target_energy": 2.8679258093688986e-05,
+            "estimated_crossfit_noise_variance": 4.662774699681904e-07,
+            "target_to_noise_ratio": 61.50684933510833,
+            "loss_normalizer_train_only": 2.8679258093688986e-05,
+            "backgrounds": 8
+          },
+          "2": {
+            "crossfit_target_energy": 4.780803060100425e-07,
+            "estimated_crossfit_noise_variance": 2.3397002113512144e-07,
+            "target_to_noise_ratio": 2.043340012923893,
+            "loss_normalizer_train_only": 4.780803060100425e-07,
+            "backgrounds": 8
+          },
+          "3": {
+            "crossfit_target_energy": 1.9038968679385704e-08,
+            "estimated_crossfit_noise_variance": 1.990888320868578e-08,
+            "target_to_noise_ratio": 0.9563052070685435,
+            "loss_normalizer_train_only": 1.990888320868578e-08,
+            "backgrounds": 8
+          }
+        }
+      },
+      "velocity8": {
+        "widths": [
+          6,
+          8,
+          2
+        ],
+        "inner_predictive_nll": -376.866215632512,
+        "selected_basis_epoch": 17,
+        "train_effect_repeatability": {
+          "0": {
+            "crossfit_coefficient_repeatability": 0.5548955599785086,
+            "backgrounds": 40
+          },
+          "1": {
+            "crossfit_coefficient_repeatability": 0.14247280723082156,
+            "backgrounds": 40
+          },
+          "2": {
+            "crossfit_coefficient_repeatability": -0.3643826717194769,
+            "backgrounds": 40
+          },
+          "3": {
+            "crossfit_coefficient_repeatability": -1.0735397164613345,
+            "backgrounds": 40
+          }
+        },
+        "inner_effect_repeatability": {
+          "0": {
+            "crossfit_coefficient_repeatability": 0.5721114804083434,
+            "backgrounds": 8
+          },
+          "1": {
+            "crossfit_coefficient_repeatability": 0.11763977719980845,
+            "backgrounds": 8
+          },
+          "2": {
+            "crossfit_coefficient_repeatability": -0.5659104044682406,
+            "backgrounds": 8
+          },
+          "3": {
+            "crossfit_coefficient_repeatability": -1.0895561251856365,
+            "backgrounds": 8
+          }
+        },
+        "inner_u4_repeatability_mean": -1.0895561251856365,
+        "curve": [
+          {
+            "epoch": 1,
+            "train_nll": 160.830952835083,
+            "max_cholesky_jitter": 27.944053649902344,
+            "inner_nll": -62.731213276202865
+          },
+          {
+            "epoch": 2,
+            "train_nll": -249.22670376117412,
+            "max_cholesky_jitter": 38.0998649597168,
+            "inner_nll": -315.3556223649245
+          },
+          {
+            "epoch": 3,
+            "train_nll": -330.2801433856671,
+            "max_cholesky_jitter": 43.10221481323242,
+            "inner_nll": -320.4589739579421
+          },
+          {
+            "epoch": 4,
+            "train_nll": -338.579007427509,
+            "max_cholesky_jitter": 43.41089630126953,
+            "inner_nll": -347.3664355644813
+          },
+          {
+            "epoch": 5,
+            "train_nll": -339.22568359375,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -318.0787188456609
+          },
+          {
+            "epoch": 6,
+            "train_nll": -346.02811936598556,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -354.2135884211614
+          },
+          {
+            "epoch": 7,
+            "train_nll": -357.1230511005108,
+            "max_cholesky_jitter": 0.0,
+            "inner_nll": -359.8633546095628
+          },
+          {
+            "epoch": 8,
+            "train_nll": -355.00372737004204,
+            "max_cholesky_jitter": 8.488572120666504,
+            "inner_nll": -356.5102894122784
+          },
+          {
+            "epoch": 9,
+            "train_nll": -362.9496891902043,
+            "max_cholesky_jitter": 82.21320343017578,
+            "inner_nll": -358.2383179297814
+          },
+          {
+            "epoch": 10,
+            "train_nll": -367.41388643704926,
+            "max_cholesky_jitter": 0.983033299446106,
+            "inner_nll": -368.5859360328087
+          },
+          {
+            "epoch": 11,
+            "train_nll": -373.57969782902643,
+            "max_cholesky_jitter": 110.02894592285156,
+            "inner_nll": -372.5864263681265
+          },
+          {
+            "epoch": 12,
+            "train_nll": -373.89821260892427,
+            "max_cholesky_jitter": 119.79534912109375,
+            "inner_nll": -372.9908646803636
+          },
+          {
+            "epoch": 13,
+            "train_nll": -373.0419109637921,
+            "max_cholesky_jitter": 12.157387733459473,
+            "inner_nll": -369.0806195185735
+          },
+          {
+            "epoch": 14,
+            "train_nll": -373.3412090594952,
+            "max_cholesky_jitter": 123.99451446533203,
+            "inner_nll": -373.4118452805739
+          },
+          {
+            "epoch": 15,
+            "train_nll": -376.3129943847656,
+            "max_cholesky_jitter": 1.373129963874817,
+            "inner_nll": -376.727664067195
+          },
+          {
+            "epoch": 16,
+            "train_nll": -376.45559786283053,
+            "max_cholesky_jitter": 14.070088386535645,
+            "inner_nll": -374.92494612473706
+          },
+          {
+            "epoch": 17,
+            "train_nll": -378.24540029672477,
+            "max_cholesky_jitter": 126.37367248535156,
+            "inner_nll": -376.866215632512
+          },
+          {
+            "epoch": 18,
+            "train_nll": -377.0479041466346,
+            "max_cholesky_jitter": 154.05734252929688,
+            "inner_nll": -373.6779570946327
+          }
+        ],
+        "train_effect_normalization": {
+          "0": {
+            "crossfit_target_energy": 0.00013155131655366857,
+            "estimated_crossfit_noise_variance": 2.7087566138561668e-06,
+            "target_to_noise_ratio": 48.565203636510205,
+            "loss_normalizer_train_only": 0.00013155131655366857,
+            "backgrounds": 40
+          },
+          "1": {
+            "crossfit_target_energy": 2.8351593209663405e-05,
+            "estimated_crossfit_noise_variance": 4.6556553456866823e-07,
+            "target_to_noise_ratio": 60.89710492837547,
+            "loss_normalizer_train_only": 2.8351593209663405e-05,
+            "backgrounds": 40
+          },
+          "2": {
+            "crossfit_target_energy": 4.907011856403188e-07,
+            "estimated_crossfit_noise_variance": 1.7042984739035206e-07,
+            "target_to_noise_ratio": 2.879197471299837,
+            "loss_normalizer_train_only": 4.907011856403188e-07,
+            "backgrounds": 40
+          },
+          "3": {
+            "crossfit_target_energy": 2.103216081295045e-08,
+            "estimated_crossfit_noise_variance": 1.8981267246864773e-08,
+            "target_to_noise_ratio": 1.1080482951645092,
+            "loss_normalizer_train_only": 2.103216081295045e-08,
+            "backgrounds": 40
+          }
+        },
+        "inner_effect_noise_diagnostic": {
+          "0": {
+            "crossfit_target_energy": 0.00012999017963011283,
+            "estimated_crossfit_noise_variance": 2.7220928302540415e-06,
+            "target_to_noise_ratio": 47.753764377676056,
+            "loss_normalizer_train_only": 0.00012999017963011283,
+            "backgrounds": 8
+          },
+          "1": {
+            "crossfit_target_energy": 2.8667515607594396e-05,
+            "estimated_crossfit_noise_variance": 4.6674492892861963e-07,
+            "target_to_noise_ratio": 61.42009014087989,
+            "loss_normalizer_train_only": 2.8667515607594396e-05,
+            "backgrounds": 8
+          },
+          "2": {
+            "crossfit_target_energy": 4.6686399102213727e-07,
+            "estimated_crossfit_noise_variance": 2.3228357148852297e-07,
+            "target_to_noise_ratio": 2.009888120930691,
+            "loss_normalizer_train_only": 4.6686399102213727e-07,
+            "backgrounds": 8
+          },
+          "3": {
+            "crossfit_target_energy": 2.2518051090436586e-08,
+            "estimated_crossfit_noise_variance": 2.1114596848725853e-08,
+            "target_to_noise_ratio": 1.066468436587527,
+            "loss_normalizer_train_only": 2.2518051090436586e-08,
+            "backgrounds": 8
+          }
+        }
+      }
+    }
+  },
+  "selected_basis_widths": [
+    6,
+    4,
+    2
+  ],
+  "objective": "normalized per-observation after-NLL plus train-only normalized cross-fitted observational effect MSE",
+  "simulator_conditional_mean_usage_in_learned_training": false,
+  "operator_seeds": {
+    "4201": {
+      "NLL_ONLY": {
+        "best_epoch": 4,
+        "coverage": [
+          {
+            "epoch": 1,
+            "optimizer_seed": 4201,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "0,2": 40,
+              "3": 40,
+              "1,1": 40,
+              "3,1": 40,
+              "0,0": 40,
+              "2,2": 40,
+              "2": 40,
+              "1,3": 40,
+              "0": 40,
+              "1": 40,
+              "2,0": 40,
+              "3,3": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 2119087965
+          },
+          {
+            "epoch": 2,
+            "optimizer_seed": 4201,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "2": 40,
+              "1,1": 40,
+              "0": 40,
+              "3,3": 40,
+              "2,0": 40,
+              "1,3": 40,
+              "0,0": 40,
+              "0,2": 40,
+              "2,2": 40,
+              "3,1": 40,
+              "1": 40,
+              "3": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 1178210739
+          },
+          {
+            "epoch": 3,
+            "optimizer_seed": 4201,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "2,0": 40,
+              "1,1": 40,
+              "3": 40,
+              "0,2": 40,
+              "3,3": 40,
+              "2,2": 40,
+              "1,3": 40,
+              "0,0": 40,
+              "2": 40,
+              "3,1": 40,
+              "1": 40,
+              "0": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 1358182518
+          },
+          {
+            "epoch": 4,
+            "optimizer_seed": 4201,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "1": 40,
+              "1,3": 40,
+              "2,0": 40,
+              "0,2": 40,
+              "3,3": 40,
+              "0,0": 40,
+              "3": 40,
+              "3,1": 40,
+              "2,2": 40,
+              "1,1": 40,
+              "0": 40,
+              "2": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 588147586
+          }
+        ]
+      },
+      "EFFECT_AWARE": {
+        "best_epoch": 4,
+        "best_combined_score": -7.980876450101652,
+        "u12_guard_passed_any_epoch": true,
+        "selection_metric": "mean inner U3/U4 cross-fit effect skill + 0.1 normalized after-NLL improvement; U1/U2 skill guard",
+        "coverage": [
+          {
+            "epoch": 1,
+            "optimizer_seed": 4201,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 1178210739,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 2119087965
+          },
+          {
+            "epoch": 2,
+            "optimizer_seed": 4201,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 588147586,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1358182518
+          },
+          {
+            "epoch": 3,
+            "optimizer_seed": 4201,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 1046545106,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 537010522
+          },
+          {
+            "epoch": 4,
+            "optimizer_seed": 4201,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 454983235,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1400861563
+          }
+        ]
+      }
+    },
+    "4202": {
+      "NLL_ONLY": {
+        "best_epoch": 4,
+        "coverage": [
+          {
+            "epoch": 1,
+            "optimizer_seed": 4202,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "1,3": 40,
+              "0,2": 40,
+              "3": 40,
+              "1,1": 40,
+              "1": 40,
+              "2,0": 40,
+              "3,1": 40,
+              "2,2": 40,
+              "0": 40,
+              "0,0": 40,
+              "3,3": 40,
+              "2": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 1968992352
+          },
+          {
+            "epoch": 2,
+            "optimizer_seed": 4202,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "0,2": 40,
+              "3,1": 40,
+              "3": 40,
+              "2,0": 40,
+              "1,1": 40,
+              "1,3": 40,
+              "2,2": 40,
+              "0,0": 40,
+              "3,3": 40,
+              "1": 40,
+              "2": 40,
+              "0": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 1227309881
+          },
+          {
+            "epoch": 3,
+            "optimizer_seed": 4202,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "0,2": 40,
+              "3": 40,
+              "1": 40,
+              "3,1": 40,
+              "2,2": 40,
+              "2,0": 40,
+              "3,3": 40,
+              "1,1": 40,
+              "0,0": 40,
+              "0": 40,
+              "1,3": 40,
+              "2": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 1511329897
+          },
+          {
+            "epoch": 4,
+            "optimizer_seed": 4202,
+            "training_episode_count": 480,
+            "unique_training_episodes": 480,
+            "program_episode_counts": {
+              "3,3": 40,
+              "1": 40,
+              "2,0": 40,
+              "0,2": 40,
+              "3,1": 40,
+              "1,1": 40,
+              "1,3": 40,
+              "2,2": 40,
+              "0": 40,
+              "2": 40,
+              "3": 40,
+              "0,0": 40
+            },
+            "opaque_code_episode_exposures": {
+              "3": 200,
+              "2": 200,
+              "1": 200,
+              "0": 200
+            },
+            "shuffle_seed": 925773991
+          }
+        ]
+      },
+      "EFFECT_AWARE": {
+        "best_epoch": 1,
+        "best_combined_score": -13.864702555220155,
+        "u12_guard_passed_any_epoch": true,
+        "selection_metric": "mean inner U3/U4 cross-fit effect skill + 0.1 normalized after-NLL improvement; U1/U2 skill guard",
+        "coverage": [
+          {
+            "epoch": 1,
+            "optimizer_seed": 4202,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 1227309881,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1968992352
+          },
+          {
+            "epoch": 2,
+            "optimizer_seed": 4202,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 925773991,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1511329897
+          },
+          {
+            "epoch": 3,
+            "optimizer_seed": 4202,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 1349163754,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1770646579
+          },
+          {
+            "epoch": 4,
+            "optimizer_seed": 4202,
+            "nll_episode_count": 480,
+            "unique_nll_episodes": 480,
+            "effect_task_count": 320,
+            "effect_shuffle_seed": 545082665,
+            "effect_task_counts_by_code": {
+              "0": 80,
+              "1": 80,
+              "2": 80,
+              "3": 80
+            },
+            "nll_shuffle_seed": 1164063301
+          }
+        ]
+      }
+    }
+  },
+  "code_balanced_epoch_coverage": true
+}

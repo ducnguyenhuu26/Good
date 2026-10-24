@@ -11,7 +11,7 @@ from q1.inference import rank_programs as rank_legacy
 from q1.model import ContextDynamicsModel
 from q1.oracle import functional_classes
 from q1.primitives import PrimitiveBank
-from q1.simulator import PROGRAMS, DynamicsParams
+from q1.simulator import PROGRAMS, DynamicsParams, apply_program, response
 from q1.train_primitives import _get_m2
 from q1_v2.basis import PartitionedBasis
 from q1_v2.bayes import gaussian_posterior
@@ -46,19 +46,26 @@ def main():
     inverse={int(v):int(k) for k,v in code_map.items()}
     # Original V2 checkpoints are evaluated on these same newly generated cases and budgets.
     old_v2_dir=ROOT/'results/q1/q1_v2_bayesian_operators_dev1'
+    retrained_v2_dir=ROOT/'results/q1/q1_v2_operator_retrain_dev1'
     old_basis_data=torch.load(old_v2_dir/'basis_pretrained.pt',map_location=device,weights_only=False)
     old_basis=PartitionedBasis(hidden=int(cfg['hidden'])).to(device)
     old_basis.load_state_dict(old_basis_data['basis']);old_basis.eval()
     for parameter in old_basis.parameters(): parameter.requires_grad_(False)
     selected_penalty=json.loads((out/'length_penalty_selection.json').read_text(encoding='utf-8'))['selected']
-    original_banks={};original_priors={}
+    original_banks={};retrained_banks={};original_priors={}
     for opt_seed in cfg['optimizer_seeds']:
         saved=torch.load(old_v2_dir/f'operator_seed{opt_seed}.pt',map_location=device,weights_only=False)
         bank=AffineOperatorBank().to(device);bank.load_state_dict(saved['state_dict']);bank.eval()
         for parameter in bank.parameters():parameter.requires_grad_(False)
         original_banks[opt_seed]=(bank,saved['opaque_code_map'])
+        retrained=torch.load(retrained_v2_dir/f'operator_seed{opt_seed}.pt',map_location=device,weights_only=False)
+        rbank=AffineOperatorBank().to(device);rbank.load_state_dict(retrained['state_dict']);rbank.eval()
+        for parameter in rbank.parameters():parameter.requires_grad_(False)
+        retrained_banks[opt_seed]=(rbank,retrained['opaque_code_map'])
         original_priors[opt_seed]=(old_basis_data['prior_mean'],old_basis_data['prior_covariance'],float(old_basis_data['sigma2']))
     for regime in ('development_idlike','development_background_ood'):
+        paired_regime={'development_idlike':'IDLIKE_DEVELOPMENT',
+                       'development_background_ood':'BACKGROUND_OOD_DEVELOPMENT'}[regime]
         for bi,bg in enumerate(manifest[regime]['backgrounds']):
             before=DynamicsParams(np.asarray(bg['B']),float(bg['d']),float(bg['b']),float(bg['kappa']))
             seed=int(manifest[regime]['seeds'][bi]);classes,_=functional_classes(before,dt=cfg['dt'])
@@ -74,6 +81,9 @@ def main():
                 with torch.no_grad():
                     oldpred=normalizer.denormalize_dv(m2.executor(normalizer.normalize_x(x),context.expand(len(x),-1)))
                     old_mse=float(torch.mean((oldpred-y)**2))
+                known_true_effect=None
+                if len(program)==1:
+                    known_true_effect=response(apply_program(before,program),x.numpy(),dt=cfg['dt'])-response(before,x.numpy(),dt=cfg['dt'])
                 for n in cfg['budgets']:
                     vals={}
                     for name,bank,penalty in [('M3',m3bank,float(m4data['length_penalty'])),
@@ -88,14 +98,25 @@ def main():
                             mse=float(torch.mean((qpred-y)**2))
                         vals[name]=(predp,mse)
                     for name,(predp,mse) in vals.items():
-                        devrows.append({'regime':regime,'background_id':f'{regime}-{bi:03d}',
+                        skill=None
+                        if known_true_effect is not None:
+                            known_opaque=tuple(code_map[str(c)] for c in program)
+                            with torch.no_grad():
+                                known_pred=normalizer.denormalize_dv(m2.executor(normalizer.normalize_x(x),
+                                    bank.apply_program(context,known_opaque)))
+                                predicted_effect=(known_pred-oldpred).cpu().numpy()
+                            true_energy=float(np.mean(known_true_effect**2))
+                            skill=1-float(np.mean((predicted_effect-known_true_effect)**2))/max(true_energy,1e-30)
+                        devrows.append({'regime':regime,'background_id':f'{paired_regime}-{bi:03d}',
                             'background_seed':seed,'true_program':json.dumps(program),'N':n,'model':name,
                             'predicted_program':json.dumps(predp),
                             'functional_class_correct':int(classes[PROGRAMS.index(predp)]==classes[pi]),
-                            'query_delta_v_mse':mse,'m2_old_context_query_mse':old_mse})
+                            'query_delta_v_mse':mse,'m2_old_context_query_mse':old_mse,
+                            'effect_skill':skill})
                     # Score both historical V2 operator banks with the retrained run's frozen
                     # length penalty. This changes only the evaluation data/penalty condition.
-                    for opt_seed,(v2bank,v2map) in original_banks.items():
+                    for model_label,bankset in [('V2_ORIGINAL',original_banks),('V2_RETRAINED',retrained_banks)]:
+                      for opt_seed,(v2bank,v2map) in bankset.items():
                         v2inverse={int(v):int(k) for k,v in v2map.items()}
                         candidates=[tuple(int(v2map[str(c)]) for c in p) for p in PROGRAMS]
                         old_x=np.c_[old.states[:-1],old.actions].astype(np.float32)
@@ -113,13 +134,22 @@ def main():
                         qphi=design(old_basis,x)
                         qpred=(qphi@(am@old_post.mean+bb)).reshape(-1)
                         v2mse=float(torch.mean((qpred-y.reshape(-1))**2))
-                        devrows.append({'regime':regime,'background_id':f'{regime}-{bi:03d}',
+                        v2skill=None
+                        if known_true_effect is not None:
+                            known_code=int(v2map[str(program[0])])
+                            v2am,v2bb=compose_v2(v2bank,(known_code,))
+                            v2effect=(qphi@(v2am@old_post.mean+v2bb-old_post.mean)).reshape(-1,2).detach().numpy()
+                            true_energy=float(np.mean(known_true_effect**2))
+                            v2skill=1-float(np.mean((v2effect-known_true_effect)**2))/max(true_energy,1e-30)
+                        devrows.append({'regime':regime,'background_id':f'{paired_regime}-{bi:03d}',
                             'background_seed':seed,'true_program':json.dumps(program),'N':n,
-                            'model':'V2_ORIGINAL','predicted_program':json.dumps(predp),
+                            'model':model_label,'predicted_program':json.dumps(predp),
                             'functional_class_correct':int(classes[PROGRAMS.index(predp)]==classes[pi]),
-                            'query_delta_v_mse':v2mse,'m2_old_context_query_mse':old_mse})
+                            'query_delta_v_mse':v2mse,'m2_old_context_query_mse':old_mse,
+                            'effect_skill':v2skill})
     with (out/'legacy_per_background.csv').open('w',newline='',encoding='utf-8') as f:
-        w=csv.DictWriter(f,fieldnames=list(devrows[0]));w.writeheader();w.writerows(devrows)
+        fields=list(dict.fromkeys(k for row in devrows for k in row))
+        w=csv.DictWriter(f,fieldnames=fields);w.writeheader();w.writerows(devrows)
     summary={}
     for r in devrows:
         k=f"{r['regime']}|{r['model']}|N={r['N']}";summary.setdefault(k,[]).append(r)
@@ -129,10 +159,12 @@ def main():
         'mean_m2_old_context_query_mse':float(np.mean([x['m2_old_context_query_mse'] for x in v]))}
         for k,v in summary.items()}
     original_v2_paths=[old_v2_dir/'basis_pretrained.pt']+[old_v2_dir/f'operator_seed{s}.pt' for s in cfg['optimizer_seeds']]
+    retrained_v2_paths=[retrained_v2_dir/'basis_pretrained.pt']+[retrained_v2_dir/f'operator_seed{s}.pt' for s in cfg['optimizer_seeds']]
     report={'paired_same_cases':True,'same_old_support_adaptation_and_assessment_query_seeds':True,
         'checkpoints':{str(x.relative_to(ROOT)):sha(x) for x in (m2path,m3path,m4path)},
         'original_v2_checkpoints':{str(x.relative_to(ROOT)):sha(x) for x in original_v2_paths},
-        'v2_original_uses_retrained_run_inner_selected_length_penalty':float(selected_penalty),
+        'retrained_v2_checkpoints':{str(x.relative_to(ROOT)):sha(x) for x in retrained_v2_paths},
+        'v2_variants_use_retrained_run_inner_selected_length_penalty':float(selected_penalty),
         'metrics':aggregate,'m2_role':'empty-program old-context prediction baseline; M2 is not a program composition model',
         'direct_G':'not included: v1 direct-effect checkpoints were trained with privileged paired simulator effects, and do not supply a matched weak-label v2 intervention learner'}
     (out/'legacy_comparison.json').write_text(json.dumps(report,indent=2),encoding='utf-8')

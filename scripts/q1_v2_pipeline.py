@@ -326,7 +326,8 @@ def main():
     fit_eps, inner_eps, op_eps, inner_op = make_training_data(
         train_params, inner_params, cfg, include_basis=not bool(args.reuse_basis_checkpoint))
     print(f"Generated weak observed episodes: basis={len(fit_eps)}/{len(inner_eps)} operator={len(op_eps)}/{len(inner_op)}", flush=True)
-    basis = PartitionedBasis(hidden=cfg["hidden"])
+    basis_widths=tuple(cfg.get("basis_widths",(6,4,2)))
+    basis = PartitionedBasis(widths=basis_widths,hidden=cfg["hidden"])
     # Noise variance is fixed from the declared train-only simulator calibration (sigma^2).
     sigma2 = float(cfg["sigma"] ** 2)
     if args.reuse_basis_checkpoint:
@@ -339,7 +340,7 @@ def main():
         for parameter in basis.parameters(): parameter.requires_grad_(False)
         torch.save(saved,out/"basis_pretrained.pt")
         (out/"basis_reuse.json").write_text(json.dumps({"source":basis_source.relative_to(ROOT).as_posix(),
-            "source_sha256":sha256(basis_source),"basis_architecture":"PartitionedBasis(hidden=32), unchanged",
+            "source_sha256":sha256(basis_source),"basis_architecture":f"PartitionedBasis(widths={basis_widths}, hidden={cfg['hidden']})",
             "basis_and_prior_frozen":True},indent=2),encoding="utf-8")
         (out/"basis_training.json").write_text(json.dumps({"reused":True,"selected_epoch":basis_stats["selected_epoch"],
             "train_episode_count":0,"inner_episode_count":0,"weak_labels":"prior V2 checkpoint reused unchanged"},indent=2),encoding="utf-8")
@@ -349,7 +350,7 @@ def main():
             epochs=cfg["basis_epochs"], batch_size=8, lr=cfg["learning_rate"], inner_episodes=inner_eps)
         print(f"Basis training complete; selected epoch {basis_stats['selected_epoch']}", flush=True)
         basis_cpu = {k:v.detach().cpu() for k,v in basis.state_dict().items()}
-        torch.save({"basis":basis_cpu,"prior_mean":basis_stats["prior_mean"].cpu(),
+        torch.save({"basis":basis_cpu,"widths":basis_widths,"prior_mean":basis_stats["prior_mean"].cpu(),
                     "prior_covariance":basis_stats["prior_covariance"].cpu(),"sigma2":sigma2,
                     "selected_epoch":basis_stats["selected_epoch"]}, out/"basis_pretrained.pt")
         (out/"basis_training.json").write_text(json.dumps({"curve":basis_stats["curve"],

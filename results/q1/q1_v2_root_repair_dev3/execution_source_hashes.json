@@ -1,0 +1,15 @@
+{
+  "branch": "codex/q1-v2-bayesian-function-space",
+  "source_sha256": {
+    "q1_v2/basis.py": "0964e7e1260f9ec201f6d76340ecc5b4fdad9cd9b35adba6391d4a49592b9d8b",
+    "q1_v2/bayes.py": "5ad1abed6bb72d17ee00a9a4f2f68e83c95362d3b07df3e74fb7d5e7fe568b9e",
+    "q1_v2/training.py": "a906773dae72825ea8b58ca5c2b401b5931300be7fafc5ecc022c4b62a43a3b9",
+    "scripts/q1_v2_pipeline.py": "f4c705eb73a64878310ba1c7fbeab29e87b75fd33183d8707a5b958ca187c493",
+    "scripts/q1_v2_direct_effect_projection.py": "bdca214e1c5f3b25b541787afcd00b99e4f673d8d1ae5df88a00706f4458b525",
+    "scripts/q1_v2_root_repair.py": "f863659d9f93c5876b1fa2c6aade43302a896528d003ca1a4a748b5ce06e3603",
+    "scripts/q1_v2_root_repair_report.py": "1139f74598ef1f067e0979ac96e7b8cda830f72361e77f05b0cc2307d00b2281",
+    "scripts/q1_v2_legacy_compare.py": "fb633c81e9d6cedc181c18f25580da59df6758b7b37e8ddbf239a05340678c4b",
+    "scripts/q1_v2_coefficient_diagnostics.py": "efb65413aeaff05bf704b84cecfc449f800567c1f1b9dfe1d5b63de392d05404",
+    "tests/test_q1_v2_root_repair.py": "526e27b574771b464dc46da986cc718faf38569030bc941c8908035b1a953dd6"
+  }
+}

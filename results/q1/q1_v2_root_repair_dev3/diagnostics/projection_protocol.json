@@ -1,0 +1,409 @@
+{
+  "protocol": "new diagnostic-only backgrounds; no test splits",
+  "branch_sha_before_run": "a717edf6e1d060242016e7759c93df868fc2abdf",
+  "seed": 20261030,
+  "backgrounds_per_regime": 8,
+  "fit_budgets": [
+    128,
+    512,
+    1024
+  ],
+  "query_probes": 1024,
+  "dt": 0.05,
+  "sigma": 0.0005,
+  "U3_U4_only": true,
+  "ridge_grid": [
+    0.0,
+    1e-08,
+    1e-06,
+    0.0001,
+    0.01
+  ],
+  "conditional_mean_targets_allowed_only_in_this_offline_diagnostic": true,
+  "test_split_used": false,
+  "collision_audit_sources": [
+    {
+      "path": "results/q1/cpu_confirmatory_impl/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_confirmatory_impl/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_confirmatory_impl/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_development_pilot/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_development_pilot/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_development_pilot/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_final_pilot/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_final_pilot/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_final_pilot/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_pipeline/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_pipeline/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_pipeline/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/feasibility_abc_v1/original_split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/feasibility_abc_v1/protocol_manifest.json",
+      "sha256": "d4bc4fd8a5d47293f4d3ad13876e7e8cd92137c7726bc8ef8bd2c60b96ed94c4",
+      "unique_seed_count": 128
+    },
+    {
+      "path": "results/q1/m1_deterministic_validation/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m1_validation_initial/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m1_validation_low_noise/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m2_smoke_nll/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m2_smoke_nll/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m2_smoke_nll/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/smoke_pipeline/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/smoke_pipeline/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/smoke_pipeline/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    }
+  ],
+  "IDLIKE": {
+    "seeds": [
+      1637071369,
+      1000807585,
+      122993510,
+      1316494198,
+      445363910,
+      422222162,
+      552445962,
+      1019464653
+    ],
+    "backgrounds": [
+      {
+        "B": [
+          [
+            0.9027506105090108,
+            0.1046730778065175
+          ],
+          [
+            0.059886846371160124,
+            0.8777996803331992
+          ]
+        ],
+        "d": 0.3418125152892878,
+        "b": 0.09891018654887634,
+        "kappa": 0.2745715327085558
+      },
+      {
+        "B": [
+          [
+            0.8516665855074443,
+            -0.011212017029919835
+          ],
+          [
+            0.069832912572619,
+            0.7608473517524857
+          ]
+        ],
+        "d": 0.3583085223062096,
+        "b": 0.08593660289242736,
+        "kappa": 0.1840635719823813
+      },
+      {
+        "B": [
+          [
+            0.7778778369329917,
+            -0.012325531387817945
+          ],
+          [
+            -0.0388424247942178,
+            0.7926557562376069
+          ]
+        ],
+        "d": 0.4122029737801414,
+        "b": 0.13434538754240566,
+        "kappa": 0.23096838822403037
+      },
+      {
+        "B": [
+          [
+            0.8306736581578956,
+            -0.0901421919731676
+          ],
+          [
+            0.04383177653842629,
+            0.8644961146601591
+          ]
+        ],
+        "d": 0.32131352060307844,
+        "b": 0.08037172187259743,
+        "kappa": 0.1872140204585157
+      },
+      {
+        "B": [
+          [
+            0.9548225751661077,
+            -0.08288452448272185
+          ],
+          [
+            -0.05544244111478193,
+            0.7506675706947297
+          ]
+        ],
+        "d": 0.3651685327801343,
+        "b": 0.13589422731789436,
+        "kappa": 0.2579800005646306
+      },
+      {
+        "B": [
+          [
+            0.8830958180591046,
+            0.004136704703086955
+          ],
+          [
+            -0.025422993695384893,
+            0.9514379412043273
+          ]
+        ],
+        "d": 0.36449815144042835,
+        "b": 0.11128397382315364,
+        "kappa": 0.2644436813590337
+      },
+      {
+        "B": [
+          [
+            0.8973205271622023,
+            0.11562920995667536
+          ],
+          [
+            -0.07911534072510784,
+            0.9889168959191844
+          ]
+        ],
+        "d": 0.3312298577660216,
+        "b": 0.08153557451912481,
+        "kappa": 0.2267751541187069
+      },
+      {
+        "B": [
+          [
+            0.8256132568109864,
+            -0.009836345118281742
+          ],
+          [
+            0.03637731238149308,
+            0.9360793131298624
+          ]
+        ],
+        "d": 0.35575795139911576,
+        "b": 0.09906056567003592,
+        "kappa": 0.24978591270089154
+      }
+    ]
+  },
+  "BACKGROUND_OOD": {
+    "seeds": [
+      1894496368,
+      761953642,
+      2046753228,
+      1226153839,
+      668022814,
+      272452829,
+      103798861,
+      1478459661
+    ],
+    "backgrounds": [
+      {
+        "B": [
+          [
+            1.0926075511064341,
+            0.08109206895881713
+          ],
+          [
+            0.010811824876114678,
+            1.0831347502447262
+          ]
+        ],
+        "d": 0.4903571508068918,
+        "b": 0.16828530943449402,
+        "kappa": 0.3348369007592529
+      },
+      {
+        "B": [
+          [
+            1.1308385310924622,
+            0.07869103829767238
+          ],
+          [
+            -0.11876002464674318,
+            1.1263271411900089
+          ]
+        ],
+        "d": 0.5630732722402063,
+        "b": 0.19666201664850802,
+        "kappa": 0.3888660116316581
+      },
+      {
+        "B": [
+          [
+            1.1394958146693575,
+            -0.08060466400655117
+          ],
+          [
+            -0.048157296125271185,
+            1.086270932943605
+          ]
+        ],
+        "d": 0.49863451324698355,
+        "b": 0.1866028055700831,
+        "kappa": 0.35284277223866795
+      },
+      {
+        "B": [
+          [
+            1.1504051663431383,
+            -0.11508065407881202
+          ],
+          [
+            -0.08153544938656221,
+            1.1095592079136523
+          ]
+        ],
+        "d": 0.5001173211827761,
+        "b": 0.19296702225317908,
+        "kappa": 0.3645185227866981
+      },
+      {
+        "B": [
+          [
+            1.1680950744802001,
+            0.03133959544537271
+          ],
+          [
+            0.022376674907434974,
+            1.1164672334145853
+          ]
+        ],
+        "d": 0.5611897487047943,
+        "b": 0.16893116823053986,
+        "kappa": 0.36820692616817924
+      },
+      {
+        "B": [
+          [
+            1.0954046252139549,
+            -0.04038035669897494
+          ],
+          [
+            0.095596940281225,
+            1.111233141067301
+          ]
+        ],
+        "d": 0.5138832286993184,
+        "b": 0.1850238251851995,
+        "kappa": 0.3836736737722894
+      },
+      {
+        "B": [
+          [
+            1.1856984521833698,
+            -0.09515779609807858
+          ],
+          [
+            0.09364242383636415,
+            1.1576418369987955
+          ]
+        ],
+        "d": 0.520919679243345,
+        "b": 0.18557148162283224,
+        "kappa": 0.37790040876754505
+      },
+      {
+        "B": [
+          [
+            1.106746480955039,
+            0.020492664239862568
+          ],
+          [
+            0.0549835669277233,
+            1.0995544436492932
+          ]
+        ],
+        "d": 0.5311821461189923,
+        "b": 0.183662756481535,
+        "kappa": 0.3708445875691604
+      }
+    ]
+  }
+}

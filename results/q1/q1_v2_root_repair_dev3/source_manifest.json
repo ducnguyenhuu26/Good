@@ -1,0 +1,24 @@
+{
+  "branch": "a717edf6e1d060242016e7759c93df868fc2abdf",
+  "source_sha256": {
+    "q1_v2/basis.py": "0964e7e1260f9ec201f6d76340ecc5b4fdad9cd9b35adba6391d4a49592b9d8b",
+    "q1_v2/bayes.py": "55c29a98f9ab1afd9147c820c2b619c0870f8ce8359a288e3b759ed52b0b8f3e",
+    "q1_v2/operators.py": "c78f776f06c58da141cdd659dce82f2f46f7de6086d3c7f1e8889750e81ebb5f",
+    "q1_v2/inference.py": "35e2f99d1e002286cd82aaf1b486d6ddce67eb087a6e0112698628324788c8a3",
+    "q1_v2/training.py": "54353c27c8fc1e61cb1c3773afc16f75ec786d1a214edf7ba019ce428a137f0d",
+    "scripts/q1_v2_pipeline.py": "f4c705eb73a64878310ba1c7fbeab29e87b75fd33183d8707a5b958ca187c493",
+    "scripts/q1_v2_root_repair.py": "506bbf050e75fcfa3653bf63bf5be87f3fe7c6c0089305f55b2d8621fd75621d",
+    "q1/simulator.py": "e4283978ddc219f5bcb6bab964033bd8dc18bf459d40d51949e5e7ee92d12670"
+  },
+  "historical_run_artifacts_sha256": {
+    "results/q1/q1_v2_operator_retrain_dev1/basis_pretrained.pt": "e8dda7856e5fa58a2c37842a0ca87c68a7691615a00dcbcc628e5ff441d2fbcf",
+    "results/q1/q1_v2_operator_retrain_dev1/operator_seed4201.pt": "3614404da558c5e2c01515f74165b8d44427ef2fb975b26247c83056ae56a10e",
+    "results/q1/q1_v2_operator_retrain_dev1/operator_seed4202.pt": "4c739f4def2cfa2f90cd024ea06832366617b961e04f0dc2007a2d2b22836d44",
+    "results/q1/q1_v2_operator_retrain_dev1/metrics.json": "83faeeda0fe8cd6a864daa4be0a66969b50b74e4fbb57fcb62c704cde288bbf7",
+    "results/q1/cpu_confirmatory_impl/m4/primitives_m4.pt": "90aa85ca588bcb465a7960000a1f4e8ff66d8920945f20d34d85add8a99867a2"
+  },
+  "previous_inspected_split_manifests": {
+    "results/q1/q1_v2_operator_retrain_dev1/split_manifest.json": "4e323fe867859bc7b052bc3988a81ed997f541c8ccac62a6228dab0c071b5c3c",
+    "results/q1/q1_v2_bayesian_operators_dev1/split_manifest.json": "cd517576bdb44824196e028893d1f03a5eb03f906999bfecec321baf921103ab"
+  }
+}

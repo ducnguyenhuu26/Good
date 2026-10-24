@@ -1,0 +1,261 @@
+{
+  "run": "Q1 V2 comprehensive root repair",
+  "branch_sha_before_training": "a717edf6e1d060242016e7759c93df868fc2abdf",
+  "source_run": "results/q1/q1_v2_operator_retrain_dev1",
+  "diagnostic_projection": "diagnostics/projection_run04",
+  "seed": 20261031,
+  "train_backgrounds": 40,
+  "inner_train_backgrounds": 8,
+  "development_backgrounds_per_regime": 16,
+  "dt": 0.05,
+  "sigma": 0.0005,
+  "old_support": 96,
+  "adaptation_trajectory": 100,
+  "query_trajectory": 256,
+  "N": [
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "candidate_program_count": 21,
+  "operator_seeds": [
+    4201,
+    4202
+  ],
+  "fit_transition_noise_preserved": true,
+  "new_train": {
+    "seeds": [
+      2142513199,
+      1934733416,
+      144210395,
+      1305683859,
+      2142489334,
+      1949549666,
+      382482703,
+      931559247,
+      1301685637,
+      1016850092,
+      459525150,
+      868096885,
+      1383776872,
+      1633935961,
+      748042815,
+      1113092404,
+      1534320096,
+      1979680654,
+      855922801,
+      1548205346,
+      1848958136,
+      1757441604,
+      1880214234,
+      1071526097,
+      341456904,
+      1122818392,
+      1354870677,
+      1737849624,
+      1470274777,
+      474393830,
+      1492078764,
+      1878580049,
+      1323038613,
+      84362524,
+      594508101,
+      1626342890,
+      1469997001,
+      507433344,
+      2049966782,
+      1586127144
+    ]
+  },
+  "new_inner_train": {
+    "seeds": [
+      471142618,
+      1668101641,
+      1782439266,
+      756251356,
+      1985219303,
+      671992543,
+      1521482482,
+      1965267015
+    ]
+  },
+  "new_development_idlike": {
+    "seeds": [
+      252425905,
+      1542901971,
+      116433049,
+      266085719,
+      1580236803,
+      1111779432,
+      854189736,
+      451031535,
+      1617771695,
+      1266377098,
+      310055361,
+      697878529,
+      152078172,
+      790586589,
+      647707983,
+      1263999020
+    ]
+  },
+  "new_development_background_ood": {
+    "seeds": [
+      716924098,
+      1830028767,
+      1981339300,
+      535409078,
+      1000934289,
+      844392381,
+      1401082554,
+      1142865080,
+      1817673644,
+      1480658852,
+      579359646,
+      1921128088,
+      398483814,
+      635772911,
+      1629293992,
+      81541790
+    ]
+  },
+  "direct_projection_U4_branch_metrics": {
+    "IDLIKE": {
+      "512": 0.5936827453229063,
+      "1024": 0.6106907854386174
+    },
+    "BACKGROUND_OOD": {
+      "512": 0.749864180456251,
+      "1024": 0.7491985903342637
+    }
+  },
+  "basis_capacity_branch": "intermediate 0.5-0.8; select smallest width by train-inner evidence",
+  "original_test_splits_used": false,
+  "original_Q1_thresholds_modified": false,
+  "collision_audit_sources": [
+    {
+      "path": "results/q1/cpu_confirmatory_impl/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_confirmatory_impl/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_confirmatory_impl/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_development_pilot/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_development_pilot/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_development_pilot/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_final_pilot/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_final_pilot/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_final_pilot/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_pipeline/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_pipeline/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/cpu_pipeline/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/feasibility_abc_v1/original_split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/feasibility_abc_v1/protocol_manifest.json",
+      "sha256": "d4bc4fd8a5d47293f4d3ad13876e7e8cd92137c7726bc8ef8bd2c60b96ed94c4",
+      "unique_seed_count": 128
+    },
+    {
+      "path": "results/q1/m1_deterministic_validation/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m1_validation_initial/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m1_validation_low_noise/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m2_smoke_nll/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m2_smoke_nll/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/m2_smoke_nll/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/smoke_pipeline/m1/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/smoke_pipeline/m2/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    },
+    {
+      "path": "results/q1/smoke_pipeline/split_manifest.json",
+      "sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+      "unique_seed_count": 112
+    }
+  ],
+  "previous_baseline_hashes": {
+    "results/q1/q1_v2_operator_retrain_dev1/basis_pretrained.pt": "e8dda7856e5fa58a2c37842a0ca87c68a7691615a00dcbcc628e5ff441d2fbcf",
+    "results/q1/q1_v2_operator_retrain_dev1/operator_seed4201.pt": "3614404da558c5e2c01515f74165b8d44427ef2fb975b26247c83056ae56a10e",
+    "results/q1/q1_v2_operator_retrain_dev1/operator_seed4202.pt": "4c739f4def2cfa2f90cd024ea06832366617b961e04f0dc2007a2d2b22836d44",
+    "results/q1/q1_v2_operator_retrain_dev1/metrics.json": "83faeeda0fe8cd6a864daa4be0a66969b50b74e4fbb57fcb62c704cde288bbf7",
+    "results/q1/cpu_confirmatory_impl/m4/primitives_m4.pt": "90aa85ca588bcb465a7960000a1f4e8ff66d8920945f20d34d85add8a99867a2"
+  }
+}

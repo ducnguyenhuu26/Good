@@ -1,0 +1,18 @@
+{
+  "inner_train_only": true,
+  "selected": 0.1,
+  "candidates": [
+    {
+      "penalty": 0.0,
+      "inner_class_accuracy": 0.6634615384615384
+    },
+    {
+      "penalty": 0.01,
+      "inner_class_accuracy": 0.6634615384615384
+    },
+    {
+      "penalty": 0.1,
+      "inner_class_accuracy": 0.6682692307692307
+    }
+  ]
+}

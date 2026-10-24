@@ -14,7 +14,7 @@ class GaussianPosterior:
     precision_condition_number: float | None = None
 
 
-def _chol(matrix: torch.Tensor, *, max_tries: int = 8) -> tuple[torch.Tensor, float]:
+def _chol(matrix: torch.Tensor, *, max_tries: int = 12) -> tuple[torch.Tensor, float]:
     mat = 0.5 * (matrix + matrix.T)
     eye = torch.eye(mat.shape[-1], dtype=mat.dtype, device=mat.device)
     jitter = 0.0

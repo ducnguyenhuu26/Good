@@ -1,0 +1,9 @@
+{
+  "command": "uv run --extra q1 --extra test python -m pytest -q (Get-ChildItem tests -Filter 'test_q1_*.py' | ForEach-Object FullName)",
+  "scope": "all Q1 focused test modules, including root-repair coverage, reproducibility and seed-independence tests",
+  "passed": 76,
+  "failed": 0,
+  "result": "passed",
+  "duration_seconds": 12.07,
+  "run_after_final_code_edits": true
+}
