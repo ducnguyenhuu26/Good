@@ -1,0 +1,16 @@
+{
+  "source_run": "results/q1/q1_v2_operator_retrain_dev1",
+  "source_checkpoint_sha256": "e8dda7856e5fa58a2c37842a0ca87c68a7691615a00dcbcc628e5ff441d2fbcf",
+  "operator_checkpoint_sha256": {
+    "4201": "3614404da558c5e2c01515f74165b8d44427ef2fb975b26247c83056ae56a10e",
+    "4202": "4c739f4def2cfa2f90cd024ea06832366617b961e04f0dc2007a2d2b22836d44"
+  },
+  "script_sha256": "49fcc7a41a87ff6f6461c5a85f89296991349fb6cb32f0eb27b637869911f47e",
+  "fit_transitions": 768,
+  "query_transitions_per_law": 768,
+  "transition_noise": 0.0,
+  "rows": 64,
+  "torch": "2.14.1+cpu",
+  "device": "cpu",
+  "test_split_used": false
+}
