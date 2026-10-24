@@ -1,7 +1,7 @@
 {
   "branch": "codex/q1-v3-mechanism-structured",
   "protocol_base_commit": "067814e5a6b8c348c08ef4d8d75dc6961a28f5bd",
-  "head_at_finalization": "067814e5a6b8c348c08ef4d8d75dc6961a28f5bd",
+  "head_at_finalization": "3a696c1f2ba036696ac6a5ecf16c8846d337c0d9",
   "device": "cpu",
   "python": "3.13.5",
   "torch": "2.14.1+cpu",
