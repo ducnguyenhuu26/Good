@@ -62,11 +62,14 @@ def generate_report(run_dir: str | Path) -> Path:
     m3_path = root / "m3" / "metrics.json"
     if m3_path.exists():
         m3 = json.loads(m3_path.read_text(encoding="utf-8"))["validation"]
-        matrix = np.asarray(m3["functional_distance_rmse"])
+        distance_payload = m3.get("functional_distance_rmse_delta_v", m3.get("functional_distance_rmse"))
+        if isinstance(distance_payload, dict):
+            distance_payload = distance_payload["common_probe_rmse_delta_v"]
+        matrix = np.asarray(distance_payload)
         fig, ax = plt.subplots(figsize=(5, 4))
         image = ax.imshow(matrix, cmap="magma")
-        ax.set(xlabel="Code", ylabel="Code", title="M3 functional response distances")
-        fig.colorbar(image, ax=ax, label="RMSE")
+        ax.set(xlabel="Code", ylabel="Code", title="M3 common-probe response distances")
+        fig.colorbar(image, ax=ax, label="Physical delta-v RMSE")
         fig.tight_layout()
         fig.savefig(figures / "m3_functional_distance.png", dpi=150)
         plt.close(fig)

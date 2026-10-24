@@ -1,0 +1,5350 @@
+{
+  "audit_kind": "P0_NO_TRAINING_DEVELOPMENT_AUDIT",
+  "m3_validation_functional_distance_rmse_delta_v": {
+    "common_probe_rmse_delta_v": [
+      [
+        0.0,
+        0.012620584107935429,
+        0.004585392773151398,
+        0.004655887838453054
+      ],
+      [
+        0.012620584107935429,
+        0.0,
+        0.009867392480373383,
+        0.009785699658095837
+      ],
+      [
+        0.004585392773151398,
+        0.009867392480373383,
+        0.0,
+        0.0001343524781987071
+      ],
+      [
+        0.004655887838453054,
+        0.009785699658095837,
+        0.0001343524781987071,
+        0.0
+      ]
+    ],
+    "validation_visited_rmse_delta_v": [
+      [
+        0.0,
+        0.013349898159503937,
+        0.004862348549067974,
+        0.004945069085806608
+      ],
+      [
+        0.013349898159503937,
+        0.0,
+        0.010241718962788582,
+        0.010146143846213818
+      ],
+      [
+        0.004862348549067974,
+        0.010241718962788582,
+        0.0,
+        0.00014798561460338533
+      ],
+      [
+        0.004945069085806608,
+        0.010146143846213818,
+        0.00014798561460338533,
+        0.0
+      ]
+    ],
+    "common_probe_count": 256,
+    "validation_task_count": 64
+  },
+  "m4_validation_functional_distance_rmse_delta_v": {
+    "common_probe_rmse_delta_v": [
+      [
+        0.0,
+        0.013370426371693611,
+        0.005235158838331699,
+        0.005361013114452362
+      ],
+      [
+        0.013370426371693611,
+        0.0,
+        0.010272030718624592,
+        0.010265928693115711
+      ],
+      [
+        0.005235158838331699,
+        0.010272030718624592,
+        0.0,
+        0.0002447366714477539
+      ],
+      [
+        0.005361013114452362,
+        0.010265928693115711,
+        0.0002447366714477539,
+        0.0
+      ]
+    ],
+    "validation_visited_rmse_delta_v": [
+      [
+        0.0,
+        0.01445317268371582,
+        0.005571654997766018,
+        0.005735465791076422
+      ],
+      [
+        0.01445317268371582,
+        0.0,
+        0.010890824720263481,
+        0.010848662815988064
+      ],
+      [
+        0.005571654997766018,
+        0.010890824720263481,
+        0.0,
+        0.0002546628820709884
+      ],
+      [
+        0.005735465791076422,
+        0.010848662815988064,
+        0.0002546628820709884,
+        0.0
+      ]
+    ],
+    "common_probe_count": 256,
+    "validation_task_count": 64
+  },
+  "functional_distance_gate_probe_set": "common_fixed_validation_probe_set",
+  "physical_oracle_same_stage_pair_summary": {
+    "5": {
+      "physical_oracle_program_identity_accuracy": 0.5625,
+      "physical_oracle_functional_class_accuracy": 0.84375,
+      "case_count": 128
+    },
+    "10": {
+      "physical_oracle_program_identity_accuracy": 0.59375,
+      "physical_oracle_functional_class_accuracy": 0.890625,
+      "case_count": 128
+    },
+    "20": {
+      "physical_oracle_program_identity_accuracy": 0.6015625,
+      "physical_oracle_functional_class_accuracy": 0.9140625,
+      "case_count": 128
+    },
+    "50": {
+      "physical_oracle_program_identity_accuracy": 0.609375,
+      "physical_oracle_functional_class_accuracy": 0.9375,
+      "case_count": 128
+    },
+    "100": {
+      "physical_oracle_program_identity_accuracy": 0.6171875,
+      "physical_oracle_functional_class_accuracy": 0.9609375,
+      "case_count": 128
+    }
+  },
+  "physical_oracle_stage_pair_details": [
+    {
+      "environment": 0,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 0,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 0,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 0,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 1,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 1,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 1,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 1,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 1,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 1,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 1,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 1,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 1,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 2,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 2,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 2,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 3,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 3,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 3,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 3,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 3,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 3,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 3,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 3,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 3,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 4,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 4,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 4,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 4,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 4,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 4,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 4,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 5,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 5,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 5,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 5,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 5,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 5,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 5,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 6,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 6,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 6,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 6,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 6,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 6,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 7,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 7,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 7,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 8,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 8,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 8,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 9,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 9,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 9,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 9,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 9,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 9,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 10,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 10,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 10,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 10,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 10,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 11,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 12,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 12,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 13,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 13,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 13,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 13,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 14,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(3, 3)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 14,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 14,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 14,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(0, 1)",
+      "budget": 5,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(0, 1)",
+      "budget": 10,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(0, 1)",
+      "budget": 20,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(0, 1)",
+      "budget": 50,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(0, 1)",
+      "budget": 100,
+      "predicted_program": "(0, 1)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(1, 0)",
+      "budget": 5,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(1, 0)",
+      "budget": 10,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(1, 0)",
+      "budget": 20,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(1, 0)",
+      "budget": 50,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(1, 0)",
+      "budget": 100,
+      "predicted_program": "(1, 0)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(0, 3)",
+      "budget": 5,
+      "predicted_program": "(0,)",
+      "identity_correct": false,
+      "functional_class_correct": false
+    },
+    {
+      "environment": 15,
+      "true_program": "(0, 3)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(0, 3)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(0, 3)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(0, 3)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(3, 0)",
+      "budget": 5,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(3, 0)",
+      "budget": 10,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(3, 0)",
+      "budget": 20,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(3, 0)",
+      "budget": 50,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(3, 0)",
+      "budget": 100,
+      "predicted_program": "(0, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(1, 2)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(1, 2)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(1, 2)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(1, 2)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(1, 2)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(2, 1)",
+      "budget": 5,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(2, 1)",
+      "budget": 10,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(2, 1)",
+      "budget": 20,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(2, 1)",
+      "budget": 50,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(2, 1)",
+      "budget": 100,
+      "predicted_program": "(1, 2)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(2, 3)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(2, 3)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(2, 3)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(2, 3)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(2, 3)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": true,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(3, 2)",
+      "budget": 5,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(3, 2)",
+      "budget": 10,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(3, 2)",
+      "budget": 20,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(3, 2)",
+      "budget": 50,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    },
+    {
+      "environment": 15,
+      "true_program": "(3, 2)",
+      "budget": 100,
+      "predicted_program": "(2, 3)",
+      "identity_correct": false,
+      "functional_class_correct": true
+    }
+  ],
+  "group_to_code": {
+    "0": 1,
+    "1": 0,
+    "2": 3,
+    "3": 2
+  },
+  "program_enumeration": [
+    [],
+    [
+      0
+    ],
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      0
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ]
+  ]
+}

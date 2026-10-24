@@ -96,6 +96,26 @@ def _rank_true_program(before_params, adaptation: np.ndarray, dt: float):
     return PROGRAMS[int(np.argmin(errors))]
 
 
+def _score_program_prediction(before_params, true_program: tuple[int, ...],
+                              predicted_program: tuple[int, ...], *, dt: float = 0.05) -> dict:
+    """Return raw identity and simulator-defined functional-class correctness."""
+    classes = _functional_classes_cached(before_params)
+    true_index = PROGRAMS.index(tuple(true_program))
+    predicted_index = PROGRAMS.index(tuple(predicted_program))
+    return {
+        "identity_correct": tuple(true_program) == tuple(predicted_program),
+        "functional_class_correct": classes[true_index] == classes[predicted_index],
+    }
+
+
+def _physical_query_mse(before_params, true_program: tuple[int, ...], query_rows: np.ndarray,
+                        *, dt: float = 0.05) -> float:
+    """Privileged simulator dynamics error on an independent query trajectory."""
+    target_params = apply_program(before_params, tuple(true_program))
+    prediction = response(target_params, query_rows[:, :6], dt=dt)
+    return float(np.mean((prediction - query_rows[:, 6:]) ** 2))
+
+
 def choose_length_penalty(validation_cases, model, bank, normalizer, code_map, device,
                           candidates=(0.0, 0.1, 1.0, 10.0), predictive_variance: float = 1e-4) -> float:
     """Choose the length prior on validation backgrounds and permitted programs only."""
@@ -169,7 +189,7 @@ def evaluate_regime(cases, model: ContextDynamicsModel, bank: PrimitiveBank,
         m2_context_pred = normalizer.denormalize_dv(model.executor(
             normalizer.normalize_x(query_t[:, :6]), context))
         direct_pred = normalizer.denormalize_dv(model.executor(normalizer.normalize_x(query_t[:, :6]), direct))
-        oracle_code_mse = _learned_program_mse(true_code, context, query, model, bank, normalizer, device)
+        true_code_mse = _learned_program_mse(true_code, context, query, model, bank, normalizer, device)
         direct_mse = float(torch.mean((direct_pred - query_truth) ** 2).cpu())
         persistence_mse = float(torch.mean((m2_context_pred - query_truth) ** 2).cpu())
         actual_program_index = PROGRAMS.index(tuple(true_physics_program))
@@ -177,48 +197,86 @@ def evaluate_regime(cases, model: ContextDynamicsModel, bank: PrimitiveBank,
         pred_physics = tuple(inverse[c] for c in predicted)
         accuracy = predicted == true_code
         class_accuracy = class_ids[PROGRAMS.index(pred_physics)] == class_ids[actual_program_index]
-        true_oracle = _rank_true_program(before, transitions, 0.05)
+        true_oracle = _rank_true_program(before, transitions, dt)
+        physical_oracle_score = _score_program_prediction(
+            before, tuple(true_physics_program), tuple(true_oracle), dt=dt)
+        physical_oracle_query_mse = _physical_query_mse(
+            before, tuple(true_physics_program), query_rows, dt=dt)
         key = f"{regime}|N={n}"
         class_count = max(class_ids) + 1
         row = result.setdefault(key, {"count": 0, "identity_correct": 0, "class_correct": 0,
-                                      "single_only_correct": 0, "oracle_identity_query_mse": [],
+                                      "single_only_correct": 0, "true_code_learned_executor_query_mse": [],
                                       "learned_search_query_mse": [], "direct_context_query_mse": [],
-                                      "persistence_query_mse": [], "true_simulator_oracle_correct": 0,
+                                      "persistence_query_mse": [],
+                                      "physical_oracle_program_identity_correct": 0,
+                                      "physical_oracle_functional_class_correct": 0,
+                                      "physical_oracle_query_mse": [],
+                                      "paired_direct_minus_learned_query_mse": [],
+                                      "paired_relative_query_mse_gain": [],
                                       "rollout_rmse": {"5": [], "10": [], "20": []},
-                                      "confusion_program_ids": np.zeros((len(PROGRAMS), len(PROGRAMS)), dtype=np.int64),
+                                      "confusion_learned_code_programs": np.zeros((len(PROGRAMS), len(PROGRAMS)), dtype=np.int64),
+                                      "confusion_physical_program_ids": np.zeros((len(PROGRAMS), len(PROGRAMS)), dtype=np.int64),
                                       "confusion_equivalence_classes": np.zeros((class_count, class_count), dtype=np.int64)})
         row["count"] += 1
         row["identity_correct"] += int(accuracy)
         row["class_correct"] += int(class_accuracy)
         row["single_only_correct"] += int(single_pred == true_code)
-        row["confusion_program_ids"][PROGRAMS.index(true_code), PROGRAMS.index(predicted)] += 1
+        row["confusion_learned_code_programs"][PROGRAMS.index(true_code), PROGRAMS.index(predicted)] += 1
+        row["confusion_physical_program_ids"][actual_program_index, PROGRAMS.index(pred_physics)] += 1
         row["confusion_equivalence_classes"][class_ids[actual_program_index],
                                               class_ids[PROGRAMS.index(pred_physics)]] += 1
-        row["oracle_identity_query_mse"].append(oracle_code_mse)
+        row["true_code_learned_executor_query_mse"].append(true_code_mse)
         row["learned_search_query_mse"].append(float(torch.mean((query_pred - query_truth) ** 2).cpu()))
         row["direct_context_query_mse"].append(direct_mse)
+        learned_mse = row["learned_search_query_mse"][-1]
+        row["paired_direct_minus_learned_query_mse"].append(direct_mse - learned_mse)
+        row["paired_relative_query_mse_gain"].append(
+            (direct_mse - learned_mse) / max(direct_mse, 1e-12))
         row["persistence_query_mse"].append(persistence_mse)
-        row["true_simulator_oracle_correct"] += int(true_oracle == tuple(true_physics_program))
+        row["physical_oracle_program_identity_correct"] += int(physical_oracle_score["identity_correct"])
+        row["physical_oracle_functional_class_correct"] += int(physical_oracle_score["functional_class_correct"])
+        row["physical_oracle_query_mse"].append(physical_oracle_query_mse)
         if true_physics_program in ((0, 1), (1, 0)):
             code_01 = tuple(group_to_code[str(c)] for c in (0, 1))
             code_10 = tuple(group_to_code[str(c)] for c in (1, 0))
             probe_x = normalizer.normalize_x(torch.as_tensor(query_rows[:256, :6], dtype=torch.float32, device=device))
-            response_01 = model.executor(probe_x, bank.apply_program(context, code_01))
-            response_10 = model.executor(probe_x, bank.apply_program(context, code_10))
+            response_01 = normalizer.denormalize_dv(model.executor(probe_x, bank.apply_program(context, code_01)))
+            response_10 = normalizer.denormalize_dv(model.executor(probe_x, bank.apply_program(context, code_10)))
             row.setdefault("noncommuting_wrong_order_rmse", []).append(
                 float(torch.sqrt(torch.mean((response_01 - response_10) ** 2)).cpu()))
+            params_01 = apply_program(before, (0, 1))
+            params_10 = apply_program(before, (1, 0))
+            physical_01 = response(params_01, query_rows[:256, :6], dt=dt)
+            physical_10 = response(params_10, query_rows[:256, :6], dt=dt)
+            row.setdefault("physical_noncommuting_order_separation_rmse", []).append(
+                float(np.sqrt(np.mean((physical_01 - physical_10) ** 2))))
         rollout = _rollout_rmse(query, context, predicted, model, bank, normalizer, device, dt=dt)
         for horizon, value in rollout.items():
             row["rollout_rmse"][horizon].append(value)
     for row in result.values():
         count = row["count"]
-        for key in ("identity_correct", "class_correct", "single_only_correct", "true_simulator_oracle_correct"):
+        for key in ("identity_correct", "class_correct", "single_only_correct",
+                    "physical_oracle_program_identity_correct",
+                    "physical_oracle_functional_class_correct"):
             row[key.replace("_correct", "_accuracy")] = row.pop(key) / count
-        for key in ("oracle_identity_query_mse", "learned_search_query_mse", "direct_context_query_mse", "persistence_query_mse"):
+        for key in ("true_code_learned_executor_query_mse", "learned_search_query_mse",
+                    "direct_context_query_mse", "persistence_query_mse", "physical_oracle_query_mse"):
             values = row[key]
             row[key] = float(np.mean(values))
+        paired_differences = row.pop("paired_direct_minus_learned_query_mse")
+        paired_gains = row.pop("paired_relative_query_mse_gain")
+        row["paired_mean_direct_minus_learned_query_mse"] = float(np.mean(paired_differences))
+        row["paired_mean_relative_query_mse_gain"] = float(np.mean(paired_gains))
+        row["paired_fraction_learned_lower_mse"] = float(np.mean(np.asarray(paired_differences) > 0))
         row["rollout_rmse"] = {h: float(np.mean(v)) for h, v in row["rollout_rmse"].items()}
-        row["noncommuting_wrong_order_rmse"] = float(np.mean(row.get("noncommuting_wrong_order_rmse", [0.0])))
-        row["confusion_program_ids"] = row["confusion_program_ids"].tolist()
+        predicted_separations = row.get("noncommuting_wrong_order_rmse", [])
+        physical_separations = row.get("physical_noncommuting_order_separation_rmse", [])
+        row["noncommuting_wrong_order_rmse_delta_v"] = (
+            float(np.mean(predicted_separations)) if predicted_separations else None)
+        row["physical_noncommuting_order_separation_rmse_delta_v"] = (
+            float(np.mean(physical_separations)) if physical_separations else None)
+        row.pop("noncommuting_wrong_order_rmse", None)
+        row["confusion_learned_code_programs"] = row["confusion_learned_code_programs"].tolist()
+        row["confusion_physical_program_ids"] = row["confusion_physical_program_ids"].tolist()
         row["confusion_equivalence_classes"] = row["confusion_equivalence_classes"].tolist()
     return result

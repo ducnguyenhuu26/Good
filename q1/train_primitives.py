@@ -19,7 +19,7 @@ from q1.evaluate import choose_length_penalty, evaluate_regime
 from q1.inference import rank_programs
 from q1.model import ContextDynamicsModel, TransitionNormalizer
 from q1.primitives import DirectUpdateBank, PrimitiveBank, map_intervention_program
-from q1.simulator import PROGRAMS, DynamicsParams, apply_program, sample_params
+from q1.simulator import PROGRAMS, DynamicsParams, apply_program, response, sample_params
 from q1.train_dynamics import _transitions
 
 
@@ -167,25 +167,161 @@ def _eval_single(prepared, bank: PrimitiveBank, direct: DirectUpdateBank,
     return metrics
 
 
+def _paired_counterfactual_targets(task: TransferTask, raw_x: np.ndarray, *, dt: float,
+                                   device: torch.device) -> tuple[torch.Tensor, torch.Tensor]:
+    """Simulator-only conditional means for after-dynamics and paired effect targets."""
+    after = response(task.target_params, raw_x, dt=dt)
+    before = response(task.before_params, raw_x, dt=dt)
+    return (torch.as_tensor(after, dtype=torch.float32, device=device),
+            torch.as_tensor(after - before, dtype=torch.float32, device=device))
+
+
+def _paired_effect_scales(train_prepared, *, dt: float,
+                          scale_floor_fraction: float = 0.01) -> dict:
+    """Compute global/per-code target energies from training tasks only, with a scale floor."""
+    after_values = []
+    effect_values: dict[int, list[np.ndarray]] = {code: [] for code in range(4)}
+    for task, _, _, _ in train_prepared:
+        raw_x = task.query[:, :6]
+        after = response(task.target_params, raw_x, dt=dt)
+        before = response(task.before_params, raw_x, dt=dt)
+        after_values.append(after.reshape(-1))
+        effect_values[task.group].append((after - before).reshape(-1))
+    global_energy = float(np.mean(np.concatenate(after_values) ** 2))
+    floor = max(global_energy * float(scale_floor_fraction), 1e-12)
+    group_energy = {str(code): float(np.mean(np.concatenate(values) ** 2))
+                    for code, values in effect_values.items()}
+    return {"global_after_energy": global_energy,
+            "per_code_effect_energy": group_energy,
+            "per_code_effect_scale_used": {code: max(value, floor)
+                                           for code, value in group_energy.items()},
+            "scale_floor": floor,
+            "scale_floor_fraction_of_global_after_energy": float(scale_floor_fraction)}
+
+
+def _balanced_after_effect_loss(pred_after: torch.Tensor, pred_before: torch.Tensor,
+                                target_after: torch.Tensor, target_effect: torch.Tensor,
+                                group_ids: torch.Tensor, global_scale: float,
+                                effect_scales: dict[str, float], beta: float) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor]:
+    after_loss = torch.mean((pred_after - target_after) ** 2) / max(float(global_scale), 1e-12)
+    predicted_effect = pred_after - pred_before
+    per_code = []
+    for code in range(4):
+        mask = group_ids == code
+        if not torch.any(mask):
+            raise ValueError(f"balanced effect batch is missing training intervention group {code}")
+        per_code.append(torch.mean((predicted_effect[mask] - target_effect[mask]) ** 2)
+                        / max(float(effect_scales[str(code)]), 1e-12))
+    effect_loss = torch.stack(per_code).mean()
+    return after_loss + float(beta) * effect_loss, after_loss, effect_loss
+
+
+def _fit_single_operators_paired(train_prepared, bank: PrimitiveBank, executor,
+                                 normalizer: TransitionNormalizer, code_map: dict[str, int],
+                                 scales: dict, *, dt: float, beta: float, epochs: int,
+                                 seed: int, learning_rate: float, device: torch.device,
+                                 backgrounds_per_batch: int = 4, queries_per_task: int = 8,
+                                 residual_regularization: float = 0.0) -> list[dict]:
+    """Fair after-only/effect ablation using identical training-only counterfactual batches."""
+    optimizer = torch.optim.Adam(bank.parameters(), lr=learning_rate)
+    by_group: dict[int, list] = {i: [] for i in range(4)}
+    for item in train_prepared:
+        by_group[item[0].group].append(item)
+    env_count = min(len(v) for v in by_group.values())
+    rng = np.random.default_rng(seed + 407)
+    history = []
+    effect_scales = scales["per_code_effect_scale_used"]
+    for epoch in range(epochs):
+        order = rng.permutation(env_count)
+        after_losses, effect_losses, residual_losses = [], [], []
+        for start in range(0, env_count, backgrounds_per_batch):
+            env_ids = order[start:start + backgrounds_per_batch]
+            contexts, codes, groups, xs, after_targets, effect_targets = [], [], [], [], [], []
+            for group in range(4):
+                for env_id in env_ids:
+                    task, context, _, _ = by_group[group][int(env_id)]
+                    indices = rng.choice(len(task.query), size=min(queries_per_task, len(task.query)),
+                                          replace=False)
+                    raw_x = task.query[indices, :6]
+                    x = torch.as_tensor(raw_x, dtype=torch.float32, device=device)
+                    after, effect = _paired_counterfactual_targets(task, raw_x, dt=dt, device=device)
+                    contexts.extend([context[0]] * len(indices))
+                    codes.extend([code_map[str(group)]] * len(indices))
+                    groups.extend([group] * len(indices))
+                    xs.extend(normalizer.normalize_x(x))
+                    after_targets.extend(after)
+                    effect_targets.extend(effect)
+            context_batch = torch.stack(contexts)
+            code_tensor = torch.tensor(codes, dtype=torch.long, device=device)
+            group_tensor = torch.tensor(groups, dtype=torch.long, device=device)
+            x_batch = torch.stack(xs)
+            target_after = torch.stack(after_targets)
+            target_effect = torch.stack(effect_targets)
+            transformed = bank(context_batch, code_tensor)
+            pred_after = normalizer.denormalize_dv(executor(x_batch, transformed))
+            pred_before = normalizer.denormalize_dv(executor(x_batch, context_batch))
+            loss, after_loss, effect_loss = _balanced_after_effect_loss(
+                pred_after, pred_before, target_after, target_effect, group_tensor,
+                scales["global_after_energy"], effect_scales, beta)
+            residual_loss = torch.mean((transformed - context_batch) ** 2)
+            loss = loss + float(residual_regularization) * residual_loss
+            optimizer.zero_grad(set_to_none=True)
+            loss.backward()
+            optimizer.step()
+            after_losses.append(float(after_loss.detach().cpu()))
+            effect_losses.append(float(effect_loss.detach().cpu()))
+            residual_losses.append(float(residual_loss.detach().cpu()))
+        history.append({"epoch": epoch + 1, "normalized_after_mse_loss": float(np.mean(after_losses)),
+                        "balanced_normalized_effect_mse_loss": float(np.mean(effect_losses)),
+                        "primitive_residual_mse": float(np.mean(residual_losses)),
+                        "beta": float(beta)})
+    return history
+
+
 @torch.no_grad()
-def _functional_distances(prepared, bank: PrimitiveBank, executor, *, seed: int, device: torch.device):
+def _functional_distances(prepared, bank: PrimitiveBank, executor,
+                          normalizer: TransitionNormalizer, *, seed: int,
+                          device: torch.device, common_probes: np.ndarray | None = None):
+    """Compare code outputs in physical delta-v units on two declared probe sets.
+
+    ``common_probes`` are raw [state, action] features shared by every validation
+    environment. ``prepared`` validation queries supply naturally visited,
+    already-normalized inputs. Both are passed through the same training-only
+    normalizer before the frozen executor.
+    """
     rng = np.random.default_rng(seed)
-    probes = np.concatenate((rng.uniform(-0.6, 0.6, (256, 4)), rng.uniform(-1, 1, (256, 2))), axis=1)
-    distances = np.zeros((4, 4), dtype=np.float64)
-    values = []
-    for task, context, _, _ in prepared[:min(16, len(prepared))]:
-        x = torch.as_tensor(probes, dtype=torch.float32, device=device)
-        responses = []
-        for code in range(4):
-            transformed = bank.apply_one(context, code)
-            responses.append(executor(x, transformed.expand(len(x), -1)).cpu().numpy())
-        values.append(responses)
-    for i in range(4):
-        for j in range(4):
-            distances[i, j] = float(np.sqrt(np.mean([
-                np.mean((item[i] - item[j]) ** 2) for item in values
-            ])))
-    return distances
+    if common_probes is None:
+        common_probes = np.concatenate((rng.uniform(-0.6, 0.6, (256, 4)),
+                                        rng.uniform(-1, 1, (256, 2))), axis=1)
+    common_probes = np.asarray(common_probes, dtype=np.float32)
+
+    def measure(get_inputs):
+        collected = []
+        for task, context, natural_x, _ in prepared:
+            x = get_inputs(natural_x)
+            responses = []
+            for code in range(4):
+                transformed = bank.apply_one(context, code)
+                prediction = normalizer.denormalize_dv(
+                    executor(x, transformed.expand(len(x), -1)))
+                responses.append(prediction.detach().cpu().numpy())
+            collected.append(responses)
+        distances = np.zeros((4, 4), dtype=np.float64)
+        for i in range(4):
+            for j in range(4):
+                distances[i, j] = float(np.sqrt(np.mean([
+                    np.mean((item[i] - item[j]) ** 2) for item in collected
+                ])))
+        return distances
+
+    common_raw = torch.as_tensor(common_probes, dtype=torch.float32, device=device)
+    common_x = normalizer.normalize_x(common_raw)
+    common = measure(lambda _natural_x: common_x)
+    natural = measure(lambda natural_x: natural_x)
+    return {"common_probe_rmse_delta_v": common,
+            "validation_visited_rmse_delta_v": natural,
+            "common_probe_count": int(len(common_probes)),
+            "validation_task_count": int(len(prepared))}
 
 
 def run_m3(config: dict, output_dir: str | Path, m2_checkpoint: str | Path,
@@ -219,11 +355,13 @@ def run_m3(config: dict, output_dir: str | Path, m2_checkpoint: str | Path,
                                     float(config["training"]["learning_rate"]), device)
     bank_metrics = _eval_single(val_prepared, bank, direct, group_to_code, m2.executor,
                                 normalizer, float(config["model"]["predictive_variance"]), device)
-    distances = _functional_distances(val_prepared, bank, m2.executor, seed=seed + 31, device=device)
+    distances = _functional_distances(val_prepared, bank, m2.executor, normalizer,
+                                      seed=seed + 31, device=device)
     avg_op = float(np.mean([v["operator_mse"] for v in bank_metrics.values()]))
     avg_persist = float(np.mean([v["persistence_mse"] for v in bank_metrics.values()]))
     avg_wrong = float(np.mean([v["wrong_code_mse"] for v in bank_metrics.values()]))
-    min_distance = float(np.min(distances[np.triu_indices(4, 1)]))
+    common_distances = distances["common_probe_rmse_delta_v"]
+    min_distance = float(np.min(common_distances[np.triu_indices(4, 1)]))
     gain = min((avg_persist - avg_op) / max(avg_persist, 1e-12),
                (avg_wrong - avg_op) / max(avg_wrong, 1e-12))
     gates = config["gates"]
@@ -232,7 +370,9 @@ def run_m3(config: dict, output_dir: str | Path, m2_checkpoint: str | Path,
     metrics = {"per_code": bank_metrics, "average_operator_mse": avg_op,
                "average_persistence_mse": avg_persist, "average_wrong_code_mse": avg_wrong,
                "minimum_relative_gain_over_controls": gain,
-               "functional_distance_rmse": distances.tolist(), "minimum_pairwise_functional_rmse": min_distance}
+               "functional_distance_rmse_delta_v": distances,
+               "functional_distance_gate_probe_set": "common_fixed_validation_probe_set",
+               "minimum_pairwise_functional_rmse_delta_v": min_distance}
     (output / "metrics.json").write_text(json.dumps({"seed": seed,
         "counts": {"train_transfer_tasks": len(train_tasks), "validation_transfer_tasks": len(val_tasks)},
         "group_to_code": group_to_code, "validation": metrics, "learning_curve": history}, indent=2), encoding="utf-8")
@@ -240,7 +380,9 @@ def run_m3(config: dict, output_dir: str | Path, m2_checkpoint: str | Path,
         f"# Q1 M3 gate report\n\nStatus: **{'PASS' if gate_pass else 'FAIL'}**.\n\n"
         f"Mean operator MSE: {avg_op:.6g}; persistence: {avg_persist:.6g}; wrong-code: {avg_wrong:.6g}; "
         f"minimum relative gain over both controls: {gain:.3%}.\n\n"
-        f"Minimum pairwise functional response RMSE: {min_distance:.6g}.\n\n"
+        f"Minimum pairwise response RMSE on common fixed probes: {min_distance:.6g} delta-v units.\n\n"
+        "Functional distances are reported in physical delta-v units on both common fixed probes and naturally "
+        "visited validation state-action pairs; the predeclared distance gate uses the common-probe matrix.\n\n"
         "Training uses opaque same-intervention groups with a fixed random code bijection saved in the checkpoint. "
         "M2 encoder/executor weights remain frozen. A failed gate blocks M4.\n", encoding="utf-8")
     torch.save({"primitives": bank.state_dict(), "direct_update": direct.state_dict(),
@@ -399,12 +541,34 @@ def run_m4(config: dict, output_dir: str | Path, m2_checkpoint: str | Path,
               "mean_composition_ood_class_accuracy": mean_ood_class_accuracy,
               "thresholds": {"minimum_relative_gain_vs_direct": thresholds["m4_min_relative_gain_vs_direct"],
                              "minimum_ood_class_accuracy": thresholds["m4_min_ood_class_accuracy"]}}}
+    paired_rows = []
+    for key, row in sorted(metrics.items(), key=lambda item: (
+            item[0].split("|N=")[0], int(item[0].split("|N=")[1]))):
+        if key.startswith("composition_ood|") or key.startswith("joint_ood|"):
+            paired_rows.append({"regime": key.split("|N=")[0], "N": int(key.split("|N=")[1]),
+                                "mean_paired_direct_minus_learned_mse":
+                                    row["paired_mean_direct_minus_learned_query_mse"],
+                                "mean_paired_relative_gain": row["paired_mean_relative_query_mse_gain"],
+                                "fraction_backgrounds_learned_better":
+                                    row["paired_fraction_learned_lower_mse"],
+                                "functional_class_accuracy": row["class_accuracy"],
+                                "case_count": row["count"]})
+    result["m4_gate"]["legacy_best_gain_is_single_aggregated_cell"] = True
+    result["paired_composition_diagnostics"] = paired_rows
     (output / "metrics.json").write_text(json.dumps(result, indent=2), encoding="utf-8")
+    table = "\n".join(
+        "| {regime} | {N} | {case_count} | {mean_paired_direct_minus_learned_mse:.6g} | "
+        "{mean_paired_relative_gain:.3%} | {fraction_backgrounds_learned_better:.3f} | "
+        "{functional_class_accuracy:.3f} |".format(**row) for row in paired_rows)
     (output / "gate_report.md").write_text(
         f"# Q1 M4 gate report\n\nStatus: **{'PASS' if gate_pass else 'FAIL'}**.\n\n"
-        f"Validation-selected length penalty: {length_penalty:g}. Best relative fresh-query MSE gain over "
-        f"direct old-context-conditioned adaptation in held-out composition regimes: {best_gain:.3%}. "
-        f"Mean composition-OOD functional-class accuracy: {mean_ood_class_accuracy:.3f}.\n\n"
+        f"Validation-selected length penalty: {length_penalty:g}. The historical gate still checks a single "
+        f"best aggregated cell (relative MSE gain {best_gain:.3%}; threshold unchanged) and mean held-out "
+        f"functional-class accuracy {mean_ood_class_accuracy:.3f}. The best cell is not an average advantage.\n\n"
+        "Paired per-regime/per-budget differences below are direct-context MSE minus learned-search MSE; "
+        "positive values favor learned search. Fractions show the share of paired cases where learned MSE is lower.\n\n"
+        "| Regime | N | Cases | Mean paired MSE difference | Mean paired relative gain | Fraction learned better | Class accuracy |\n"
+        "|---|---:|---:|---:|---:|---:|---:|\n" + table + "\n\n"
         "Regimes report ID, composition OOD, background OOD, and joint OOD separately. Program identity metrics "
         "are accompanied by functional-class accuracy. One CPU seed is development evidence only; use the "
         "confirmatory multi-seed config before making a scientific claim.\n", encoding="utf-8")

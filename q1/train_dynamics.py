@@ -8,6 +8,7 @@ import platform
 import random
 import subprocess
 import time
+import copy
 from dataclasses import dataclass
 from pathlib import Path
 
@@ -57,9 +58,18 @@ def _torch_support(task: Task, idx: np.ndarray, normalizer: TransitionNormalizer
     return torch.cat((normalizer.normalize_x(data[:, :6]), normalizer.normalize_dv(data[:, 6:])), dim=-1)[None]
 
 
+def _fixed_validation_query_indices(validation_tasks: list[Task],
+                                    query_count: int | None = None) -> list[np.ndarray]:
+    """Use a deterministic, broad query subset that is identical each epoch."""
+    return [np.arange(min(len(task.query), query_count) if query_count is not None
+                      else len(task.query), dtype=np.int64)
+            for task in validation_tasks]
+
+
 def _fit_models(train_tasks: list[Task], validation_tasks: list[Task],
                 normalizer: TransitionNormalizer, config: dict,
-                seed: int, device: torch.device) -> tuple[ContextDynamicsModel, ContextFreeDynamicsModel, list[dict]]:
+                seed: int, device: torch.device) -> tuple[ContextDynamicsModel, ContextFreeDynamicsModel,
+                                                          list[dict], dict]:
     torch.manual_seed(seed)
     np_rng = np.random.default_rng(seed + 89)
     context_dim = int(config["model"]["context_dim"])
@@ -72,8 +82,11 @@ def _fit_models(train_tasks: list[Task], validation_tasks: list[Task],
     baseline_optimizer = torch.optim.Adam(baseline.parameters(), lr=float(config["training"]["learning_rate"]))
     epochs = int(config["training"]["dynamics_epochs"])
     batch_size = int(config["training"]["batch_size"])
-    steps_per_epoch = max(1, math.ceil(len(train_tasks) / batch_size))
     history = []
+    validation_indices = _fixed_validation_query_indices(validation_tasks)
+    best_context_state, best_baseline_state = None, None
+    best_context_mse, best_baseline_mse = float("inf"), float("inf")
+    best_context_epoch, best_baseline_epoch = None, None
     for epoch in range(epochs):
         model.train()
         baseline.train()
@@ -111,37 +124,62 @@ def _fit_models(train_tasks: list[Task], validation_tasks: list[Task],
             baseline_train_nlls.append(float(base_loss.detach().cpu()))
         model.eval()
         baseline.eval()
-        validation_losses, validation_baseline_losses = [], []
-        validation_nlls, validation_baseline_nlls = [], []
+        validation_residuals, validation_baseline_residuals = [], []
         with torch.no_grad():
-            for task in validation_tasks[:min(32, len(validation_tasks))]:
+            for task, query_indices in zip(validation_tasks, validation_indices):
+                if len(query_indices) == 0:
+                    continue
                 support_idx = np.arange(min(64, len(task.support)))
                 support = _torch_support(task, support_idx, normalizer, device)
-                query_idx = (epoch * 17) % len(task.query)
-                query = torch.as_tensor(task.query[query_idx], dtype=torch.float32, device=device)
-                x = normalizer.normalize_x(query[:6])
-                y = normalizer.normalize_dv(query[6:])
+                query = torch.as_tensor(task.query[query_indices], dtype=torch.float32, device=device)
+                x = normalizer.normalize_x(query[:, :6])
+                y = normalizer.normalize_dv(query[:, 6:])
                 context = model.encode(support)
-                pred = normalizer.denormalize_dv(model.predict(x[None], context)[0])
-                base_pred = normalizer.denormalize_dv(baseline.predict(x[None])[0])
+                pred = normalizer.denormalize_dv(model.predict(x, context))
+                base_pred = normalizer.denormalize_dv(baseline.predict(x))
                 truth = normalizer.denormalize_dv(y)
                 residual, base_residual = pred - truth, base_pred - truth
-                variance = float(config["model"]["predictive_variance"])
-                validation_losses.append(float(torch.mean(residual ** 2).cpu()))
-                validation_baseline_losses.append(float(torch.mean(base_residual ** 2).cpu()))
-                validation_nlls.append(float(torch.mean(0.5 * (math.log(2.0 * math.pi * variance)
-                                                                + residual ** 2 / variance)).cpu()))
-                validation_baseline_nlls.append(float(torch.mean(0.5 * (math.log(2.0 * math.pi * variance)
-                                                                        + base_residual ** 2 / variance)).cpu()))
+                validation_residuals.append(residual.reshape(-1))
+                validation_baseline_residuals.append(base_residual.reshape(-1))
+        variance = float(config["model"]["predictive_variance"])
+        context_residual = torch.cat(validation_residuals)
+        baseline_residual = torch.cat(validation_baseline_residuals)
+        context_validation_mse = float(torch.mean(context_residual ** 2).cpu())
+        baseline_validation_mse = float(torch.mean(baseline_residual ** 2).cpu())
+        validation_nll = float(torch.mean(0.5 * (math.log(2.0 * math.pi * variance)
+                                                  + context_residual ** 2 / variance)).cpu())
+        baseline_validation_nll = float(torch.mean(0.5 * (math.log(2.0 * math.pi * variance)
+                                                           + baseline_residual ** 2 / variance)).cpu())
+        if context_validation_mse < best_context_mse:
+            best_context_mse = context_validation_mse
+            best_context_epoch = epoch + 1
+            best_context_state = copy.deepcopy(model.state_dict())
+        if baseline_validation_mse < best_baseline_mse:
+            best_baseline_mse = baseline_validation_mse
+            best_baseline_epoch = epoch + 1
+            best_baseline_state = copy.deepcopy(baseline.state_dict())
         history.append({"epoch": epoch + 1, "train_mse_delta_v": float(np.mean(losses)),
                         "context_free_train_mse_delta_v": float(np.mean(baseline_losses)),
                         "train_nll_per_delta_v_dimension": float(np.mean(train_nlls)),
                         "context_free_train_nll_per_delta_v_dimension": float(np.mean(baseline_train_nlls)),
-                        "validation_mse_delta_v": float(np.mean(validation_losses)),
-                        "context_free_validation_mse_delta_v": float(np.mean(validation_baseline_losses)),
-                        "validation_nll_per_delta_v_dimension": float(np.mean(validation_nlls)),
-                        "context_free_validation_nll_per_delta_v_dimension": float(np.mean(validation_baseline_nlls))})
-    return model, baseline, history
+                        "validation_mse_delta_v": context_validation_mse,
+                        "context_free_validation_mse_delta_v": baseline_validation_mse,
+                        "validation_nll_per_delta_v_dimension": validation_nll,
+                        "context_free_validation_nll_per_delta_v_dimension": baseline_validation_nll})
+    final_epoch_metrics = {key: history[-1][key] for key in (
+        "validation_mse_delta_v", "context_free_validation_mse_delta_v",
+        "validation_nll_per_delta_v_dimension", "context_free_validation_nll_per_delta_v_dimension")}
+    model.load_state_dict(best_context_state)
+    baseline.load_state_dict(best_baseline_state)
+    selection = {"criterion": "fixed_full_validation_query_delta_v_mse",
+                 "validation_task_count": len(validation_tasks),
+                 "validation_transition_count": int(sum(map(len, validation_indices))),
+                 "context_best_epoch": best_context_epoch,
+                 "context_best_validation_mse_delta_v": best_context_mse,
+                 "context_free_best_epoch": best_baseline_epoch,
+                 "context_free_best_validation_mse_delta_v": best_baseline_mse,
+                 "final_epoch_metrics": final_epoch_metrics}
+    return model, baseline, history, selection
 
 
 @torch.no_grad()
@@ -249,7 +287,7 @@ def run_m2(config: dict, output_dir: str | Path, *, seed: int | None = None,
     train_tasks = _make_tasks(manifest, "train", int(config["oracle"]["train_envs"]), **common)
     val_tasks = _make_tasks(manifest, "validation", int(config["oracle"]["validation_envs"]), **common)
     normalizer = TransitionNormalizer.fit([task.support for task in train_tasks] + [task.query for task in train_tasks])
-    model, baseline, history = _fit_models(train_tasks, val_tasks, normalizer, config, seed, device)
+    model, baseline, history, selection = _fit_models(train_tasks, val_tasks, normalizer, config, seed, device)
     model.eval()
     baseline.eval()
     metrics = _evaluate(model, baseline, val_tasks, normalizer, device,
@@ -267,6 +305,7 @@ def run_m2(config: dict, output_dir: str | Path, *, seed: int | None = None,
                                                   "train_environments": int(config["oracle"]["train_envs"]),
                                                   "validation_environments": int(config["oracle"]["validation_envs"])},
                       "validation": metrics, "learning_curve": history,
+                      "checkpoint_selection": selection,
                                                       "parameter_counts": {
                                                           "context_model": sum(p.numel() for p in model.parameters()),
                                                           "context_free_model": sum(p.numel() for p in baseline.parameters())}}
@@ -281,6 +320,7 @@ def run_m2(config: dict, output_dir: str | Path, *, seed: int | None = None,
         "are frozen in `context_model.pt`; held-out test environments were not used. A failed gate blocks M3/M4.\n",
         encoding="utf-8")
     torch.save({"model": model.state_dict(), "normalizer": normalizer.as_dict(), "config": config,
+                "checkpoint_selection": selection,
                 "seed": seed, "train_programs": [list(p) for p in train_programs]}, output / "context_model.pt")
     torch.save({"model": baseline.state_dict()}, output / "context_free_model.pt")
     (output / "config.resolved.yaml").write_text(yaml.safe_dump(config, sort_keys=False), encoding="utf-8")

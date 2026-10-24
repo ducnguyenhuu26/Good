@@ -1,0 +1,816 @@
+{
+  "run_kind": "TRAIN_SPLIT_ONLY_M3_EFFECT_ABLATION_DEVELOPMENT",
+  "selected_beta_variant_by_validation": "beta_0.25",
+  "selection_metric": {
+    "metric": "maximize_minimum_per_code_effect_skill_on_natural_validation_probes",
+    "tie_breaker": "maximize_minimum_per_code_after_mse_relative_gain"
+  },
+  "variants": {
+    "beta_0.00": {
+      "beta": 0.0,
+      "status": "FAIL",
+      "per_code_validation": {
+        "0": {
+          "effect_signal_energy": {
+            "mean": 0.00017792208109312924,
+            "ci95_normal_approx": [
+              0.00017273762268864239,
+              0.0001831065394976161
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 2.1699548710785166e-05,
+            "ci95_normal_approx": [
+              1.846596476607231e-05,
+              2.4933132655498023e-05
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": 0.8766557040133545,
+            "ci95_normal_approx": [
+              0.8563371330006554,
+              0.8969742750260535
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 2.4526243009859172e-05,
+            "ci95_normal_approx": [
+              2.1128243533058186e-05,
+              2.792424248666016e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 0.0002073936475426308,
+            "ci95_normal_approx": [
+              0.00019163343569417038,
+              0.0002231538593910912
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.8820545371467232,
+            "ci95_normal_approx": [
+              0.8674644199712149,
+              0.8966446543222315
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 0.0002130996939134396,
+            "ci95_normal_approx": [
+              0.00019587822388910414,
+              0.00023032116393777508
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": true,
+            "after_gain_pass": true,
+            "pass": true
+          }
+        },
+        "1": {
+          "effect_signal_energy": {
+            "mean": 2.8005168360323296e-05,
+            "ci95_normal_approx": [
+              2.7664401830470263e-05,
+              2.834593489017633e-05
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 9.007176345221524e-06,
+            "ci95_normal_approx": [
+              8.149320613121124e-06,
+              9.865032077321923e-06
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": 0.6777337694545229,
+            "ci95_normal_approx": [
+              0.6454395238728199,
+              0.7100280150362259
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 2.2724861992173828e-05,
+            "ci95_normal_approx": [
+              2.014463984299061e-05,
+              2.5305084141357045e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 4.1481033576928894e-05,
+            "ci95_normal_approx": [
+              3.767143065784713e-05,
+              4.529063649601066e-05
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.45372409362775784,
+            "ci95_normal_approx": [
+              0.4238488144160284,
+              0.4835993728394873
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 0.00011858101462773143,
+            "ci95_normal_approx": [
+              0.0001157190949146326,
+              0.00012144293434083027
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": true,
+            "after_gain_pass": true,
+            "pass": true
+          }
+        },
+        "2": {
+          "effect_signal_energy": {
+            "mean": 2.5794056170980184e-06,
+            "ci95_normal_approx": [
+              2.1273600899826333e-06,
+              3.0314511442134035e-06
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 8.317280190794918e-06,
+            "ci95_normal_approx": [
+              7.427326705541856e-06,
+              9.20723367604798e-06
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": -2.7195385798852647,
+            "ci95_normal_approx": [
+              -3.621544472460123,
+              -1.8175326873104063
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 2.5753275963324995e-05,
+            "ci95_normal_approx": [
+              2.262376743699694e-05,
+              2.888278448965305e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 2.6973596902735153e-05,
+            "ci95_normal_approx": [
+              2.3863841127122114e-05,
+              3.0083352678348192e-05
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.037995595386878245,
+            "ci95_normal_approx": [
+              -0.03913103819383425,
+              0.11512222896759074
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 6.481386103966239e-05,
+            "ci95_normal_approx": [
+              6.109568716023027e-05,
+              6.85320349190945e-05
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": false,
+            "after_gain_pass": false,
+            "pass": false
+          }
+        },
+        "3": {
+          "effect_signal_energy": {
+            "mean": 4.450252227838902e-08,
+            "ci95_normal_approx": [
+              2.5335115283615945e-08,
+              6.36699292731621e-08
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 6.403236056939932e-06,
+            "ci95_normal_approx": [
+              5.463348282595127e-06,
+              7.343123831284736e-06
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": -300.7388670925061,
+            "ci95_normal_approx": [
+              -440.55179750454477,
+              -160.92593668046743
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 2.0566353441608953e-05,
+            "ci95_normal_approx": [
+              1.7534790759074118e-05,
+              2.359791612414379e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 2.0213028562920954e-05,
+            "ci95_normal_approx": [
+              1.805033707660314e-05,
+              2.237572004923877e-05
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": -0.013404298646531497,
+            "ci95_normal_approx": [
+              -0.11118855321395202,
+              0.08437995592088901
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 5.8800752848734796e-05,
+            "ci95_normal_approx": [
+              5.596876816563916e-05,
+              6.163273753183043e-05
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": false,
+            "after_gain_pass": false,
+            "pass": false
+          }
+        }
+      },
+      "fixed_probe_rows": 64,
+      "natural_probe_rows": 64
+    },
+    "beta_0.25": {
+      "beta": 0.25,
+      "status": "FAIL",
+      "per_code_validation": {
+        "0": {
+          "effect_signal_energy": {
+            "mean": 0.00017792208109312924,
+            "ci95_normal_approx": [
+              0.00017273762268864239,
+              0.0001831065394976161
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 1.6002029155970376e-05,
+            "ci95_normal_approx": [
+              1.4152337234122613e-05,
+              1.7851721077818138e-05
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": 0.9097236437734186,
+            "ci95_normal_approx": [
+              0.8989424898849043,
+              0.9205047976619329
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 2.1325338252609072e-05,
+            "ci95_normal_approx": [
+              1.7600196806259048e-05,
+              2.5050479698959095e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 0.0002073936475426308,
+            "ci95_normal_approx": [
+              0.00019163343569417038,
+              0.0002231538593910912
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.8991964908830101,
+            "ci95_normal_approx": [
+              0.8854812070464052,
+              0.912911774719615
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 0.00023276392463837206,
+            "ci95_normal_approx": [
+              0.00021542328189930358,
+              0.0002501045673774405
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": true,
+            "after_gain_pass": true,
+            "pass": true
+          }
+        },
+        "1": {
+          "effect_signal_energy": {
+            "mean": 2.8005168360323296e-05,
+            "ci95_normal_approx": [
+              2.7664401830470263e-05,
+              2.834593489017633e-05
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 3.288278392687971e-06,
+            "ci95_normal_approx": [
+              2.936181698750187e-06,
+              3.6403750866257553e-06
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": 0.8822917963949478,
+            "ci95_normal_approx": [
+              0.8689507452731929,
+              0.8956328475167027
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 1.9794362856373482e-05,
+            "ci95_normal_approx": [
+              1.767324553767126e-05,
+              2.1915480175075706e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 4.1481033576928894e-05,
+            "ci95_normal_approx": [
+              3.767143065784713e-05,
+              4.529063649601066e-05
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.5221066158419972,
+            "ci95_normal_approx": [
+              0.4927613812491088,
+              0.5514518504348856
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 9.394587080654067e-05,
+            "ci95_normal_approx": [
+              9.037642320703272e-05,
+              9.751531840604862e-05
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": true,
+            "after_gain_pass": true,
+            "pass": true
+          }
+        },
+        "2": {
+          "effect_signal_energy": {
+            "mean": 2.5794056170980184e-06,
+            "ci95_normal_approx": [
+              2.1273600899826333e-06,
+              3.0314511442134035e-06
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 1.1245807698401222e-06,
+            "ci95_normal_approx": [
+              9.094823195122893e-07,
+              1.3396792201679553e-06
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": 0.5502864303935169,
+            "ci95_normal_approx": [
+              0.4944508611996041,
+              0.6061219995874296
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 2.3204899378015398e-05,
+            "ci95_normal_approx": [
+              2.0715328419941583e-05,
+              2.5694470336089213e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 2.6973596902735153e-05,
+            "ci95_normal_approx": [
+              2.3863841127122114e-05,
+              3.0083352678348192e-05
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.13486990653106012,
+            "ci95_normal_approx": [
+              0.10770402860538188,
+              0.16203578445673839
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 6.646659016951162e-05,
+            "ci95_normal_approx": [
+              6.264443166809006e-05,
+              7.028874867093318e-05
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": true,
+            "after_gain_pass": true,
+            "pass": true
+          }
+        },
+        "3": {
+          "effect_signal_energy": {
+            "mean": 4.450252227838902e-08,
+            "ci95_normal_approx": [
+              2.5335115283615945e-08,
+              6.36699292731621e-08
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 5.7430404099001464e-08,
+            "ci95_normal_approx": [
+              4.8846118638049316e-08,
+              6.601468955995361e-08
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": -1.325731443033689,
+            "ci95_normal_approx": [
+              -2.261718568692275,
+              -0.38974431737510296
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 1.9630952692750725e-05,
+            "ci95_normal_approx": [
+              1.7544773686531257e-05,
+              2.1717131698970193e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 2.0213028562920954e-05,
+            "ci95_normal_approx": [
+              1.805033707660314e-05,
+              2.237572004923877e-05
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.02841859000216789,
+            "ci95_normal_approx": [
+              0.019924082148251282,
+              0.0369130978560845
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 6.001532212470314e-05,
+            "ci95_normal_approx": [
+              5.76199716289959e-05,
+              6.241067262041039e-05
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": false,
+            "after_gain_pass": false,
+            "pass": false
+          }
+        }
+      },
+      "fixed_probe_rows": 64,
+      "natural_probe_rows": 64
+    },
+    "beta_1.00": {
+      "beta": 1.0,
+      "status": "FAIL",
+      "per_code_validation": {
+        "0": {
+          "effect_signal_energy": {
+            "mean": 0.00017792208109312924,
+            "ci95_normal_approx": [
+              0.00017273762268864239,
+              0.0001831065394976161
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 1.4848188413907337e-05,
+            "ci95_normal_approx": [
+              1.3238236497608309e-05,
+              1.6458140330206366e-05
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": 0.916466131651129,
+            "ci95_normal_approx": [
+              0.9075269542513906,
+              0.9254053090508674
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 2.160405472295679e-05,
+            "ci95_normal_approx": [
+              1.7788335804090934e-05,
+              2.5419773641822644e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 0.0002073936475426308,
+            "ci95_normal_approx": [
+              0.00019163343569417038,
+              0.0002231538593910912
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.8979565658881639,
+            "ci95_normal_approx": [
+              0.8841589863059619,
+              0.9117541454703658
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 0.0002345860866626026,
+            "ci95_normal_approx": [
+              0.00021714375071982345,
+              0.00025202842260538174
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": true,
+            "after_gain_pass": true,
+            "pass": true
+          }
+        },
+        "1": {
+          "effect_signal_energy": {
+            "mean": 2.8005168360323296e-05,
+            "ci95_normal_approx": [
+              2.7664401830470263e-05,
+              2.834593489017633e-05
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 3.2269517191707564e-06,
+            "ci95_normal_approx": [
+              2.8762980892593217e-06,
+              3.577605349082191e-06
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": 0.8844865234538325,
+            "ci95_normal_approx": [
+              0.8712092593748014,
+              0.8977637875328636
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 1.990687002262348e-05,
+            "ci95_normal_approx": [
+              1.7856533197913027e-05,
+              2.1957206847333932e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 4.1481033576928894e-05,
+            "ci95_normal_approx": [
+              3.767143065784713e-05,
+              4.529063649601066e-05
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.518257279695044,
+            "ci95_normal_approx": [
+              0.4875139868992719,
+              0.549000572490816
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 9.128668140571487e-05,
+            "ci95_normal_approx": [
+              8.803271812354723e-05,
+              9.454064468788252e-05
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": true,
+            "after_gain_pass": true,
+            "pass": true
+          }
+        },
+        "2": {
+          "effect_signal_energy": {
+            "mean": 2.5794056170980184e-06,
+            "ci95_normal_approx": [
+              2.1273600899826333e-06,
+              3.0314511442134035e-06
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 1.0574543480856846e-06,
+            "ci95_normal_approx": [
+              8.484098512689658e-07,
+              1.2664988449024034e-06
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": 0.5780764928870681,
+            "ci95_normal_approx": [
+              0.5236322111734771,
+              0.632520774600659
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 2.3201355304536264e-05,
+            "ci95_normal_approx": [
+              2.0738934773826392e-05,
+              2.5663775835246136e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 2.6973596902735153e-05,
+            "ci95_normal_approx": [
+              2.3863841127122114e-05,
+              3.0083352678348192e-05
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.1343556605816263,
+            "ci95_normal_approx": [
+              0.10664625994855084,
+              0.16206506121470174
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 6.686579678216731e-05,
+            "ci95_normal_approx": [
+              6.309439345036933e-05,
+              7.063720011396528e-05
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": true,
+            "after_gain_pass": true,
+            "pass": true
+          }
+        },
+        "3": {
+          "effect_signal_energy": {
+            "mean": 4.450252227838902e-08,
+            "ci95_normal_approx": [
+              2.5335115283615945e-08,
+              6.36699292731621e-08
+            ],
+            "environment_count": 16
+          },
+          "effect_mse": {
+            "mean": 5.821137294415024e-08,
+            "ci95_normal_approx": [
+              4.7375390529302376e-08,
+              6.90473553589981e-08
+            ],
+            "environment_count": 16
+          },
+          "effect_skill_vs_zero_effect": {
+            "mean": -1.368498252427993,
+            "ci95_normal_approx": [
+              -2.405728112728889,
+              -0.3312683921270969
+            ],
+            "environment_count": 16
+          },
+          "after_dynamics_mse": {
+            "mean": 1.985206250765259e-05,
+            "ci95_normal_approx": [
+              1.7796925704662664e-05,
+              2.1907199310642516e-05
+            ],
+            "environment_count": 16
+          },
+          "persistence_after_mse": {
+            "mean": 2.0213028562920954e-05,
+            "ci95_normal_approx": [
+              1.805033707660314e-05,
+              2.237572004923877e-05
+            ],
+            "environment_count": 16
+          },
+          "relative_after_mse_gain_vs_persistence": {
+            "mean": 0.01653912321211875,
+            "ci95_normal_approx": [
+              0.009638809445784236,
+              0.023439436978453264
+            ],
+            "environment_count": 16
+          },
+          "wrong_code_after_mse": {
+            "mean": 6.040465190911467e-05,
+            "ci95_normal_approx": [
+              5.8188403341424766e-05,
+              6.262090047680458e-05
+            ],
+            "environment_count": 16
+          },
+          "gate": {
+            "effect_skill_pass": false,
+            "after_gain_pass": false,
+            "pass": false
+          }
+        }
+      },
+      "fixed_probe_rows": 64,
+      "natural_probe_rows": 64
+    }
+  },
+  "training_scales": {
+    "global_after_energy": 0.0006314873240672624,
+    "per_code_effect_energy": {
+      "0": 0.00013430646059068628,
+      "1": 2.8341976022535076e-05,
+      "2": 1.0385796994053032e-06,
+      "3": 1.827987900084483e-08
+    },
+    "per_code_effect_scale_used": {
+      "0": 0.00013430646059068628,
+      "1": 2.8341976022535076e-05,
+      "2": 6.314873240672624e-06,
+      "3": 6.314873240672624e-06
+    },
+    "scale_floor": 6.314873240672624e-06,
+    "scale_floor_fraction_of_global_after_energy": 0.01
+  },
+  "m3_gate_thresholds": {
+    "minimum_effect_skill_per_code": 0.1,
+    "minimum_after_mse_relative_gain_per_code": 0.05
+  },
+  "validation_gate_status": {
+    "beta_0.00": "FAIL",
+    "beta_0.25": "FAIL",
+    "beta_1.00": "FAIL"
+  }
+}

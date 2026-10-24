@@ -1,0 +1,27 @@
+{
+  "python": "3.11.9",
+  "torch": "2.13.0+cpu",
+  "numpy": "2.4.6",
+  "device": "cpu",
+  "threads": 1,
+  "seed": 20261023,
+  "m2_checkpoint": {
+    "path": "D:\\Chubby\\RL\\learning-to-theorize\\results\\q1\\cpu_confirmatory_impl\\m2\\context_model.pt",
+    "sha256": "e3e7e4d2f38c22ac1b39c0c7e102991da5743c6467c11d12949962281aae8b7b"
+  },
+  "m3_reference_checkpoint": {
+    "path": "D:\\Chubby\\RL\\learning-to-theorize\\results\\q1\\cpu_confirmatory_impl\\m3\\primitives_m3.pt",
+    "sha256": "471f417881a63f5d0897772ddab4458f520678363a9d7aac809beda4bd5722fb"
+  },
+  "split_manifest": "D:\\Chubby\\RL\\learning-to-theorize\\results\\q1\\cpu_confirmatory_impl\\split_manifest.json",
+  "training_split_only": true,
+  "validation_used_for_beta_selection": true,
+  "test_split_used": false,
+  "training_supervision": "paired simulator-only conditional means on identical train state-action probes",
+  "unique_train_counterfactual_probe_count": 18432,
+  "counterfactual_simulator_response_evaluations": 958464,
+  "train_background_count": 48,
+  "optimizer_updates_per_variant": 1200,
+  "fair_ablation": "identical initialization, code map, examples, updates, minibatch seeds, and optimizer",
+  "runtime_seconds": 81.22347680000007
+}

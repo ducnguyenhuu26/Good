@@ -1,0 +1,26 @@
+{
+  "python": "3.11.9",
+  "torch": "2.13.0+cpu",
+  "numpy": "2.4.6",
+  "device": "cpu",
+  "threads": 1,
+  "training_performed": false,
+  "split": "validation_only",
+  "development_heldout_pairs_included": true,
+  "counterfactual_signal_source": "paired simulator responses on identical validation probes",
+  "runtime_seconds": 433.4729317000001,
+  "checkpoint_inputs": {
+    "m2": {
+      "path": "D:\\Chubby\\RL\\learning-to-theorize\\results\\q1\\cpu_confirmatory_impl\\m2\\context_model.pt",
+      "sha256": "e3e7e4d2f38c22ac1b39c0c7e102991da5743c6467c11d12949962281aae8b7b"
+    },
+    "m3": {
+      "path": "D:\\Chubby\\RL\\learning-to-theorize\\results\\q1\\cpu_confirmatory_impl\\m3\\primitives_m3.pt",
+      "sha256": "471f417881a63f5d0897772ddab4458f520678363a9d7aac809beda4bd5722fb"
+    },
+    "m4": {
+      "path": "D:\\Chubby\\RL\\learning-to-theorize\\results\\q1\\cpu_confirmatory_impl\\m4\\primitives_m4.pt",
+      "sha256": "90aa85ca588bcb465a7960000a1f4e8ff66d8920945f20d34d85add8a99867a2"
+    }
+  }
+}

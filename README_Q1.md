@@ -17,6 +17,25 @@ uv run --extra q1 python scripts/q1_report.py --run-dir results/q1/cpu_seed20261
 
 The smoke config is marked `SMOKE`; it checks execution and is never scientific evidence. The CPU config is one adjustable development seed and evaluates four held-out backgrounds with ten direct-context optimization steps to keep the CPU pilot bounded. Increase `oracle.test_envs` and `training.direct_context_steps` for a larger local run. A failed gate writes its diagnostics and stops later stages. The pipeline refuses to overwrite an existing run directory; use `--resume` to reuse completed stage artifacts. To reuse an M2 checkpoint from another run, pass its `context_model.pt` path with `--reuse-m2-checkpoint`; the adjacent M2 gate report must also be present and pass.
 
+## Q1 checkpoint repair diagnostics
+
+The P0/P1 repair commands below perform **no training** and use validation environments only. They require the local M2, M3-before-composition, and M4-after-composition checkpoints; checkpoints are ignored by Git and are not downloaded automatically. A missing checkpoint produces a clear nonzero exit. Each run directory is write-once and stores checkpoint hashes, resolved config, metrics, and reports.
+
+```bash
+uv run --extra q1 python scripts/q1_repair_audit.py --config configs/q1_repair_diagnostic.yaml --run-dir results/q1/repair_v1_audit_full --m2-checkpoint results/q1/cpu_confirmatory_impl/m2/context_model.pt --m3-checkpoint results/q1/cpu_confirmatory_impl/m3/primitives_m3.pt --m4-checkpoint results/q1/cpu_confirmatory_impl/m4/primitives_m4.pt --device cpu
+uv run --extra q1 python scripts/q1_diagnose_feasibility.py --config configs/q1_repair_diagnostic.yaml --run-dir results/q1/repair_v1_diagnosis --m2-checkpoint results/q1/cpu_confirmatory_impl/m2/context_model.pt --m3-checkpoint results/q1/cpu_confirmatory_impl/m3/primitives_m3.pt --m4-checkpoint results/q1/cpu_confirmatory_impl/m4/primitives_m4.pt --device cpu
+```
+
+`q1_repair_audit.py` checks units, opaque code-map consistency, and physical-oracle identity versus functional-class scoring on the same uninterrupted old-to-new adaptation trajectories. `q1_diagnose_feasibility.py` compares encoder-only fresh contexts, direct context fitting with 10/40/200 optimizer steps, M3 and M4 true-code predictions, simulator-only paired effects, and all-candidate signed ranking margins. The previously inspected ordered-pair identities remain development data; only a separately frozen fresh-seed replication may be called confirmatory. These scripts never start the M2/M3/M4 training commands.
+
+The current diagnosis selected Branch O for a targeted M3 after+effect ablation. This one-seed development command compares the after-only control with the preregistered beta candidates on the training split and selects beta on validation only:
+
+```bash
+uv run --extra q1 python scripts/q1_train_effect_ablation.py --config configs/q1_repair_m3.yaml --run-dir results/q1/repair_v1_m3_effect_ablation --m2-checkpoint results/q1/cpu_confirmatory_impl/m2/context_model.pt --m3-checkpoint results/q1/cpu_confirmatory_impl/m3/primitives_m3.pt --device cpu --threads 1
+```
+
+All three tested variants failed the per-code M3 validation gate because U4's small effect remained inaccurate. Stop before M4 or confirmatory training. See [diagnosis](docs/q1_duc1_diagnosis.md) and [repair results](docs/q1_duc1_repair_results.md) for measured evidence and runtime.
+
 After a successful development pilot, run the separately declared five-seed protocol with:
 
 ```bash

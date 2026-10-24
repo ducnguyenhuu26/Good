@@ -1,0 +1,22 @@
+run_kind: DEVELOPMENT_DIAGNOSTIC
+seed: 20261023
+dt: 0.05
+noise_sigma: 0.0005
+old_context_support: 96
+oracle:
+  validation_envs: 16
+  train_envs: 48
+  test_envs: 4
+  budgets: [5, 10, 20, 50, 100]
+model:
+  context_dim: 32
+  hidden_dim: 128
+  depth: 2
+  dropout: 0.0
+  predictive_variance: 0.0001
+training:
+  direct_context_steps: 10
+  direct_context_regularization: 0.001
+gates:
+  m3_min_functional_distance: 0.00001
+  m4_min_ood_class_accuracy: 0.50
