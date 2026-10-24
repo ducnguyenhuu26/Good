@@ -1,0 +1,41 @@
+{
+  "note": "All listed issues occurred before their corresponding results were accepted; fixes were applied and the frozen evaluation was resumed without changing its protocol or development backgrounds.",
+  "events": [
+    {
+      "stage": "first V3 runner attempt",
+      "failure": "training prior estimator attempted to stack a Python list of tensors",
+      "resolution": "stacked the list explicitly; resumed the already-frozen protocol",
+      "accepted_results_impacted": false
+    },
+    {
+      "stage": "capacity finalization",
+      "failure": "missing mean_jacobian import after primary evaluation rows had been saved",
+      "resolution": "added import and ran the capacity diagnostic separately on the frozen backgrounds",
+      "accepted_results_impacted": false
+    },
+    {
+      "stage": "capacity diagnostic implementation check",
+      "failure": "initial diagnostic compared the full after-law prediction with the effect target",
+      "resolution": "corrected the target to after-minus-before and reran; only corrected output is in mechanism_capacity.json",
+      "accepted_results_impacted": false
+    },
+    {
+      "stage": "V2 root-repair comparator",
+      "failure": "attempted NumPy conversion on a tensor with gradients enabled",
+      "resolution": "detached evaluation tensors and reran the comparator",
+      "accepted_results_impacted": false
+    },
+    {
+      "stage": "report aggregation",
+      "failure": "legacy V2 CSV omitted scoring and raw-program columns; capacity key also used an incorrect code prefix",
+      "resolution": "made legacy scoring explicitly marginal, derived raw accuracy from predicted/true program IDs, and corrected capacity keys",
+      "accepted_results_impacted": false
+    },
+    {
+      "stage": "seed reproducibility test fixture",
+      "failure": "synthetic target retained an autograd graph and failed when the same fixture was fit repeatedly",
+      "resolution": "detached the synthetic observed target; focused and full Q1 suites then passed",
+      "accepted_results_impacted": false
+    }
+  ]
+}

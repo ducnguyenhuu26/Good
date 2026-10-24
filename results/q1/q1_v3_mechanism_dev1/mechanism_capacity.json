@@ -1,0 +1,71 @@
+{
+  "information": "privileged noiseless paired simulator conditional-mean fit; fit inputs and query inputs disjoint; diagnostic only",
+  "fit_transitions": 1024,
+  "query_transitions": 1024,
+  "metrics": {
+    "IDLIKE_DEVELOPMENT|learned_odd|U1": {
+      "mean_skill": 0.9757016409752028,
+      "n_backgrounds": 16
+    },
+    "IDLIKE_DEVELOPMENT|learned_odd|U2": {
+      "mean_skill": 0.9341608665617412,
+      "n_backgrounds": 16
+    },
+    "IDLIKE_DEVELOPMENT|learned_odd|U3": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "IDLIKE_DEVELOPMENT|learned_odd|U4": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "IDLIKE_DEVELOPMENT|fixed_tanh_diagnostic|U1": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "IDLIKE_DEVELOPMENT|fixed_tanh_diagnostic|U2": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "IDLIKE_DEVELOPMENT|fixed_tanh_diagnostic|U3": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "IDLIKE_DEVELOPMENT|fixed_tanh_diagnostic|U4": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|learned_odd|U1": {
+      "mean_skill": 0.949402433475498,
+      "n_backgrounds": 16
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|learned_odd|U2": {
+      "mean_skill": 0.8595154812861907,
+      "n_backgrounds": 16
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|learned_odd|U3": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|learned_odd|U4": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|fixed_tanh_diagnostic|U1": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|fixed_tanh_diagnostic|U2": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|fixed_tanh_diagnostic|U3": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|fixed_tanh_diagnostic|U4": {
+      "mean_skill": 1.0,
+      "n_backgrounds": 16
+    }
+  }
+}

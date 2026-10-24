@@ -1,0 +1,8 @@
+{
+  "rows": 1344,
+  "mean_converged": 1.0,
+  "rows_by_action": {
+    "learned_odd": 672,
+    "fixed_tanh_diagnostic": 672
+  }
+}

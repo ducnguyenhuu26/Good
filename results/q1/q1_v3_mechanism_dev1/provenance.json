@@ -1,0 +1,50 @@
+{
+  "branch": "codex/q1-v3-mechanism-structured",
+  "base_commit": "ff010d7401b1477f783a6846a481242314bc76df",
+  "head_commit_at_finalization": "ff010d7401b1477f783a6846a481242314bc76df",
+  "device": "cpu",
+  "python": "3.13.5",
+  "torch": "2.14.1+cpu",
+  "source_hashes_before_training": {
+    "q1_v3/mechanisms.py": "a9a9cd682f161cd8b2b99e30d2de9b48ce4b40bdc14d477d6f30af8fd0af806b",
+    "q1_v3/task_inference.py": "623663741df5eca8418a27b439b006afc079b320b35bb6e1678f385ad240016f",
+    "q1_v3/operators.py": "986be0518bb641d890d27f26203261faaa0b41b2d9a9bad8995ef2c4cde3c9a5",
+    "q1_v3/training.py": "78842d4eff361b02eff835d403014e873c57a4d614f53dc7d5eaf89eed14bd45",
+    "q1_v3/program_search.py": "b937bf1d26956e477952efeeea9d0b1a07ac70c2258637badf40a0d78fad93b7",
+    "scripts/q1_v3_run.py": "3a93fcfad8adaf82acd32f9ea69d7d7e829e097ab72923eee47693a129d7144a",
+    "configs/q1_v3.yaml": "900cfa3f186fa2129167609461ed7fe99bd4ccf6374042fa7719964435d320b5"
+  },
+  "final_source_sha256": {
+    "q1_v3/__init__.py": "24501ac16cb6a91c2441c4205821b5fecf1f2048807a41991dacbd044a4a14ad",
+    "q1_v3/mechanisms.py": "a9a9cd682f161cd8b2b99e30d2de9b48ce4b40bdc14d477d6f30af8fd0af806b",
+    "q1_v3/task_inference.py": "623663741df5eca8418a27b439b006afc079b320b35bb6e1678f385ad240016f",
+    "q1_v3/operators.py": "986be0518bb641d890d27f26203261faaa0b41b2d9a9bad8995ef2c4cde3c9a5",
+    "q1_v3/training.py": "0eb6d50224b0eaf58bfa8554e1fb889b1f3c77cb1b74ca648b80f62a71e6cc8c",
+    "q1_v3/program_search.py": "270f02c73bb3dfd874f6bf62ebc3687ff2cbd3fad93261231b2e1df7e64b930d",
+    "configs/q1_v3.yaml": "900cfa3f186fa2129167609461ed7fe99bd4ccf6374042fa7719964435d320b5",
+    "scripts/q1_v3_run.py": "99135e9a81fb984876706b4f1f3c4bf9cb7f352ac643e3dea46ad51a1d5a28ba",
+    "scripts/q1_v3_capacity_diagnostic.py": "0da5d78f80b7682adc00c59ac320aaac6addcdf3a944de6817816245df5b43c4",
+    "scripts/q1_v3_v2_root_compare.py": "7d0c437ad6bcf56746687fd489e4e84d22eaa2c979a665669fd8f5e007a7ad02",
+    "scripts/q1_v3_report.py": "6f1f44153a008be2e633dd6088380399ac08f3b0efeba283276fddee97e9f1ae",
+    "scripts/q1_v3_finalize_artifacts.py": "bbb1f8e302131df6e1ea9014e6acea032ffa508db3b20f45b5ca89bae47097a6",
+    "tests/test_q1_v3_mechanisms.py": "4f749f004b40a4ffab835ac82c7904f2456ca41f159d3e29b6820e08b5bf66fb"
+  },
+  "checkpoint_sha256": {
+    "action_learned_odd.pt": "85adbf7e711a5819637e1066139e699e0f64423fd1cb800fe7f1a7367d430911",
+    "operator_fixed_tanh_diagnostic.pt": "beceac6c62af8854e16ff1a2888be106e292ed5c9b351f033eef57a512a08c65",
+    "operator_seed4201_nll_only.pt": "7b7daa09ed2601a79aa141899c8e8f0408d11e0c3467b8d79e7183d17b10bc03",
+    "operator_seed4201_sparse.pt": "36f84964efbc6770dbfb47421faf4fe2267328273e028fc3b8cd10d477c66344",
+    "operator_seed4202_nll_only.pt": "54de73c385aac67e3da614edc6e5bf61670bd4659d3df8de71bf23d676e7094c",
+    "operator_seed4202_sparse.pt": "2abade796235816e0f12befe8eda1db605589de58e7cb0e7d7df0d92b13e56b7",
+    "v3_primary.pt": "6724afff5b538323b1bd7cd900ce5c8d8327cd0d292d8955323ea85aa4c41ad3"
+  },
+  "original_test_split_used": false,
+  "evaluation_background_counts": {
+    "id_like": 16,
+    "background_ood": 16
+  },
+  "all_seed_sets_disjoint": true,
+  "test_status": "82 passed, 0 failed; see tests.json",
+  "training_plot": "training_curves.png",
+  "data_and_checkpoints_ignored_by_git": true
+}

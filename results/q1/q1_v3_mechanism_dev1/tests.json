@@ -1,0 +1,21 @@
+{
+  "command": "uv run --extra q1 --extra test python -m pytest -q (Get-ChildItem tests -Filter 'test_q1_*.py' | ForEach-Object FullName)",
+  "result": "passed",
+  "passed": 82,
+  "failed": 0,
+  "scope": "all repository tests/test_q1_*.py, including V1/V2 regressions and V3 focused tests",
+  "files": [
+    "test_q1_feasibility_abc.py",
+    "test_q1_model_contracts.py",
+    "test_q1_no_leakage.py",
+    "test_q1_repair_effects.py",
+    "test_q1_repair_metrics.py",
+    "test_q1_simulator.py",
+    "test_q1_splits.py",
+    "test_q1_u4_crossfit.py",
+    "test_q1_u4_diagnostics.py",
+    "test_q1_v2_bayesian_operators.py",
+    "test_q1_v2_root_repair.py",
+    "test_q1_v3_mechanisms.py"
+  ]
+}

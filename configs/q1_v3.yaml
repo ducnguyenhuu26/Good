@@ -1,0 +1,37 @@
+run_id: q1_v3_mechanism_dev1
+seed: 20261105
+dt: 0.05
+sigma: 0.0005
+train_backgrounds: 40
+inner_backgrounds: 8
+development_idlike_backgrounds: 16
+development_background_ood_backgrounds: 16
+old_training_transitions: 512
+after_training_transitions: 512
+old_support: 96
+old_evaluation_transitions: 96
+adaptation_trajectory: 100
+query_trajectory: 256
+budgets: [5, 10, 20, 50, 100]
+operator_seeds: [4201, 4202]
+optimizer_seeds: [4201, 4202]
+shared_action_epochs: 10
+operator_epochs: 5
+map_maxiter: 150
+sparsity_penalty: 0.0002
+hidden: 32
+inner_map_starts: 1
+eval_map_starts: 3
+composition_training_pairs: [[0, 0], [0, 2], [1, 1], [1, 3], [2, 0], [2, 2], [3, 1], [3, 3]]
+action_variants: [learned_odd, fixed_tanh_diagnostic]
+length_penalty_grid: [0.0, 0.01, 0.1]
+gates:
+  u3_u4_effect_skill_positive_both_regimes: true
+  u3_u4_effect_skill_ci_lower_positive_target: true
+  beats_population_mean_effect_baseline: true
+  ordered_pairs_accuracy_at_least: 0.80
+  class_accuracy_beats_retrained_v2_both_regimes: true
+  no_q2: true
+  no_original_test_split: true
+seed_disjoint_protocol_required: true
+grey_box_label_required: true
