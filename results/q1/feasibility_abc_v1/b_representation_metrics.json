@@ -1,0 +1,284 @@
+{
+  "status": "DEVELOPMENT_DIAGNOSTIC",
+  "m2_checkpoint_sha256": "e3e7e4d2f38c22ac1b39c0c7e102991da5743c6467c11d12949962281aae8b7b",
+  "ridge_selection_train_only": {
+    "context_ridge": {
+      "selected_ridge": 100.0,
+      "inner_candidates": [
+        {
+          "ridge": 0.0,
+          "inner_mse_standardized": 36.56631756745815
+        },
+        {
+          "ridge": 0.0001,
+          "inner_mse_standardized": 4.101033942177494
+        },
+        {
+          "ridge": 0.01,
+          "inner_mse_standardized": 1.8305548182709581
+        },
+        {
+          "ridge": 1.0,
+          "inner_mse_standardized": 1.036202511210839
+        },
+        {
+          "ridge": 100.0,
+          "inner_mse_standardized": 1.0030124175739565
+        }
+      ],
+      "selection_split": "background-level inner split from original train backgrounds"
+    },
+    "transition_statistics_ridge": {
+      "selected_ridge": 100.0,
+      "inner_candidates": [
+        {
+          "ridge": 0.0,
+          "inner_mse_standardized": 11.60550467474419
+        },
+        {
+          "ridge": 0.0001,
+          "inner_mse_standardized": 9.076515133685765
+        },
+        {
+          "ridge": 0.01,
+          "inner_mse_standardized": 3.6898601304379253
+        },
+        {
+          "ridge": 1.0,
+          "inner_mse_standardized": 1.858191051423187
+        },
+        {
+          "ridge": 100.0,
+          "inner_mse_standardized": 1.1147854306429696
+        }
+      ],
+      "selection_split": "background-level inner split from original train backgrounds"
+    }
+  },
+  "normalization": "targets log(d),log(b); standardized within training backgrounds",
+  "metrics": {
+    "IDLIKE_DEVELOPMENT/intercept_only/log_db_mse": {
+      "n_backgrounds": 16,
+      "mean": 0.01568002343042454,
+      "ci95_background": [
+        0.011051756397698245,
+        0.020308290463150837
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/intercept_only/old_law_conditional_mse_delta_v_squared": {
+      "n_backgrounds": 16,
+      "mean": 8.708260111184862e-06,
+      "ci95_background": [
+        6.966154718821826e-06,
+        1.0450365503547897e-05
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/intercept_only/effect_energy_to_old_model_error_ratio": {
+      "n_backgrounds": 16,
+      "mean": 5.529305869543965,
+      "ci95_background": [
+        4.281995744957211,
+        6.776615994130719
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/context_ridge/log_db_mse": {
+      "n_backgrounds": 16,
+      "mean": 0.016165904726443518,
+      "ci95_background": [
+        0.011364048563525863,
+        0.020967760889361173
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/context_ridge/old_law_conditional_mse_delta_v_squared": {
+      "n_backgrounds": 16,
+      "mean": 8.708260111184862e-06,
+      "ci95_background": [
+        6.966154718821826e-06,
+        1.0450365503547897e-05
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/context_ridge/effect_energy_to_old_model_error_ratio": {
+      "n_backgrounds": 16,
+      "mean": 5.529305869543965,
+      "ci95_background": [
+        4.281995744957211,
+        6.776615994130719
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/transition_statistics_ridge/log_db_mse": {
+      "n_backgrounds": 16,
+      "mean": 0.016873230444007896,
+      "ci95_background": [
+        0.011582490651899454,
+        0.02216397023611634
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/transition_statistics_ridge/old_law_conditional_mse_delta_v_squared": {
+      "n_backgrounds": 16,
+      "mean": 8.708260111184862e-06,
+      "ci95_background": [
+        6.966154718821826e-06,
+        1.0450365503547897e-05
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/transition_statistics_ridge/effect_energy_to_old_model_error_ratio": {
+      "n_backgrounds": 16,
+      "mean": 5.529305869543965,
+      "ci95_background": [
+        4.281995744957211,
+        6.776615994130719
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/experiment_a_physics_estimate/log_db_mse": {
+      "n_backgrounds": 16,
+      "mean": 0.2918261615281984,
+      "ci95_background": [
+        -0.080033919323859,
+        0.6636862423802559
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/experiment_a_physics_estimate/old_law_conditional_mse_delta_v_squared": {
+      "n_backgrounds": 16,
+      "mean": 8.708260111184862e-06,
+      "ci95_background": [
+        6.966154718821826e-06,
+        1.0450365503547897e-05
+      ]
+    },
+    "IDLIKE_DEVELOPMENT/experiment_a_physics_estimate/effect_energy_to_old_model_error_ratio": {
+      "n_backgrounds": 16,
+      "mean": 5.529305869543965,
+      "ci95_background": [
+        4.281995744957211,
+        6.776615994130719
+      ]
+    },
+    "DEVELOPMENT_OOD/intercept_only/log_db_mse": {
+      "n_backgrounds": 16,
+      "mean": 0.17831279731706906,
+      "ci95_background": [
+        0.16073218764937058,
+        0.19589340698476754
+      ]
+    },
+    "DEVELOPMENT_OOD/intercept_only/old_law_conditional_mse_delta_v_squared": {
+      "n_backgrounds": 16,
+      "mean": 1.6321426004839005e-05,
+      "ci95_background": [
+        1.529594183068486e-05,
+        1.7346910178993148e-05
+      ]
+    },
+    "DEVELOPMENT_OOD/intercept_only/effect_energy_to_old_model_error_ratio": {
+      "n_backgrounds": 16,
+      "mean": 3.208495548468121,
+      "ci95_background": [
+        3.0360496252886984,
+        3.380941471647543
+      ]
+    },
+    "DEVELOPMENT_OOD/context_ridge/log_db_mse": {
+      "n_backgrounds": 16,
+      "mean": 0.16982626369592208,
+      "ci95_background": [
+        0.15098168700006998,
+        0.18867084039177417
+      ]
+    },
+    "DEVELOPMENT_OOD/context_ridge/old_law_conditional_mse_delta_v_squared": {
+      "n_backgrounds": 16,
+      "mean": 1.6321426004839005e-05,
+      "ci95_background": [
+        1.529594183068486e-05,
+        1.7346910178993148e-05
+      ]
+    },
+    "DEVELOPMENT_OOD/context_ridge/effect_energy_to_old_model_error_ratio": {
+      "n_backgrounds": 16,
+      "mean": 3.208495548468121,
+      "ci95_background": [
+        3.0360496252886984,
+        3.380941471647543
+      ]
+    },
+    "DEVELOPMENT_OOD/transition_statistics_ridge/log_db_mse": {
+      "n_backgrounds": 16,
+      "mean": 0.19111079304547646,
+      "ci95_background": [
+        0.17051949669419267,
+        0.21170208939676025
+      ]
+    },
+    "DEVELOPMENT_OOD/transition_statistics_ridge/old_law_conditional_mse_delta_v_squared": {
+      "n_backgrounds": 16,
+      "mean": 1.6321426004839005e-05,
+      "ci95_background": [
+        1.529594183068486e-05,
+        1.7346910178993148e-05
+      ]
+    },
+    "DEVELOPMENT_OOD/transition_statistics_ridge/effect_energy_to_old_model_error_ratio": {
+      "n_backgrounds": 16,
+      "mean": 3.208495548468121,
+      "ci95_background": [
+        3.0360496252886984,
+        3.380941471647543
+      ]
+    },
+    "DEVELOPMENT_OOD/experiment_a_physics_estimate/log_db_mse": {
+      "n_backgrounds": 16,
+      "mean": 0.09618365389153696,
+      "ci95_background": [
+        0.010702722013742602,
+        0.1816645857693313
+      ]
+    },
+    "DEVELOPMENT_OOD/experiment_a_physics_estimate/old_law_conditional_mse_delta_v_squared": {
+      "n_backgrounds": 16,
+      "mean": 1.6321426004839005e-05,
+      "ci95_background": [
+        1.529594183068486e-05,
+        1.7346910178993148e-05
+      ]
+    },
+    "DEVELOPMENT_OOD/experiment_a_physics_estimate/effect_energy_to_old_model_error_ratio": {
+      "n_backgrounds": 16,
+      "mean": 3.208495548468121,
+      "ci95_background": [
+        3.0360496252886984,
+        3.380941471647543
+      ]
+    }
+  },
+  "per_code_old_error_effect_scale": {
+    "IDLIKE_DEVELOPMENT/code2": {
+      "mean_old_law_mse": 8.773385985629266e-06,
+      "mean_effect_energy": 5.287696965560884e-07,
+      "median_speed": 0.1201139543249857,
+      "median_v_speedv_gram_condition": 1260.9679217730813
+    },
+    "IDLIKE_DEVELOPMENT/code3": {
+      "mean_old_law_mse": 8.684008592447426e-06,
+      "mean_effect_energy": 7.083177770029693e-09,
+      "median_speed": 0.12371700348152587,
+      "median_v_speedv_gram_condition": 1226.5584709987081
+    },
+    "DEVELOPMENT_OOD/code2": {
+      "mean_old_law_mse": 1.607318694086628e-05,
+      "mean_effect_energy": 1.233470744912338e-06,
+      "median_speed": 0.13762675134586203,
+      "median_v_speedv_gram_condition": 850.6126809065634
+    },
+    "DEVELOPMENT_OOD/code3": {
+      "mean_old_law_mse": 1.6330870267922103e-05,
+      "mean_effect_energy": 1.0601574070798843e-08,
+      "median_speed": 0.1411222285293762,
+      "median_v_speedv_gram_condition": 768.0203385203034
+    }
+  },
+  "limits": [
+    "linear probe failure does not establish absence of nonlinear context information",
+    "positive probe does not prove a global latent transformation",
+    "validation regime is DEVELOPMENT_OOD"
+  ]
+}

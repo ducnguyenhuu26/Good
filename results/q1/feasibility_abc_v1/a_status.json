@@ -1,0 +1,12 @@
+{
+  "status": "COMPLETE",
+  "wall_seconds": 18.5122549000007,
+  "protected_tree_hashes_before": {
+    "results\\q1\\u4_root_cause_v1": "78b4bb23d2bb3bce840975ee6613d5d1a0583be7a2980cac2a907b30843becc1",
+    "results\\q1\\repair_v1_m3_effect_ablation": "1e25e5ab7ffebb68dcbff15404e92f3609583511c6d0bcb5d7ff9465098a7c2d"
+  },
+  "protected_tree_hashes_after": {
+    "results\\q1\\u4_root_cause_v1": "78b4bb23d2bb3bce840975ee6613d5d1a0583be7a2980cac2a907b30843becc1",
+    "results\\q1\\repair_v1_m3_effect_ablation": "1e25e5ab7ffebb68dcbff15404e92f3609583511c6d0bcb5d7ff9465098a7c2d"
+  }
+}

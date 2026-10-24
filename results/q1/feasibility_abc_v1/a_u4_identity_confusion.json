@@ -1,0 +1,102 @@
+{
+  "IDLIKE_DEVELOPMENT/known_old_physics/N5": {
+    "pred_identity": 8,
+    "pred_U4": 2,
+    "pred_other": 6
+  },
+  "IDLIKE_DEVELOPMENT/known_old_physics/N10": {
+    "pred_identity": 2,
+    "pred_U4": 7,
+    "pred_other": 7
+  },
+  "IDLIKE_DEVELOPMENT/known_old_physics/N20": {
+    "pred_identity": 3,
+    "pred_U4": 9,
+    "pred_other": 4
+  },
+  "IDLIKE_DEVELOPMENT/known_old_physics/N50": {
+    "pred_identity": 4,
+    "pred_U4": 9,
+    "pred_other": 3
+  },
+  "IDLIKE_DEVELOPMENT/known_old_physics/N100": {
+    "pred_identity": 2,
+    "pred_U4": 13,
+    "pred_other": 1
+  },
+  "IDLIKE_DEVELOPMENT/estimated_old_physics/N5": {
+    "pred_identity": 8,
+    "pred_U4": 0,
+    "pred_other": 8
+  },
+  "IDLIKE_DEVELOPMENT/estimated_old_physics/N10": {
+    "pred_identity": 4,
+    "pred_U4": 5,
+    "pred_other": 7
+  },
+  "IDLIKE_DEVELOPMENT/estimated_old_physics/N20": {
+    "pred_identity": 5,
+    "pred_U4": 6,
+    "pred_other": 5
+  },
+  "IDLIKE_DEVELOPMENT/estimated_old_physics/N50": {
+    "pred_identity": 5,
+    "pred_U4": 7,
+    "pred_other": 4
+  },
+  "IDLIKE_DEVELOPMENT/estimated_old_physics/N100": {
+    "pred_identity": 5,
+    "pred_U4": 7,
+    "pred_other": 4
+  },
+  "DEVELOPMENT_OOD/known_old_physics/N5": {
+    "pred_identity": 6,
+    "pred_U4": 8,
+    "pred_other": 2
+  },
+  "DEVELOPMENT_OOD/known_old_physics/N10": {
+    "pred_identity": 2,
+    "pred_U4": 11,
+    "pred_other": 3
+  },
+  "DEVELOPMENT_OOD/known_old_physics/N20": {
+    "pred_identity": 2,
+    "pred_U4": 13,
+    "pred_other": 1
+  },
+  "DEVELOPMENT_OOD/known_old_physics/N50": {
+    "pred_identity": 1,
+    "pred_U4": 15,
+    "pred_other": 0
+  },
+  "DEVELOPMENT_OOD/known_old_physics/N100": {
+    "pred_identity": 1,
+    "pred_U4": 14,
+    "pred_other": 1
+  },
+  "DEVELOPMENT_OOD/estimated_old_physics/N5": {
+    "pred_identity": 7,
+    "pred_U4": 4,
+    "pred_other": 5
+  },
+  "DEVELOPMENT_OOD/estimated_old_physics/N10": {
+    "pred_identity": 2,
+    "pred_U4": 9,
+    "pred_other": 5
+  },
+  "DEVELOPMENT_OOD/estimated_old_physics/N20": {
+    "pred_identity": 3,
+    "pred_U4": 10,
+    "pred_other": 3
+  },
+  "DEVELOPMENT_OOD/estimated_old_physics/N50": {
+    "pred_identity": 1,
+    "pred_U4": 12,
+    "pred_other": 3
+  },
+  "DEVELOPMENT_OOD/estimated_old_physics/N100": {
+    "pred_identity": 1,
+    "pred_U4": 13,
+    "pred_other": 2
+  }
+}

@@ -1,0 +1,177 @@
+{
+  "metrics": {
+    "IDLIKE_DEVELOPMENT/U3": {
+      "old_law_conditional_mse_delta_v_squared": {
+        "mean": 8.773385985629266e-06,
+        "ci95_background": [
+          7.035631868700967e-06,
+          1.0511140102557565e-05
+        ],
+        "median": 8.603384089953678e-06
+      },
+      "effect_energy_delta_v_squared": {
+        "mean": 5.287696965560884e-07,
+        "ci95_background": [
+          4.239462552917671e-07,
+          6.335931378204096e-07
+        ],
+        "median": 5.30552069594361e-07
+      },
+      "effect_energy_to_old_model_error_ratio": {
+        "mean": 0.06954047318190361,
+        "ci95_background": [
+          0.05183588497697948,
+          0.08724506138682774
+        ],
+        "median": 0.058218916281722946
+      },
+      "speed_median": {
+        "mean": 0.1206308474258217,
+        "ci95_background": [
+          0.11534880964877325,
+          0.12591288520287014
+        ],
+        "median": 0.1201139543249857
+      },
+      "v_and_speedv_design_gram_condition": {
+        "mean": 1247.507694175041,
+        "ci95_background": [
+          914.5742046936862,
+          1580.4411836563959
+        ],
+        "median": 1260.9679217730813
+      },
+      "n_backgrounds": 16
+    },
+    "IDLIKE_DEVELOPMENT/U4": {
+      "old_law_conditional_mse_delta_v_squared": {
+        "mean": 8.684008592447426e-06,
+        "ci95_background": [
+          6.948558231966449e-06,
+          1.0419458952928402e-05
+        ],
+        "median": 8.552105929704941e-06
+      },
+      "effect_energy_delta_v_squared": {
+        "mean": 7.083177770029693e-09,
+        "ci95_background": [
+          3.093980447683818e-09,
+          1.1072375092375569e-08
+        ],
+        "median": 4.137231472139098e-09
+      },
+      "effect_energy_to_old_model_error_ratio": {
+        "mean": 0.0010599206311201863,
+        "ci95_background": [
+          0.0003363981809831211,
+          0.0017834430812572514
+        ],
+        "median": 0.0005437718655160681
+      },
+      "speed_median": {
+        "mean": 0.1277510877051809,
+        "ci95_background": [
+          0.12001964056503818,
+          0.13548253484532363
+        ],
+        "median": 0.12371700348152587
+      },
+      "v_and_speedv_design_gram_condition": {
+        "mean": 1179.167194466816,
+        "ci95_background": [
+          879.4040230229166,
+          1478.9303659107154
+        ],
+        "median": 1226.5584709987081
+      },
+      "n_backgrounds": 16
+    },
+    "DEVELOPMENT_OOD/U3": {
+      "old_law_conditional_mse_delta_v_squared": {
+        "mean": 1.607318694086628e-05,
+        "ci95_background": [
+          1.5096070114225409e-05,
+          1.705030376750715e-05
+        ],
+        "median": 1.5774996020029205e-05
+      },
+      "effect_energy_delta_v_squared": {
+        "mean": 1.233470744912338e-06,
+        "ci95_background": [
+          1.1103589629003335e-06,
+          1.3565825269243425e-06
+        ],
+        "median": 1.174825821891235e-06
+      },
+      "effect_energy_to_old_model_error_ratio": {
+        "mean": 0.07736140785817223,
+        "ci95_background": [
+          0.06921166003923909,
+          0.08551115567710538
+        ],
+        "median": 0.07230841133104976
+      },
+      "speed_median": {
+        "mean": 0.13561869906194493,
+        "ci95_background": [
+          0.13280853289735806,
+          0.1384288652265318
+        ],
+        "median": 0.13762675134586203
+      },
+      "v_and_speedv_design_gram_condition": {
+        "mean": 934.0734454688552,
+        "ci95_background": [
+          754.9242396948218,
+          1113.2226512428886
+        ],
+        "median": 850.6126809065634
+      },
+      "n_backgrounds": 16
+    },
+    "DEVELOPMENT_OOD/U4": {
+      "old_law_conditional_mse_delta_v_squared": {
+        "mean": 1.6330870267922103e-05,
+        "ci95_background": [
+          1.5309546140912952e-05,
+          1.7352194394931253e-05
+        ],
+        "median": 1.617674079236561e-05
+      },
+      "effect_energy_delta_v_squared": {
+        "mean": 1.0601574070798843e-08,
+        "ci95_background": [
+          7.23700787136149e-09,
+          1.3966140270236196e-08
+        ],
+        "median": 9.333916804468095e-09
+      },
+      "effect_energy_to_old_model_error_ratio": {
+        "mean": 0.0006531433211051224,
+        "ci95_background": [
+          0.00044664763824920153,
+          0.0008596390039610433
+        ],
+        "median": 0.0005857522813322378
+      },
+      "speed_median": {
+        "mean": 0.13885956877095462,
+        "ci95_background": [
+          0.13521064136030414,
+          0.1425084961816051
+        ],
+        "median": 0.1411222285293762
+      },
+      "v_and_speedv_design_gram_condition": {
+        "mean": 835.9909030876197,
+        "ci95_background": [
+          671.8119432130908,
+          1000.1698629621486
+        ],
+        "median": 768.0203385203034
+      },
+      "n_backgrounds": 16
+    }
+  },
+  "condition_metric": "condition number of Gram for [v, ||v||v] features"
+}

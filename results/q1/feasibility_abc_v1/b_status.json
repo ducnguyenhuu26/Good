@@ -1,0 +1,7 @@
+{
+  "status": "COMPLETE",
+  "wall_seconds": 3.3870492999994894,
+  "evaluation_rows": 512,
+  "training_contexts": 48,
+  "checkpoint_sha256": "e3e7e4d2f38c22ac1b39c0c7e102991da5743c6467c11d12949962281aae8b7b"
+}

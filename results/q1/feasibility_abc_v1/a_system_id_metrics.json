@@ -1,0 +1,409 @@
+{
+  "status": "DEVELOPMENT_DIAGNOSTIC",
+  "programs": [
+    [],
+    [
+      0
+    ],
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      0
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ]
+  ],
+  "functional_class_accuracy_is_distinct_from_program_identity": true,
+  "known_old_physics_is_privileged": true,
+  "estimated_old_physics_is_equation_privileged": true,
+  "metrics": {
+    "IDLIKE_DEVELOPMENT/known_old_physics/N5": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.6755952380952381,
+      "functional_class_accuracy_ci95_background": [
+        0.5903008133718783,
+        0.7608896628185979
+      ],
+      "program_identity_accuracy_mean": 0.5267857142857143,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.1682238023871904e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "IDLIKE_DEVELOPMENT/known_old_physics/N10": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.8303571428571428,
+      "functional_class_accuracy_ci95_background": [
+        0.7732222310417899,
+        0.8874920546724957
+      ],
+      "program_identity_accuracy_mean": 0.6160714285714286,
+      "mean_true_vs_best_wrong_class_margin_mse": 9.773314312153052e-06,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "IDLIKE_DEVELOPMENT/known_old_physics/N20": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.8392857142857142,
+      "functional_class_accuracy_ci95_background": [
+        0.7773314300647394,
+        0.901239998506689
+      ],
+      "program_identity_accuracy_mean": 0.6369047619047619,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.0520745318576412e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "IDLIKE_DEVELOPMENT/known_old_physics/N50": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.8720238095238095,
+      "functional_class_accuracy_ci95_background": [
+        0.8067356306834077,
+        0.9373119883642114
+      ],
+      "program_identity_accuracy_mean": 0.6607142857142857,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.1633395287481606e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "IDLIKE_DEVELOPMENT/known_old_physics/N100": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.9017857142857142,
+      "functional_class_accuracy_ci95_background": [
+        0.8371961984526043,
+        0.9663752301188241
+      ],
+      "program_identity_accuracy_mean": 0.6904761904761905,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.1423681680878373e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "IDLIKE_DEVELOPMENT/estimated_old_physics/N5": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.6607142857142857,
+      "functional_class_accuracy_ci95_background": [
+        0.6096823421959436,
+        0.7117462292326278
+      ],
+      "program_identity_accuracy_mean": 0.5059523809523809,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.169241391843445e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "IDLIKE_DEVELOPMENT/estimated_old_physics/N10": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.7648809523809523,
+      "functional_class_accuracy_ci95_background": [
+        0.7080645652039076,
+        0.8216973395579971
+      ],
+      "program_identity_accuracy_mean": 0.5625,
+      "mean_true_vs_best_wrong_class_margin_mse": 9.765553262517054e-06,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "IDLIKE_DEVELOPMENT/estimated_old_physics/N20": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.7767857142857143,
+      "functional_class_accuracy_ci95_background": [
+        0.7167089886512146,
+        0.836862439920214
+      ],
+      "program_identity_accuracy_mean": 0.5863095238095238,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.0523301754472838e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "IDLIKE_DEVELOPMENT/estimated_old_physics/N50": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.8005952380952381,
+      "functional_class_accuracy_ci95_background": [
+        0.7408213586271405,
+        0.8603691175633358
+      ],
+      "program_identity_accuracy_mean": 0.6041666666666667,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.1635964713995986e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "IDLIKE_DEVELOPMENT/estimated_old_physics/N100": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.8184523809523809,
+      "functional_class_accuracy_ci95_background": [
+        0.7450512128316931,
+        0.8918535490730688
+      ],
+      "program_identity_accuracy_mean": 0.6220238095238095,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.1421741956237088e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "DEVELOPMENT_OOD/known_old_physics/N5": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.7976190476190476,
+      "functional_class_accuracy_ci95_background": [
+        0.7174664154448984,
+        0.8777716797931967
+      ],
+      "program_identity_accuracy_mean": 0.625,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.5740136642106604e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "DEVELOPMENT_OOD/known_old_physics/N10": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.9136904761904762,
+      "functional_class_accuracy_ci95_background": [
+        0.852121860448002,
+        0.9752590919329504
+      ],
+      "program_identity_accuracy_mean": 0.6904761904761905,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.337231704653244e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "DEVELOPMENT_OOD/known_old_physics/N20": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.9315476190476191,
+      "functional_class_accuracy_ci95_background": [
+        0.8731559815184888,
+        0.9899392565767493
+      ],
+      "program_identity_accuracy_mean": 0.7113095238095237,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.468576065307098e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "DEVELOPMENT_OOD/known_old_physics/N50": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.9583333333333333,
+      "functional_class_accuracy_ci95_background": [
+        0.9102304343677939,
+        1.0064362322988727
+      ],
+      "program_identity_accuracy_mean": 0.7380952380952381,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.5693005329565206e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "DEVELOPMENT_OOD/known_old_physics/N100": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.9494047619047619,
+      "functional_class_accuracy_ci95_background": [
+        0.9072591808789888,
+        0.9915503429305349
+      ],
+      "program_identity_accuracy_mean": 0.7232142857142857,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.5338463415262305e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "DEVELOPMENT_OOD/estimated_old_physics/N5": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.7589285714285714,
+      "functional_class_accuracy_ci95_background": [
+        0.6869000919787603,
+        0.8309570508783825
+      ],
+      "program_identity_accuracy_mean": 0.5863095238095237,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.5744653091586434e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "DEVELOPMENT_OOD/estimated_old_physics/N10": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.8690476190476191,
+      "functional_class_accuracy_ci95_background": [
+        0.8091032003471819,
+        0.9289920377480563
+      ],
+      "program_identity_accuracy_mean": 0.6547619047619047,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.3373589093096432e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "DEVELOPMENT_OOD/estimated_old_physics/N20": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.8839285714285714,
+      "functional_class_accuracy_ci95_background": [
+        0.8261618791159528,
+        0.94169526374119
+      ],
+      "program_identity_accuracy_mean": 0.6726190476190477,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.4692619419539692e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "DEVELOPMENT_OOD/estimated_old_physics/N50": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.9017857142857142,
+      "functional_class_accuracy_ci95_background": [
+        0.8469192940081521,
+        0.9566521345632762
+      ],
+      "program_identity_accuracy_mean": 0.6875,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.5687983721198183e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    },
+    "DEVELOPMENT_OOD/estimated_old_physics/N100": {
+      "n_backgrounds": 16,
+      "functional_class_accuracy_mean": 0.9017857142857142,
+      "functional_class_accuracy_ci95_background": [
+        0.855534087687691,
+        0.9480373408837374
+      ],
+      "program_identity_accuracy_mean": 0.6845238095238095,
+      "mean_true_vs_best_wrong_class_margin_mse": 1.533292328612623e-05,
+      "uncertainty_unit": "background after within-background program averaging"
+    }
+  },
+  "u4_identity_confusion": {
+    "IDLIKE_DEVELOPMENT/known_old_physics/N5": {
+      "pred_identity": 8,
+      "pred_U4": 2,
+      "pred_other": 6
+    },
+    "IDLIKE_DEVELOPMENT/known_old_physics/N10": {
+      "pred_identity": 2,
+      "pred_U4": 7,
+      "pred_other": 7
+    },
+    "IDLIKE_DEVELOPMENT/known_old_physics/N20": {
+      "pred_identity": 3,
+      "pred_U4": 9,
+      "pred_other": 4
+    },
+    "IDLIKE_DEVELOPMENT/known_old_physics/N50": {
+      "pred_identity": 4,
+      "pred_U4": 9,
+      "pred_other": 3
+    },
+    "IDLIKE_DEVELOPMENT/known_old_physics/N100": {
+      "pred_identity": 2,
+      "pred_U4": 13,
+      "pred_other": 1
+    },
+    "IDLIKE_DEVELOPMENT/estimated_old_physics/N5": {
+      "pred_identity": 8,
+      "pred_U4": 0,
+      "pred_other": 8
+    },
+    "IDLIKE_DEVELOPMENT/estimated_old_physics/N10": {
+      "pred_identity": 4,
+      "pred_U4": 5,
+      "pred_other": 7
+    },
+    "IDLIKE_DEVELOPMENT/estimated_old_physics/N20": {
+      "pred_identity": 5,
+      "pred_U4": 6,
+      "pred_other": 5
+    },
+    "IDLIKE_DEVELOPMENT/estimated_old_physics/N50": {
+      "pred_identity": 5,
+      "pred_U4": 7,
+      "pred_other": 4
+    },
+    "IDLIKE_DEVELOPMENT/estimated_old_physics/N100": {
+      "pred_identity": 5,
+      "pred_U4": 7,
+      "pred_other": 4
+    },
+    "DEVELOPMENT_OOD/known_old_physics/N5": {
+      "pred_identity": 6,
+      "pred_U4": 8,
+      "pred_other": 2
+    },
+    "DEVELOPMENT_OOD/known_old_physics/N10": {
+      "pred_identity": 2,
+      "pred_U4": 11,
+      "pred_other": 3
+    },
+    "DEVELOPMENT_OOD/known_old_physics/N20": {
+      "pred_identity": 2,
+      "pred_U4": 13,
+      "pred_other": 1
+    },
+    "DEVELOPMENT_OOD/known_old_physics/N50": {
+      "pred_identity": 1,
+      "pred_U4": 15,
+      "pred_other": 0
+    },
+    "DEVELOPMENT_OOD/known_old_physics/N100": {
+      "pred_identity": 1,
+      "pred_U4": 14,
+      "pred_other": 1
+    },
+    "DEVELOPMENT_OOD/estimated_old_physics/N5": {
+      "pred_identity": 7,
+      "pred_U4": 4,
+      "pred_other": 5
+    },
+    "DEVELOPMENT_OOD/estimated_old_physics/N10": {
+      "pred_identity": 2,
+      "pred_U4": 9,
+      "pred_other": 5
+    },
+    "DEVELOPMENT_OOD/estimated_old_physics/N20": {
+      "pred_identity": 3,
+      "pred_U4": 10,
+      "pred_other": 3
+    },
+    "DEVELOPMENT_OOD/estimated_old_physics/N50": {
+      "pred_identity": 1,
+      "pred_U4": 12,
+      "pred_other": 3
+    },
+    "DEVELOPMENT_OOD/estimated_old_physics/N100": {
+      "pred_identity": 1,
+      "pred_U4": 13,
+      "pred_other": 2
+    }
+  }
+}

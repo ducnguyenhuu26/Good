@@ -1,0 +1,53 @@
+{
+  "true_parameter_comparison_scope": "reporting-only after fitting; no true parameters used for initialization/selection",
+  "by_regime": {
+    "IDLIKE_DEVELOPMENT": {
+      "n_backgrounds": 16,
+      "parameter_order": [
+        "B00",
+        "B01",
+        "B10",
+        "B11",
+        "d",
+        "b",
+        "kappa"
+      ],
+      "reporting_only_rmse_by_parameter": {
+        "B00": 0.0037278817889689246,
+        "B01": 0.0017427428523185812,
+        "B10": 0.0015711007907472597,
+        "B11": 0.0019808241055422632,
+        "d": 0.012188862994351,
+        "b": 0.08648386141468076,
+        "kappa": 0.0030855351540882772
+      },
+      "mean_old_support_delta_v_mse": 2.43096645422615e-07,
+      "mean_old_support_delta_v_rmse": 0.0004924779223180709,
+      "mean_jacobian_condition_number": 46.77661965618569
+    },
+    "DEVELOPMENT_OOD": {
+      "n_backgrounds": 16,
+      "parameter_order": [
+        "B00",
+        "B01",
+        "B10",
+        "B11",
+        "d",
+        "b",
+        "kappa"
+      ],
+      "reporting_only_rmse_by_parameter": {
+        "B00": 0.0032075584721851336,
+        "B01": 0.002305458220524016,
+        "B10": 0.002648489809405131,
+        "B11": 0.003334534363381503,
+        "d": 0.018777329568137047,
+        "b": 0.055064663853841775,
+        "kappa": 0.004920829247557545
+      },
+      "mean_old_support_delta_v_mse": 2.4052498818496497e-07,
+      "mean_old_support_delta_v_rmse": 0.0004899229854474546,
+      "mean_jacobian_condition_number": 32.25277306135445
+    }
+  }
+}

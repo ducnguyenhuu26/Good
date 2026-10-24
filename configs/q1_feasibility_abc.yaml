@@ -1,0 +1,43 @@
+run_kind: DEVELOPMENT_DIAGNOSTIC
+seed: 20261026
+idlike_manifest_seed: 20261103
+dt: 0.05
+noise_sigma: 0.0005
+old_context_size: 96
+budgets: [5, 10, 20, 50, 100]
+assessment_query_size: 256
+adaptation_trajectory_size: 100
+idlike_backgrounds: 16
+development_ood_backgrounds: 16
+training_backgrounds: 48
+programs: all_21
+parameter_fit:
+  multistarts: 8
+  max_nfev: 400
+  bounds:
+    B_entries: [-1.5, 1.5]
+    d_b_kappa: [0.01, 2.0]
+b_probe:
+  inner_train_backgrounds: 36
+  inner_validation_backgrounds: 12
+  ridge_grid: [0.0, 0.0001, 0.01, 1.0, 100.0]
+c_direct_effect:
+  training_fit_backgrounds: 40
+  training_inner_validation_backgrounds: 8
+  train_probes_per_code_background: 128
+  optimizer_seeds: [4101, 4102]
+  max_optimizer_steps: 160
+  batch_per_code: 64
+  learning_rate: 0.001
+  hidden_dim: 64
+  code_embedding_dim: 8
+  gradient_diagnostics_every: 20
+  validation_every: 10
+  stop_if_nonfinite: true
+checkpoints:
+  m2: results/q1/cpu_confirmatory_impl/m2/context_model.pt
+  m3: results/q1/repair_v1_m3_effect_ablation/beta_0.25/primitives.pt
+split_manifest: results/q1/cpu_confirmatory_impl/split_manifest.json
+test_id_used: false
+test_background_ood_used: false
+joint_ood_used: false
