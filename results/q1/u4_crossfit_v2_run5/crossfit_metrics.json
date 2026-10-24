@@ -1,0 +1,474 @@
+{
+  "status": "DIAGNOSTIC_ONLY",
+  "aggregates": {
+    "fit128/physical_code0/persistence": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.0,
+      "mean_background_effect_skill_95ci": [
+        0.0,
+        0.0
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.0,
+      "mean_effect_mse_delta_v_squared": 0.00017894450015065418,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": 0.0,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code0/linear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.6434679335992861,
+      "mean_background_effect_skill_95ci": [
+        0.6102827814505631,
+        0.6766530857480091
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.643933790740916,
+      "mean_effect_mse_delta_v_squared": 6.371608983640504e-05,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": 0.6262221277060891,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code0/nonlinear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": -0.30232098112129024,
+      "mean_background_effect_skill_95ci": [
+        -0.8210953210615434,
+        0.21645335881896288
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": -0.3146767514023818,
+      "mean_effect_mse_delta_v_squared": 0.00023525417413938505,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": -0.3814048166228122,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code0/learned_m3": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.9125150962325941,
+      "mean_background_effect_skill_95ci": [
+        0.9001466626142894,
+        0.9248835298508987
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.913115069305784,
+      "mean_effect_mse_delta_v_squared": 1.5547580493700714e-05,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": 0.9140391166736859,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code0/after_long_context": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.8677473140332456,
+      "mean_background_effect_skill_95ci": [
+        0.8321966048803433,
+        0.9032980231861478
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.8697042663617919,
+      "mean_effect_mse_delta_v_squared": 2.331570492765193e-05,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": 0.8844816605281747,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code0/query_refit_upper_bound": {
+      "background_count": 16,
+      "mean_background_effect_skill": -2.4199498586447965,
+      "mean_background_effect_skill_95ci": [
+        -4.947937985027412,
+        0.10803826773781955
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": -2.450888341521359,
+      "mean_effect_mse_delta_v_squared": 0.0006175174893492596,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": -2.251694070645636,
+      "query_refit_is_leaky_upper_bound": true
+    },
+    "fit128/physical_code2/persistence": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.0,
+      "mean_background_effect_skill_95ci": [
+        0.0,
+        0.0
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.0,
+      "mean_effect_mse_delta_v_squared": 1.5272619185378836e-06,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": 0.0,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code2/linear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.4157343530522488,
+      "mean_background_effect_skill_95ci": [
+        0.3861992353194587,
+        0.4452694707850389
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.41360684309357787,
+      "mean_effect_mse_delta_v_squared": 8.955759378343884e-07,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": 0.07818685243968436,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code2/nonlinear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.1626832577760636,
+      "mean_background_effect_skill_95ci": [
+        0.03094064473022154,
+        0.29442587082190563
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.16186233598832245,
+      "mean_effect_mse_delta_v_squared": 1.2800557367373347e-06,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": 0.0050233647601659655,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code2/learned_m3": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.4564450192552002,
+      "mean_background_effect_skill_95ci": [
+        0.4212752416107637,
+        0.4916147968996367
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.4606669872849025,
+      "mean_effect_mse_delta_v_squared": 8.237027717300766e-07,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": 0.07249498854159692,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code2/after_long_context": {
+      "background_count": 16,
+      "mean_background_effect_skill": -0.11131259580012945,
+      "mean_background_effect_skill_95ci": [
+        -0.18007020791647887,
+        -0.04255498368378002
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": -0.11040498632012308,
+      "mean_effect_mse_delta_v_squared": 1.6958792497613036e-06,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": -0.014725705175401347,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code2/query_refit_upper_bound": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.09604159241818458,
+      "mean_background_effect_skill_95ci": [
+        -0.08249331132112664,
+        0.2745764961574958
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.08721524881570852,
+      "mean_effect_mse_delta_v_squared": 1.3940613903058456e-06,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": 0.005386086246234375,
+      "query_refit_is_leaky_upper_bound": true
+    },
+    "fit128/physical_code3/persistence": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.0,
+      "mean_background_effect_skill_95ci": [
+        0.0,
+        0.0
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.0,
+      "mean_effect_mse_delta_v_squared": 2.7703513516999203e-08,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": 0.0,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code3/linear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.19020278676789443,
+      "mean_background_effect_skill_95ci": [
+        0.12567009677170338,
+        0.2547354767640855
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.18258727907918226,
+      "mean_effect_mse_delta_v_squared": 2.2645204362996973e-08,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": 0.005476039315010627,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code3/nonlinear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.1944581375882803,
+      "mean_background_effect_skill_95ci": [
+        0.1305170604146047,
+        0.2583992147619559
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.18285463784057665,
+      "mean_effect_mse_delta_v_squared": 2.2637797585936794e-08,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": 0.005373603626101266,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code3/learned_m3": {
+      "background_count": 16,
+      "mean_background_effect_skill": -3.5996338202451996,
+      "mean_background_effect_skill_95ci": [
+        -5.736048510556566,
+        -1.463219129933833
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": -1.1098611674431247,
+      "mean_effect_mse_delta_v_squared": 5.8450567371252327e-08,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": 0.01651553989433938,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code3/after_long_context": {
+      "background_count": 16,
+      "mean_background_effect_skill": -13.559984387282048,
+      "mean_background_effect_skill_95ci": [
+        -25.24358145019922,
+        -1.8763873243648774
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": -5.182702891920409,
+      "mean_effect_mse_delta_v_squared": 1.712825931379071e-07,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": -0.013685575044222034,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit128/physical_code3/query_refit_upper_bound": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.5561497993457265,
+      "mean_background_effect_skill_95ci": [
+        0.5278126423971354,
+        0.5844869562943176
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.5821217224822275,
+      "mean_effect_mse_delta_v_squared": 1.1576696509673954e-08,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": 0.012630434918907456,
+      "query_refit_is_leaky_upper_bound": true
+    },
+    "fit512/physical_code0/persistence": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.0,
+      "mean_background_effect_skill_95ci": [
+        0.0,
+        0.0
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.0,
+      "mean_effect_mse_delta_v_squared": 0.00017894450015065418,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": 0.0,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code0/linear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.6906834282946266,
+      "mean_background_effect_skill_95ci": [
+        0.6625419155008836,
+        0.7188249410883696
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.6908010276267855,
+      "mean_effect_mse_delta_v_squared": 5.5329455558420785e-05,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": 0.6656234698811128,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code0/nonlinear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.28395805271606467,
+      "mean_background_effect_skill_95ci": [
+        0.08466509604216227,
+        0.48325100938996707
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.2876378635429666,
+      "mean_effect_mse_delta_v_squared": 0.00012747328643455594,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": 0.1583719013371226,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code0/learned_m3": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.9125150962325941,
+      "mean_background_effect_skill_95ci": [
+        0.9001466626142894,
+        0.9248835298508987
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.913115069305784,
+      "mean_effect_mse_delta_v_squared": 1.5547580493700714e-05,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": 0.9140391166736859,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code0/after_long_context": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.8677473140332456,
+      "mean_background_effect_skill_95ci": [
+        0.8321966048803433,
+        0.9032980231861478
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.8697042663617919,
+      "mean_effect_mse_delta_v_squared": 2.331570492765193e-05,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": 0.8844816605281747,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code0/query_refit_upper_bound": {
+      "background_count": 16,
+      "mean_background_effect_skill": -2.4199498586447965,
+      "mean_background_effect_skill_95ci": [
+        -4.947937985027412,
+        0.10803826773781955
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": -2.450888341521359,
+      "mean_effect_mse_delta_v_squared": 0.0006175174893492596,
+      "mean_effect_energy_delta_v_squared": 0.00017894450015065418,
+      "mean_after_gain": -2.251694070645636,
+      "query_refit_is_leaky_upper_bound": true
+    },
+    "fit512/physical_code2/persistence": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.0,
+      "mean_background_effect_skill_95ci": [
+        0.0,
+        0.0
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.0,
+      "mean_effect_mse_delta_v_squared": 1.5272619185378836e-06,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": 0.0,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code2/linear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.4716208441011589,
+      "mean_background_effect_skill_95ci": [
+        0.44845507754357944,
+        0.49478661065873836
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.4705063058327744,
+      "mean_effect_mse_delta_v_squared": 8.086755552075484e-07,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": 0.09742898585987499,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code2/nonlinear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.3122097758549044,
+      "mean_background_effect_skill_95ci": [
+        0.27156850073780314,
+        0.35285105097200564
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.31358922399509137,
+      "mean_effect_mse_delta_v_squared": 1.0483290386663342e-06,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": 0.0015908741586599367,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code2/learned_m3": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.4564450192552002,
+      "mean_background_effect_skill_95ci": [
+        0.4212752416107637,
+        0.4916147968996367
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.4606669872849025,
+      "mean_effect_mse_delta_v_squared": 8.237027717300766e-07,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": 0.07249498854159692,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code2/after_long_context": {
+      "background_count": 16,
+      "mean_background_effect_skill": -0.11131259580012945,
+      "mean_background_effect_skill_95ci": [
+        -0.18007020791647887,
+        -0.04255498368378002
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": -0.11040498632012308,
+      "mean_effect_mse_delta_v_squared": 1.6958792497613036e-06,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": -0.014725705175401347,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code2/query_refit_upper_bound": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.09604159241818458,
+      "mean_background_effect_skill_95ci": [
+        -0.08249331132112664,
+        0.2745764961574958
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.08721524881570852,
+      "mean_effect_mse_delta_v_squared": 1.3940613903058456e-06,
+      "mean_effect_energy_delta_v_squared": 1.5272619185378836e-06,
+      "mean_after_gain": 0.005386086246234375,
+      "query_refit_is_leaky_upper_bound": true
+    },
+    "fit512/physical_code3/persistence": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.0,
+      "mean_background_effect_skill_95ci": [
+        0.0,
+        0.0
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.0,
+      "mean_effect_mse_delta_v_squared": 2.7703513516999203e-08,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": 0.0,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code3/linear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.3189707754328563,
+      "mean_background_effect_skill_95ci": [
+        0.2701549264810973,
+        0.3677866243846153
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.25154636219259385,
+      "mean_effect_mse_delta_v_squared": 2.0734795471844704e-08,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": 0.005986108223418966,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code3/nonlinear_crossfit": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.3236441262146909,
+      "mean_background_effect_skill_95ci": [
+        0.27221891108540236,
+        0.37506934134397946
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.2527659906760338,
+      "mean_effect_mse_delta_v_squared": 2.0701007477668008e-08,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": 0.00567232344510504,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code3/learned_m3": {
+      "background_count": 16,
+      "mean_background_effect_skill": -3.5996338202451996,
+      "mean_background_effect_skill_95ci": [
+        -5.736048510556566,
+        -1.463219129933833
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": -1.1098611674431247,
+      "mean_effect_mse_delta_v_squared": 5.8450567371252327e-08,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": 0.01651553989433938,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code3/after_long_context": {
+      "background_count": 16,
+      "mean_background_effect_skill": -13.559984387282048,
+      "mean_background_effect_skill_95ci": [
+        -25.24358145019922,
+        -1.8763873243648774
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": -5.182702891920409,
+      "mean_effect_mse_delta_v_squared": 1.712825931379071e-07,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": -0.013685575044222034,
+      "query_refit_is_leaky_upper_bound": false
+    },
+    "fit512/physical_code3/query_refit_upper_bound": {
+      "background_count": 16,
+      "mean_background_effect_skill": 0.5561497993457265,
+      "mean_background_effect_skill_95ci": [
+        0.5278126423971354,
+        0.5844869562943176
+      ],
+      "ratio_of_mean_effect_mse_to_energy_skill": 0.5821217224822275,
+      "mean_effect_mse_delta_v_squared": 1.1576696509673954e-08,
+      "mean_effect_energy_delta_v_squared": 2.7703513516999203e-08,
+      "mean_after_gain": 0.012630434918907456,
+      "query_refit_is_leaky_upper_bound": true
+    }
+  },
+  "uncertainty_unit": "validation background (n=16); not transitions or seeds"
+}

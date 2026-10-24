@@ -1,0 +1,30 @@
+{
+  "status": "COMPLETE",
+  "run_kind": "DIAGNOSTIC_ONLY_CROSS_FIT",
+  "git_sha": "af66531b1c5d327fef360f69c601fad8c88c35ed",
+  "m2_checkpoint": "results\\q1\\cpu_confirmatory_impl\\m2\\context_model.pt",
+  "m2_sha256": "e3e7e4d2f38c22ac1b39c0c7e102991da5743c6467c11d12949962281aae8b7b",
+  "m3_checkpoint": "results\\q1\\repair_v1_m3_effect_ablation\\beta_0.25\\primitives.pt",
+  "m3_sha256": "b51aeb5d69c2bae1e546a09dbdbb2bc1d0faba09fc88125938edcdb07aa3839a",
+  "split_manifest": "results\\q1\\cpu_confirmatory_impl\\split_manifest.json",
+  "split_manifest_sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+  "config_sha256": "929f0160baec6acf6ea9c948ae2affdac6ca32a9281be654843875a2e5959ded",
+  "script_sha256": "0d0a3d3a616f7bcd6d2fecb11bbd23b23f6b8729e1988243bb72b6fb28710623",
+  "legacy_protected_tree_hashes_before": {
+    "results\\q1\\u4_root_cause_v1": "78b4bb23d2bb3bce840975ee6613d5d1a0583be7a2980cac2a907b30843becc1",
+    "results\\q1\\repair_v1_m3_effect_ablation": "1e25e5ab7ffebb68dcbff15404e92f3609583511c6d0bcb5d7ff9465098a7c2d"
+  },
+  "legacy_protected_tree_hashes_after": {
+    "results\\q1\\u4_root_cause_v1": "78b4bb23d2bb3bce840975ee6613d5d1a0583be7a2980cac2a907b30843becc1",
+    "results\\q1\\repair_v1_m3_effect_ablation": "1e25e5ab7ffebb68dcbff15404e92f3609583511c6d0bcb5d7ff9465098a7c2d"
+  },
+  "python": "3.11.9",
+  "torch": "2.13.0+cpu",
+  "numpy": "2.4.6",
+  "device": "cpu",
+  "torch_threads": 1,
+  "wall_seconds": 12.820998999999574,
+  "test_or_ood_evaluated": false,
+  "model_trained": false,
+  "query_refit_is_label_leakage": true
+}

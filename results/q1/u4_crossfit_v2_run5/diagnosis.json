@@ -1,0 +1,59 @@
+{
+  "category": "INCONCLUSIVE",
+  "full_q1_pass": false,
+  "rule": "positive clustered skill CI indicates signal above zero only; no preregistered accuracy cutoff; mixed code-level evidence stays inconclusive",
+  "reason": "U1/U3/U4 do not form one uniform result, and inspected validation cannot establish final acceptance",
+  "by_physical_code": [
+    {
+      "physical_code": 0,
+      "linear_crossfit_ci": [
+        0.6102827814505631,
+        0.6766530857480091
+      ],
+      "nonlinear_crossfit_ci": [
+        -0.8210953210615434,
+        0.21645335881896288
+      ],
+      "learned_m3_ci": [
+        0.9001466626142894,
+        0.9248835298508987
+      ],
+      "query_refit_mean_skill_leaky": -2.4199498586447965,
+      "evidence_label": "INCONCLUSIVE"
+    },
+    {
+      "physical_code": 2,
+      "linear_crossfit_ci": [
+        0.3861992353194587,
+        0.4452694707850389
+      ],
+      "nonlinear_crossfit_ci": [
+        0.03094064473022154,
+        0.29442587082190563
+      ],
+      "learned_m3_ci": [
+        0.4212752416107637,
+        0.4916147968996367
+      ],
+      "query_refit_mean_skill_leaky": 0.09604159241818458,
+      "evidence_label": "CROSSFIT_EFFECT_SIGNAL_DIAGNOSTIC_ONLY"
+    },
+    {
+      "physical_code": 3,
+      "linear_crossfit_ci": [
+        0.12567009677170338,
+        0.2547354767640855
+      ],
+      "nonlinear_crossfit_ci": [
+        0.1305170604146047,
+        0.2583992147619559
+      ],
+      "learned_m3_ci": [
+        -5.736048510556566,
+        -1.463219129933833
+      ],
+      "query_refit_mean_skill_leaky": 0.5561497993457265,
+      "evidence_label": "U4_OPERATOR_BOTTLENECK_CANDIDATE_DIAGNOSTIC_ONLY"
+    }
+  ]
+}

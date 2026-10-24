@@ -1,0 +1,14 @@
+{
+  "environment": {"python": "3.11.9", "torch": "2.13.0+cpu", "numpy": "2.4.6", "device": "cpu", "threads": 1, "runner": "python; uv was not used"},
+  "final_commands": [
+    {"command": "python -m pytest -q tests/test_q1_u4_diagnostics.py tests/test_q1_model_contracts.py tests/test_q1_no_leakage.py", "exit_code": 0, "result": "18 passed", "log": "test_logs/legacy_focused.log"},
+    {"command": "python -m pytest -q tests/test_q1_u4_crossfit.py", "exit_code": 0, "result": "14 passed", "log": "test_logs/crossfit.log"},
+    {"command": "python -m compileall -q q1 scripts", "exit_code": 0, "result": "passed", "log": "test_logs/compileall.log"}
+  ],
+  "earlier_failures_preserved": [
+    {"command": "python -m pytest -q tests/test_q1_u4_crossfit.py", "exit_code": 1, "cause": "Known-linear fixture had incompatible 6x3 matrix dimensions.", "resolution": "Corrected test fixture to 3x3 without weakening assertions."},
+    {"command": "python scripts/q1_u4_crossfit.py", "exit_code": 1, "cause": "Runner attempted int(list) for maximum fit count.", "resolution": "Use max(map(int, fit_counts)); later run completed."},
+    {"command": "python scripts/q1_u4_crossfit.py", "exit_code": 1, "cause": "Empty output directory from failed attempt rejected by mkdir.", "resolution": "Allow reuse only for an empty write-once directory; nonempty paths still fail closed."}
+  ],
+  "final_status": "PASS"
+}

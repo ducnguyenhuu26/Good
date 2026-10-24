@@ -1,0 +1,20 @@
+run_kind: DIAGNOSTIC_ONLY_CROSS_FIT
+seed: 20261025
+dt: 0.05
+noise_sigma: 0.0005
+old_context_support: 96
+validation_backgrounds: 16
+physical_codes: [0, 2, 3]
+fit_counts: [128, 512]
+query_count: 256
+inner_validation_fraction: 0.25
+inner_gap_fraction: 0.10
+ridge_factors: [0.0, 0.000001, 0.0001, 0.01, 1.0]
+alpha: 1.0
+methods: [linear_crossfit, nonlinear_crossfit, learned_m3, after_long_context, query_refit_upper_bound]
+legacy_after_mse_gain_threshold: 0.05
+effect_skill_zero_baseline: 0.0
+confidence_interval_z: 1.96
+probe_protocol: continuous_stage_pair_adaptation_fit_and_independent_stage_pair_query
+selection_policy: fit_labels_only_inner_blocked_validation_then_refit_all_outer_fit
+test_split_evaluated: false
