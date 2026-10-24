@@ -1,0 +1,19 @@
+{
+  "train_inner_only": true,
+  "candidate_results": [
+    {
+      "penalty": 0.0,
+      "class_accuracy": 0.5288461538461539
+    },
+    {
+      "penalty": 0.01,
+      "class_accuracy": 0.5288461538461539
+    },
+    {
+      "penalty": 0.1,
+      "class_accuracy": 0.5288461538461539
+    }
+  ],
+  "selected": 0.0,
+  "selection_programs": "old, singles, permitted ordered pairs"
+}

@@ -1,0 +1,14 @@
+{
+  "git_head": "4eec3fcd7cc83775808be630cd298f80c6533f71",
+  "git_branch": "codex/q1-v2-bayesian-function-space",
+  "config_sha256": "7624483487d327c776a20826a0224776e50e6dcc4e2e6f5433ffbf2b44c155b7",
+  "split_manifest_sha256": "cd517576bdb44824196e028893d1f03a5eb03f906999bfecec321baf921103ab",
+  "python": "3.13.5",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "device": "cpu",
+  "train_backgrounds": 40,
+  "inner_backgrounds": 8,
+  "development_test_split_used": false,
+  "simulator_use": "data generation and evaluation oracles only"
+}

@@ -1,0 +1,34 @@
+{
+  "pipeline_provenance_file": "provenance.json",
+  "analysis_sources_sha256": {
+    "q1_v2/basis.py": "248049ed4496bfe8f49b512a5efdf6ec37909e6928210b241b10598af408aa33",
+    "q1_v2/bayes.py": "55c29a98f9ab1afd9147c820c2b619c0870f8ce8359a288e3b759ed52b0b8f3e",
+    "q1_v2/operators.py": "c78f776f06c58da141cdd659dce82f2f46f7de6086d3c7f1e8889750e81ebb5f",
+    "q1_v2/inference.py": "35e2f99d1e002286cd82aaf1b486d6ddce67eb087a6e0112698628324788c8a3",
+    "q1_v2/training.py": "b994c26dbcf25553a7c22e3c08181ac9f738901734a4f616c10c0aecb3dee0de",
+    "scripts/q1_v2_pipeline.py": "b1245ecaccec91f041cd80d4ebe132a8967529355bed11dbe252d59365395e74",
+    "scripts/q1_v2_legacy_compare.py": "d5245f090c227a05ca729b50c02a8ce47191ae87933d2c0b77d807343e405fa2",
+    "scripts/q1_v2_privileged_oracles.py": "896176e95b1419e3d97eb8d3f48c6f4743d599376bcc380c4d6ddde8eb528c70",
+    "scripts/q1_v2_finalize_report.py": "a8a0ef8eb4b4f3d2f0174782a57ffd524ca7feb21034bea5b4bf44a8f3468f42",
+    "scripts/q1_v2_summarize.py": "b63161b6213b656c6d1cdbd327101feb1dd8eceec80733f63a7fad62902449a2"
+  },
+  "legacy_checkpoint_sha256": {
+    "results/q1/cpu_confirmatory_impl/m2/context_model.pt": "e3e7e4d2f38c22ac1b39c0c7e102991da5743c6467c11d12949962281aae8b7b",
+    "results/q1/cpu_confirmatory_impl/m3/primitives_m3.pt": "471f417881a63f5d0897772ddab4458f520678363a9d7aac809beda4bd5722fb",
+    "results/q1/cpu_confirmatory_impl/m4/primitives_m4.pt": "90aa85ca588bcb465a7960000a1f4e8ff66d8920945f20d34d85add8a99867a2"
+  },
+  "posthoc_artifact_sha256": {
+    "per_background.csv": "4e1168e476c1dc3b61b30f82742018f3f5fadd13f88bd091501b2c73d95c3803",
+    "legacy_per_background.csv": "a1edce4d55dc50f03d11aa6a64a5f992094413eabd74fdb51ce7ad35c3c3c1e5",
+    "legacy_comparison.json": "eea95ccc5df7d52822bf5c65c28d19c6447bbab5f796ed909113abb65f2f79ec",
+    "privileged_oracle_per_background.csv": "64ddb0f159d207ee983436928ea51f9f40b62ed43ea829a9d4f201fa87bd4f15",
+    "privileged_old_fit.csv": "541101cbd3d751ef5488ddfcab50036acc9d995107306ae8a120cee98c5e3e38",
+    "true_vs_wrong_class_margins.csv": "07e62060129618026075e70d84ed1d214f097b87cd04d9914f24779ad7b97167",
+    "metrics_extended.json": "54949046edda45ca639bb51d9126a3ed4d0b4f8bc0663affe2e8eb4ade41debf"
+  },
+  "python": "3.13.5",
+  "numpy": "2.5.4",
+  "torch": "2.14.1+cpu",
+  "device": "cpu",
+  "test_split_used": false
+}

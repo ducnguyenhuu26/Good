@@ -1,0 +1,9 @@
+{
+  "label": "PRIVILEGED_DIAGNOSTIC_ONLY",
+  "known_old_uses_true_background_params_for_reference_scoring": true,
+  "estimated_old_fit_scope": "only the 96 observed old-stage transitions; generic existing bounded system-ID diagnostic",
+  "neither_oracle_is_a_v2_model_input": true,
+  "max_nfev": 400,
+  "multistarts": 8,
+  "runtime_seconds": 14.905689001083374
+}

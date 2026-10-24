@@ -1,0 +1,85 @@
+{
+  "independent_query_skill": {
+    "LOW_EXCITATION_PRIMARY|IDLIKE_DEVELOPMENT|U1": {
+      "support_conditioned_skill": 0.9577108252421274,
+      "context_ablated_skill": -4.773446396117404,
+      "zero_effect_skill": 0.0
+    },
+    "INFORMATIVE_SECONDARY|IDLIKE_DEVELOPMENT|U1": {
+      "support_conditioned_skill": 0.9262788610388816,
+      "context_ablated_skill": -8.019177255016107,
+      "zero_effect_skill": 0.0
+    },
+    "LOW_EXCITATION_PRIMARY|IDLIKE_DEVELOPMENT|U2": {
+      "support_conditioned_skill": 0.8147414231971977,
+      "context_ablated_skill": -34.852178278860585,
+      "zero_effect_skill": 0.0
+    },
+    "INFORMATIVE_SECONDARY|IDLIKE_DEVELOPMENT|U2": {
+      "support_conditioned_skill": 0.7580464443852849,
+      "context_ablated_skill": -33.55893133720157,
+      "zero_effect_skill": 0.0
+    },
+    "LOW_EXCITATION_PRIMARY|IDLIKE_DEVELOPMENT|U3": {
+      "support_conditioned_skill": -0.30735496207740076,
+      "context_ablated_skill": -2224.4957492847648,
+      "zero_effect_skill": 0.0
+    },
+    "INFORMATIVE_SECONDARY|IDLIKE_DEVELOPMENT|U3": {
+      "support_conditioned_skill": -0.22316101714734168,
+      "context_ablated_skill": -1130.6470212820282,
+      "zero_effect_skill": 0.0
+    },
+    "LOW_EXCITATION_PRIMARY|IDLIKE_DEVELOPMENT|U4": {
+      "support_conditioned_skill": -121.7652376951807,
+      "context_ablated_skill": -576678.539438233,
+      "zero_effect_skill": 0.0
+    },
+    "INFORMATIVE_SECONDARY|IDLIKE_DEVELOPMENT|U4": {
+      "support_conditioned_skill": -139.12865461091403,
+      "context_ablated_skill": -110034.57092337371,
+      "zero_effect_skill": 0.0
+    },
+    "LOW_EXCITATION_PRIMARY|BACKGROUND_OOD_DEVELOPMENT|U1": {
+      "support_conditioned_skill": 0.9364887644026952,
+      "context_ablated_skill": -2.887064359530016,
+      "zero_effect_skill": 0.0
+    },
+    "INFORMATIVE_SECONDARY|BACKGROUND_OOD_DEVELOPMENT|U1": {
+      "support_conditioned_skill": 0.9640112264199727,
+      "context_ablated_skill": -4.107914439552136,
+      "zero_effect_skill": 0.0
+    },
+    "LOW_EXCITATION_PRIMARY|BACKGROUND_OOD_DEVELOPMENT|U2": {
+      "support_conditioned_skill": 0.8397603793552475,
+      "context_ablated_skill": -34.30076191769177,
+      "zero_effect_skill": 0.0
+    },
+    "INFORMATIVE_SECONDARY|BACKGROUND_OOD_DEVELOPMENT|U2": {
+      "support_conditioned_skill": 0.8674357306764493,
+      "context_ablated_skill": -27.85600936932278,
+      "zero_effect_skill": 0.0
+    },
+    "LOW_EXCITATION_PRIMARY|BACKGROUND_OOD_DEVELOPMENT|U3": {
+      "support_conditioned_skill": 0.37371285427499373,
+      "context_ablated_skill": -694.0929247963966,
+      "zero_effect_skill": 0.0
+    },
+    "INFORMATIVE_SECONDARY|BACKGROUND_OOD_DEVELOPMENT|U3": {
+      "support_conditioned_skill": 0.5435660124365794,
+      "context_ablated_skill": -347.0226085168206,
+      "zero_effect_skill": 0.0
+    },
+    "LOW_EXCITATION_PRIMARY|BACKGROUND_OOD_DEVELOPMENT|U4": {
+      "support_conditioned_skill": -47.70076362591467,
+      "context_ablated_skill": -104310.18386213292,
+      "zero_effect_skill": 0.0
+    },
+    "INFORMATIVE_SECONDARY|BACKGROUND_OOD_DEVELOPMENT|U4": {
+      "support_conditioned_skill": -42.726223737613395,
+      "context_ablated_skill": -33393.99531976438,
+      "zero_effect_skill": 0.0
+    }
+  },
+  "meaning": "effect skill is 1-MSE(predicted effect,true effect)/MSE(true effect); zero-effect baseline is exactly 0"
+}

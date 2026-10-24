@@ -1,0 +1,92 @@
+{
+  "status": "DEVELOPMENT_DIAGNOSTIC",
+  "length_penalty": 0.0,
+  "metrics": {
+    "IDLIKE_DEVELOPMENT|N=5": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.41369047619047616,
+      "mean_query_delta_v_mse": 8.07568713124765e-06,
+      "mean_old_posterior_trace": 2.626280118939966e-05,
+      "mean_selected_posterior_trace": 2.626678489800075e-05,
+      "mean_best_wrong_class_minus_best_true_class_nll": 30.353273391723633
+    },
+    "IDLIKE_DEVELOPMENT|N=10": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.38095238095238093,
+      "mean_query_delta_v_mse": 7.797884978918054e-06,
+      "mean_old_posterior_trace": 2.626280118939966e-05,
+      "mean_selected_posterior_trace": 2.628019600100136e-05,
+      "mean_best_wrong_class_minus_best_true_class_nll": 120.3684524581546
+    },
+    "IDLIKE_DEVELOPMENT|N=20": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.4107142857142857,
+      "mean_query_delta_v_mse": 7.453254774163265e-06,
+      "mean_old_posterior_trace": 2.626280118939966e-05,
+      "mean_selected_posterior_trace": 2.6277273659183092e-05,
+      "mean_best_wrong_class_minus_best_true_class_nll": 362.31878708657763
+    },
+    "IDLIKE_DEVELOPMENT|N=50": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.4583333333333333,
+      "mean_query_delta_v_mse": 7.2470207711664414e-06,
+      "mean_old_posterior_trace": 2.626280118939966e-05,
+      "mean_selected_posterior_trace": 2.628496584867164e-05,
+      "mean_best_wrong_class_minus_best_true_class_nll": 834.4148170834496
+    },
+    "IDLIKE_DEVELOPMENT|N=100": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.4494047619047619,
+      "mean_query_delta_v_mse": 7.252389047064325e-06,
+      "mean_old_posterior_trace": 2.626280118939966e-05,
+      "mean_selected_posterior_trace": 2.6289822360901044e-05,
+      "mean_best_wrong_class_minus_best_true_class_nll": 1250.8406802586148
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=5": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.41964285714285715,
+      "mean_query_delta_v_mse": 1.3624245564783233e-05,
+      "mean_old_posterior_trace": 2.0772683472257215e-05,
+      "mean_selected_posterior_trace": 2.07695734091084e-05,
+      "mean_best_wrong_class_minus_best_true_class_nll": 78.57945877029782
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=10": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.45535714285714285,
+      "mean_query_delta_v_mse": 1.3536057050852637e-05,
+      "mean_old_posterior_trace": 2.0772683472257215e-05,
+      "mean_selected_posterior_trace": 2.0769461996007433e-05,
+      "mean_best_wrong_class_minus_best_true_class_nll": 249.93206643490564
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=20": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.5208333333333334,
+      "mean_query_delta_v_mse": 1.2823920041088719e-05,
+      "mean_old_posterior_trace": 2.0772683472257215e-05,
+      "mean_selected_posterior_trace": 2.0784859887477242e-05,
+      "mean_best_wrong_class_minus_best_true_class_nll": 644.2359150931949
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=50": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.5238095238095238,
+      "mean_query_delta_v_mse": 1.2640746875310546e-05,
+      "mean_old_posterior_trace": 2.0772683472257215e-05,
+      "mean_selected_posterior_trace": 2.0781600055453876e-05,
+      "mean_best_wrong_class_minus_best_true_class_nll": 1435.8625229199727
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=100": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.5119047619047619,
+      "mean_query_delta_v_mse": 1.2687515970912142e-05,
+      "mean_old_posterior_trace": 2.0772683472257215e-05,
+      "mean_selected_posterior_trace": 2.0783065949780438e-05,
+      "mean_best_wrong_class_minus_best_true_class_nll": 2085.8447211129323
+    }
+  },
+  "limitations": [
+    "Development diagnostic only; original test splits were not used.",
+    "Assessment query labels are used only after program selection for query-metric reporting.",
+    "Legacy M2/M3/M4 and privileged known-old/estimated-old oracles are in separate paired artifacts.",
+    "The informative-exploration protocol is a separate secondary development study; not confirmatory."
+  ]
+}

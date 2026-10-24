@@ -1,0 +1,73 @@
+{
+  "status": "SECONDARY_DEVELOPMENT_DIAGNOSTIC",
+  "selected_schedule": "diagonals",
+  "metrics": {
+    "IDLIKE_DEVELOPMENT|N=5": {
+      "functional_class_accuracy": 0.38095238095238093,
+      "query_delta_v_mse": 1.574286299619944e-05,
+      "mean_old_posterior_trace": 0.010340748995076865,
+      "case_count": 672
+    },
+    "IDLIKE_DEVELOPMENT|N=10": {
+      "functional_class_accuracy": 0.4523809523809524,
+      "query_delta_v_mse": 1.541973759285516e-05,
+      "mean_old_posterior_trace": 0.010340748995076865,
+      "case_count": 672
+    },
+    "IDLIKE_DEVELOPMENT|N=20": {
+      "functional_class_accuracy": 0.5148809523809523,
+      "query_delta_v_mse": 1.2108952836241218e-05,
+      "mean_old_posterior_trace": 0.010340748995076865,
+      "case_count": 672
+    },
+    "IDLIKE_DEVELOPMENT|N=50": {
+      "functional_class_accuracy": 0.5416666666666666,
+      "query_delta_v_mse": 1.2149737282875944e-05,
+      "mean_old_posterior_trace": 0.010340748995076865,
+      "case_count": 672
+    },
+    "IDLIKE_DEVELOPMENT|N=100": {
+      "functional_class_accuracy": 0.5476190476190477,
+      "query_delta_v_mse": 1.2283021877073403e-05,
+      "mean_old_posterior_trace": 0.010340748995076865,
+      "case_count": 672
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=5": {
+      "functional_class_accuracy": 0.3273809523809524,
+      "query_delta_v_mse": 2.2156961484601618e-05,
+      "mean_old_posterior_trace": 0.01012421224731952,
+      "case_count": 672
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=10": {
+      "functional_class_accuracy": 0.40476190476190477,
+      "query_delta_v_mse": 2.2036841258454842e-05,
+      "mean_old_posterior_trace": 0.01012421224731952,
+      "case_count": 672
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=20": {
+      "functional_class_accuracy": 0.6190476190476191,
+      "query_delta_v_mse": 1.1443854848467016e-05,
+      "mean_old_posterior_trace": 0.01012421224731952,
+      "case_count": 672
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=50": {
+      "functional_class_accuracy": 0.6369047619047619,
+      "query_delta_v_mse": 1.1247501684051389e-05,
+      "mean_old_posterior_trace": 0.01012421224731952,
+      "case_count": 672
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=100": {
+      "functional_class_accuracy": 0.6547619047619048,
+      "query_delta_v_mse": 1.165238329884725e-05,
+      "mean_old_posterior_trace": 0.01012421224731952,
+      "case_count": 672
+    }
+  },
+  "runtime_seconds": 58.095895290374756,
+  "test_split_used": false,
+  "limitations": [
+    "Secondary development only; original test splits were not used.",
+    "Paired legacy M3/M4 comparison is in legacy_metrics.json.",
+    "Informative secondary point-estimate, no-composition, context-ablated ranking controls and privileged system-ID references were not run."
+  ]
+}

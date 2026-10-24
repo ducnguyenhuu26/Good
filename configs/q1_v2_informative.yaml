@@ -1,0 +1,28 @@
+protocol: INFORMATIVE_EXPLORATION_SECONDARY
+seed: 20261124
+training_backgrounds_for_schedule_selection: 8
+schedule_candidates:
+  corners:
+    - [0.85, 0.0]
+    - [0.0, 0.85]
+    - [-0.85, 0.0]
+    - [0.0, -0.85]
+  diagonals:
+    - [0.60, 0.60]
+    - [-0.60, 0.60]
+    - [-0.60, -0.60]
+    - [0.60, -0.60]
+  mixed:
+    - [0.80, 0.20]
+    - [-0.20, 0.80]
+    - [-0.80, -0.20]
+    - [0.20, -0.80]
+hold_steps: 8
+initial_velocity_component_range: [-0.65, 0.65]
+old_support: 96
+adaptation_trajectory: 100
+query_trajectory: 256
+budgets: [5, 10, 20, 50, 100]
+action_limit: 1.0
+state_norm_bound: 10.0
+test_split_used: false

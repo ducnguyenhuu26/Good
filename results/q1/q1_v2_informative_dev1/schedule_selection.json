@@ -1,0 +1,151 @@
+{
+  "selected": "diagonals",
+  "candidates": {
+    "corners": [
+      {
+        "coverage_score": -28.7112919664038,
+        "max_state_norm": 0.8301485808586485,
+        "velocity_spread": 0.06181013930496396
+      },
+      {
+        "coverage_score": -26.624577751309776,
+        "max_state_norm": 0.6998525947767805,
+        "velocity_spread": 0.0700673681897713
+      },
+      {
+        "coverage_score": -25.62669002520368,
+        "max_state_norm": 0.699826324965472,
+        "velocity_spread": 0.08387584838567948
+      },
+      {
+        "coverage_score": -27.561267776010162,
+        "max_state_norm": 0.7204094639620731,
+        "velocity_spread": 0.05365306521762947
+      },
+      {
+        "coverage_score": -24.48288619136722,
+        "max_state_norm": 0.829063067709676,
+        "velocity_spread": 0.12492803791709087
+      },
+      {
+        "coverage_score": -28.156345982619705,
+        "max_state_norm": 0.5388462611633305,
+        "velocity_spread": 0.0425740747371665
+      },
+      {
+        "coverage_score": -27.01472809615299,
+        "max_state_norm": 0.6667550526966111,
+        "velocity_spread": 0.06282546860690316
+      },
+      {
+        "coverage_score": -28.727314772855767,
+        "max_state_norm": 0.6845166965927841,
+        "velocity_spread": 0.06122680031653515
+      }
+    ],
+    "diagonals": [
+      {
+        "coverage_score": -26.284647783223587,
+        "max_state_norm": 0.8721346386856206,
+        "velocity_spread": 0.07630130395740264
+      },
+      {
+        "coverage_score": -28.46150411191505,
+        "max_state_norm": 0.6547814604455352,
+        "velocity_spread": 0.05562948816910611
+      },
+      {
+        "coverage_score": -25.930744145181173,
+        "max_state_norm": 0.6206174334651743,
+        "velocity_spread": 0.0756252900607104
+      },
+      {
+        "coverage_score": -26.493676092822813,
+        "max_state_norm": 0.8880670481974927,
+        "velocity_spread": 0.08342741531769429
+      },
+      {
+        "coverage_score": -25.01278855898986,
+        "max_state_norm": 0.7554122492175874,
+        "velocity_spread": 0.09688786318263345
+      },
+      {
+        "coverage_score": -27.858263633606875,
+        "max_state_norm": 0.4311125870393348,
+        "velocity_spread": 0.03258339911483053
+      },
+      {
+        "coverage_score": -26.37151625386033,
+        "max_state_norm": 0.6396897217070137,
+        "velocity_spread": 0.05348478552626931
+      },
+      {
+        "coverage_score": -26.700321305402337,
+        "max_state_norm": 0.8613658088527386,
+        "velocity_spread": 0.08577030573757918
+      }
+    ],
+    "mixed": [
+      {
+        "coverage_score": -28.17262745002355,
+        "max_state_norm": 0.8462282347182026,
+        "velocity_spread": 0.06506398370811389
+      },
+      {
+        "coverage_score": -27.46294946498284,
+        "max_state_norm": 0.678540272932713,
+        "velocity_spread": 0.06248424847630974
+      },
+      {
+        "coverage_score": -25.978727971019403,
+        "max_state_norm": 0.6760351231301448,
+        "velocity_spread": 0.08029079167867198
+      },
+      {
+        "coverage_score": -27.36060805072833,
+        "max_state_norm": 0.7707229149233319,
+        "velocity_spread": 0.06145408309861438
+      },
+      {
+        "coverage_score": -24.88401267734851,
+        "max_state_norm": 0.7745779720386099,
+        "velocity_spread": 0.11332227922159535
+      },
+      {
+        "coverage_score": -28.54389090790815,
+        "max_state_norm": 0.49887595139889757,
+        "velocity_spread": 0.03663335910484247
+      },
+      {
+        "coverage_score": -27.100570668137884,
+        "max_state_norm": 0.6396897217070137,
+        "velocity_spread": 0.056601695374163305
+      },
+      {
+        "coverage_score": -28.200636943655137,
+        "max_state_norm": 0.7343630285088023,
+        "velocity_spread": 0.06616766743794726
+      }
+    ]
+  },
+  "selection": "training-only state-action logdet plus velocity spread; state bound checked on training backgrounds",
+  "pattern": [
+    [
+      0.6,
+      0.6
+    ],
+    [
+      -0.6,
+      0.6
+    ],
+    [
+      -0.6,
+      -0.6
+    ],
+    [
+      0.6,
+      -0.6
+    ]
+  ],
+  "hold_steps": 8
+}

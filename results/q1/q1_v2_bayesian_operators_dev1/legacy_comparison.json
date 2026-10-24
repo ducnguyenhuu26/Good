@@ -1,0 +1,133 @@
+{
+  "paired_same_cases": true,
+  "same_old_support_adaptation_and_assessment_query_seeds": true,
+  "checkpoints": {
+    "results\\q1\\cpu_confirmatory_impl\\m2\\context_model.pt": "e3e7e4d2f38c22ac1b39c0c7e102991da5743c6467c11d12949962281aae8b7b",
+    "results\\q1\\cpu_confirmatory_impl\\m3\\primitives_m3.pt": "471f417881a63f5d0897772ddab4458f520678363a9d7aac809beda4bd5722fb",
+    "results\\q1\\cpu_confirmatory_impl\\m4\\primitives_m4.pt": "90aa85ca588bcb465a7960000a1f4e8ff66d8920945f20d34d85add8a99867a2"
+  },
+  "metrics": {
+    "development_idlike|M3|N=5": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.25297619047619047,
+      "mean_query_delta_v_mse": 1.7288613197898767e-05,
+      "mean_m2_old_context_query_mse": 9.391217423964939e-05
+    },
+    "development_idlike|M4|N=5": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.4107142857142857,
+      "mean_query_delta_v_mse": 1.0952887769073122e-05,
+      "mean_m2_old_context_query_mse": 9.391217423964939e-05
+    },
+    "development_idlike|M3|N=10": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.22023809523809523,
+      "mean_query_delta_v_mse": 1.5780406746403385e-05,
+      "mean_m2_old_context_query_mse": 9.391217423964939e-05
+    },
+    "development_idlike|M4|N=10": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.3869047619047619,
+      "mean_query_delta_v_mse": 1.0390143040965649e-05,
+      "mean_m2_old_context_query_mse": 9.391217423964939e-05
+    },
+    "development_idlike|M3|N=20": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.25297619047619047,
+      "mean_query_delta_v_mse": 1.633977351543438e-05,
+      "mean_m2_old_context_query_mse": 9.391217423964939e-05
+    },
+    "development_idlike|M4|N=20": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.36904761904761907,
+      "mean_query_delta_v_mse": 1.0842489256138574e-05,
+      "mean_m2_old_context_query_mse": 9.391217423964939e-05
+    },
+    "development_idlike|M3|N=50": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.2648809523809524,
+      "mean_query_delta_v_mse": 1.4633650787047936e-05,
+      "mean_m2_old_context_query_mse": 9.391217423964939e-05
+    },
+    "development_idlike|M4|N=50": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.3482142857142857,
+      "mean_query_delta_v_mse": 9.820723509248875e-06,
+      "mean_m2_old_context_query_mse": 9.391217423964939e-05
+    },
+    "development_idlike|M3|N=100": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.23809523809523808,
+      "mean_query_delta_v_mse": 1.4558417200914522e-05,
+      "mean_m2_old_context_query_mse": 9.391217423964939e-05
+    },
+    "development_idlike|M4|N=100": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.33035714285714285,
+      "mean_query_delta_v_mse": 9.751435327199856e-06,
+      "mean_m2_old_context_query_mse": 9.391217423964939e-05
+    },
+    "development_background_ood|M3|N=5": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.15178571428571427,
+      "mean_query_delta_v_mse": 5.128118536525844e-05,
+      "mean_m2_old_context_query_mse": 0.0001354242986188919
+    },
+    "development_background_ood|M4|N=5": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.25297619047619047,
+      "mean_query_delta_v_mse": 3.59767081233388e-05,
+      "mean_m2_old_context_query_mse": 0.0001354242986188919
+    },
+    "development_background_ood|M3|N=10": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.14583333333333334,
+      "mean_query_delta_v_mse": 4.84502447220404e-05,
+      "mean_m2_old_context_query_mse": 0.0001354242986188919
+    },
+    "development_background_ood|M4|N=10": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.34226190476190477,
+      "mean_query_delta_v_mse": 3.431029572690628e-05,
+      "mean_m2_old_context_query_mse": 0.0001354242986188919
+    },
+    "development_background_ood|M3|N=20": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.17559523809523808,
+      "mean_query_delta_v_mse": 4.76606553114661e-05,
+      "mean_m2_old_context_query_mse": 0.0001354242986188919
+    },
+    "development_background_ood|M4|N=20": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.3244047619047619,
+      "mean_query_delta_v_mse": 3.2542239179769063e-05,
+      "mean_m2_old_context_query_mse": 0.0001354242986188919
+    },
+    "development_background_ood|M3|N=50": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.1636904761904762,
+      "mean_query_delta_v_mse": 4.546882133213547e-05,
+      "mean_m2_old_context_query_mse": 0.0001354242986188919
+    },
+    "development_background_ood|M4|N=50": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.3333333333333333,
+      "mean_query_delta_v_mse": 3.178204839503538e-05,
+      "mean_m2_old_context_query_mse": 0.0001354242986188919
+    },
+    "development_background_ood|M3|N=100": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.17857142857142858,
+      "mean_query_delta_v_mse": 4.4862175508612945e-05,
+      "mean_m2_old_context_query_mse": 0.0001354242986188919
+    },
+    "development_background_ood|M4|N=100": {
+      "n_background_program_cases": 336,
+      "functional_class_accuracy": 0.3005952380952381,
+      "mean_query_delta_v_mse": 3.139641802363258e-05,
+      "mean_m2_old_context_query_mse": 0.0001354242986188919
+    }
+  },
+  "m2_role": "empty-program old-context prediction baseline; M2 is not a program composition model",
+  "direct_G": "not included: v1 direct-effect checkpoints were trained with privileged paired simulator effects, and do not supply a matched weak-label v2 intervention learner"
+}

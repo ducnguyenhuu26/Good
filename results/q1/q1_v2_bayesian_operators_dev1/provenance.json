@@ -1,0 +1,41 @@
+{
+  "git_head": "4eec3fcd7cc83775808be630cd298f80c6533f71",
+  "git_branch": "codex/q1-v2-bayesian-function-space",
+  "config_sha256": "7624483487d327c776a20826a0224776e50e6dcc4e2e6f5433ffbf2b44c155b7",
+  "split_manifest_sha256": "cd517576bdb44824196e028893d1f03a5eb03f906999bfecec321baf921103ab",
+  "python": "3.13.5",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "device": "cpu",
+  "train_backgrounds": 40,
+  "inner_backgrounds": 8,
+  "development_test_split_used": false,
+  "simulator_use": "data generation and evaluation oracles only",
+  "runtime_seconds": 299.8293967247009,
+  "source_hashes": {
+    "q1_v2/basis.py": "248049ed4496bfe8f49b512a5efdf6ec37909e6928210b241b10598af408aa33",
+    "q1_v2/bayes.py": "b361efa30dac83e140b5025e9fb2e3c615ed61b56b938e3f3bf3fc94e46deb7f",
+    "q1_v2/operators.py": "c78f776f06c58da141cdd659dce82f2f46f7de6086d3c7f1e8889750e81ebb5f",
+    "q1_v2/inference.py": "35e2f99d1e002286cd82aaf1b486d6ddce67eb087a6e0112698628324788c8a3",
+    "q1_v2/training.py": "b994c26dbcf25553a7c22e3c08181ac9f738901734a4f616c10c0aecb3dee0de",
+    "scripts/q1_v2_pipeline.py": "529fa245a700827051339f3094599521d936ac27ed8455af3e6c682fcc72a43d",
+    "configs/q1_v2.yaml": "7624483487d327c776a20826a0224776e50e6dcc4e2e6f5433ffbf2b44c155b7"
+  },
+  "checkpoint_hashes": {
+    "basis_pretrained.pt": "e8dda7856e5fa58a2c37842a0ca87c68a7691615a00dcbcc628e5ff441d2fbcf",
+    "context_ablated_operator_seed4201.pt": "bab5811e0fcfe34d2dad04c33b963467d813a7f108e8f720efd693cc99be2741",
+    "context_ablated_operator_seed4202.pt": "b8c85d13eb5bd702f1a2cdf41f385e52126d50111f20396147e1e8f9042cd694",
+    "operator_seed4201.pt": "90b6f4ecceed1cb43feb19313783522f69b286cb29f4b5b6b5a19321d83453f2",
+    "operator_seed4202.pt": "9f45e1ff056eba8d02e738ef11f31fb7fbd036f6ecf1be2e459d4e866b30382c"
+  },
+  "optimizer_seeds": [
+    4201,
+    4202
+  ],
+  "legacy_checkpoint_availability": {
+    "m2": true,
+    "m3": true,
+    "m4": true
+  },
+  "results_rows": 6720
+}

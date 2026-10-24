@@ -1,0 +1,29 @@
+{
+  "protocol_config_sha256": "dab8b9b998085cc82307bb6d75bf9a7fac91a7514dfbe3520c546258e973138b",
+  "primary_split_manifest_sha256": "cd517576bdb44824196e028893d1f03a5eb03f906999bfecec321baf921103ab",
+  "selected_schedule_sha256": "52a7463fde699386cbc4769b1289fdf1c5bd90d3c3320e276a84ad2fbaa700c6",
+  "informative_scripts_sha256": {
+    "scripts/q1_v2_informative.py": "0a0d9ce395842750a6fb45b751992fa3198982dbfe82590f7ee3563f6a70fcbd",
+    "scripts/q1_v2_informative_legacy.py": "150ac2b7a55a304488ba35dfd2ebfa31f62709c2906adc1fb85b475ad27c5f7e",
+    "scripts/q1_v2_effect_controls.py": "ac302dfbf471b5e26449c996566321e8038c33f3ce3c70b0bb29c40e442bccf3"
+  },
+  "v2_checkpoint_sha256": {
+    "basis_pretrained.pt": "e8dda7856e5fa58a2c37842a0ca87c68a7691615a00dcbcc628e5ff441d2fbcf",
+    "operator_seed4201.pt": "90b6f4ecceed1cb43feb19313783522f69b286cb29f4b5b6b5a19321d83453f2",
+    "operator_seed4202.pt": "9f45e1ff056eba8d02e738ef11f31fb7fbd036f6ecf1be2e459d4e866b30382c",
+    "context_ablated_operator_seed4201.pt": "bab5811e0fcfe34d2dad04c33b963467d813a7f108e8f720efd693cc99be2741",
+    "context_ablated_operator_seed4202.pt": "b8c85d13eb5bd702f1a2cdf41f385e52126d50111f20396147e1e8f9042cd694"
+  },
+  "legacy_checkpoint_sha256": {
+    "results/q1/cpu_confirmatory_impl/m2/context_model.pt": "e3e7e4d2f38c22ac1b39c0c7e102991da5743c6467c11d12949962281aae8b7b",
+    "results/q1/cpu_confirmatory_impl/m3/primitives_m3.pt": "471f417881a63f5d0897772ddab4458f520678363a9d7aac809beda4bd5722fb",
+    "results/q1/cpu_confirmatory_impl/m4/primitives_m4.pt": "90aa85ca588bcb465a7960000a1f4e8ff66d8920945f20d34d85add8a99867a2"
+  },
+  "environment": {
+    "python": "3.13.5",
+    "numpy": "2.5.4",
+    "torch": "2.14.1+cpu",
+    "device": "cpu"
+  },
+  "test_split_used": false
+}
