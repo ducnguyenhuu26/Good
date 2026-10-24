@@ -1,0 +1,7 @@
+{
+  "reused": true,
+  "selected_epoch": 16,
+  "train_episode_count": 0,
+  "inner_episode_count": 0,
+  "weak_labels": "prior V2 checkpoint reused unchanged"
+}

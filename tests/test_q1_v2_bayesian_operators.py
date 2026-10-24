@@ -3,11 +3,12 @@ import ast
 from pathlib import Path
 
 import torch
+import pytest
 
 from q1_v2.bayes import GaussianPosterior, gaussian_posterior, marginal_nll, marginal_nll_woodbury
 from q1_v2.inference import composed, rank_programs
 from q1_v2.operators import AffineOperatorBank
-from q1_v2.training import ObservedEpisode, fit_operator_bank
+from q1_v2.training import ObservedEpisode, balanced_episode_order, fit_operator_bank
 
 
 def test_linear_gaussian_posterior_and_predictive_nll_agree():
@@ -174,8 +175,10 @@ def test_weak_label_operator_training_transfers_to_unseen_background_and_pair():
 
     allowed = [(0,), (1,), (2,), (3,), (0, 0), (1, 1), (0, 2), (2, 0)]
     episodes = [make_episode(1000 + i, allowed[i % len(allowed)]) for i in range(96)]
+    inner = [make_episode(7000 + i, allowed[i % len(allowed)]) for i in range(16)]
     bank, _ = fit_operator_bank(basis, torch.zeros(12), torch.eye(12), episodes,
-        sigma2=1e-4, seed=29, epochs=180, lr=2e-3, regularization=1e-4)
+        sigma2=1e-4, seed=29, epochs=8, lr=2e-3, regularization=1e-4,
+        inner_episodes=inner)
     unseen = make_episode(998877, (0, 1))
     old = gaussian_posterior(phi(unseen.support_x), unseen.support_y, torch.zeros(12), torch.eye(12), 1e-4)
     learned = composed(bank, (0, 1))[0] @ old.mean + composed(bank, (0, 1))[1]
@@ -183,3 +186,61 @@ def test_weak_label_operator_training_transfers_to_unseen_background_and_pair():
     target = unseen.query_y.reshape(-1)
     assert torch.isfinite(pred).all()
     assert torch.mean((pred - target) ** 2) < 0.08
+
+
+def test_balanced_shuffled_epochs_cover_every_background_program_once():
+    episodes = [ObservedEpisode(torch.zeros(1, 6), torch.zeros(1, 2),
+        torch.zeros(1, 6), torch.zeros(1, 2), (code,))
+        for code in range(4) for _ in range(7)]
+    order = balanced_episode_order(episodes, seed=4201)
+    assert sorted(order) == list(range(len(episodes)))
+    assert order == balanced_episode_order(episodes, seed=4201)
+    assert order != balanced_episode_order(episodes, seed=4202)
+    per_code = [sum(episodes[i].opaque_program == (code,) for i in order) for code in range(4)]
+    assert per_code == [7, 7, 7, 7]
+
+
+def test_operator_seed_reproducibility_independence_coverage_and_inner_selection():
+    class FixedBasis(torch.nn.Module):
+        def forward(self, x):
+            out = torch.zeros(*x.shape[:-1], 2, 12, dtype=x.dtype, device=x.device)
+            out[..., 0, :6] = x
+            out[..., 1, :6] = x.roll(1, dims=-1)
+            return out
+
+    def make(seed, code):
+        gen = torch.Generator().manual_seed(seed)
+        sx, qx = torch.randn(6, 6, generator=gen), torch.randn(4, 6, generator=gen)
+        sy, qy = torch.randn(6, 2, generator=gen), torch.randn(4, 2, generator=gen)
+        return ObservedEpisode(sx, sy, qx, qy, (code,))
+
+    episodes = [make(100 + i, i % 4) for i in range(12)]
+    inner = [make(900 + i, i % 4) for i in range(4)]
+
+    def train(seed):
+        return fit_operator_bank(FixedBasis(), torch.zeros(12), torch.eye(12), episodes,
+            sigma2=.01, seed=seed, epochs=3, lr=1e-3, regularization=1e-4,
+            inner_episodes=inner)
+
+    first, first_stats = train(4201)
+    repeated, repeated_stats = train(4201)
+    independent, independent_stats = train(4202)
+    assert all(torch.equal(first.state_dict()[key], repeated.state_dict()[key])
+               for key in first.state_dict())
+    assert any(not torch.equal(first.state_dict()[key], independent.state_dict()[key])
+               for key in first.state_dict())
+    assert first_stats["curve"] == repeated_stats["curve"]
+    assert first_stats["epoch_coverage"] == repeated_stats["epoch_coverage"]
+    assert first_stats["epoch_coverage"][0]["training_episode_count"] == len(episodes)
+    assert first_stats["epoch_coverage"][0]["unique_training_episodes"] == len(episodes)
+    assert first_stats["epoch_coverage"][0]["program_episode_counts"] == {str(i): 3 for i in range(4)}
+    assert first_stats["best_epoch"] == min(first_stats["curve"], key=lambda row: row["inner_nll"])["epoch"]
+    assert first_stats["selection_split"] == "inner-train backgrounds only"
+    assert first_stats["epoch_coverage"] != independent_stats["epoch_coverage"]
+
+
+def test_operator_checkpoint_selection_requires_inner_training_validation():
+    with pytest.raises(ValueError, match="inner-training episodes"):
+        fit_operator_bank(torch.nn.Identity(), torch.zeros(12), torch.eye(12),
+            [ObservedEpisode(torch.zeros(1, 6), torch.zeros(1, 2),
+             torch.zeros(1, 6), torch.zeros(1, 2), (0,))], sigma2=.01, seed=1, epochs=1)

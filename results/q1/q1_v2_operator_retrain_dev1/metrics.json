@@ -1,0 +1,70 @@
+{
+  "status": "DEVELOPMENT_DIAGNOSTIC",
+  "length_penalty": 0.0,
+  "metrics": {
+    "IDLIKE_DEVELOPMENT|N=5": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.4568452380952381,
+      "mean_query_delta_v_mse": 5.8069194337273005e-06,
+      "mean_true_vs_best_wrong_class_margin": 24.913936529840743
+    },
+    "IDLIKE_DEVELOPMENT|N=10": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.5252976190476191,
+      "mean_query_delta_v_mse": 5.57112075401312e-06,
+      "mean_true_vs_best_wrong_class_margin": 150.24851552929198
+    },
+    "IDLIKE_DEVELOPMENT|N=20": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.5803571428571429,
+      "mean_query_delta_v_mse": 5.6836286643874565e-06,
+      "mean_true_vs_best_wrong_class_margin": 340.7848476057961
+    },
+    "IDLIKE_DEVELOPMENT|N=50": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.6294642857142857,
+      "mean_query_delta_v_mse": 5.950575783358099e-06,
+      "mean_true_vs_best_wrong_class_margin": 886.6395071120489
+    },
+    "IDLIKE_DEVELOPMENT|N=100": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.6190476190476191,
+      "mean_query_delta_v_mse": 5.860327356002483e-06,
+      "mean_true_vs_best_wrong_class_margin": 1323.489679427374
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=5": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.4107142857142857,
+      "mean_query_delta_v_mse": 2.625909532254817e-05,
+      "mean_true_vs_best_wrong_class_margin": 45.223213300818486
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=10": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.45982142857142855,
+      "mean_query_delta_v_mse": 2.480676251987155e-05,
+      "mean_true_vs_best_wrong_class_margin": 249.030932474704
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=20": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.5193452380952381,
+      "mean_query_delta_v_mse": 2.5747582619877513e-05,
+      "mean_true_vs_best_wrong_class_margin": 540.2236192567008
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=50": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.6101190476190477,
+      "mean_query_delta_v_mse": 2.9459239721503428e-05,
+      "mean_true_vs_best_wrong_class_margin": 1405.0057339554742
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=100": {
+      "n_background_program_seed_rows": 672,
+      "functional_class_accuracy": 0.5773809523809523,
+      "mean_query_delta_v_mse": 2.8563540782738662e-05,
+      "mean_true_vs_best_wrong_class_margin": 2094.325711454664
+    }
+  },
+  "limitations": [
+    "Fresh development diagnostic only; no original test split used.",
+    "Assessment query labels are used only after selection for query-MSE reporting."
+  ]
+}

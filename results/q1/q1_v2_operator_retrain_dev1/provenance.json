@@ -1,0 +1,39 @@
+{
+  "git_head": "01f22b77b3227c92fd7850ede71e82de4116d25a",
+  "git_branch": "codex/q1-v2-bayesian-function-space",
+  "config_sha256": "12103c1a0555f7680e72b94004dbd79535143dae7b1151b6b75f9c60a91c8ff5",
+  "split_manifest_sha256": "4e323fe867859bc7b052bc3988a81ed997f541c8ccac62a6228dab0c071b5c3c",
+  "python": "3.13.5",
+  "torch": "2.14.1+cpu",
+  "numpy": "2.5.4",
+  "device": "cpu",
+  "train_backgrounds": 40,
+  "inner_backgrounds": 8,
+  "development_test_split_used": false,
+  "simulator_use": "data generation and evaluation oracles only",
+  "runtime_seconds": 734,
+  "runtime_note": "Measured from run config creation to complete per-background evaluation output; final aggregation resumed from CSV after a field-name mismatch.",
+  "source_hashes": {
+    "q1_v2/basis.py": "248049ed4496bfe8f49b512a5efdf6ec37909e6928210b241b10598af408aa33",
+    "q1_v2/bayes.py": "55c29a98f9ab1afd9147c820c2b619c0870f8ce8359a288e3b759ed52b0b8f3e",
+    "q1_v2/operators.py": "c78f776f06c58da141cdd659dce82f2f46f7de6086d3c7f1e8889750e81ebb5f",
+    "q1_v2/inference.py": "35e2f99d1e002286cd82aaf1b486d6ddce67eb087a6e0112698628324788c8a3",
+    "q1_v2/training.py": "d95859c4214bc5d1cc08dde7d2437bb7afbc4040f0571b442b1a77c04562745c",
+    "scripts/q1_v2_pipeline.py": "5f56c529d56914b5e4fcce6244748b1815a9b4f3b85a2aa13dcdadfd16785e2a",
+    "scripts/q1_v2_legacy_compare.py": "1b030941927100ea0f1407e2e7b6d448c5029b7ac297d5a3d8ce1f5bbb923f64",
+    "scripts/q1_v2_operator_retrain_summary.py": "a7edce51e57318b13b79009f4f760b0796dbacb8b164c5be28e838a79d9e0ca9",
+    "configs/q1_v2_operator_retrain.yaml": "12103c1a0555f7680e72b94004dbd79535143dae7b1151b6b75f9c60a91c8ff5"
+  },
+  "checkpoint_hashes": {
+    "basis_pretrained.pt": "e8dda7856e5fa58a2c37842a0ca87c68a7691615a00dcbcc628e5ff441d2fbcf",
+    "context_ablated_operator_seed4201.pt": "3e5f4b25971d7ba11724997989f3c0e83c9b28857b385ddbe67ad1347bce352c",
+    "context_ablated_operator_seed4202.pt": "0017c99d4b0be9ef2b29855db00e3590162cec0d02059a78406fb3d575fee3fa",
+    "operator_seed4201.pt": "3614404da558c5e2c01515f74165b8d44427ef2fb975b26247c83056ae56a10e",
+    "operator_seed4202.pt": "4c739f4def2cfa2f90cd024ea06832366617b961e04f0dc2007a2d2b22836d44"
+  },
+  "optimizer_seeds": [
+    4201,
+    4202
+  ],
+  "results_rows": 6720
+}

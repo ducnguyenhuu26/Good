@@ -26,6 +26,56 @@ def design(basis: nn.Module, x: torch.Tensor) -> torch.Tensor:
     return values.reshape(-1, values.shape[-1])
 
 
+def balanced_episode_order(episodes: list[ObservedEpisode], *, seed: int) -> list[int]:
+    """Return a seeded full-coverage order, round-robin balanced by opaque code.
+
+    Each episode appears exactly once. For pairs, it is queued under both of its
+    opaque codes and contributes to both running exposure counts. The next episode
+    is taken from an available code with the lowest current exposure count.
+    """
+    if not episodes:
+        raise ValueError("operator training requires at least one episode")
+    generator = torch.Generator(device="cpu").manual_seed(int(seed))
+    labels = [tuple(sorted(set(int(c) for c in ep.opaque_program))) for ep in episodes]
+    code_values = sorted({c for row in labels for c in row})
+    if not code_values:
+        code_values = [-1]  # empty-program-only synthetic/control datasets
+    queues: dict[int, list[int]] = {c: [] for c in code_values}
+    for idx, codes in enumerate(labels):
+        membership = codes or (-1,)
+        for code in membership:
+            queues.setdefault(code, []).append(idx)
+    for code, queue in queues.items():
+        if queue:
+            permutation = torch.randperm(len(queue), generator=generator).tolist()
+            queues[code] = [queue[i] for i in permutation]
+
+    positions = {code: 0 for code in queues}
+    exposure = {code: 0 for code in queues}
+    remaining = set(range(len(episodes)))
+    result: list[int] = []
+    while remaining:
+        available = [code for code, queue in queues.items()
+                     if any(i in remaining for i in queue[positions[code]:])]
+        if not available:
+            raise RuntimeError("balanced sampler lost unvisited episodes")
+        code = min(available, key=lambda c: (exposure[c],
+            float(torch.rand((), generator=generator))))
+        queue = queues[code]
+        while positions[code] < len(queue) and queue[positions[code]] not in remaining:
+            positions[code] += 1
+        if positions[code] >= len(queue):
+            continue
+        idx = queue[positions[code]]
+        positions[code] += 1
+        remaining.remove(idx)
+        result.append(idx)
+        membership = labels[idx] or (-1,)
+        for member in membership:
+            exposure[member] += 1
+    return result
+
+
 def fit_basis(basis: nn.Module, episodes: list[ObservedEpisode], *, sigma2: float,
               seed: int, epochs: int = 18, batch_size: int = 8, lr: float = 1e-3,
               inner_episodes: list[ObservedEpisode] | None = None) -> dict:
@@ -121,39 +171,83 @@ def fit_operator_bank(basis: nn.Module, prior_mean: torch.Tensor, prior_cov: tor
                       use_old_support: bool = True) -> tuple[AffineOperatorBank, dict]:
     """Learn same-parameterization affine operators from opaque observed episodes."""
     from q1_v2.bayes import gaussian_posterior
-    torch.manual_seed(seed)
+    if not episodes:
+        raise ValueError("operator training requires nonempty training episodes")
+    if inner_episodes is None or not inner_episodes:
+        raise ValueError("operator checkpoint selection requires nonempty inner-training episodes")
+    validation_episodes = inner_episodes
+    basis.eval()
+    for parameter in basis.parameters():
+        parameter.requires_grad_(False)
     bank = AffineOperatorBank().to(device=prior_mean.device, dtype=prior_mean.dtype)
     optimizer = Adam(bank.parameters(), lr=lr)
     curves = []
-    for step in range(epochs):
-        ep = episodes[step % len(episodes)]
+    best_state = None
+    best_inner_nll = float("inf")
+    best_epoch = 0
+    epoch_coverage = []
+    seed_generator = torch.Generator(device="cpu").manual_seed(int(seed))
+    for epoch in range(epochs):
         bank.train()
-        xold = design(basis, ep.support_x)
-        old = (gaussian_posterior(xold, ep.support_y, prior_mean, prior_cov, sigma2)
-               if use_old_support else GaussianPosterior(prior_mean, prior_cov))
-        # Opaque labels are supplied by the sampler; no physical metadata enters this API.
-        a, b = AffineOperatorBank.identity(12, dtype=prior_mean.dtype, device=prior_mean.device)
-        for code in ep.opaque_program:
-            a, b = AffineOperatorBank.compose((a, b), (bank.matrix(int(code)), bank.bias[int(code)]))
-        transformed = GaussianPosterior(a @ old.mean + b, a @ old.covariance @ a.T, old.jitter)
-        xnew = design(basis, ep.query_x)
-        loss, jitter = marginal_nll(xnew, ep.query_y, transformed, sigma2)
-        penalty = regularization * bank.regularization()
-        total = loss + penalty + float(length_penalty) * len(ep.opaque_program)
-        if not torch.isfinite(total):
-            raise FloatingPointError("non-finite operator training loss")
-        optimizer.zero_grad(set_to_none=True)
-        total.backward()
-        if not all(p.grad is None or torch.isfinite(p.grad).all() for p in bank.parameters()):
-            raise FloatingPointError("non-finite operator gradient")
-        torch.nn.utils.clip_grad_norm_(bank.parameters(), 5.0)
-        optimizer.step()
-        if (step + 1) % 10 == 0 or step == 0:
-            curves.append({"step": step + 1, "train_nll": float(loss.detach()),
-                           "regularization": float(penalty.detach()), "jitter": jitter})
-    return bank, {"curve": curves, "regularization": regularization,
-                  "inner_nll": evaluate_operator_nll(basis, bank, prior_mean, prior_cov,
-                  inner_episodes or episodes, sigma2, use_old_support=use_old_support),
+        order_seed = int(torch.randint(0, 2**31 - 1, (), generator=seed_generator))
+        order = balanced_episode_order(episodes, seed=order_seed)
+        train_losses, penalties, jitters = [], [], []
+        seen_programs: dict[str, int] = {}
+        code_counts = {str(c): 0 for ep in episodes for c in ep.opaque_program}
+        for episode_index in order:
+            ep = episodes[episode_index]
+            xold = design(basis, ep.support_x)
+            old = (gaussian_posterior(xold, ep.support_y, prior_mean, prior_cov, sigma2)
+                   if use_old_support else GaussianPosterior(prior_mean, prior_cov))
+            # Opaque labels are supplied by the sampler; no physical metadata enters this API.
+            a, b = AffineOperatorBank.identity(12, dtype=prior_mean.dtype, device=prior_mean.device)
+            for code in ep.opaque_program:
+                a, b = AffineOperatorBank.compose((a, b), (bank.matrix(int(code)), bank.bias[int(code)]))
+            transformed = GaussianPosterior(a @ old.mean + b, a @ old.covariance @ a.T, old.jitter)
+            xnew = design(basis, ep.query_x)
+            loss, jitter = marginal_nll(xnew, ep.query_y, transformed, sigma2)
+            penalty = regularization * bank.regularization()
+            total = loss + penalty + float(length_penalty) * len(ep.opaque_program)
+            if not torch.isfinite(total):
+                raise FloatingPointError("non-finite operator training loss")
+            optimizer.zero_grad(set_to_none=True)
+            total.backward()
+            if not all(p.grad is None or torch.isfinite(p.grad).all() for p in bank.parameters()):
+                raise FloatingPointError("non-finite operator gradient")
+            torch.nn.utils.clip_grad_norm_(bank.parameters(), 5.0)
+            optimizer.step()
+            train_losses.append(float(loss.detach()))
+            penalties.append(float(penalty.detach()))
+            jitters.append(float(jitter))
+            program_key = ",".join(map(str, ep.opaque_program)) or "empty"
+            seen_programs[program_key] = seen_programs.get(program_key, 0) + 1
+            for code in ep.opaque_program:
+                code_counts[str(code)] = code_counts.get(str(code), 0) + 1
+
+        inner_nll = evaluate_operator_nll(basis, bank, prior_mean, prior_cov,
+            validation_episodes, sigma2, use_old_support=use_old_support)
+        coverage = {"epoch": epoch + 1, "optimizer_seed": int(seed),
+            "training_episode_count": len(order), "unique_training_episodes": len(set(order)),
+            "program_episode_counts": seen_programs, "opaque_code_episode_exposures": code_counts,
+            "shuffle_seed": order_seed}
+        epoch_coverage.append(coverage)
+        curves.append({"epoch": epoch + 1, "training_episode_count": len(order),
+            "train_nll": float(sum(train_losses) / len(train_losses)),
+            "regularization": float(sum(penalties) / len(penalties)),
+            "max_jitter": max(jitters, default=0.0), "inner_nll": inner_nll,
+            "selected": inner_nll < best_inner_nll})
+        if inner_nll < best_inner_nll:
+            best_inner_nll = inner_nll
+            best_epoch = epoch + 1
+            best_state = {name: value.detach().clone() for name, value in bank.state_dict().items()}
+    if best_state is None:
+        raise RuntimeError("no finite inner-validation checkpoint was selected")
+    bank.load_state_dict(best_state)
+    return bank, {"curve": curves, "epoch_coverage": epoch_coverage,
+                  "regularization": regularization, "inner_nll": best_inner_nll,
+                  "best_epoch": best_epoch, "seed": int(seed),
+                  "selection_split": "inner-train backgrounds only",
+                  "training_episode_count_per_epoch": len(episodes),
                   "uses_old_support": use_old_support}
 
 

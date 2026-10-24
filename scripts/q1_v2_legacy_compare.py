@@ -7,12 +7,17 @@ sys.path.insert(0,str(ROOT))
 import numpy as np, torch, yaml
 from q1.datasets import stage_pair
 from q1.evaluate import _public_transitions, _support_tensor
-from q1.inference import rank_programs
+from q1.inference import rank_programs as rank_legacy
 from q1.model import ContextDynamicsModel
 from q1.oracle import functional_classes
 from q1.primitives import PrimitiveBank
 from q1.simulator import PROGRAMS, DynamicsParams
 from q1.train_primitives import _get_m2
+from q1_v2.basis import PartitionedBasis
+from q1_v2.bayes import gaussian_posterior
+from q1_v2.inference import composed as compose_v2, rank_programs as rank_v2
+from q1_v2.operators import AffineOperatorBank
+from q1_v2.training import design
 
 def sha(path):
     h=hashlib.sha256()
@@ -39,6 +44,20 @@ def main():
     m3bank=PrimitiveBank(context_dim,8,64).to(device);m3bank.load_state_dict(m3data['primitives']);m3bank.eval()
     m4bank=PrimitiveBank(context_dim,8,64).to(device);m4bank.load_state_dict(m4data['primitives']);m4bank.eval()
     inverse={int(v):int(k) for k,v in code_map.items()}
+    # Original V2 checkpoints are evaluated on these same newly generated cases and budgets.
+    old_v2_dir=ROOT/'results/q1/q1_v2_bayesian_operators_dev1'
+    old_basis_data=torch.load(old_v2_dir/'basis_pretrained.pt',map_location=device,weights_only=False)
+    old_basis=PartitionedBasis(hidden=int(cfg['hidden'])).to(device)
+    old_basis.load_state_dict(old_basis_data['basis']);old_basis.eval()
+    for parameter in old_basis.parameters(): parameter.requires_grad_(False)
+    selected_penalty=json.loads((out/'length_penalty_selection.json').read_text(encoding='utf-8'))['selected']
+    original_banks={};original_priors={}
+    for opt_seed in cfg['optimizer_seeds']:
+        saved=torch.load(old_v2_dir/f'operator_seed{opt_seed}.pt',map_location=device,weights_only=False)
+        bank=AffineOperatorBank().to(device);bank.load_state_dict(saved['state_dict']);bank.eval()
+        for parameter in bank.parameters():parameter.requires_grad_(False)
+        original_banks[opt_seed]=(bank,saved['opaque_code_map'])
+        original_priors[opt_seed]=(old_basis_data['prior_mean'],old_basis_data['prior_covariance'],float(old_basis_data['sigma2']))
     for regime in ('development_idlike','development_background_ood'):
         for bi,bg in enumerate(manifest[regime]['backgrounds']):
             before=DynamicsParams(np.asarray(bg['B']),float(bg['d']),float(bg['b']),float(bg['kappa']))
@@ -59,7 +78,7 @@ def main():
                     vals={}
                     for name,bank,penalty in [('M3',m3bank,float(m4data['length_penalty'])),
                                                ('M4',m4bank,float(m4data['length_penalty']))]:
-                        ranked,_=rank_programs(context,torch.as_tensor(adapt_rows[:n],dtype=torch.float32),
+                        ranked,_=rank_legacy(context,torch.as_tensor(adapt_rows[:n],dtype=torch.float32),
                             encoder=m2.encoder,executor=m2.executor,primitives=bank,normalizer=normalizer,
                             length_penalty=penalty,device=device)
                         opaque=ranked[0];predp=tuple(inverse[int(code)] for code in opaque)
@@ -74,6 +93,31 @@ def main():
                             'predicted_program':json.dumps(predp),
                             'functional_class_correct':int(classes[PROGRAMS.index(predp)]==classes[pi]),
                             'query_delta_v_mse':mse,'m2_old_context_query_mse':old_mse})
+                    # Score both historical V2 operator banks with the retrained run's frozen
+                    # length penalty. This changes only the evaluation data/penalty condition.
+                    for opt_seed,(v2bank,v2map) in original_banks.items():
+                        v2inverse={int(v):int(k) for k,v in v2map.items()}
+                        candidates=[tuple(int(v2map[str(c)]) for c in p) for p in PROGRAMS]
+                        old_x=np.c_[old.states[:-1],old.actions].astype(np.float32)
+                        old_y=old.delta_v.astype(np.float32)
+                        adapt_x=np.c_[adapt.states[:-1],adapt.actions].astype(np.float32)
+                        adapt_y=adapt.delta_v.astype(np.float32)
+                        mean,cov,v2sigma=original_priors[opt_seed]
+                        old_post=gaussian_posterior(design(old_basis,torch.as_tensor(old_x)),
+                            torch.as_tensor(old_y),mean,cov,v2sigma)
+                        ranked=rank_v2(v2bank,old_post,candidates,
+                            design(old_basis,torch.as_tensor(adapt_x[:n])),torch.as_tensor(adapt_y[:n]),
+                            v2sigma,float(selected_penalty))
+                        predp=tuple(v2inverse[int(code)] for code in ranked[0][0])
+                        am,bb=compose_v2(v2bank,ranked[0][0])
+                        qphi=design(old_basis,x)
+                        qpred=(qphi@(am@old_post.mean+bb)).reshape(-1)
+                        v2mse=float(torch.mean((qpred-y.reshape(-1))**2))
+                        devrows.append({'regime':regime,'background_id':f'{regime}-{bi:03d}',
+                            'background_seed':seed,'true_program':json.dumps(program),'N':n,
+                            'model':'V2_ORIGINAL','predicted_program':json.dumps(predp),
+                            'functional_class_correct':int(classes[PROGRAMS.index(predp)]==classes[pi]),
+                            'query_delta_v_mse':v2mse,'m2_old_context_query_mse':old_mse})
     with (out/'legacy_per_background.csv').open('w',newline='',encoding='utf-8') as f:
         w=csv.DictWriter(f,fieldnames=list(devrows[0]));w.writeheader();w.writerows(devrows)
     summary={}
@@ -84,8 +128,11 @@ def main():
         'mean_query_delta_v_mse':float(np.mean([x['query_delta_v_mse'] for x in v])),
         'mean_m2_old_context_query_mse':float(np.mean([x['m2_old_context_query_mse'] for x in v]))}
         for k,v in summary.items()}
+    original_v2_paths=[old_v2_dir/'basis_pretrained.pt']+[old_v2_dir/f'operator_seed{s}.pt' for s in cfg['optimizer_seeds']]
     report={'paired_same_cases':True,'same_old_support_adaptation_and_assessment_query_seeds':True,
         'checkpoints':{str(x.relative_to(ROOT)):sha(x) for x in (m2path,m3path,m4path)},
+        'original_v2_checkpoints':{str(x.relative_to(ROOT)):sha(x) for x in original_v2_paths},
+        'v2_original_uses_retrained_run_inner_selected_length_penalty':float(selected_penalty),
         'metrics':aggregate,'m2_role':'empty-program old-context prediction baseline; M2 is not a program composition model',
         'direct_G':'not included: v1 direct-effect checkpoints were trained with privileged paired simulator effects, and do not supply a matched weak-label v2 intervention learner'}
     (out/'legacy_comparison.json').write_text(json.dumps(report,indent=2),encoding='utf-8')

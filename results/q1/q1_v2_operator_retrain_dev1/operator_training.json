@@ -1,0 +1,643 @@
+{
+  "regularization_candidates_inner_nll": {
+    "0.0001": -63.097596526145935,
+    "0.01": -96.45425955454509
+  },
+  "selected_regularization": 0.01,
+  "opaque_code_map": {
+    "0": 0,
+    "1": 2,
+    "2": 1,
+    "3": 3
+  },
+  "curves": {
+    "4201": {
+      "curve": [
+        {
+          "epoch": 1,
+          "training_episode_count": 480,
+          "train_nll": 147.45419017473856,
+          "regularization": 1.6550355090346378e-05,
+          "max_jitter": 0.0,
+          "inner_nll": -103.20220653216045,
+          "selected": true
+        },
+        {
+          "epoch": 2,
+          "training_episode_count": 480,
+          "train_nll": -72.22401702404022,
+          "regularization": 4.784004219497243e-05,
+          "max_jitter": 0.0,
+          "inner_nll": -52.906767884890236,
+          "selected": false
+        },
+        {
+          "epoch": 3,
+          "training_episode_count": 480,
+          "train_nll": -100.64732721646627,
+          "regularization": 8.37326040558158e-05,
+          "max_jitter": 0.0,
+          "inner_nll": -144.66467559337616,
+          "selected": true
+        },
+        {
+          "epoch": 4,
+          "training_episode_count": 480,
+          "train_nll": -105.5643614212672,
+          "regularization": 0.00013234113312137196,
+          "max_jitter": 0.0,
+          "inner_nll": -119.60059607028961,
+          "selected": false
+        }
+      ],
+      "epoch_coverage": [
+        {
+          "epoch": 1,
+          "optimizer_seed": 4201,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "0,1": 40,
+            "3,2": 40,
+            "3": 40,
+            "2,2": 40,
+            "1,1": 40,
+            "1,0": 40,
+            "2": 40,
+            "0": 40,
+            "3,3": 40,
+            "1": 40,
+            "0,0": 40,
+            "2,3": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 2119087965
+        },
+        {
+          "epoch": 2,
+          "optimizer_seed": 4201,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "2": 40,
+            "1,1": 40,
+            "0": 40,
+            "2,3": 40,
+            "1,0": 40,
+            "3,3": 40,
+            "0,0": 40,
+            "3,2": 40,
+            "0,1": 40,
+            "2,2": 40,
+            "3": 40,
+            "1": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 1178210739
+        },
+        {
+          "epoch": 3,
+          "optimizer_seed": 4201,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "2,3": 40,
+            "1,1": 40,
+            "0,1": 40,
+            "0,0": 40,
+            "3": 40,
+            "2,2": 40,
+            "3,2": 40,
+            "1,0": 40,
+            "3,3": 40,
+            "2": 40,
+            "0": 40,
+            "1": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 1358182518
+        },
+        {
+          "epoch": 4,
+          "optimizer_seed": 4201,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "1": 40,
+            "3,3": 40,
+            "2,3": 40,
+            "0,1": 40,
+            "1,0": 40,
+            "3,2": 40,
+            "0,0": 40,
+            "2,2": 40,
+            "3": 40,
+            "0": 40,
+            "1,1": 40,
+            "2": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 588147586
+        }
+      ],
+      "regularization": 0.01,
+      "inner_nll": -144.66467559337616,
+      "best_epoch": 3,
+      "seed": 4201,
+      "selection_split": "inner-train backgrounds only",
+      "training_episode_count_per_epoch": 480,
+      "uses_old_support": true
+    },
+    "context_ablated_4201": {
+      "curve": [
+        {
+          "epoch": 1,
+          "training_episode_count": 480,
+          "train_nll": -110.81524713834126,
+          "regularization": 0.00024946142391979453,
+          "max_jitter": 9.999999999999998e-08,
+          "inner_nll": -117.09855830669403,
+          "selected": true
+        },
+        {
+          "epoch": 2,
+          "training_episode_count": 480,
+          "train_nll": -120.34104658762614,
+          "regularization": 0.001918879875302082,
+          "max_jitter": 0.0,
+          "inner_nll": -118.76009885470073,
+          "selected": true
+        },
+        {
+          "epoch": 3,
+          "training_episode_count": 480,
+          "train_nll": -123.20526699225108,
+          "regularization": 0.0031553895634715444,
+          "max_jitter": 0.0,
+          "inner_nll": -125.17632790406545,
+          "selected": true
+        },
+        {
+          "epoch": 4,
+          "training_episode_count": 480,
+          "train_nll": -126.71153085231781,
+          "regularization": 0.0036519296932965516,
+          "max_jitter": 0.0,
+          "inner_nll": -130.44679566224417,
+          "selected": true
+        }
+      ],
+      "epoch_coverage": [
+        {
+          "epoch": 1,
+          "optimizer_seed": 14201,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "1,1": 40,
+            "2": 40,
+            "3": 40,
+            "0,1": 40,
+            "2,3": 40,
+            "3,3": 40,
+            "2,2": 40,
+            "1,0": 40,
+            "3,2": 40,
+            "0,0": 40,
+            "0": 40,
+            "1": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 1810874453
+        },
+        {
+          "epoch": 2,
+          "optimizer_seed": 14201,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "3,3": 40,
+            "1,0": 40,
+            "3,2": 40,
+            "2": 40,
+            "2,3": 40,
+            "0,0": 40,
+            "1,1": 40,
+            "0": 40,
+            "0,1": 40,
+            "1": 40,
+            "3": 40,
+            "2,2": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 2098274407
+        },
+        {
+          "epoch": 3,
+          "optimizer_seed": 14201,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "1,0": 40,
+            "3,3": 40,
+            "2": 40,
+            "0,1": 40,
+            "2,3": 40,
+            "0": 40,
+            "1,1": 40,
+            "0,0": 40,
+            "3,2": 40,
+            "2,2": 40,
+            "3": 40,
+            "1": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 2073964557
+        },
+        {
+          "epoch": 4,
+          "optimizer_seed": 14201,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "2,3": 40,
+            "1,1": 40,
+            "0": 40,
+            "1,0": 40,
+            "3,3": 40,
+            "3,2": 40,
+            "0,0": 40,
+            "1": 40,
+            "0,1": 40,
+            "2": 40,
+            "2,2": 40,
+            "3": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 66363653
+        }
+      ],
+      "regularization": 0.01,
+      "inner_nll": -130.44679566224417,
+      "best_epoch": 4,
+      "seed": 14201,
+      "selection_split": "inner-train backgrounds only",
+      "training_episode_count_per_epoch": 480,
+      "uses_old_support": false
+    },
+    "4202": {
+      "curve": [
+        {
+          "epoch": 1,
+          "training_episode_count": 480,
+          "train_nll": 237.24261487325032,
+          "regularization": 1.5635574335365333e-05,
+          "max_jitter": 0.0,
+          "inner_nll": -121.97165767351787,
+          "selected": true
+        },
+        {
+          "epoch": 2,
+          "training_episode_count": 480,
+          "train_nll": -80.35151848793029,
+          "regularization": 4.865475814312959e-05,
+          "max_jitter": 0.0,
+          "inner_nll": -135.78226244449615,
+          "selected": true
+        },
+        {
+          "epoch": 3,
+          "training_episode_count": 480,
+          "train_nll": -88.68247961203257,
+          "regularization": 8.241866842884822e-05,
+          "max_jitter": 0.0,
+          "inner_nll": -122.61339557170868,
+          "selected": false
+        },
+        {
+          "epoch": 4,
+          "training_episode_count": 480,
+          "train_nll": -104.11214793523153,
+          "regularization": 0.00011263890555710532,
+          "max_jitter": 0.0,
+          "inner_nll": -127.80584518114726,
+          "selected": false
+        }
+      ],
+      "epoch_coverage": [
+        {
+          "epoch": 1,
+          "optimizer_seed": 4202,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "3,3": 40,
+            "1,1": 40,
+            "0,0": 40,
+            "3,2": 40,
+            "1": 40,
+            "0,1": 40,
+            "0": 40,
+            "2,2": 40,
+            "3": 40,
+            "1,0": 40,
+            "2": 40,
+            "2,3": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 1968992352
+        },
+        {
+          "epoch": 2,
+          "optimizer_seed": 4202,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "0,1": 40,
+            "3,2": 40,
+            "3": 40,
+            "2,3": 40,
+            "1,1": 40,
+            "0,0": 40,
+            "2,2": 40,
+            "1,0": 40,
+            "3,3": 40,
+            "2": 40,
+            "1": 40,
+            "0": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 1227309881
+        },
+        {
+          "epoch": 3,
+          "optimizer_seed": 4202,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "0,1": 40,
+            "3": 40,
+            "2,2": 40,
+            "3,2": 40,
+            "1": 40,
+            "0,0": 40,
+            "2,3": 40,
+            "1,1": 40,
+            "1,0": 40,
+            "2": 40,
+            "0": 40,
+            "3,3": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 1511329897
+        },
+        {
+          "epoch": 4,
+          "optimizer_seed": 4202,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "2,3": 40,
+            "1": 40,
+            "0,1": 40,
+            "0": 40,
+            "3,3": 40,
+            "3,2": 40,
+            "1,1": 40,
+            "1,0": 40,
+            "2,2": 40,
+            "0,0": 40,
+            "3": 40,
+            "2": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 925773991
+        }
+      ],
+      "regularization": 0.01,
+      "inner_nll": -135.78226244449615,
+      "best_epoch": 2,
+      "seed": 4202,
+      "selection_split": "inner-train backgrounds only",
+      "training_episode_count_per_epoch": 480,
+      "uses_old_support": true
+    },
+    "context_ablated_4202": {
+      "curve": [
+        {
+          "epoch": 1,
+          "training_episode_count": 480,
+          "train_nll": -111.2973158121109,
+          "regularization": 0.0002621182784538526,
+          "max_jitter": 9.999999999999998e-08,
+          "inner_nll": -118.1493638753891,
+          "selected": true
+        },
+        {
+          "epoch": 2,
+          "training_episode_count": 480,
+          "train_nll": -119.77690687179566,
+          "regularization": 0.0019008787665370618,
+          "max_jitter": 0.0,
+          "inner_nll": -119.56113851070404,
+          "selected": true
+        },
+        {
+          "epoch": 3,
+          "training_episode_count": 480,
+          "train_nll": -124.37909734249115,
+          "regularization": 0.0032425367239435825,
+          "max_jitter": 0.0,
+          "inner_nll": -129.17110892136893,
+          "selected": true
+        },
+        {
+          "epoch": 4,
+          "training_episode_count": 480,
+          "train_nll": -127.91889417171478,
+          "regularization": 0.003483160132115396,
+          "max_jitter": 0.0,
+          "inner_nll": -127.44894683361053,
+          "selected": false
+        }
+      ],
+      "epoch_coverage": [
+        {
+          "epoch": 1,
+          "optimizer_seed": 14202,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "0,0": 40,
+            "2,3": 40,
+            "1": 40,
+            "0,1": 40,
+            "2": 40,
+            "3,3": 40,
+            "0": 40,
+            "2,2": 40,
+            "1,1": 40,
+            "1,0": 40,
+            "3,2": 40,
+            "3": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 560617738
+        },
+        {
+          "epoch": 2,
+          "optimizer_seed": 14202,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "1,0": 40,
+            "3": 40,
+            "2": 40,
+            "3,2": 40,
+            "0": 40,
+            "1,1": 40,
+            "2,2": 40,
+            "2,3": 40,
+            "1": 40,
+            "3,3": 40,
+            "0,0": 40,
+            "0,1": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 288413595
+        },
+        {
+          "epoch": 3,
+          "optimizer_seed": 14202,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "0": 40,
+            "2,2": 40,
+            "2,3": 40,
+            "1": 40,
+            "1,0": 40,
+            "3": 40,
+            "3,2": 40,
+            "3,3": 40,
+            "1,1": 40,
+            "0,1": 40,
+            "0,0": 40,
+            "2": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 182254145
+        },
+        {
+          "epoch": 4,
+          "optimizer_seed": 14202,
+          "training_episode_count": 480,
+          "unique_training_episodes": 480,
+          "program_episode_counts": {
+            "1,0": 40,
+            "2": 40,
+            "3,2": 40,
+            "2,3": 40,
+            "0,0": 40,
+            "3,3": 40,
+            "2,2": 40,
+            "1": 40,
+            "3": 40,
+            "0": 40,
+            "0,1": 40,
+            "1,1": 40
+          },
+          "opaque_code_episode_exposures": {
+            "0": 200,
+            "2": 200,
+            "1": 200,
+            "3": 200
+          },
+          "shuffle_seed": 975037819
+        }
+      ],
+      "regularization": 0.01,
+      "inner_nll": -129.17110892136893,
+      "best_epoch": 3,
+      "seed": 14202,
+      "selection_split": "inner-train backgrounds only",
+      "training_episode_count_per_epoch": 480,
+      "uses_old_support": false
+    }
+  }
+}

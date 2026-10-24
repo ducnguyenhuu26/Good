@@ -94,20 +94,21 @@ def tensor_input(x):
     return torch.as_tensor(x, dtype=torch.float32)
 
 
-def make_training_data(train_params, inner_params, cfg):
+def make_training_data(train_params, inner_params, cfg, *, include_basis=True):
     fit_eps, inner_eps, op_eps, inner_op = [], [], [], []
     allowed = [tuple(p) for p in cfg["composition_training_pairs"]]
     for split_name, params_list, basis_out, op_out, base_seed in (
         ("fit", train_params, fit_eps, op_eps, 700000),
         ("inner", inner_params, inner_eps, inner_op, 900000)):
         for bidx, before in enumerate(params_list):
-            for law_idx, program in enumerate([()] + [(i,) for i in range(4)] + allowed):
-                seed = base_seed + bidx * 1009 + law_idx * 37
-                law = apply_program(before, program)
-                support = rollout(law, n=cfg["old_support"], seed=seed,
-                                  dt=cfg["dt"], sigma=cfg["sigma"])
-                query = rollout(law, n=32, seed=seed + 17, dt=cfg["dt"], sigma=cfg["sigma"])
-                basis_out.append(episode(support, query))
+            if include_basis:
+                for law_idx, program in enumerate([()] + [(i,) for i in range(4)] + allowed):
+                    seed = base_seed + bidx * 1009 + law_idx * 37
+                    law = apply_program(before, program)
+                    support = rollout(law, n=cfg["old_support"], seed=seed,
+                                      dt=cfg["dt"], sigma=cfg["sigma"])
+                    query = rollout(law, n=32, seed=seed + 17, dt=cfg["dt"], sigma=cfg["sigma"])
+                    basis_out.append(episode(support, query))
             for pidx, program in enumerate([(i,) for i in range(4)] + allowed):
                 old, adapt, _ = stage_pair(before, program, seed=base_seed + bidx * 1009 + 500 + pidx * 31,
                     n_support=cfg["old_support"], n_query=cfg["adaptation_trajectory"],
@@ -258,7 +259,7 @@ def evaluate_cases(basis, banks, context_free_banks, prior_stats, params_by_regi
                             "single_only_predicted_program": json.dumps(result["single_predicted"]),
                             "wrong_code_predicted_program": json.dumps(result["wrong_code_predicted"]),
                             "context_ablated_predicted_program": json.dumps(result["context_ablated_predicted"]),
-                            "true_vs_best_wrong_class_margin": result["best_wrong_class_margin"],
+                            "true_vs_best_wrong_class_margin": result["best_wrong_class_minus_top_ranked_score"],
                             "old_posterior_trace": result["old_posterior_trace"],
                             "selected_posterior_trace": result["selected_covariance_trace"]})
                         background_rows[-1]["effect_skill"] = result["effect_skill"]
@@ -272,6 +273,8 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--config", default="configs/q1_v2.yaml")
     parser.add_argument("--run-dir", default="results/q1/q1_v2_bayesian_operators_dev1")
+    parser.add_argument("--reuse-basis-checkpoint", default=None,
+                        help="freeze an existing V2 basis/prior checkpoint while retraining operators")
     args = parser.parse_args()
     config_path = ROOT / args.config
     cfg = yaml.safe_load(config_path.read_text(encoding="utf-8"))
@@ -320,27 +323,45 @@ def main():
         "development_test_split_used":False,"simulator_use":"data generation and evaluation oracles only"}
     (out/"provenance.pretraining.json").write_text(json.dumps(pretraining_provenance,indent=2),encoding="utf-8")
 
-    fit_eps, inner_eps, op_eps, inner_op = make_training_data(train_params, inner_params, cfg)
+    fit_eps, inner_eps, op_eps, inner_op = make_training_data(
+        train_params, inner_params, cfg, include_basis=not bool(args.reuse_basis_checkpoint))
     print(f"Generated weak observed episodes: basis={len(fit_eps)}/{len(inner_eps)} operator={len(op_eps)}/{len(inner_op)}", flush=True)
     basis = PartitionedBasis(hidden=cfg["hidden"])
     # Noise variance is fixed from the declared train-only simulator calibration (sigma^2).
     sigma2 = float(cfg["sigma"] ** 2)
-    basis_stats = fit_basis(basis, fit_eps, sigma2=sigma2, seed=cfg["seed"],
-        epochs=cfg["basis_epochs"], batch_size=8, lr=cfg["learning_rate"], inner_episodes=inner_eps)
-    print(f"Basis training complete; selected epoch {basis_stats['selected_epoch']}", flush=True)
-    basis_cpu = {k:v.detach().cpu() for k,v in basis.state_dict().items()}
-    torch.save({"basis":basis_cpu,"prior_mean":basis_stats["prior_mean"].cpu(),
-                "prior_covariance":basis_stats["prior_covariance"].cpu(),"sigma2":sigma2,
-                "selected_epoch":basis_stats["selected_epoch"]}, out/"basis_pretrained.pt")
-    (out/"basis_training.json").write_text(json.dumps({"curve":basis_stats["curve"],
-        "selected_epoch":basis_stats["selected_epoch"],"train_episode_count":len(fit_eps),
-        "inner_episode_count":len(inner_eps),"weak_labels":"observed (s,a,delta_v), no simulator conditional means"},indent=2),encoding="utf-8")
+    if args.reuse_basis_checkpoint:
+        basis_source=(ROOT/args.reuse_basis_checkpoint).resolve()
+        saved=torch.load(basis_source,map_location="cpu",weights_only=False)
+        basis.load_state_dict(saved["basis"])
+        sigma2=float(saved["sigma2"])
+        basis_stats={"prior_mean":saved["prior_mean"],"prior_covariance":saved["prior_covariance"],
+                     "selected_epoch":saved.get("selected_epoch"),"curve":[]}
+        for parameter in basis.parameters(): parameter.requires_grad_(False)
+        torch.save(saved,out/"basis_pretrained.pt")
+        (out/"basis_reuse.json").write_text(json.dumps({"source":basis_source.relative_to(ROOT).as_posix(),
+            "source_sha256":sha256(basis_source),"basis_architecture":"PartitionedBasis(hidden=32), unchanged",
+            "basis_and_prior_frozen":True},indent=2),encoding="utf-8")
+        (out/"basis_training.json").write_text(json.dumps({"reused":True,"selected_epoch":basis_stats["selected_epoch"],
+            "train_episode_count":0,"inner_episode_count":0,"weak_labels":"prior V2 checkpoint reused unchanged"},indent=2),encoding="utf-8")
+        print("Reused and froze the original V2 basis/prior checkpoint",flush=True)
+    else:
+        basis_stats = fit_basis(basis, fit_eps, sigma2=sigma2, seed=cfg["seed"],
+            epochs=cfg["basis_epochs"], batch_size=8, lr=cfg["learning_rate"], inner_episodes=inner_eps)
+        print(f"Basis training complete; selected epoch {basis_stats['selected_epoch']}", flush=True)
+        basis_cpu = {k:v.detach().cpu() for k,v in basis.state_dict().items()}
+        torch.save({"basis":basis_cpu,"prior_mean":basis_stats["prior_mean"].cpu(),
+                    "prior_covariance":basis_stats["prior_covariance"].cpu(),"sigma2":sigma2,
+                    "selected_epoch":basis_stats["selected_epoch"]}, out/"basis_pretrained.pt")
+        (out/"basis_training.json").write_text(json.dumps({"curve":basis_stats["curve"],
+            "selected_epoch":basis_stats["selected_epoch"],"train_episode_count":len(fit_eps),
+            "inner_episode_count":len(inner_eps),"weak_labels":"observed (s,a,delta_v), no simulator conditional means"},indent=2),encoding="utf-8")
 
     # Select one common regularizer on the fixed 8 inner training backgrounds, then refit both seeds.
     chosen_reg=None; reg_scores={}
     for reg in cfg["operator_regularization_grid"]:
         _, diag=fit_operator_bank(basis, basis_stats["prior_mean"], basis_stats["prior_covariance"],
-            op_eps, sigma2=sigma2, seed=cfg["optimizer_seeds"][0], epochs=40,
+            op_eps, sigma2=sigma2, seed=cfg["optimizer_seeds"][0],
+            epochs=cfg.get("operator_regularization_selection_epochs", 40),
             lr=cfg["learning_rate"], regularization=float(reg), inner_episodes=inner_op)
         reg_scores[str(reg)]=diag["inner_nll"]
     chosen_reg=min(cfg["operator_regularization_grid"],key=lambda x:reg_scores[str(x)])
@@ -412,7 +433,7 @@ def main():
     metrics={key:{"n_background_program_seed_rows":len(vals),
         "functional_class_accuracy":float(np.mean([r["functional_class_correct"] for r in vals])),
         "mean_query_delta_v_mse":float(np.mean([r["query_delta_v_mse"] for r in vals])),
-        "mean_best_wrong_class_minus_top_ranked_score":float(np.mean([r["best_wrong_class_minus_top_ranked_score"] for r in vals])),
+        "mean_true_vs_best_wrong_class_margin":float(np.mean([r["true_vs_best_wrong_class_margin"] for r in vals])),
         "mean_old_posterior_trace":float(np.mean([r["old_posterior_trace"] for r in vals])),
         "mean_selected_posterior_trace":float(np.mean([r["selected_posterior_trace"] for r in vals]))} for key,vals in by_cell.items()}
     (out/"metrics.json").write_text(json.dumps({"status":"DEVELOPMENT_DIAGNOSTIC",

@@ -1,0 +1,6 @@
+{
+  "source": "results/q1/q1_v2_bayesian_operators_dev1/basis_pretrained.pt",
+  "source_sha256": "e8dda7856e5fa58a2c37842a0ca87c68a7691615a00dcbcc628e5ff441d2fbcf",
+  "basis_architecture": "PartitionedBasis(hidden=32), unchanged",
+  "basis_and_prior_frozen": true
+}
