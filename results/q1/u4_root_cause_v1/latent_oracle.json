@@ -1,0 +1,158 @@
+{
+  "status": "COMPLETE",
+  "interpretation_status": "INCONCLUSIVE",
+  "phase": "latent",
+  "validation_backgrounds": 16,
+  "codes": [
+    0,
+    2,
+    3
+  ],
+  "fit_query_disjoint": true,
+  "scales_from_training_region_only": {
+    "after_scale": 0.0005092996945208607,
+    "effect_scale_per_code": {
+      "0": 0.00012439872691140995,
+      "1": 2.580408157732988e-05,
+      "2": 3.0730296868882855e-06,
+      "3": 1.1803669737264141e-07
+    }
+  },
+  "free_latent_summary": {
+    "0": {
+      "0.0": {
+        "effect_energy_query_delta_v_squared": 0.00017667565607270934,
+        "effect_mse_query_delta_v_squared": 1.7637641941037708e-05,
+        "effect_skill_query": 0.9001065189166102,
+        "after_mse_query_delta_v_squared": 3.650674157860139e-06,
+        "persistence_after_mse_query": 0.000188052907048987,
+        "relative_after_mse_gain": 0.9805021052370764,
+        "reachable_long_context_after_mse": 2.387269735811867e-05,
+        "learned_operator_effect_skill": 0.9085295861976544,
+        "learned_operator_after_gain": 0.9138289742525122,
+        "selected_fit_effect_skill": 0.9009902490409001,
+        "selected_fit_after_gain": 0.9860169975749133,
+        "selected_start_distribution": {
+          "c_old": 0,
+          "c_after_long": 16,
+          "perturbation_1": 0,
+          "perturbation_2": 0
+        },
+        "local_jacobian_fit_skill_mean": 0.8321811966598034,
+        "local_jacobian_query_skill_mean": 0.8310290724039078
+      },
+      "0.25": {
+        "effect_energy_query_delta_v_squared": 0.00017667565607270934,
+        "effect_mse_query_delta_v_squared": 4.464157839403624e-06,
+        "effect_skill_query": 0.9746400483751474,
+        "after_mse_query_delta_v_squared": 1.7020905836484472e-05,
+        "persistence_after_mse_query": 0.000188052907048987,
+        "relative_after_mse_gain": 0.9082075551763876,
+        "reachable_long_context_after_mse": 2.387269735811867e-05,
+        "learned_operator_effect_skill": 0.9085295861976544,
+        "learned_operator_after_gain": 0.9138289742525122,
+        "selected_fit_effect_skill": 0.9818431507607044,
+        "selected_fit_after_gain": 0.9097482255766842,
+        "selected_start_distribution": {
+          "c_old": 0,
+          "c_after_long": 16,
+          "perturbation_1": 0,
+          "perturbation_2": 0
+        },
+        "local_jacobian_fit_skill_mean": 0.8321811966598034,
+        "local_jacobian_query_skill_mean": 0.8310290724039078
+      }
+    },
+    "2": {
+      "0.0": {
+        "effect_energy_query_delta_v_squared": 1.3613018807856178e-06,
+        "effect_mse_query_delta_v_squared": 9.291804873030657e-06,
+        "effect_skill_query": -6.373820907334206,
+        "after_mse_query_delta_v_squared": 6.3515794700364594e-06,
+        "persistence_after_mse_query": 1.9672567202015574e-05,
+        "relative_after_mse_gain": 0.6809957605626913,
+        "reachable_long_context_after_mse": 1.919626836250319e-05,
+        "learned_operator_effect_skill": 0.46204915870287466,
+        "learned_operator_after_gain": 0.060996457047403425,
+        "selected_fit_effect_skill": -5.2968045050334345,
+        "selected_fit_after_gain": 0.7436899848089213,
+        "selected_start_distribution": {
+          "c_old": 2,
+          "c_after_long": 6,
+          "perturbation_1": 3,
+          "perturbation_2": 5
+        },
+        "local_jacobian_fit_skill_mean": 0.7730385810136795,
+        "local_jacobian_query_skill_mean": 0.7839807458221912
+      },
+      "0.25": {
+        "effect_energy_query_delta_v_squared": 1.3613018807856178e-06,
+        "effect_mse_query_delta_v_squared": 4.799002412014324e-07,
+        "effect_skill_query": 0.6409293896715016,
+        "after_mse_query_delta_v_squared": 1.6947347336033123e-05,
+        "persistence_after_mse_query": 1.9672567202015574e-05,
+        "relative_after_mse_gain": 0.1381198433043267,
+        "reachable_long_context_after_mse": 1.919626836250319e-05,
+        "learned_operator_effect_skill": 0.46204915870287466,
+        "learned_operator_after_gain": 0.060996457047403425,
+        "selected_fit_effect_skill": 0.8584004348495574,
+        "selected_fit_after_gain": 0.15094022814417324,
+        "selected_start_distribution": {
+          "c_old": 5,
+          "c_after_long": 4,
+          "perturbation_1": 1,
+          "perturbation_2": 6
+        },
+        "local_jacobian_fit_skill_mean": 0.7730385810136795,
+        "local_jacobian_query_skill_mean": 0.7839807458221912
+      }
+    },
+    "3": {
+      "0.0": {
+        "effect_energy_query_delta_v_squared": 1.586871437526045e-08,
+        "effect_mse_query_delta_v_squared": 1.051336345025547e-05,
+        "effect_skill_query": -923.6039842234142,
+        "after_mse_query_delta_v_squared": 5.411443318818351e-06,
+        "persistence_after_mse_query": 1.6965316258959346e-05,
+        "relative_after_mse_gain": 0.679952025534786,
+        "reachable_long_context_after_mse": 1.6542252814408265e-05,
+        "learned_operator_effect_skill": -3.195479390449046,
+        "learned_operator_after_gain": 0.01626759223186481,
+        "selected_fit_effect_skill": -635.01133026436,
+        "selected_fit_after_gain": 0.7782463750921056,
+        "selected_start_distribution": {
+          "c_old": 2,
+          "c_after_long": 5,
+          "perturbation_1": 4,
+          "perturbation_2": 5
+        },
+        "local_jacobian_fit_skill_mean": 0.7758177034556866,
+        "local_jacobian_query_skill_mean": 0.7971910759806633
+      },
+      "0.25": {
+        "effect_energy_query_delta_v_squared": 1.586871437526045e-08,
+        "effect_mse_query_delta_v_squared": 2.292294433650113e-08,
+        "effect_skill_query": -0.7579057040331785,
+        "after_mse_query_delta_v_squared": 1.683028550560338e-05,
+        "persistence_after_mse_query": 1.6965316258959346e-05,
+        "relative_after_mse_gain": 0.008117306098852757,
+        "reachable_long_context_after_mse": 1.6542252814408265e-05,
+        "learned_operator_effect_skill": -3.195479390449046,
+        "learned_operator_after_gain": 0.01626759223186481,
+        "selected_fit_effect_skill": 0.6802927349605555,
+        "selected_fit_after_gain": 0.02250529514071163,
+        "selected_start_distribution": {
+          "c_old": 4,
+          "c_after_long": 1,
+          "perturbation_1": 6,
+          "perturbation_2": 5
+        },
+        "local_jacobian_fit_skill_mean": 0.7758177034556866,
+        "local_jacobian_query_skill_mean": 0.7971910759806633
+      }
+    }
+  },
+  "finite_gradient_failures": 0,
+  "optimizer_steps": 115200,
+  "wall_seconds": 167.95178339999984
+}

@@ -1,0 +1,34 @@
+{
+  "date": "2026-10-24",
+  "device": "cpu",
+  "threads": 1,
+  "final_runs": [
+    {
+      "name": "u4_diagnostic_tests",
+      "command": "python -m pytest -q tests/test_q1_u4_diagnostics.py",
+      "exit_code": 0,
+      "summary": "13 passed"
+    },
+    {
+      "name": "existing_focused_q1_suite",
+      "command": "python -m pytest -q tests/test_q1_repair_metrics.py tests/test_q1_repair_effects.py tests/test_q1_simulator.py tests/test_q1_splits.py tests/test_q1_model_contracts.py tests/test_q1_no_leakage.py",
+      "exit_code": 0,
+      "summary": "21 passed"
+    },
+    {
+      "name": "compileall",
+      "command": "python -m compileall -q q1 scripts/q1_u4_root_cause.py tests/test_q1_u4_diagnostics.py",
+      "exit_code": 0,
+      "summary": "completed without diagnostics"
+    }
+  ],
+  "resolved_failures": [
+    {
+      "name": "stale U1 config expectation",
+      "command": "python -m pytest -q tests/test_q1_u4_diagnostics.py",
+      "exit_code": 1,
+      "resolution": "updated test expectation to include the correctly configured U1 oracle control",
+      "log": "verification_failures.md"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "equation_max_abs_error_float64": {
+    "u3": 3.920475055707584e-16,
+    "u4": 3.8510861166685117e-16
+  },
+  "intervention_parameter_scope_checks": {
+    "u3_only_d_changed": true,
+    "u4_only_b_changed": true
+  },
+  "equations": {
+    "u3": "-0.4*dt*d*v",
+    "u4": "-0.5*dt*b*||v||*v"
+  },
+  "paired_noise_checks": [
+    {
+      "sigma": 0.0,
+      "same_state_action": true,
+      "conditional_mean_effect": [
+        0.000178453980602164,
+        0.00400993722527776
+      ],
+      "one_independent_noise_realization_observed_difference": [
+        0.000178453980602164,
+        0.00400993722527776
+      ],
+      "noise_not_in_conditional_target": true
+    },
+    {
+      "sigma": 0.0005,
+      "same_state_action": true,
+      "conditional_mean_effect": [
+        0.000178453980602164,
+        0.00400993722527776
+      ],
+      "one_independent_noise_realization_observed_difference": [
+        -0.0004087199864864083,
+        0.005555456472313036
+      ],
+      "noise_not_in_conditional_target": true
+    }
+  ],
+  "normalizer_max_abs_roundtrip_error_float32": 2.384185791015625e-07,
+  "executor_contract": "raw probes normalized by training-fitted normalizer; predictions denormalized to physical delta-v",
+  "m2_checkpoint_sha256": "e3e7e4d2f38c22ac1b39c0c7e102991da5743c6467c11d12949962281aae8b7b",
+  "m3_checkpoint_sha256": "b51aeb5d69c2bae1e546a09dbdbb2bc1d0faba09fc88125938edcdb07aa3839a",
+  "m3_group_to_code": {
+    "0": 1,
+    "1": 0,
+    "2": 3,
+    "3": 2
+  },
+  "wall_seconds": 0.21440349999920727,
+  "m3_group_to_code_bijective": true
+}

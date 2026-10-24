@@ -1,0 +1,50 @@
+run_kind: DEVELOPMENT_ROOT_CAUSE_DIAGNOSTIC
+seed: 20261024
+dt: 0.05
+noise_sigma: 0.0005
+old_context_support: 96
+budgets:
+- 5
+- 10
+- 20
+- 50
+- 100
+validation_backgrounds: 16
+training_backgrounds: 48
+oracle_trajectory_seeds: 8
+oracle_true_programs:
+- []
+- - 0
+- - 2
+- - 3
+- - 2
+  - 3
+- - 3
+  - 2
+latent_codes:
+- 0
+- 2
+- 3
+latent_fit_probes: 128
+latent_query_probes: 256
+latent_fit_steps:
+- 100
+- 300
+latent_learning_rates:
+- 0.003
+- 0.01
+latent_regularization:
+- 0.0
+- 0.0001
+latent_betas:
+- 0.0
+- 0.25
+latent_starts: 4
+latent_perturbation_std: 0.01
+effect_gate:
+  effect_skill_min: 0.1
+  after_mse_gain_min: 0.05
+diagnostic_m3_floor_fractions:
+- 0.01
+- 0.0001
+- 0.0

@@ -55,3 +55,7 @@ M3 uses training-only opaque same-intervention groups with a saved random code b
 ## Artifacts
 
 Each run stores resolved config, split manifest, model checkpoints, machine-readable metrics, training curves, per-seed CSV summaries, gate reports, and generated plots under `results/q1/<run_id>/`. Checkpoints are ignored except for the small saved stage diagnostics. `docs/q1_m1_report.md` records the M1 development gate and its limits; `docs/q1_development_pilot.md` summarizes the current one-seed M2–M4 gates, including the M4 failure.
+
+## U4 root-cause diagnosis
+
+The U4-specific physical-identifiability and frozen-M2 latent-oracle investigation is documented in [`docs/q1_u4_root_cause_results.md`](docs/q1_u4_root_cause_results.md), with machine-readable evidence in `results/q1/u4_root_cause_v1/`. The physical oracle reaches 0.922 functional-class accuracy at N=100, but the free-latent U4 fit does not generalize to disjoint query probes. The diagnosis is **UNRESOLVED / MIXED**; the conditional loss-floor ablation, M4, and confirmatory training were skipped.

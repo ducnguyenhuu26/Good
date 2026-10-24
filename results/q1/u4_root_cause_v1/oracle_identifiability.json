@@ -1,0 +1,1690 @@
+{
+  "status": "COMPLETE",
+  "phase": "oracle",
+  "noise_sigma": 0.0005,
+  "programs": [
+    [],
+    [
+      0
+    ],
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      0
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ]
+  ],
+  "true_programs": [
+    [],
+    [
+      0
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      2
+    ]
+  ],
+  "budgets": [
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "replicates_per_background": 8,
+  "continuous_stage_pair": true,
+  "validation_only": true,
+  "class_accuracy": {
+    "[]": {
+      "5": {
+        "class_accuracy": 0.765625,
+        "background_cluster_ci95_normal": [
+          0.6853742536379464,
+          0.8458757463620536
+        ],
+        "identity_accuracy": 0.765625,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "10": {
+        "class_accuracy": 0.8203125,
+        "background_cluster_ci95_normal": [
+          0.7612716088912382,
+          0.8793533911087618
+        ],
+        "identity_accuracy": 0.8203125,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "20": {
+        "class_accuracy": 0.8359375,
+        "background_cluster_ci95_normal": [
+          0.7824532368354953,
+          0.8894217631645047
+        ],
+        "identity_accuracy": 0.8359375,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "50": {
+        "class_accuracy": 0.890625,
+        "background_cluster_ci95_normal": [
+          0.846598788583769,
+          0.934651211416231
+        ],
+        "identity_accuracy": 0.890625,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "100": {
+        "class_accuracy": 0.9296875,
+        "background_cluster_ci95_normal": [
+          0.8983062132792488,
+          0.9610687867207512
+        ],
+        "identity_accuracy": 0.9296875,
+        "case_count": 128,
+        "background_count": 16
+      }
+    },
+    "[0]": {
+      "5": {
+        "class_accuracy": 0.640625,
+        "background_cluster_ci95_normal": [
+          0.5543660934550331,
+          0.7268839065449669
+        ],
+        "identity_accuracy": 0.640625,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "10": {
+        "class_accuracy": 0.7734375,
+        "background_cluster_ci95_normal": [
+          0.7055309791576194,
+          0.8413440208423806
+        ],
+        "identity_accuracy": 0.7734375,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "20": {
+        "class_accuracy": 0.8125,
+        "background_cluster_ci95_normal": [
+          0.7533268782863931,
+          0.8716731217136069
+        ],
+        "identity_accuracy": 0.8125,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "50": {
+        "class_accuracy": 0.8671875,
+        "background_cluster_ci95_normal": [
+          0.8060652373653157,
+          0.9283097626346843
+        ],
+        "identity_accuracy": 0.8671875,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "100": {
+        "class_accuracy": 0.8984375,
+        "background_cluster_ci95_normal": [
+          0.8426641141164384,
+          0.9542108858835616
+        ],
+        "identity_accuracy": 0.8984375,
+        "case_count": 128,
+        "background_count": 16
+      }
+    },
+    "[2]": {
+      "5": {
+        "class_accuracy": 0.6484375,
+        "background_cluster_ci95_normal": [
+          0.5671225019599705,
+          0.7297524980400295
+        ],
+        "identity_accuracy": 0.6484375,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "10": {
+        "class_accuracy": 0.78125,
+        "background_cluster_ci95_normal": [
+          0.7123153993507856,
+          0.8501846006492144
+        ],
+        "identity_accuracy": 0.78125,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "20": {
+        "class_accuracy": 0.8203125,
+        "background_cluster_ci95_normal": [
+          0.753333074132176,
+          0.887291925867824
+        ],
+        "identity_accuracy": 0.8203125,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "50": {
+        "class_accuracy": 0.8515625,
+        "background_cluster_ci95_normal": [
+          0.7874447392812777,
+          0.9156802607187223
+        ],
+        "identity_accuracy": 0.8515625,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "100": {
+        "class_accuracy": 0.8828125,
+        "background_cluster_ci95_normal": [
+          0.83553347727762,
+          0.93009152272238
+        ],
+        "identity_accuracy": 0.8828125,
+        "case_count": 128,
+        "background_count": 16
+      }
+    },
+    "[3]": {
+      "5": {
+        "class_accuracy": 0.34375,
+        "background_cluster_ci95_normal": [
+          0.24755304491998373,
+          0.43994695508001624
+        ],
+        "identity_accuracy": 0.34375,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "10": {
+        "class_accuracy": 0.6875,
+        "background_cluster_ci95_normal": [
+          0.6283268782863931,
+          0.7466731217136069
+        ],
+        "identity_accuracy": 0.6875,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "20": {
+        "class_accuracy": 0.7890625,
+        "background_cluster_ci95_normal": [
+          0.7269256906764061,
+          0.8511993093235939
+        ],
+        "identity_accuracy": 0.7890625,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "50": {
+        "class_accuracy": 0.8203125,
+        "background_cluster_ci95_normal": [
+          0.7462405069375071,
+          0.8943844930624929
+        ],
+        "identity_accuracy": 0.8203125,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "100": {
+        "class_accuracy": 0.921875,
+        "background_cluster_ci95_normal": [
+          0.883952724773778,
+          0.959797275226222
+        ],
+        "identity_accuracy": 0.921875,
+        "case_count": 128,
+        "background_count": 16
+      }
+    },
+    "[2, 3]": {
+      "5": {
+        "class_accuracy": 0.625,
+        "background_cluster_ci95_normal": [
+          0.5200972672742348,
+          0.7299027327257652
+        ],
+        "identity_accuracy": 0.0,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "10": {
+        "class_accuracy": 0.765625,
+        "background_cluster_ci95_normal": [
+          0.6710669545552398,
+          0.8601830454447602
+        ],
+        "identity_accuracy": 0.0,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "20": {
+        "class_accuracy": 0.765625,
+        "background_cluster_ci95_normal": [
+          0.6853742536379464,
+          0.8458757463620536
+        ],
+        "identity_accuracy": 0.0,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "50": {
+        "class_accuracy": 0.8203125,
+        "background_cluster_ci95_normal": [
+          0.7612716088912382,
+          0.8793533911087618
+        ],
+        "identity_accuracy": 0.0,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "100": {
+        "class_accuracy": 0.8515625,
+        "background_cluster_ci95_normal": [
+          0.7733837268392714,
+          0.9297412731607286
+        ],
+        "identity_accuracy": 0.0,
+        "case_count": 128,
+        "background_count": 16
+      }
+    },
+    "[3, 2]": {
+      "5": {
+        "class_accuracy": 0.6796875,
+        "background_cluster_ci95_normal": [
+          0.612708074132176,
+          0.746666925867824
+        ],
+        "identity_accuracy": 0.6796875,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "10": {
+        "class_accuracy": 0.8046875,
+        "background_cluster_ci95_normal": [
+          0.7340726869441215,
+          0.8753023130558785
+        ],
+        "identity_accuracy": 0.8046875,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "20": {
+        "class_accuracy": 0.8359375,
+        "background_cluster_ci95_normal": [
+          0.7928080467275166,
+          0.8790669532724834
+        ],
+        "identity_accuracy": 0.8359375,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "50": {
+        "class_accuracy": 0.8828125,
+        "background_cluster_ci95_normal": [
+          0.83553347727762,
+          0.93009152272238
+        ],
+        "identity_accuracy": 0.8828125,
+        "case_count": 128,
+        "background_count": 16
+      },
+      "100": {
+        "class_accuracy": 0.921875,
+        "background_cluster_ci95_normal": [
+          0.867665001306647,
+          0.976084998693353
+        ],
+        "identity_accuracy": 0.921875,
+        "case_count": 128,
+        "background_count": 16
+      }
+    }
+  },
+  "u4_focused_confusion": {
+    "5": {
+      "predicted_program_counts": {
+        "[]": 44,
+        "[0]": 0,
+        "[1]": 0,
+        "[2]": 1,
+        "[3]": 44,
+        "[0, 0]": 0,
+        "[0, 1]": 0,
+        "[0, 2]": 0,
+        "[0, 3]": 0,
+        "[1, 0]": 0,
+        "[1, 1]": 0,
+        "[1, 2]": 0,
+        "[1, 3]": 0,
+        "[2, 0]": 0,
+        "[2, 1]": 0,
+        "[2, 2]": 0,
+        "[2, 3]": 0,
+        "[3, 0]": 0,
+        "[3, 1]": 0,
+        "[3, 2]": 0,
+        "[3, 3]": 39
+      },
+      "best_wrong_class_program_counts": {
+        "identity": 73,
+        "u3": 1,
+        "u4": 0,
+        "u3_u3": 0,
+        "u4_u4": 54,
+        "u3_then_u4": 0,
+        "u4_then_u3": 0
+      },
+      "mean_candidate_mse": {
+        "identity": 2.8750512583333686e-07,
+        "u3": 2.2600450407985364e-06,
+        "u4": 2.532136892319415e-07,
+        "u3_u3": 1.3571348064575022e-05,
+        "u4_u4": 3.1003918275763427e-07,
+        "u3_then_u4": 2.748555136218988e-06,
+        "u4_then_u3": 2.748555136218988e-06
+      },
+      "case_count": 128
+    },
+    "10": {
+      "predicted_program_counts": {
+        "[]": 23,
+        "[0]": 0,
+        "[1]": 0,
+        "[2]": 0,
+        "[3]": 88,
+        "[0, 0]": 0,
+        "[0, 1]": 0,
+        "[0, 2]": 0,
+        "[0, 3]": 0,
+        "[1, 0]": 0,
+        "[1, 1]": 0,
+        "[1, 2]": 0,
+        "[1, 3]": 0,
+        "[2, 0]": 0,
+        "[2, 1]": 0,
+        "[2, 2]": 0,
+        "[2, 3]": 0,
+        "[3, 0]": 0,
+        "[3, 1]": 0,
+        "[3, 2]": 0,
+        "[3, 3]": 17
+      },
+      "best_wrong_class_program_counts": {
+        "identity": 88,
+        "u3": 0,
+        "u4": 0,
+        "u3_u3": 0,
+        "u4_u4": 40,
+        "u3_then_u4": 0,
+        "u4_then_u3": 0
+      },
+      "mean_candidate_mse": {
+        "identity": 3.2354998538870523e-07,
+        "u3": 3.1849212264255556e-06,
+        "u4": 2.607774615204103e-07,
+        "u3_u3": 1.9998090671649605e-05,
+        "u4_u4": 3.905561627997062e-07,
+        "u3_then_u4": 4.04980943047853e-06,
+        "u4_then_u3": 4.04980943047853e-06
+      },
+      "case_count": 128
+    },
+    "20": {
+      "predicted_program_counts": {
+        "[]": 18,
+        "[0]": 0,
+        "[1]": 0,
+        "[2]": 0,
+        "[3]": 101,
+        "[0, 0]": 0,
+        "[0, 1]": 0,
+        "[0, 2]": 0,
+        "[0, 3]": 0,
+        "[1, 0]": 0,
+        "[1, 1]": 0,
+        "[1, 2]": 0,
+        "[1, 3]": 0,
+        "[2, 0]": 0,
+        "[2, 1]": 0,
+        "[2, 2]": 0,
+        "[2, 3]": 0,
+        "[3, 0]": 0,
+        "[3, 1]": 0,
+        "[3, 2]": 0,
+        "[3, 3]": 9
+      },
+      "best_wrong_class_program_counts": {
+        "identity": 88,
+        "u3": 0,
+        "u4": 0,
+        "u3_u3": 0,
+        "u4_u4": 40,
+        "u3_then_u4": 0,
+        "u4_then_u3": 0
+      },
+      "mean_candidate_mse": {
+        "identity": 2.9450766843019074e-07,
+        "u3": 2.2697097429534394e-06,
+        "u4": 2.557978665824557e-07,
+        "u3_u3": 1.3695531318748289e-05,
+        "u4_u4": 3.299742590030413e-07,
+        "u3_then_u4": 2.808077735264795e-06,
+        "u4_then_u3": 2.808077735264795e-06
+      },
+      "case_count": 128
+    },
+    "50": {
+      "predicted_program_counts": {
+        "[]": 16,
+        "[0]": 0,
+        "[1]": 0,
+        "[2]": 0,
+        "[3]": 105,
+        "[0, 0]": 0,
+        "[0, 1]": 0,
+        "[0, 2]": 0,
+        "[0, 3]": 0,
+        "[1, 0]": 0,
+        "[1, 1]": 0,
+        "[1, 2]": 0,
+        "[1, 3]": 0,
+        "[2, 0]": 0,
+        "[2, 1]": 0,
+        "[2, 2]": 0,
+        "[2, 3]": 0,
+        "[3, 0]": 0,
+        "[3, 1]": 0,
+        "[3, 2]": 0,
+        "[3, 3]": 7
+      },
+      "best_wrong_class_program_counts": {
+        "identity": 93,
+        "u3": 0,
+        "u4": 0,
+        "u3_u3": 0,
+        "u4_u4": 35,
+        "u3_then_u4": 0,
+        "u4_then_u3": 0
+      },
+      "mean_candidate_mse": {
+        "identity": 2.737960505197155e-07,
+        "u3": 1.6348668026595353e-06,
+        "u4": 2.5504954831470413e-07,
+        "u3_u3": 9.224359277688422e-06,
+        "u4_u4": 2.930441305173405e-07,
+        "u3_then_u4": 1.9395710894420937e-06,
+        "u4_then_u3": 1.9395710894420937e-06
+      },
+      "case_count": 128
+    },
+    "100": {
+      "predicted_program_counts": {
+        "[]": 7,
+        "[0]": 0,
+        "[1]": 0,
+        "[2]": 0,
+        "[3]": 118,
+        "[0, 0]": 0,
+        "[0, 1]": 0,
+        "[0, 2]": 0,
+        "[0, 3]": 0,
+        "[1, 0]": 0,
+        "[1, 1]": 0,
+        "[1, 2]": 0,
+        "[1, 3]": 0,
+        "[2, 0]": 0,
+        "[2, 1]": 0,
+        "[2, 2]": 0,
+        "[2, 3]": 0,
+        "[3, 0]": 0,
+        "[3, 1]": 0,
+        "[3, 2]": 0,
+        "[3, 3]": 3
+      },
+      "best_wrong_class_program_counts": {
+        "identity": 91,
+        "u3": 0,
+        "u4": 0,
+        "u3_u3": 0,
+        "u4_u4": 37,
+        "u3_then_u4": 0,
+        "u4_then_u3": 0
+      },
+      "mean_candidate_mse": {
+        "identity": 2.653073839753303e-07,
+        "u3": 1.4188579401424582e-06,
+        "u4": 2.5245306621113283e-07,
+        "u3_u3": 7.752209316338321e-06,
+        "u4_u4": 2.773995944161789e-07,
+        "u3_then_u4": 1.646195462974931e-06,
+        "u4_then_u3": 1.646195462974931e-06
+      },
+      "case_count": 128
+    }
+  },
+  "natural_distribution_by_background_code": [
+    {
+      "background": 0,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 1.3032404621749568e-08,
+      "effect_rms_delta_v": 0.0001141595577328047,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.2283191154656094,
+      "per_step_u4_u3_conditional_kl_nats": 4.750182501484053,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.05212961848699828,
+        "u3": 4.750182501484053,
+        "u3_u3": 30.565320635922447,
+        "u4_u4": 0.11729164159574566,
+        "u3_then_u4": 5.725554791143602,
+        "u4_then_u3": 5.725554791143602
+      },
+      "velocity_norm_median": 0.1300487588696697,
+      "velocity_norm_p10_p90": [
+        0.05000770443372364,
+        0.2530721825926917
+      ],
+      "v_normv_gram": [
+        [
+          2.7584075419650267,
+          0.6337380545193294
+        ],
+        [
+          0.6337380545193294,
+          0.16464857630789637
+        ]
+      ],
+      "v_normv_gram_condition_number": 160.60538910107445,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 0,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.1192317627634793e-06,
+      "effect_rms_delta_v": 0.0010579375041860834,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.115875008372167,
+      "per_step_u4_u3_conditional_kl_nats": 3.8761672838255086,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.1330105264828652,
+      "velocity_norm_p10_p90": [
+        0.06862819322508346,
+        0.2102471603209125
+      ],
+      "v_normv_gram": [
+        [
+          2.1568546268313287,
+          0.3852975347908921
+        ],
+        [
+          0.3852975347908921,
+          0.07560291189858935
+        ]
+      ],
+      "v_normv_gram_condition_number": 339.1171279136492,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 1,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 1.0340122737644609e-08,
+      "effect_rms_delta_v": 0.00010168639406353541,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.20337278812707082,
+      "per_step_u4_u3_conditional_kl_nats": 5.207347779864763,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.041360490950578435,
+        "u3": 5.207347779864763,
+        "u3_u3": 32.97937863532443,
+        "u4_u4": 0.09306110463880193,
+        "u3_then_u4": 6.112990669934487,
+        "u4_then_u3": 6.112990669934487
+      },
+      "velocity_norm_median": 0.1320117273683531,
+      "velocity_norm_p10_p90": [
+        0.06830433222671799,
+        0.233601715005619
+      ],
+      "v_normv_gram": [
+        [
+          2.5949266354916936,
+          0.5449518148533777
+        ],
+        [
+          0.5449518148533777,
+          0.12905875553273224
+        ]
+      ],
+      "v_normv_gram_condition_number": 193.6439941693532,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 1,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.643070664905245e-06,
+      "effect_rms_delta_v": 0.001281823180046782,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.563646360093564,
+      "per_step_u4_u3_conditional_kl_nats": 5.489096507024147,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.13763422544668957,
+      "velocity_norm_p10_p90": [
+        0.05579503681589957,
+        0.24138106666678935
+      ],
+      "v_normv_gram": [
+        [
+          2.789893237251331,
+          0.6564834818762806
+        ],
+        [
+          0.6564834818762806,
+          0.17983798990901487
+        ]
+      ],
+      "v_normv_gram_condition_number": 122.63181428134486,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 2,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 5.912230255981657e-09,
+      "effect_rms_delta_v": 7.689102844923885e-05,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.15378205689847768,
+      "per_step_u4_u3_conditional_kl_nats": 3.677877625845029,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.023648921023926635,
+        "u3": 3.677877625845029,
+        "u3_u3": 23.136545637282637,
+        "u4_u4": 0.05321007230383613,
+        "u3_then_u4": 4.268674947823817,
+        "u4_then_u3": 4.268674947823817
+      },
+      "velocity_norm_median": 0.12824002242758764,
+      "velocity_norm_p10_p90": [
+        0.06640259611133215,
+        0.20509847798330477
+      ],
+      "v_normv_gram": [
+        [
+          2.0585879755875047,
+          0.34933966267323313
+        ],
+        [
+          0.34933966267323313,
+          0.06340492348370164
+        ]
+      ],
+      "v_normv_gram_condition_number": 528.5937531138628,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 2,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.2384269289393779e-06,
+      "effect_rms_delta_v": 0.0011128463186529296,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.225692637305859,
+      "per_step_u4_u3_conditional_kl_nats": 4.161397927948541,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.13360614175007487,
+      "velocity_norm_p10_p90": [
+        0.05566868328259695,
+        0.20828527055877888
+      ],
+      "v_normv_gram": [
+        [
+          2.388948154375689,
+          0.47265751896415775
+        ],
+        [
+          0.47265751896415775,
+          0.10466354052763771
+        ]
+      ],
+      "v_normv_gram_condition_number": 231.48983870961217,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 3,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 1.675863750031791e-08,
+      "effect_rms_delta_v": 0.00012945515632958738,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.25891031265917475,
+      "per_step_u4_u3_conditional_kl_nats": 5.241200047313962,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.06703455000127165,
+        "u3": 5.241200047313962,
+        "u3_u3": 34.03299047751995,
+        "u4_u4": 0.15082773750286418,
+        "u3_then_u4": 6.4130829565381555,
+        "u4_then_u3": 6.4130829565381555
+      },
+      "velocity_norm_median": 0.13762440774201481,
+      "velocity_norm_p10_p90": [
+        0.04747699507141103,
+        0.2562480824443693
+      ],
+      "v_normv_gram": [
+        [
+          2.906302002960298,
+          0.6774440141084498
+        ],
+        [
+          0.6774440141084498,
+          0.17690775825400365
+        ]
+      ],
+      "v_normv_gram_condition_number": 170.15461508380474,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 3,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.2999921510511922e-06,
+      "effect_rms_delta_v": 0.001140171983102195,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.28034396620439,
+      "per_step_u4_u3_conditional_kl_nats": 4.40306395359834,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.13863035347033478,
+      "velocity_norm_p10_p90": [
+        0.06119531657217898,
+        0.21875850653087275
+      ],
+      "v_normv_gram": [
+        [
+          2.356538855360285,
+          0.45639140443348447
+        ],
+        [
+          0.45639140443348447,
+          0.09962224971548242
+        ]
+      ],
+      "v_normv_gram_condition_number": 225.89860704988718,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 4,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 5.6605214698160734e-09,
+      "effect_rms_delta_v": 7.523643711537697e-05,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.15047287423075395,
+      "per_step_u4_u3_conditional_kl_nats": 3.926243598408161,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.022642085879264296,
+        "u3": 3.926243598408161,
+        "u3_u3": 24.541706308620235,
+        "u4_u4": 0.050944693228345994,
+        "u3_then_u4": 4.509053747818946,
+        "u4_then_u3": 4.509053747818946
+      },
+      "velocity_norm_median": 0.127739053873688,
+      "velocity_norm_p10_p90": [
+        0.07041017011495714,
+        0.20261352641741615
+      ],
+      "v_normv_gram": [
+        [
+          2.1114727100316246,
+          0.3837783645094233
+        ],
+        [
+          0.3837783645094233,
+          0.07771011751392111
+        ]
+      ],
+      "v_normv_gram_condition_number": 283.3172448293159,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 4,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.432918908507683e-06,
+      "effect_rms_delta_v": 0.001197045909106114,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.394091818212228,
+      "per_step_u4_u3_conditional_kl_nats": 4.832097141397648,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.13391104747069082,
+      "velocity_norm_p10_p90": [
+        0.0633156060956023,
+        0.22976300738860797
+      ],
+      "v_normv_gram": [
+        [
+          2.6839947715999246,
+          0.5986385147325931
+        ],
+        [
+          0.5986385147325931,
+          0.1538925905741886
+        ]
+      ],
+      "v_normv_gram_condition_number": 145.28236251878172,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 5,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 2.557396980013623e-09,
+      "effect_rms_delta_v": 5.0570712670612254e-05,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.1011414253412245,
+      "per_step_u4_u3_conditional_kl_nats": 2.469195877769831,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.010229587920054494,
+        "u3": 2.469195877769831,
+        "u3_u3": 15.27833663987033,
+        "u4_u4": 0.023016572820122875,
+        "u3_then_u4": 2.7876749869972626,
+        "u4_then_u3": 2.7876749869972626
+      },
+      "velocity_norm_median": 0.11677014604630276,
+      "velocity_norm_p10_p90": [
+        0.05356733287010998,
+        0.17604449791387294
+      ],
+      "v_normv_gram": [
+        [
+          1.590870990724103,
+          0.23020289163668547
+        ],
+        [
+          0.23020289163668547,
+          0.03516612095158617
+        ]
+      ],
+      "v_normv_gram_condition_number": 893.8467243880282,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 5,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.1982718698679828e-06,
+      "effect_rms_delta_v": 0.001094656050943849,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.189312101887698,
+      "per_step_u4_u3_conditional_kl_nats": 3.9706114297899835,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.13667961058100764,
+      "velocity_norm_p10_p90": [
+        0.0635860558944464,
+        0.23130331513909275
+      ],
+      "v_normv_gram": [
+        [
+          2.735320244526876,
+          0.6075026339581108
+        ],
+        [
+          0.6075026339581108,
+          0.15463475010635835
+        ]
+      ],
+      "v_normv_gram_condition_number": 152.89780143033934,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 6,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 5.317886123477579e-09,
+      "effect_rms_delta_v": 7.292383782740441e-05,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.14584767565480883,
+      "per_step_u4_u3_conditional_kl_nats": 3.8584758236703722,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.021271544493910315,
+        "u3": 3.8584758236703722,
+        "u3_u3": 24.126096479174148,
+        "u4_u4": 0.047860975111293995,
+        "u3_then_u4": 4.433194840671645,
+        "u4_then_u3": 4.433194840671645
+      },
+      "velocity_norm_median": 0.12958653746093646,
+      "velocity_norm_p10_p90": [
+        0.05812966943698649,
+        0.18569735485470049
+      ],
+      "v_normv_gram": [
+        [
+          1.8649128173838905,
+          0.3006838485698159
+        ],
+        [
+          0.3006838485698159,
+          0.05148239444414826
+        ]
+      ],
+      "v_normv_gram_condition_number": 653.8848682514092,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 6,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.2434436132913704e-06,
+      "effect_rms_delta_v": 0.0011150980285568486,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.230196057113697,
+      "per_step_u4_u3_conditional_kl_nats": 4.257840533096164,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.13032133222043474,
+      "velocity_norm_p10_p90": [
+        0.06440523285519964,
+        0.19754614713634727
+      ],
+      "v_normv_gram": [
+        [
+          2.0923185336648933,
+          0.37708145517054265
+        ],
+        [
+          0.37708145517054265,
+          0.07620301669409724
+        ]
+      ],
+      "v_normv_gram_condition_number": 270.5953173484199,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 7,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 2.7622459846039333e-08,
+      "effect_rms_delta_v": 0.0001662000597052821,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.3324001194105642,
+      "per_step_u4_u3_conditional_kl_nats": 6.250967362477858,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.11048983938415734,
+        "u3": 6.250967362477858,
+        "u3_u3": 41.395439786581,
+        "u4_u4": 0.24860213861435965,
+        "u3_then_u4": 7.901132110646437,
+        "u4_then_u3": 7.901132110646437
+      },
+      "velocity_norm_median": 0.14026373345516635,
+      "velocity_norm_p10_p90": [
+        0.044095332986878455,
+        0.271038721985141
+      ],
+      "v_normv_gram": [
+        [
+          3.3699602044452486,
+          0.8749222726119168
+        ],
+        [
+          0.8749222726119168,
+          0.25588068467943365
+        ]
+      ],
+      "v_normv_gram_condition_number": 133.77948083098357,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 7,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.0765218375788379e-06,
+      "effect_rms_delta_v": 0.0010375557033619148,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.0751114067238294,
+      "per_step_u4_u3_conditional_kl_nats": 3.730422826728604,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.12416013078672927,
+      "velocity_norm_p10_p90": [
+        0.06889997346441029,
+        0.18668092597938374
+      ],
+      "v_normv_gram": [
+        [
+          1.8366156652252994,
+          0.29732787072649514
+        ],
+        [
+          0.29732787072649514,
+          0.05248892364009995
+        ]
+      ],
+      "v_normv_gram_condition_number": 444.1923070994115,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 8,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 1.1976566196057264e-08,
+      "effect_rms_delta_v": 0.00010943749903966768,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.21887499807933536,
+      "per_step_u4_u3_conditional_kl_nats": 5.461302890343895,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.04790626478422906,
+        "u3": 5.461302890343895,
+        "u3_u3": 34.71586787941445,
+        "u4_u4": 0.1077890957645183,
+        "u3_then_u4": 6.451133843240182,
+        "u4_then_u3": 6.451133843240182
+      },
+      "velocity_norm_median": 0.14176978959856973,
+      "velocity_norm_p10_p90": [
+        0.06565940659730536,
+        0.22511895732158696
+      ],
+      "v_normv_gram": [
+        [
+          2.72981162827739,
+          0.5927225059913949
+        ],
+        [
+          0.5927225059913949,
+          0.1477351118944878
+        ]
+      ],
+      "v_normv_gram_condition_number": 157.3245163638263,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 8,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.4265412183368185e-06,
+      "effect_rms_delta_v": 0.0011943790095010956,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.388758019002191,
+      "per_step_u4_u3_conditional_kl_nats": 4.900177168183941,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.13546650913748626,
+      "velocity_norm_p10_p90": [
+        0.052315115857952385,
+        0.2318957373212103
+      ],
+      "v_normv_gram": [
+        [
+          2.414576352411824,
+          0.47992191892869906
+        ],
+        [
+          0.47992191892869906,
+          0.10564763237063914
+        ]
+      ],
+      "v_normv_gram_condition_number": 254.42430007368765,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 9,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 8.99287691365977e-09,
+      "effect_rms_delta_v": 9.483078041258423e-05,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.18966156082516847,
+      "per_step_u4_u3_conditional_kl_nats": 3.2591929678658653,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.03597150765463908,
+        "u3": 3.2591929678658653,
+        "u3_u3": 20.9825003747244,
+        "u4_u4": 0.08093589222293833,
+        "u3_then_u4": 3.9317849293341642,
+        "u4_then_u3": 3.9317849293341642
+      },
+      "velocity_norm_median": 0.1301869275365527,
+      "velocity_norm_p10_p90": [
+        0.06293173732280256,
+        0.20472922115525746
+      ],
+      "v_normv_gram": [
+        [
+          2.2288438751143054,
+          0.4253768840191282
+        ],
+        [
+          0.4253768840191282,
+          0.09147849111060452
+        ]
+      ],
+      "v_normv_gram_condition_number": 232.63124702990467,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 9,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 8.666070826996388e-07,
+      "effect_rms_delta_v": 0.0009309173339774262,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 1.8618346679548523,
+      "per_step_u4_u3_conditional_kl_nats": 2.9423749246271282,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.12672766723555046,
+      "velocity_norm_p10_p90": [
+        0.062403172146613305,
+        0.20038913366451352
+      ],
+      "v_normv_gram": [
+        [
+          1.9650432799566848,
+          0.328673978348435
+        ],
+        [
+          0.328673978348435,
+          0.05958195212758456
+        ]
+      ],
+      "v_normv_gram_condition_number": 450.711181378607,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 10,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 3.719259488016389e-09,
+      "effect_rms_delta_v": 6.098573183963925e-05,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.1219714636792785,
+      "per_step_u4_u3_conditional_kl_nats": 4.000995830841468,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.014877037952065556,
+        "u3": 4.000995830841468,
+        "u3_u3": 24.656333194466733,
+        "u4_u4": 0.033473335392148744,
+        "u3_then_u4": 4.486539004041704,
+        "u4_then_u3": 4.486539004041704
+      },
+      "velocity_norm_median": 0.13206707059200604,
+      "velocity_norm_p10_p90": [
+        0.06020080256028935,
+        0.17512111708973865
+      ],
+      "v_normv_gram": [
+        [
+          1.8960919061189356,
+          0.302865303118557
+        ],
+        [
+          0.302865303118557,
+          0.05157721487817683
+        ]
+      ],
+      "v_normv_gram_condition_number": 623.1751670645589,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 10,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.7040606461967993e-06,
+      "effect_rms_delta_v": 0.0013053967390019019,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.610793478003804,
+      "per_step_u4_u3_conditional_kl_nats": 5.759776656477372,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.1347657622252018,
+      "velocity_norm_p10_p90": [
+        0.05699652395783299,
+        0.2407977940429032
+      ],
+      "v_normv_gram": [
+        [
+          2.8806664521394834,
+          0.6705045834783346
+        ],
+        [
+          0.6705045834783346,
+          0.17819750011023414
+        ]
+      ],
+      "v_normv_gram_condition_number": 144.7613720229612,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 11,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 5.133032953664846e-09,
+      "effect_rms_delta_v": 7.164518793097584e-05,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.14329037586195167,
+      "per_step_u4_u3_conditional_kl_nats": 3.803677998757633,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.020532131814659387,
+        "u3": 3.803677998757633,
+        "u3_u3": 23.7582687751319,
+        "u4_u4": 0.04619729658298261,
+        "u3_then_u4": 4.362555524599435,
+        "u4_then_u3": 4.362555524599435
+      },
+      "velocity_norm_median": 0.12079550836110924,
+      "velocity_norm_p10_p90": [
+        0.06325289645745731,
+        0.19656978276178713
+      ],
+      "v_normv_gram": [
+        [
+          1.9217055418950866,
+          0.31588366480447144
+        ],
+        [
+          0.31588366480447144,
+          0.05541547195144122
+        ]
+      ],
+      "v_normv_gram_condition_number": 580.5861882556164,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 11,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.7604741038496324e-06,
+      "effect_rms_delta_v": 0.0013268285887218562,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.653657177443712,
+      "per_step_u4_u3_conditional_kl_nats": 5.730762618857538,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.1451390995668527,
+      "velocity_norm_p10_p90": [
+        0.05953398112641689,
+        0.25674193396732253
+      ],
+      "v_normv_gram": [
+        [
+          3.10195510191587,
+          0.7581580689825823
+        ],
+        [
+          0.7581580689825823,
+          0.21461549738784338
+        ]
+      ],
+      "v_normv_gram_condition_number": 118.96782747384206,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 12,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 1.1096065071881459e-08,
+      "effect_rms_delta_v": 0.00010533786153079745,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.2106757230615949,
+      "per_step_u4_u3_conditional_kl_nats": 4.80939387723579,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.04438426028752582,
+        "u3": 4.80939387723579,
+        "u3_u3": 30.68895817911463,
+        "u4_u4": 0.09986458564693278,
+        "u3_then_u4": 5.716830606592647,
+        "u4_then_u3": 5.716830606592647
+      },
+      "velocity_norm_median": 0.13833901947264216,
+      "velocity_norm_p10_p90": [
+        0.06674473899127864,
+        0.20944787043842858
+      ],
+      "v_normv_gram": [
+        [
+          2.490595852630776,
+          0.49509719656538764
+        ],
+        [
+          0.49509719656538764,
+          0.11025833248795283
+        ]
+      ],
+      "v_normv_gram_condition_number": 227.39429533689795,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 12,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.1932121082633476e-06,
+      "effect_rms_delta_v": 0.0010923424867061373,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.1846849734122746,
+      "per_step_u4_u3_conditional_kl_nats": 4.110502884676466,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.13130750230990956,
+      "velocity_norm_p10_p90": [
+        0.0500458571723655,
+        0.20586779435664518
+      ],
+      "v_normv_gram": [
+        [
+          2.0793403426873827,
+          0.35832615883790175
+        ],
+        [
+          0.35832615883790175,
+          0.06591526712156957
+        ]
+      ],
+      "v_normv_gram_condition_number": 529.2590985226908,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 13,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 1.1922341150448952e-08,
+      "effect_rms_delta_v": 0.00010918947362474531,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.2183789472494906,
+      "per_step_u4_u3_conditional_kl_nats": 4.868463044650263,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.047689364601795826,
+        "u3": 4.868463044650263,
+        "u3_u3": 31.133520198568043,
+        "u4_u4": 0.10730107035403644,
+        "u3_then_u4": 5.808325595788658,
+        "u4_then_u3": 5.808325595788658
+      },
+      "velocity_norm_median": 0.12866439154452625,
+      "velocity_norm_p10_p90": [
+        0.053989673094345554,
+        0.23530128589392044
+      ],
+      "v_normv_gram": [
+        [
+          2.5857608020897094,
+          0.5633954269450687
+        ],
+        [
+          0.5633954269450687,
+          0.1394603968352973
+        ]
+      ],
+      "v_normv_gram_condition_number": 169.92414368739324,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 13,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.0331126151263807e-06,
+      "effect_rms_delta_v": 0.0010164214751402986,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.0328429502805974,
+      "per_step_u4_u3_conditional_kl_nats": 3.6428475397467195,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.12643239585578303,
+      "velocity_norm_p10_p90": [
+        0.05766202008110579,
+        0.189181734174538
+      ],
+      "v_normv_gram": [
+        [
+          1.839691704800484,
+          0.2886056410901657
+        ],
+        [
+          0.2886056410901657,
+          0.04761324448635534
+        ]
+      ],
+      "v_normv_gram_condition_number": 826.2608061136543,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 14,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 7.64894527574735e-09,
+      "effect_rms_delta_v": 8.745824875760633e-05,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.17491649751521265,
+      "per_step_u4_u3_conditional_kl_nats": 4.066372192012241,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.030595781102989397,
+        "u3": 4.066372192012241,
+        "u3_u3": 25.694823645019152,
+        "u4_u4": 0.06884050748172538,
+        "u3_then_u4": 4.755465618373201,
+        "u4_then_u3": 4.755465618373201
+      },
+      "velocity_norm_median": 0.12343918653068792,
+      "velocity_norm_p10_p90": [
+        0.06163476452497084,
+        0.2167256210329025
+      ],
+      "v_normv_gram": [
+        [
+          2.2326271813484646,
+          0.42849456512933315
+        ],
+        [
+          0.42849456512933315,
+          0.09240575726901723
+        ]
+      ],
+      "v_normv_gram_condition_number": 236.1356355756907,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 14,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.2185966797223452e-06,
+      "effect_rms_delta_v": 0.0011039006656952178,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.2078013313904354,
+      "per_step_u4_u3_conditional_kl_nats": 4.1934402814207274,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.13454889682944599,
+      "velocity_norm_p10_p90": [
+        0.06670710122103178,
+        0.20927895567569307
+      ],
+      "v_normv_gram": [
+        [
+          2.28845903941563,
+          0.4221754198368812
+        ],
+        [
+          0.4221754198368812,
+          0.08495641496071617
+        ]
+      ],
+      "v_normv_gram_condition_number": 345.9945503392754,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 15,
+      "code": "u4",
+      "effect_energy_delta_v_squared": 3.4170577131172174e-08,
+      "effect_rms_delta_v": 0.0001848528526454817,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 0.36970570529096336,
+      "per_step_u4_u3_conditional_kl_nats": 5.452327047072847,
+      "per_step_u4_candidate_conditional_kl_nats": {
+        "identity": 0.1366823085246887,
+        "u3": 5.452327047072847,
+        "u3_u3": 36.99550233697815,
+        "u4_u4": 0.3075351941805479,
+        "u3_then_u4": 7.172997814267228,
+        "u4_then_u3": 7.172997814267228
+      },
+      "velocity_norm_median": 0.15332807625358164,
+      "velocity_norm_p10_p90": [
+        0.04042493236638208,
+        0.30055819583149396
+      ],
+      "v_normv_gram": [
+        [
+          3.802440182051751,
+          1.0785039474393852
+        ],
+        [
+          1.0785039474393852,
+          0.3477484026895965
+        ]
+      ],
+      "v_normv_gram_condition_number": 106.23516639431824,
+      "natural_probe_count": 100
+    },
+    {
+      "background": 15,
+      "code": "u3",
+      "effect_energy_delta_v_squared": 1.006292477330767e-06,
+      "effect_rms_delta_v": 0.001003141304767562,
+      "noise_variance_per_delta_v_component": 2.5e-07,
+      "noise_rms_per_delta_v_component": 0.0005,
+      "effect_to_noise_rms_ratio": 2.006282609535124,
+      "per_step_u4_u3_conditional_kl_nats": 3.3970575381891743,
+      "per_step_u4_candidate_conditional_kl_nats": {},
+      "velocity_norm_median": 0.13767170115937877,
+      "velocity_norm_p10_p90": [
+        0.0631431918214825,
+        0.2044415499746735
+      ],
+      "v_normv_gram": [
+        [
+          2.1337616710760434,
+          0.3819946451844983
+        ],
+        [
+          0.3819946451844983,
+          0.07567080065107595
+        ]
+      ],
+      "v_normv_gram_condition_number": 312.0558994627623,
+      "natural_probe_count": 100
+    }
+  ],
+  "natural_distribution_summary": {
+    "u4": {
+      "mean_energy_delta_v_squared": 1.1366332732230534e-08,
+      "mean_effect_rms_delta_v": 0.00010067880122970873,
+      "mean_noise_variance_per_component": 2.5e-07,
+      "mean_effect_to_noise_rms_ratio": 0.20135760245941747,
+      "mean_u4_u3_conditional_kl_nats_per_step": 4.4439510291008775,
+      "mean_u4_candidate_conditional_kl_nats_per_step": {
+        "identity": 0.045465330928922146,
+        "u3": 4.4439510291008775,
+        "u3_u3": 28.41759932398204,
+        "u4_u4": 0.10229699459007505,
+        "u3_then_u4": 5.302311999238223,
+        "u4_then_u3": 5.302311999238223
+      }
+    },
+    "u3": {
+      "mean_energy_delta_v_squared": 1.2787984167769311e-06,
+      "mean_effect_rms_delta_v": 0.0011256538925917632,
+      "mean_noise_variance_per_component": 2.5e-07,
+      "mean_effect_to_noise_rms_ratio": 2.2513077851835264,
+      "mean_u4_u3_conditional_kl_nats_per_step": 4.33735232597425,
+      "mean_u4_candidate_conditional_kl_nats_per_step": {}
+    }
+  },
+  "simulator_candidate_program_score_calls": 80640,
+  "simulator_candidate_transition_evaluations_estimate": 2983680,
+  "simulator_functional_class_probe_evaluations_estimate": 86016,
+  "simulator_stage_pair_transition_steps_estimate": 227328,
+  "wall_seconds": 10.575969900000018
+}

@@ -50,6 +50,8 @@ build/
 /results/q1/repair_v1_m3_effect_ablation/**/*.pt
 /results/q1/repair_v1_m3_effect_ablation/**/*.pth
 /results/q1/repair_v1_m3_effect_ablation/**/*.ckpt
+!/results/q1/u4_root_cause_v1/
+!/results/q1/u4_root_cause_v1/**
 .mypy_cache/
 .ruff_cache/
 .ipynb_checkpoints/

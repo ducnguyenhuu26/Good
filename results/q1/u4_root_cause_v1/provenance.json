@@ -1,0 +1,72 @@
+{
+  "git_head": "f9e081001e7f262ec4c7e8d92e675fc683df10d9",
+  "seed": 20261024,
+  "config_path": "configs\\q1_u4_root_cause.yaml",
+  "config_sha256": "8052e0f045ddce0a7c2a49a1e254df28debfeeed747d501d20a704cd38ed5c57",
+  "script_path": "scripts/q1_u4_root_cause.py",
+  "script_sha256": "c4e4db54edc8932bac1c4ed06ce0ab7b3d25954c4db5abcf581e09e9bcf873be",
+  "command_lines": [
+    "python scripts/q1_u4_root_cause.py --config configs/q1_u4_root_cause.yaml --m2-checkpoint results/q1/cpu_confirmatory_impl/m2/context_model.pt --m3-checkpoint results/q1/repair_v1_m3_effect_ablation/beta_0.25/primitives.pt --out results/q1/u4_root_cause_v1 --phase oracle --device cpu --threads 1",
+    "python scripts/q1_u4_root_cause.py --config configs/q1_u4_root_cause.yaml --m2-checkpoint results/q1/cpu_confirmatory_impl/m2/context_model.pt --m3-checkpoint results/q1/repair_v1_m3_effect_ablation/beta_0.25/primitives.pt --out results/q1/u4_root_cause_v1 --phase latent --device cpu --threads 1"
+  ],
+  "failed_cases": [],
+  "m2_checkpoint": "results\\q1\\cpu_confirmatory_impl\\m2\\context_model.pt",
+  "m2_sha256": "e3e7e4d2f38c22ac1b39c0c7e102991da5743c6467c11d12949962281aae8b7b",
+  "m3_checkpoint": "results\\q1\\repair_v1_m3_effect_ablation\\beta_0.25\\primitives.pt",
+  "m3_sha256": "b51aeb5d69c2bae1e546a09dbdbb2bc1d0faba09fc88125938edcdb07aa3839a",
+  "split_manifest": "results\\q1\\cpu_confirmatory_impl\\split_manifest.json",
+  "split_manifest_sha256": "236bcae99ae6c442cefdc1ff1c971da223e5178fc807870686397b7bb37a9708",
+  "python": "3.11.9",
+  "numpy": "2.4.6",
+  "torch": "2.13.0+cpu",
+  "device": "cpu",
+  "threads": 1,
+  "phase_status": {
+    "phase1": {
+      "status": "COMPLETE",
+      "interpretation_status": null,
+      "reason": null,
+      "wall_seconds": 10.575969900000018,
+      "simulator_candidate_transition_evaluations_estimate": 2983680,
+      "optimizer_steps": 0
+    },
+    "phase1_sigma0": {
+      "status": "COMPLETE",
+      "interpretation_status": null,
+      "reason": null,
+      "wall_seconds": 10.227037499999824,
+      "simulator_candidate_transition_evaluations_estimate": 2983680,
+      "optimizer_steps": 0
+    },
+    "phase0": {
+      "status": "PASS",
+      "interpretation_status": null,
+      "reason": null,
+      "wall_seconds": 0.21440349999920727,
+      "simulator_candidate_transition_evaluations_estimate": null,
+      "optimizer_steps": 0
+    },
+    "phase2": {
+      "status": "COMPLETE",
+      "interpretation_status": "INCONCLUSIVE",
+      "reason": null,
+      "wall_seconds": 167.95178339999984,
+      "simulator_candidate_transition_evaluations_estimate": null,
+      "optimizer_steps": 115200
+    },
+    "phase3": {
+      "status": "SKIPPED_WITH_REASON",
+      "interpretation_status": null,
+      "reason": "Phase 2 disjoint-query U4 latent oracle does not pass the effect/after-fit criteria; selected fit improves do not generalize, while local Jacobian projection remains strong. This leaves optimization ambiguity and does not justify a floor ablation.",
+      "wall_seconds": 0.0,
+      "simulator_candidate_transition_evaluations_estimate": null,
+      "optimizer_steps": 0
+    }
+  },
+  "test_split_evaluated": false,
+  "splits_used": [
+    "train",
+    "validation"
+  ],
+  "elapsed_seconds": 188.9691942999989
+}
