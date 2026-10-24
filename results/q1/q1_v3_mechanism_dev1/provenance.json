@@ -1,7 +1,7 @@
 {
   "branch": "codex/q1-v3-mechanism-structured",
   "base_commit": "ff010d7401b1477f783a6846a481242314bc76df",
-  "head_commit_at_finalization": "ff010d7401b1477f783a6846a481242314bc76df",
+  "head_commit_at_finalization": "06864e6c79109b550e837c6cbc51e51362bd8427",
   "device": "cpu",
   "python": "3.13.5",
   "torch": "2.14.1+cpu",
@@ -17,10 +17,10 @@
   "final_source_sha256": {
     "q1_v3/__init__.py": "24501ac16cb6a91c2441c4205821b5fecf1f2048807a41991dacbd044a4a14ad",
     "q1_v3/mechanisms.py": "a9a9cd682f161cd8b2b99e30d2de9b48ce4b40bdc14d477d6f30af8fd0af806b",
-    "q1_v3/task_inference.py": "623663741df5eca8418a27b439b006afc079b320b35bb6e1678f385ad240016f",
-    "q1_v3/operators.py": "986be0518bb641d890d27f26203261faaa0b41b2d9a9bad8995ef2c4cde3c9a5",
-    "q1_v3/training.py": "0eb6d50224b0eaf58bfa8554e1fb889b1f3c77cb1b74ca648b80f62a71e6cc8c",
-    "q1_v3/program_search.py": "270f02c73bb3dfd874f6bf62ebc3687ff2cbd3fad93261231b2e1df7e64b930d",
+    "q1_v3/task_inference.py": "5491e6dd3a9c2f39e1ac5d7c40f33e0f765247b27f492d767b2bc60b02d6f2b0",
+    "q1_v3/operators.py": "4eaa90fdf03ee58e1ef58480cddde3f86257e3c74b0ccec2c13ea5713d28b9bd",
+    "q1_v3/training.py": "ab105ba11de7102aa4bda5bb37e9b22a79121ca888f88f7b254930bad86112ec",
+    "q1_v3/program_search.py": "393341772afb5eb93d8af0808c0807bb86d2e46e29e2a6b32b41d6c276ac435f",
     "configs/q1_v3.yaml": "900cfa3f186fa2129167609461ed7fe99bd4ccf6374042fa7719964435d320b5",
     "scripts/q1_v3_run.py": "99135e9a81fb984876706b4f1f3c4bf9cb7f352ac643e3dea46ad51a1d5a28ba",
     "scripts/q1_v3_capacity_diagnostic.py": "0da5d78f80b7682adc00c59ac320aaac6addcdf3a944de6817816245df5b43c4",
