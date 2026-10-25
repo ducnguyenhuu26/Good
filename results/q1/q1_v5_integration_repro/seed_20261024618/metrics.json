@@ -1,0 +1,144 @@
+{
+  "method": "learned_shared_odd_polynomial_operators_laplace",
+  "train_backgrounds": 40,
+  "development_backgrounds": 16,
+  "train_loss": 0.48599884847944325,
+  "c": {
+    "slopes": [
+      0.9107305144702487,
+      1.0071925229529366,
+      0.5293593443905793
+    ],
+    "weights": [
+      0.0611449890563379,
+      0.9303142857601393,
+      0.008540725183522732
+    ]
+  },
+  "operator_types": {
+    "0": {
+      "mechanism": "action",
+      "L": [
+        [
+          0.8659344896301904,
+          -0.4996757421033535
+        ],
+        [
+          0.5002121949826571,
+          0.8663110533078107
+        ]
+      ],
+      "ratio": null
+    },
+    "2": {
+      "mechanism": "action",
+      "L": [
+        [
+          1.5001415095816046,
+          -0.0001954094536795533
+        ],
+        [
+          0.0001770138726702757,
+          0.9999555894413032
+        ]
+      ],
+      "ratio": null
+    },
+    "3": {
+      "mechanism": "linear_drag",
+      "L": null,
+      "ratio": 1.3967122250354176
+    },
+    "1": {
+      "mechanism": "quadratic_drag",
+      "L": null,
+      "ratio": 1.4953569884101794
+    }
+  },
+  "metrics": {
+    "IDLIKE_DEVELOPMENT|N=5": {
+      "class_accuracy_unadjusted": 0.5565476190476191,
+      "mean_query_mse": 2.832154122189384e-07,
+      "functional_class_accuracy": 0.7470238095238095
+    },
+    "IDLIKE_DEVELOPMENT|N=10": {
+      "class_accuracy_unadjusted": 0.5803571428571429,
+      "mean_query_mse": 2.6307708457341527e-07,
+      "functional_class_accuracy": 0.8005952380952381
+    },
+    "IDLIKE_DEVELOPMENT|N=20": {
+      "class_accuracy_unadjusted": 0.6101190476190477,
+      "mean_query_mse": 2.596415400768028e-07,
+      "functional_class_accuracy": 0.8333333333333334
+    },
+    "IDLIKE_DEVELOPMENT|N=50": {
+      "class_accuracy_unadjusted": 0.6190476190476191,
+      "mean_query_mse": 2.593298348182606e-07,
+      "functional_class_accuracy": 0.8482142857142857
+    },
+    "IDLIKE_DEVELOPMENT|N=100": {
+      "class_accuracy_unadjusted": 0.6309523809523809,
+      "mean_query_mse": 2.5954946105487685e-07,
+      "functional_class_accuracy": 0.8571428571428571
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=5": {
+      "class_accuracy_unadjusted": 0.6398809523809523,
+      "mean_query_mse": 2.7005318204550977e-07,
+      "functional_class_accuracy": 0.8363095238095238
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=10": {
+      "class_accuracy_unadjusted": 0.6845238095238095,
+      "mean_query_mse": 2.666938449566397e-07,
+      "functional_class_accuracy": 0.9077380952380952
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=20": {
+      "class_accuracy_unadjusted": 0.6815476190476191,
+      "mean_query_mse": 2.6650564194845083e-07,
+      "functional_class_accuracy": 0.9017857142857143
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=50": {
+      "class_accuracy_unadjusted": 0.7053571428571429,
+      "mean_query_mse": 2.662116335582134e-07,
+      "functional_class_accuracy": 0.9345238095238095
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=100": {
+      "class_accuracy_unadjusted": 0.7142857142857143,
+      "mean_query_mse": 2.662220418504741e-07,
+      "functional_class_accuracy": 0.9404761904761905
+    },
+    "IDLIKE_DEVELOPMENT|U3": {
+      "mean_effect_skill": 0.9993933446525394,
+      "population_baseline": 0.987629643279541,
+      "skill_joint": 0.9997224663235094,
+      "skill_old_eb": 0.9993933446525394,
+      "skill_joint_eb": 0.9997224663235094
+    },
+    "IDLIKE_DEVELOPMENT|U4": {
+      "mean_effect_skill": 0.9514364998931055,
+      "population_baseline": 0.9748259613327668,
+      "skill_joint": 0.9779893378748494,
+      "skill_old_eb": 0.9758744687941335,
+      "skill_joint_eb": 0.9815660852049931
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|U3": {
+      "mean_effect_skill": 0.9996694934541422,
+      "population_baseline": 0.7690450492887269,
+      "skill_joint": 0.9999464420398171,
+      "skill_old_eb": 0.9996694934541422,
+      "skill_joint_eb": 0.9999464420398171
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|U4": {
+      "mean_effect_skill": 0.9017625103692252,
+      "population_baseline": 0.7029470283097763,
+      "skill_joint": 0.977502774915396,
+      "skill_old_eb": 0.8292063910953043,
+      "skill_joint_eb": 0.8984257557938939
+    }
+  },
+  "elapsed": 42.24041938781738,
+  "rows": 3360,
+  "joint_refit_iterations": 214,
+  "protected_test_used": false,
+  "status": "EXPLORATORY_DEV_ONLY_NOT_Q1_PASS",
+  "seed": 20261024618
+}

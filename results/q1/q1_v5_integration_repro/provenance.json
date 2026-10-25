@@ -1,0 +1,31 @@
+{
+  "repository": "ducnguyenhuu26/Good",
+  "base_commit": "eff3d5c460f273917f132b37adf2d503ff558280",
+  "working_branch": "codex/q1-v5-identifiability-active",
+  "head_at_finalize": "eff3d5c460f273917f132b37adf2d503ff558280",
+  "source_zip_sha256": "f3f5124d651ee8ea644a0a9446197e60d07214424cf13bebbf63af0dee85a163",
+  "source_hashes": {
+    "q1_v5/__init__.py": "4daa1adb725a9e502c3f080286ab44276ff77a6ec338ce6ee6d64ceacbd16199",
+    "q1_v5/model.py": "0c09be67f8db4a824ea761babea809583b607fe34ee7a32ab4c26194bf89743f",
+    "q1_v5/joint_refit.py": "23477f55ecf597e58267af7d875a07adf4706b556f96604df0b03e1a98dd46f0",
+    "q1_v4/__init__.py": "3b74b42533ee9ab7be008109167f88c924878d396f157a409a4efdb01c5be9f1",
+    "q1_v4/stage_contrast.py": "90f968761b2729a982cc4e6b7ab494307a09f771e81f792620530f07a80dfc42",
+    "scripts/q1_v5_experiment.py": "469bb9c819aead50162db33aaf33cd5c1d3fe21139678175739e72885e79d978",
+    "tests/test_q1_v5_model.py": "b387f037a2d94b5bdad534ea9273abdfc221d4f5d7288b681e4707ebcfaeb5df",
+    "tests/test_stage_contrast.py": "f926766df7249835bf46e72ceec1b508f4ecd87502f0c70a94bd12ce9cfc0d86",
+    "q1_v5/identifiability.py": "bc94912e9a64301872aa4ad27c3405184c1af359d63ba9ca97aa928a231149ff",
+    "scripts/q1_v5_identifiability.py": "1e1fe2502c65da53a7d833cd0c10b2941102a46ef357182f14105757bc17029f",
+    "tests/test_q1_v5_identifiability.py": "add6fa21fbe7a7e3897f8f3f1ee245dc369b8fe4ed6cca301053e3e934f59680",
+    "scripts/q1_v5_finalize_repro.py": "51058b4426c850914680053e4a8bcb7a601377ea2a575904cd8a920605511828"
+  },
+  "python": "3.11.9",
+  "numpy": "2.4.6",
+  "scipy": "1.17.1",
+  "torch": "2.13.0+cpu",
+  "platform": "Windows-10-10.0.26300-SP0",
+  "reproduction_seeds": [
+    20261024444,
+    20261024618
+  ],
+  "protected_test_used": false
+}

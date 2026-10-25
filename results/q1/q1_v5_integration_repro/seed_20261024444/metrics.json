@@ -1,0 +1,144 @@
+{
+  "method": "learned_shared_odd_polynomial_operators_laplace",
+  "train_backgrounds": 40,
+  "development_backgrounds": 16,
+  "train_loss": 0.49868920894511637,
+  "c": {
+    "slopes": [
+      0.8450535138111056,
+      1.0141308790773214,
+      0.6193972098825926
+    ],
+    "weights": [
+      0.07482089864185003,
+      0.9132321462707713,
+      0.011946955087378659
+    ]
+  },
+  "operator_types": {
+    "3": {
+      "mechanism": "action",
+      "L": [
+        [
+          0.8654332567715194,
+          -0.4998934014136294
+        ],
+        [
+          0.49994030254756,
+          0.8657070745586578
+        ]
+      ],
+      "ratio": null
+    },
+    "1": {
+      "mechanism": "action",
+      "L": [
+        [
+          1.5004752314377048,
+          0.00016412298650595266
+        ],
+        [
+          -0.00010112885436459394,
+          1.000232699229928
+        ]
+      ],
+      "ratio": null
+    },
+    "0": {
+      "mechanism": "linear_drag",
+      "L": null,
+      "ratio": 1.3976446498021398
+    },
+    "2": {
+      "mechanism": "quadratic_drag",
+      "L": null,
+      "ratio": 1.449353825757626
+    }
+  },
+  "metrics": {
+    "IDLIKE_DEVELOPMENT|N=5": {
+      "class_accuracy_unadjusted": 0.5535714285714286,
+      "mean_query_mse": 2.9106095670139393e-07,
+      "functional_class_accuracy": 0.7053571428571429
+    },
+    "IDLIKE_DEVELOPMENT|N=10": {
+      "class_accuracy_unadjusted": 0.5982142857142857,
+      "mean_query_mse": 2.6395781342991856e-07,
+      "functional_class_accuracy": 0.7827380952380952
+    },
+    "IDLIKE_DEVELOPMENT|N=20": {
+      "class_accuracy_unadjusted": 0.6130952380952381,
+      "mean_query_mse": 2.662804076455896e-07,
+      "functional_class_accuracy": 0.8095238095238095
+    },
+    "IDLIKE_DEVELOPMENT|N=50": {
+      "class_accuracy_unadjusted": 0.6041666666666666,
+      "mean_query_mse": 2.6193918938070674e-07,
+      "functional_class_accuracy": 0.8125
+    },
+    "IDLIKE_DEVELOPMENT|N=100": {
+      "class_accuracy_unadjusted": 0.6398809523809523,
+      "mean_query_mse": 2.6097419723327575e-07,
+      "functional_class_accuracy": 0.8482142857142857
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=5": {
+      "class_accuracy_unadjusted": 0.6309523809523809,
+      "mean_query_mse": 2.7289878317388167e-07,
+      "functional_class_accuracy": 0.8482142857142857
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=10": {
+      "class_accuracy_unadjusted": 0.6785714285714286,
+      "mean_query_mse": 2.702028065575952e-07,
+      "functional_class_accuracy": 0.9047619047619048
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=20": {
+      "class_accuracy_unadjusted": 0.6994047619047619,
+      "mean_query_mse": 2.6940583736433313e-07,
+      "functional_class_accuracy": 0.9285714285714286
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=50": {
+      "class_accuracy_unadjusted": 0.7053571428571429,
+      "mean_query_mse": 2.6896413085577014e-07,
+      "functional_class_accuracy": 0.9345238095238095
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|N=100": {
+      "class_accuracy_unadjusted": 0.7142857142857143,
+      "mean_query_mse": 2.6914182160792426e-07,
+      "functional_class_accuracy": 0.9434523809523809
+    },
+    "IDLIKE_DEVELOPMENT|U3": {
+      "mean_effect_skill": 0.9993941986778797,
+      "population_baseline": 0.9815918342194718,
+      "skill_joint": 0.9996087170430052,
+      "skill_old_eb": 0.9993941986778797,
+      "skill_joint_eb": 0.9996087170430052
+    },
+    "IDLIKE_DEVELOPMENT|U4": {
+      "mean_effect_skill": 0.9308452778405939,
+      "population_baseline": 0.9772648379218647,
+      "skill_joint": 0.9562515517309135,
+      "skill_old_eb": 0.9810285624905766,
+      "skill_joint_eb": 0.9807285330712567
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|U3": {
+      "mean_effect_skill": 0.9993188850971617,
+      "population_baseline": 0.7710284656358464,
+      "skill_joint": 0.9997623059881023,
+      "skill_old_eb": 0.9993188850971617,
+      "skill_joint_eb": 0.9997623059881023
+    },
+    "BACKGROUND_OOD_DEVELOPMENT|U4": {
+      "mean_effect_skill": 0.8856568583775628,
+      "population_baseline": 0.6722899656993372,
+      "skill_joint": 0.9553357391528967,
+      "skill_old_eb": 0.7994319704731848,
+      "skill_joint_eb": 0.8761216441533581
+    }
+  },
+  "elapsed": 45.4295437335968,
+  "rows": 3360,
+  "joint_refit_iterations": 215,
+  "protected_test_used": false,
+  "status": "EXPLORATORY_DEV_ONLY_NOT_Q1_PASS",
+  "seed": 20261024444
+}

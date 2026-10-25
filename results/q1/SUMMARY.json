@@ -1,0 +1,41 @@
+{
+  "project": "Q1 V5",
+  "branch": "codex/q1-v5-identifiability-active",
+  "base_commit": "eff3d5c460f273917f132b37adf2d503ff558280",
+  "source_zip_sha256": "f3f5124d651ee8ea644a0a9446197e60d07214424cf13bebbf63af0dee85a163",
+  "protected_test_used": false,
+  "fixed_policy_verdict": "V5_FIXED_INCONCLUSIVE",
+  "active_excitation_verdict": "NOT_RUN",
+  "reproduction_seeds": [20261024444, 20261024618],
+  "environment": {
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "torch": "2.13.0+cpu",
+    "platform": "Windows"
+  },
+  "metrics": {
+    "functional_class_accuracy_n100": {
+      "id_like": [0.8482142857, 0.8571428571],
+      "background_ood": [0.9434523810, 0.9404761905]
+    },
+    "u4_old_eb_minus_population_bootstrap_ci95": {
+      "id_like": [[-0.0025805396, 0.0093125111], [-0.0043854241, 0.0069129811]],
+      "background_ood": [[0.0716172815, 0.1888198329], [0.0719422266, 0.1865481971]]
+    },
+    "median_I_eff_logb_n96": {
+      "id_like": 3.6905574844,
+      "background_ood": 8.2336920385
+    },
+    "median_local_logb_se_n96": {
+      "id_like": 0.5205398945,
+      "background_ood": 0.3485606853
+    }
+  },
+  "tests": {
+    "focused": "15 passed",
+    "full_suite": "315 passed, 3 unrelated failures",
+    "compileall": "passed"
+  },
+  "open_phases": ["fresh matched Phase B", "active Phase D", "full manuscript-aligned Phase E proof dossier"]
+}

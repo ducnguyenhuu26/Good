@@ -1,0 +1,20 @@
+{
+  "method": "Q1 V5 supplied exploratory implementation",
+  "train_backgrounds": 40,
+  "development_backgrounds_per_regime": 16,
+  "adaptation_budgets": [
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "old_support": 96,
+  "query_transitions": 256,
+  "dt": 0.05,
+  "sigma": 0.0005,
+  "program_count": 21,
+  "protected_test_used": false,
+  "inference_policy": "runner reports old MAP, old+EB, joint MAP and joint+EB diagnostics; no single deployable policy selected",
+  "status": "exploratory integration reproduction; not Phase B"
+}

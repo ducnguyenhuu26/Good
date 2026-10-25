@@ -1,0 +1,453 @@
+{
+  "protocol": "Q1_FIXED_POLICY_identifiability_diagnostic",
+  "cases": [
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 0,
+      "parameter_seed": 20270024444,
+      "trajectory_seed": 20270024543
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 1,
+      "parameter_seed": 20270026431,
+      "trajectory_seed": 20270026530
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 2,
+      "parameter_seed": 20270028418,
+      "trajectory_seed": 20270028517
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 3,
+      "parameter_seed": 20270030405,
+      "trajectory_seed": 20270030504
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 4,
+      "parameter_seed": 20270032392,
+      "trajectory_seed": 20270032491
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 5,
+      "parameter_seed": 20270034379,
+      "trajectory_seed": 20270034478
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 6,
+      "parameter_seed": 20270036366,
+      "trajectory_seed": 20270036465
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 7,
+      "parameter_seed": 20270038353,
+      "trajectory_seed": 20270038452
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 8,
+      "parameter_seed": 20270040340,
+      "trajectory_seed": 20270040439
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 9,
+      "parameter_seed": 20270042327,
+      "trajectory_seed": 20270042426
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 10,
+      "parameter_seed": 20270044314,
+      "trajectory_seed": 20270044413
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 11,
+      "parameter_seed": 20270046301,
+      "trajectory_seed": 20270046400
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 12,
+      "parameter_seed": 20270048288,
+      "trajectory_seed": 20270048387
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 13,
+      "parameter_seed": 20270050275,
+      "trajectory_seed": 20270050374
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 14,
+      "parameter_seed": 20270052262,
+      "trajectory_seed": 20270052361
+    },
+    {
+      "seed": 20261024444,
+      "regime": "IDLIKE",
+      "background": 15,
+      "parameter_seed": 20270054249,
+      "trajectory_seed": 20270054348
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 0,
+      "parameter_seed": 20273024444,
+      "trajectory_seed": 20273024543
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 1,
+      "parameter_seed": 20273026431,
+      "trajectory_seed": 20273026530
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 2,
+      "parameter_seed": 20273028418,
+      "trajectory_seed": 20273028517
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 3,
+      "parameter_seed": 20273030405,
+      "trajectory_seed": 20273030504
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 4,
+      "parameter_seed": 20273032392,
+      "trajectory_seed": 20273032491
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 5,
+      "parameter_seed": 20273034379,
+      "trajectory_seed": 20273034478
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 6,
+      "parameter_seed": 20273036366,
+      "trajectory_seed": 20273036465
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 7,
+      "parameter_seed": 20273038353,
+      "trajectory_seed": 20273038452
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 8,
+      "parameter_seed": 20273040340,
+      "trajectory_seed": 20273040439
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 9,
+      "parameter_seed": 20273042327,
+      "trajectory_seed": 20273042426
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 10,
+      "parameter_seed": 20273044314,
+      "trajectory_seed": 20273044413
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 11,
+      "parameter_seed": 20273046301,
+      "trajectory_seed": 20273046400
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 12,
+      "parameter_seed": 20273048288,
+      "trajectory_seed": 20273048387
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 13,
+      "parameter_seed": 20273050275,
+      "trajectory_seed": 20273050374
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 14,
+      "parameter_seed": 20273052262,
+      "trajectory_seed": 20273052361
+    },
+    {
+      "seed": 20261024444,
+      "regime": "OOD",
+      "background": 15,
+      "parameter_seed": 20273054249,
+      "trajectory_seed": 20273054348
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 0,
+      "parameter_seed": 20270024618,
+      "trajectory_seed": 20270024717
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 1,
+      "parameter_seed": 20270026605,
+      "trajectory_seed": 20270026704
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 2,
+      "parameter_seed": 20270028592,
+      "trajectory_seed": 20270028691
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 3,
+      "parameter_seed": 20270030579,
+      "trajectory_seed": 20270030678
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 4,
+      "parameter_seed": 20270032566,
+      "trajectory_seed": 20270032665
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 5,
+      "parameter_seed": 20270034553,
+      "trajectory_seed": 20270034652
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 6,
+      "parameter_seed": 20270036540,
+      "trajectory_seed": 20270036639
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 7,
+      "parameter_seed": 20270038527,
+      "trajectory_seed": 20270038626
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 8,
+      "parameter_seed": 20270040514,
+      "trajectory_seed": 20270040613
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 9,
+      "parameter_seed": 20270042501,
+      "trajectory_seed": 20270042600
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 10,
+      "parameter_seed": 20270044488,
+      "trajectory_seed": 20270044587
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 11,
+      "parameter_seed": 20270046475,
+      "trajectory_seed": 20270046574
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 12,
+      "parameter_seed": 20270048462,
+      "trajectory_seed": 20270048561
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 13,
+      "parameter_seed": 20270050449,
+      "trajectory_seed": 20270050548
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 14,
+      "parameter_seed": 20270052436,
+      "trajectory_seed": 20270052535
+    },
+    {
+      "seed": 20261024618,
+      "regime": "IDLIKE",
+      "background": 15,
+      "parameter_seed": 20270054423,
+      "trajectory_seed": 20270054522
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 0,
+      "parameter_seed": 20273024618,
+      "trajectory_seed": 20273024717
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 1,
+      "parameter_seed": 20273026605,
+      "trajectory_seed": 20273026704
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 2,
+      "parameter_seed": 20273028592,
+      "trajectory_seed": 20273028691
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 3,
+      "parameter_seed": 20273030579,
+      "trajectory_seed": 20273030678
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 4,
+      "parameter_seed": 20273032566,
+      "trajectory_seed": 20273032665
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 5,
+      "parameter_seed": 20273034553,
+      "trajectory_seed": 20273034652
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 6,
+      "parameter_seed": 20273036540,
+      "trajectory_seed": 20273036639
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 7,
+      "parameter_seed": 20273038527,
+      "trajectory_seed": 20273038626
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 8,
+      "parameter_seed": 20273040514,
+      "trajectory_seed": 20273040613
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 9,
+      "parameter_seed": 20273042501,
+      "trajectory_seed": 20273042600
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 10,
+      "parameter_seed": 20273044488,
+      "trajectory_seed": 20273044587
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 11,
+      "parameter_seed": 20273046475,
+      "trajectory_seed": 20273046574
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 12,
+      "parameter_seed": 20273048462,
+      "trajectory_seed": 20273048561
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 13,
+      "parameter_seed": 20273050449,
+      "trajectory_seed": 20273050548
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 14,
+      "parameter_seed": 20273052436,
+      "trajectory_seed": 20273052535
+    },
+    {
+      "seed": 20261024618,
+      "regime": "OOD",
+      "background": 15,
+      "parameter_seed": 20273054423,
+      "trajectory_seed": 20273054522
+    }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "focused_v5_and_stage_tests": {
+    "command": "python -m pytest -q tests/test_q1_v5_model.py tests/test_stage_contrast.py tests/test_q1_v5_identifiability.py",
+    "result": "15 passed"
+  },
+  "full_repository_tests": {
+    "command": "python -m pytest -q tests",
+    "result": "315 passed, 3 failed; unrelated Windows path expectation mismatches in tests/test_reproduction_commands.py"
+  },
+  "compileall": "passed"
+}

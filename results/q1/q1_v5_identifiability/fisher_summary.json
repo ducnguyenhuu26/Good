@@ -1,0 +1,119 @@
+{
+  "summary": {
+    "IDLIKE|N=5": {
+      "n": 32,
+      "median_I_eff_logb": 0.0,
+      "median_local_logb_se": null,
+      "median_abs_b_error_offline": 0.1297214824540659,
+      "median_velocity_rms": 0.20540605672915246,
+      "median_velocity_qdrag_cosine": 0.9941730359617484,
+      "median_action_rms": 0.6589705806770347,
+      "local_logb_se_unbounded_count": 32
+    },
+    "IDLIKE|N=10": {
+      "n": 32,
+      "median_I_eff_logb": 0.08519162464165496,
+      "median_local_logb_se": 3.548027592284969,
+      "median_abs_b_error_offline": 0.13978982413016233,
+      "median_velocity_rms": 0.19057264966094173,
+      "median_velocity_qdrag_cosine": 0.9900267300305332,
+      "median_action_rms": 0.5689887121575936
+    },
+    "IDLIKE|N=20": {
+      "n": 32,
+      "median_I_eff_logb": 0.33226475410707146,
+      "median_local_logb_se": 1.7469876560206008,
+      "median_abs_b_error_offline": 0.1313042581027143,
+      "median_velocity_rms": 0.19998059260664425,
+      "median_velocity_qdrag_cosine": 0.9814547187510374,
+      "median_action_rms": 0.5882120315709759
+    },
+    "IDLIKE|N=50": {
+      "n": 32,
+      "median_I_eff_logb": 1.8336221316433234,
+      "median_local_logb_se": 0.739907881468105,
+      "median_abs_b_error_offline": 0.06974118419970857,
+      "median_velocity_rms": 0.15389715845001486,
+      "median_velocity_qdrag_cosine": 0.9649289771911924,
+      "median_action_rms": 0.6188530914958164
+    },
+    "IDLIKE|N=96": {
+      "n": 32,
+      "median_I_eff_logb": 3.6905574843678064,
+      "median_local_logb_se": 0.5205398945466814,
+      "median_abs_b_error_offline": 0.04959227502477462,
+      "median_velocity_rms": 0.14173631087295682,
+      "median_velocity_qdrag_cosine": 0.959755996536074,
+      "median_action_rms": 0.6061838633088901
+    },
+    "OOD|N=5": {
+      "n": 32,
+      "median_I_eff_logb": 0.0,
+      "median_local_logb_se": null,
+      "median_abs_b_error_offline": 0.6134948262523195,
+      "median_velocity_rms": 0.20432793709188707,
+      "median_velocity_qdrag_cosine": 0.9942587095007672,
+      "median_action_rms": 0.6514346111418727,
+      "local_logb_se_unbounded_count": 32
+    },
+    "OOD|N=10": {
+      "n": 32,
+      "median_I_eff_logb": 0.12235932943246622,
+      "median_local_logb_se": 2.86083413446025,
+      "median_abs_b_error_offline": 0.25689477517430825,
+      "median_velocity_rms": 0.19063028490790584,
+      "median_velocity_qdrag_cosine": 0.9854784457721575,
+      "median_action_rms": 0.5664127003052205
+    },
+    "OOD|N=20": {
+      "n": 32,
+      "median_I_eff_logb": 0.8768171249348449,
+      "median_local_logb_se": 1.068265402133278,
+      "median_abs_b_error_offline": 0.17155689417022577,
+      "median_velocity_rms": 0.16795044629458195,
+      "median_velocity_qdrag_cosine": 0.9792097992538271,
+      "median_action_rms": 0.5843162347312891
+    },
+    "OOD|N=50": {
+      "n": 32,
+      "median_I_eff_logb": 4.517285127535277,
+      "median_local_logb_se": 0.4706870131932466,
+      "median_abs_b_error_offline": 0.06643426580569056,
+      "median_velocity_rms": 0.14110728193259686,
+      "median_velocity_qdrag_cosine": 0.9650282664676528,
+      "median_action_rms": 0.6178672285829808
+    },
+    "OOD|N=96": {
+      "n": 32,
+      "median_I_eff_logb": 8.233692038461406,
+      "median_local_logb_se": 0.3485606852623935,
+      "median_abs_b_error_offline": 0.0312397366530483,
+      "median_velocity_rms": 0.13491453650544913,
+      "median_velocity_qdrag_cosine": 0.9583535291649545,
+      "median_action_rms": 0.6089579294047744
+    }
+  },
+  "provenance": {
+    "seeds": [
+      20261024444,
+      20261024618
+    ],
+    "train_backgrounds": 40,
+    "development_backgrounds_per_regime_per_seed": 16,
+    "old_support_curve": [
+      5,
+      10,
+      20,
+      50,
+      96
+    ],
+    "dt": 0.05,
+    "sigma": 0.0005,
+    "python": "3.11.9",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "torch": "2.13.0+cpu",
+    "code_sha256": "1e1fe2502c65da53a7d833cd0c10b2941102a46ef357182f14105757bc17029f",
+    "interpretation": "Local linearized fixed-policy diagnostic; information is for log(b). Shared action-response nuisance is included; simulator truth appears only in offline calibration columns."
+  }
+}
