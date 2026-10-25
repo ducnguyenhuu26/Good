@@ -16,12 +16,14 @@ All cells below average the 21 programs within each background; intervals bootst
 |---|---|---:|---:|
 | ID-like | V5 (`old_plus_eb`) | 0.812 [0.777, 0.848] | 2.621e-7 [2.599e-7, 2.645e-7] |
 | ID-like | V2 retrained | 0.440 [0.405, 0.476] | 6.957e-6 [6.482e-6, 7.411e-6] |
-| ID-like | V3 | 0.048 [0.048, 0.048] | 8.633e-5 [8.432e-5, 8.856e-5] |
+| ID-like | V3 (corrected) | 0.699 [0.664, 0.735] | 4.730e-6 [4.309e-6, 5.172e-6] |
 | ID-like | M4 | 0.348 [0.318, 0.381] | 8.733e-6 [7.834e-6, 9.673e-6] |
 | OOD | V5 (`old_plus_eb`) | 0.949 [0.929, 0.970] | 2.659e-7 [2.633e-7, 2.684e-7] |
 | OOD | V2 retrained | 0.482 [0.467, 0.497] | 2.037e-5 [1.925e-5, 2.147e-5] |
-| OOD | V3 | 0.048 [0.048, 0.048] | 1.443e-4 [1.416e-4, 1.468e-4] |
+| OOD | V3 (corrected) | 0.610 [0.583, 0.637] | 2.084e-5 [1.999e-5, 2.167e-5] |
 | OOD | M4 | 0.283 [0.271, 0.295] | 5.602e-5 [5.262e-5, 5.931e-5] |
+
+**V3 scoring correction:** the historical Phase B evaluator used the first element of an unsorted V3 score list, which was not the minimum marginal score. The original Phase B directory is preserved unchanged. V3 was re-scored with `argmin(marginal_score)` on the same frozen development seeds and observations; use the corrected numbers above and the recomputed gates in [`q1_v5_fixed_confirmatory_dev_v3_corrected`](q1_v5_fixed_confirmatory_dev_v3_corrected/). The fixed-policy verdict remains FAIL because the ID-like U4 comparison still fails.
 
 The paired V5-minus-V2 functional-class accuracy differences are `+0.372 [0.312, 0.435]` ID-like and `+0.467 [0.443, 0.491]` OOD. Both ordered action-pair orders have V5 functional-class accuracy `1.000` in each regime at N=100. The population-mean, identity-operator, and direct-context results are in the detailed summary; direct-context is a prediction-only baseline and does not output program classes or ordered compositions.
 
@@ -51,12 +53,23 @@ At N=100, active Fisher exceeds sinusoidal by `+42.82 [26.28, 64.00]` ID-like an
 
 ## Mathematical status
 
-`docs/q1_v5_identifiability_and_recovery.md` now records exact algebraic properties and local Gaussian Fisher identities as proved; estimation, operator recovery, finite-candidate recovery, and adaptive concentration as conditional on explicit regularity, separation, independence, and excitation assumptions; and uniform finite-sample guarantees for the implemented learned-response pipeline as open. The active Fisher objective is a local model-based surrogate, not a guarantee of realized U4 or program-recovery improvement.
+## Separate pre-change excitation protocol
+
+**`Q1_PRECHANGE_PASS` (development-only).** This new protocol used 32 fresh backgrounds per regime, a 40-background train-only calibration set, all 21 programs, and N=5/10/20/50/100. It is reported separately; it does not revise Phase B or Phase D.
+
+| Regime | Block functional-class accuracy at N=100 | U4 oracle-code skill | Train-matched population U4 skill | Paired U4 difference | Block `I_eff(log b)` |
+|---|---:|---:|---:|---:|---:|
+| ID-like | 1.000 [1.000, 1.000] | 0.994 [0.991, 0.996] | 0.969 [0.958, 0.979] | +0.025 [+0.016, +0.035] | 116.1 [95.2, 139.4] |
+| OOD | 1.000 [1.000, 1.000] | 0.999 [0.998, 0.999] | 0.692 [0.680, 0.704] | +0.306 [+0.294, +0.318] | 646.4 [606.6, 686.3] |
+
+Block `I_eff(log b)` exceeded both energy-matched random and multi-frequency smooth exploration in both regimes; all four paired 95% lower bounds were positive. Both ordered-pair class accuracies were noninferior to sinusoidal within the 0.02 margin. The full five-budget metrics, per-background effects, seeds, comparisons, configuration and provenance are in [`q1_v5_prechange_confirmatory_dev`](q1_v5_prechange_confirmatory_dev/).
+
+`docs/q1_v5_identifiability_and_recovery.md` records the original active-protocol analysis. The additional [pre-change theory audit](../../docs/q1_v5_prechange_theory.md) separates proved identities from conditional estimation and recovery results, and leaves uniform guarantees for the learned pipeline open. Fisher gains are local information evidence, not a guarantee of realized U4 or program-recovery improvement.
 
 ## Provenance and verification
 
 - Branch: `codex/q1-v5-identifiability-active`; requested starting commit: `43245aee373ddd1061406a8c22f17f7ba686e30d`.
 - Phase B: seed `20261031`; 40 training, 8 inner-validation, and 16 development backgrounds per regime. Phase D: seed `20261033`; 4 fresh development backgrounds per regime. Split manifests record environment parameters and collision audits.
 - Both runs used CPU, `dt=0.05`, `sigma=0.0005`, 96 old-support transitions, 100 adaptation transitions, and 256 independent-query transitions. Protected test data were not used.
-- All Q1 tests: **95 passed, 1 failed**. The failure is the existing stochastic V2 test `tests/test_q1_v2_root_repair.py::test_effect_aware_training_learns_small_in_basis_effects_and_selects_on_inner_only`; it failed again when run alone (`after[3].skill=-1.9731` vs baseline `0`). The V5/active focused set passed **11/11**, and the Q1 protocol/model subset passed **42/42**. No V2 root-repair source or acceptance criterion was changed. `py_compile` passed for the new runners and active-design module; `git diff --check` passed.
+- Latest Q1 suite: **107 passed, 1 failed**. The failure is the existing V2 root-repair test `tests/test_q1_v2_root_repair.py::test_effect_aware_training_learns_small_in_basis_effects_and_selects_on_inner_only` (`after[3].skill=-0.353` vs baseline `0`). The new pre-change tests passed **12/12**. No V2 root-repair source or acceptance criterion was changed. The pre-change runner, corrected V3 reanalysis, finalizer and design module compile successfully.
 - Phase B elapsed time: 983.5 seconds. Phase D elapsed time and source/checkpoint hashes are recorded in each run's `provenance.json`.

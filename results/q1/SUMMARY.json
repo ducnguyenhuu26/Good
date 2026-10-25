@@ -9,14 +9,17 @@
   "completed_phases": [
     "Phase B fixed-policy confirmatory development evaluation",
     "Phase D active-excitation development evaluation",
-    "conditional mathematical analysis"
+    "conditional mathematical analysis",
+    "Separate pre-change block-excitation development protocol (PASS)"
   ],
   "selected_fixed_rule": "old_plus_eb",
   "phase_b_seed": 20261031,
   "phase_d_seed": 20261033,
   "artifacts": [
     "q1_v5_fixed_confirmatory_dev",
-    "q1_v5_active_excitation_dev"
+    "q1_v5_active_excitation_dev",
+    "q1_v5_fixed_confirmatory_dev_v3_corrected",
+    "q1_v5_prechange_confirmatory_dev"
   ],
   "environment": {
     "python": "3.11.9",
@@ -34,9 +37,9 @@
           0.848
         ],
         "v5_independent_query_mse": [
-          2.621E-07,
-          2.599E-07,
-          2.645E-07
+          2.621e-07,
+          2.599e-07,
+          2.645e-07
         ],
         "v5_u4_skill": [
           0.953,
@@ -51,6 +54,16 @@
         "ordered_pair_accuracy": [
           1.0,
           1.0
+        ],
+        "v3_corrected_functional_class_accuracy": [
+          0.6994047619047619,
+          0.6636904761904762,
+          0.7351190476190477
+        ],
+        "v3_corrected_independent_query_mse": [
+          4.73044011227127e-06,
+          4.309420980901624e-06,
+          5.172384960353261e-06
         ]
       },
       "background_ood": {
@@ -60,9 +73,9 @@
           0.97
         ],
         "v5_independent_query_mse": [
-          2.659E-07,
-          2.633E-07,
-          2.684E-07
+          2.659e-07,
+          2.633e-07,
+          2.684e-07
         ],
         "v5_u4_skill": [
           0.944,
@@ -77,6 +90,16 @@
         "ordered_pair_accuracy": [
           1.0,
           1.0
+        ],
+        "v3_corrected_functional_class_accuracy": [
+          0.6101190476190476,
+          0.5833333333333333,
+          0.6369047619047619
+        ],
+        "v3_corrected_independent_query_mse": [
+          2.0835429414050796e-05,
+          1.9991639479673068e-05,
+          2.167439808681446e-05
         ]
       }
     },
@@ -170,6 +193,92 @@
           -0.015
         ]
       }
+    },
+    "prechange_n100": {
+      "id_like": {
+        "block_functional_class_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "block_independent_query_mse": [
+          2.6364397645322543e-07,
+          2.5948491382048553e-07,
+          2.685221957693099e-07
+        ],
+        "block_U4_skill": [
+          0.9939238823547798,
+          0.9909799267527453,
+          0.9964232648239216
+        ],
+        "train_matched_population_U4_skill": [
+          0.9693260910127699,
+          0.9580847214330829,
+          0.9794286797035364
+        ],
+        "paired_U4_skill_difference": [
+          0.0245977913420099,
+          0.01553521028575567,
+          0.03495543990617035
+        ],
+        "block_I_eff_log_b": [
+          116.06028137472762,
+          95.18824823255444,
+          139.42247827838636
+        ],
+        "RANDOM_CORNER_ENERGY_MATCHED_Ieff": [
+          108.57285409235641,
+          89.43329655775877,
+          130.6287726248489
+        ],
+        "MULTIFREQ_SMOOTH_ENERGY_MATCHED_Ieff": [
+          87.30523971238199,
+          68.45757550187294,
+          108.7550138974181
+        ]
+      },
+      "background_ood": {
+        "block_functional_class_accuracy": [
+          1.0,
+          1.0,
+          1.0
+        ],
+        "block_independent_query_mse": [
+          2.760352169235434e-07,
+          2.66216400665179e-07,
+          2.9027342800727724e-07
+        ],
+        "block_U4_skill": [
+          0.9986677477150827,
+          0.9980792798476856,
+          0.9991805963400056
+        ],
+        "train_matched_population_U4_skill": [
+          0.692419270867506,
+          0.680040412190186,
+          0.7043537915461495
+        ],
+        "paired_U4_skill_difference": [
+          0.3062484768475767,
+          0.29398197077295807,
+          0.31825533024254976
+        ],
+        "block_I_eff_log_b": [
+          646.4069069914051,
+          606.6054362650887,
+          686.3000711130402
+        ],
+        "RANDOM_CORNER_ENERGY_MATCHED_Ieff": [
+          624.0560538531332,
+          580.7437503299761,
+          667.1981764505736
+        ],
+        "MULTIFREQ_SMOOTH_ENERGY_MATCHED_Ieff": [
+          524.6145157144297,
+          476.29990331779624,
+          571.264484406643
+        ]
+      }
     }
   },
   "prior_reproduction": {
@@ -215,16 +324,35 @@
     }
   },
   "tests": {
-    "all_q1": "95 passed, 1 failed",
+    "all_q1": "107 passed, 1 failed",
     "failing_test": "tests/test_q1_v2_root_repair.py::test_effect_aware_training_learns_small_in_basis_effects_and_selects_on_inner_only",
     "v5_and_active_focused": "11 passed",
     "q1_protocol_and_model_subset": "42 passed",
     "failure_reproduced_in_isolation": true,
     "py_compile": "passed",
-    "git_diff_check": "passed"
+    "git_diff_check": "passed",
+    "latest_q1_suite": {
+      "passed": 106,
+      "failed": 1,
+      "failure": "tests/test_q1_v2_root_repair.py::test_effect_aware_training_learns_small_in_basis_effects_and_selects_on_inner_only",
+      "observed_u4_skill": -0.3526700185379106,
+      "baseline_u4_skill": 0.0
+    },
+    "failing_test_result": "after[3].skill=-0.3526700185379106; baseline=0.0",
+    "new_prechange_tests": "12 passed",
+    "source_compilation": "passed: prechange experiment, design, corrected V3 reanalysis, finalizer"
   },
   "open_guarantees": [
     "Uniform finite-sample bounds for the fitted V5 operator and posterior pipeline",
     "Adaptive-data concentration and coverage under the implemented policy"
-  ]
+  ],
+  "prechange_verdict": "Q1_PRECHANGE_PASS",
+  "prechange_seed": 20261733,
+  "prechange_training_seed": 20261701,
+  "prechange_background_counts": {
+    "IDLIKE": 32,
+    "BACKGROUND_OOD": 32
+  },
+  "prechange_elapsed_cpu_seconds": 3261.4406383000023,
+  "mathematical_audit": "docs/q1_v5_prechange_theory.md; exact algebraic results proved, estimation/recovery bounds conditional, uniform guarantees for learned pipeline remain open."
 }

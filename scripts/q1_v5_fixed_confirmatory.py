@@ -94,6 +94,13 @@ def paired(a, b, seed):
             "ci95_background_bootstrap": boot(d, seed)}
 
 
+def select_v3_candidate(scored):
+    """Select the minimum marginal-score V3 hypothesis, independent of list order."""
+    if not scored:
+        raise ValueError("V3 scorer returned no candidate programs")
+    return min(scored, key=lambda row: float(row["marginal_score"]))
+
+
 def train_v5(train_params, train_seeds, inner_params, inner_seeds, seed):
     torch.set_num_threads(1); torch.set_default_dtype(torch.float64)
     before, pairs, after = [], {i: [] for i in range(4)}, {i: [] for i in range(4)}
@@ -274,7 +281,7 @@ def main():
                 per_rows.append({"regime":regime,"background":bg,"true_program":json.dumps(program),"N":n,"model":"V2_RETRAINED","predicted_program":json.dumps(pred2),"raw_correct":int(pred2==program),"class_correct":int(classes[PROGRAMS.index(pred2)]==classes[pi]),"independent_query_mse":float(np.mean((q2-yq)**2))})
                 # V3 marginal-score baseline from its frozen original action/operator checkpoints.
                 theta3=v3old.theta.detach();cov3=v3old.covariance.detach()
-                sc3=score_program_budgets(torch.as_tensor(xa,dtype=torch.float64),torch.as_tensor(ya,dtype=torch.float64),theta3,cov3,v3bank,v3action,v3op_programs,[n],dt=DT,sigma=SIGMA)[n][0]
+                sc3=select_v3_candidate(score_program_budgets(torch.as_tensor(xa,dtype=torch.float64),torch.as_tensor(ya,dtype=torch.float64),theta3,cov3,v3bank,v3action,v3op_programs,[n],dt=DT,sigma=SIGMA)[n])
                 pred3=tuple(next(k for k,v in v3map.items() if v==c) for c in sc3["program"])
                 q3=v3_mean(torch.as_tensor(xq,dtype=torch.float64),sc3["theta_mean"],v3action,DT).detach().numpy()
                 per_rows.append({"regime":regime,"background":bg,"true_program":json.dumps(program),"N":n,"model":"V3","predicted_program":json.dumps(pred3),"raw_correct":int(pred3==program),"class_correct":int(classes[PROGRAMS.index(pred3)]==classes[pi]),"independent_query_mse":float(np.mean((q3-yq)**2))})

@@ -1,0 +1,135 @@
+{
+  "protocol": "Q1_PRECHANGE_EXCITATION_CONFIRMATORY_DEVELOPMENT",
+  "protocol_status": "new separate development protocol; old fixed and post-change active FAIL verdicts immutable",
+  "source_commit": "025f40ad58eb8d01b1549311a9cd6bb9a7d12473",
+  "master_seed": 20261733,
+  "training_seed": 20261701,
+  "n_train": 40,
+  "n_development_per_regime": 32,
+  "dt": 0.05,
+  "sigma": 0.0005,
+  "N_old": 96,
+  "N_adapt": 100,
+  "N_query": 256,
+  "budgets": [
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "programs": [
+    [],
+    [
+      0
+    ],
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      0
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ]
+  ],
+  "estimator_rule": "frozen old_plus_eb; same train-only linear-b calibration for learner and population comparator",
+  "recalibration_scope": "U4 quadratic-drag operator ratio only; all other fitted response/operators frozen",
+  "policies": [
+    "ORIGINAL_SINUSOIDAL",
+    "BLOCK_FULL_24",
+    "BLOCK_24_ENERGY_MATCHED",
+    "RANDOM_CORNER_ENERGY_MATCHED",
+    "MULTIFREQ_SMOOTH_ENERGY_MATCHED",
+    "BLOCK_ROTATED_ENERGY_MATCHED",
+    "BLOCK_DWELL_12_ENERGY_MATCHED",
+    "BLOCK_DWELL_48_ENERGY_MATCHED"
+  ],
+  "energy_target_matched_policies": 1.8,
+  "post_change_policy": "original sinusoidal-with-jitter, unchanged",
+  "action_bounds": [
+    -1.0,
+    1.0
+  ],
+  "predeclared_primary_comparisons": [
+    "energy-matched block-24 vs random-corner and multi-frequency-smooth I_eff(log b), both regimes",
+    "U4 oracle-code effect skill vs train-calibrated population, paired lower 95% CI > 0, both regimes",
+    "U1-U3 effect skill and ordered-pair/class recovery noninferior to original sinusoidal by 0.02"
+  ],
+  "program_selection": "score all 21 candidates; only canonicalize functional class after prediction",
+  "protected_test_used": false,
+  "source_training_records_sha256": "cfa95461dfa94348bcfcfa7a4f1727382b1547ade64ca7be2c0f680397890a2b",
+  "decision_thresholds": {
+    "minimum_independent_backgrounds_per_regime": 32,
+    "block_Ieff_paired_bootstrap_lower_bound_vs_each_control_gt": 0.0,
+    "U4_skill_paired_bootstrap_lower_bound_vs_train_matched_population_gt": 0.0,
+    "U4_skill_bootstrap_lower_bound_gt": 0.0,
+    "U1_U3_noninferiority_margin_vs_sinusoidal": 0.02,
+    "ordered_pair_class_accuracy_minimum": 0.8,
+    "ordered_pair_class_noninferiority_margin_vs_sinusoidal": 0.02
+  }
+}

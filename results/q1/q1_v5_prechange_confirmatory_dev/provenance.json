@@ -1,0 +1,44 @@
+{
+  "branch": "codex/q1-v5-identifiability-active",
+  "start_commit": "025f40ad58eb8d01b1549311a9cd6bb9a7d12473",
+  "python": "3.11.9",
+  "numpy": "2.4.6",
+  "scipy": "1.17.1",
+  "torch": "2.13.0+cpu",
+  "device": "cpu",
+  "elapsed_seconds": 3261.4406383000023,
+  "source_sha256": {
+    "scripts\\q1_v5_prechange_experiment.py": "1ccd61e3a170d268a77f365f4e9cbe4c11d2e12a6cd673d987a4d7bf052f9114",
+    "q1_v5/prechange_design.py": "0f99b153febaea279d3b70ac1287d74c98e7dc01b8883e58143a1dfde5530984",
+    "frozen_training_records.json": "cfa95461dfa94348bcfcfa7a4f1727382b1547ade64ca7be2c0f680397890a2b"
+  },
+  "baseline_checkpoint_sha256": {
+    "v2_operator": "90b6f4ecceed1cb43feb19313783522f69b286cb29f4b5b6b5a19321d83453f2",
+    "v3_primary": "764bc8ee61227bdac182991bd622530401d765b2011a3468cacf0758e03c4275",
+    "v3_operator": "af49a7712ea98a53813a243c9c8c41cdac75c28e86bc28af2acd80e7b1a618b6",
+    "m4_primitives": "90aa85ca588bcb465a7960000a1f4e8ff66d8920945f20d34d85add8a99867a2"
+  },
+  "protected_test_used": false,
+  "postprocessing": {
+    "script": "scripts\\q1_v5_prechange_finalize.py",
+    "script_sha256": "9456584d8073c18c4bd62e13be8303d8231295819f4affdec04ad79f57a6ede9",
+    "did_not_refit_or_change_protocol": true
+  },
+  "deliverable_sha256": {
+    "config.resolved.json": "29ce96529b99fc9333ab1873ef19a044604f79fc173a86bfedb8b44f0417f008",
+    "split_manifest.json": "1b8b5837a431c91d661101a951928eebddcc8bdf8aea1b7dc4dcc4531d282bea",
+    "training_records.json": "960c87661023882193d5cdfdc6f3aa3c7387f463b2ac9858c9fbe544fd2e50e6",
+    "train_only_calibration.json": "725a68cb35f432d2236d9c87ef2565735caa17e98c23c38cb4c254a395710e83",
+    "training_and_inference_audit.json": "62a6a29c2d63d13de3688d63525231925c1d750ddd05ad49ac8a87a2f8b7257b",
+    "per_background_per_program.csv": "18e7eb644ddb543b331bc7a8148afab7af2109cbc13e36c639cc8a666b0864cf",
+    "effect_per_background.csv": "288063798c43295573931857a7dbe5b5adc5fe6d60870e87b461af3cc7034106",
+    "policy_action_energy.csv": "5273459a7996bccb2b99eda7484958dd4858ef6c6aa79c3f9ffa99dd198dc009",
+    "action_sequence_hashes.csv": "d4e014a23a338e688e98fc37eed8dd46dad6989c508386fb0cd046e1268a66c0",
+    "fisher_and_b_error_per_background.csv": "c437d0ecf66b157600a129686a25af20cf9468dfcb8e58a42e7b01d32eed5911",
+    "u4_double_intervention_confusions.csv": "2207e8830c573423473a0de837dcd1b166430687402d407bf4d2188ff4848bd5",
+    "baseline_comparisons.json": "646519016b27ecb27d087d0a76160b56be2d6c1c6ae07993bba69813ab1925e9",
+    "bootstrap_ci95.json": "60c0029edd3c97433f1ca4f9600be6b4dfb207ed12826d295789f4c9a1923b22",
+    "summary.json": "a64e4ed880b5ea37d706608699cf30ce7f8c41a4025662b5108a55875680c598",
+    "DECISION.md": "3d9a8a89cc76e8d42739a4efe534997752b683d08a946aa39b6713db7c0395bc"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "b_mean": 0.10857488449834626,
+  "b_sd": 0.016816496246826643,
+  "n_train": 40,
+  "operator_ratio_train_only": 1.4944072317549117,
+  "per_background_ratio_median_train_only": 1.4963382564910246,
+  "training_background_count": 40,
+  "calibration_source": "training paired noisy transitions only",
+  "operator_label_input": "opaque learned quadratic-drag group",
+  "ratio_formula": "1 + sum(feature * residual) / sum(feature^2)"
+}
