@@ -332,7 +332,7 @@
     "py_compile": "passed",
     "git_diff_check": "passed",
     "latest_q1_suite": {
-      "passed": 106,
+      "passed": 107,
       "failed": 1,
       "failure": "tests/test_q1_v2_root_repair.py::test_effect_aware_training_learns_small_in_basis_effects_and_selects_on_inner_only",
       "observed_u4_skill": -0.3526700185379106,
