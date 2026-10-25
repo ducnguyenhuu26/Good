@@ -1,0 +1,98 @@
+{
+  "v5_training": {
+    "mean": [
+      0.8685724856192513,
+      0.005622655174562107,
+      -0.003076894701101665,
+      0.8899707345345022,
+      -1.0672807956118353,
+      -2.1818480859031624,
+      -1.4943242238549623
+    ],
+    "sd": [
+      0.15,
+      0.15,
+      0.15,
+      0.15,
+      0.3,
+      0.5,
+      0.3
+    ],
+    "train_loss": 0.5004029128453839,
+    "joint_refit_iterations": 218,
+    "opaque_code_map_for_evaluator": {
+      "0": 3,
+      "1": 2,
+      "2": 0,
+      "3": 1
+    },
+    "operator_mechanisms": {
+      "3": "action",
+      "2": "action",
+      "0": "linear_drag",
+      "1": "quadratic_drag"
+    },
+    "operators": {
+      "3": {
+        "mechanism": "action",
+        "L": [
+          [
+            0.8661188110736845,
+            -0.4998485328237689
+          ],
+          [
+            0.4997235776459044,
+            0.8658495621570078
+          ]
+        ]
+      },
+      "2": {
+        "mechanism": "action",
+        "L": [
+          [
+            1.4999287425520502,
+            1.0750925207892393e-05
+          ],
+          [
+            8.82482493712603e-05,
+            0.9998912078403908
+          ]
+        ]
+      },
+      "0": {
+        "mechanism": "linear_drag",
+        "index": 0,
+        "ratio": 1.3985233699594048
+      },
+      "1": {
+        "mechanism": "quadratic_drag",
+        "index": 1,
+        "ratio": 1.4391700540242602
+      }
+    },
+    "shared_action_response": {
+      "slopes": [
+        0.8613099436809646,
+        1.0135952047121897,
+        0.7635852660533193
+      ],
+      "weights": [
+        0.082147772547496,
+        0.9006626163295085,
+        0.01718961112299566
+      ]
+    },
+    "inner_selection": {
+      "old_map": {
+        "class_accuracy": 0.8035714285714286,
+        "query_mse": 2.608139556469055e-07
+      },
+      "old_plus_eb": {
+        "class_accuracy": 0.8035714285714286,
+        "query_mse": 2.6076444026317523e-07
+      }
+    },
+    "selected_deployable_rule": "old_plus_eb"
+  },
+  "inner_selection_metric": "inner N=100 functional-class accuracy, tie-break by independent-query MSE; one rule across regimes"
+}

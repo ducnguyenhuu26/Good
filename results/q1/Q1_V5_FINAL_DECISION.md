@@ -1,39 +1,62 @@
 # Q1 V5 final decision record
 
-## Decision
+## Decisions
 
-**V5_FIXED_INCONCLUSIVE.** Integration and the two supplied pilot seeds were reproduced end to end, but the specified fresh, frozen Phase B benchmark with matched V2/V3/M4 and controls was not run. The supplied runner has no predeclared inner-validation estimator selection or baseline-matched evaluation interface. No single deployable inference rule is selected, and no V5 pass is claimed.
+**Phase B — `Q1_FIXED_POLICY`: FAIL.** A single regime-blind `old_plus_eb` rule was selected using only the 40 training and 8 inner-validation backgrounds, then evaluated on 16 fresh ID-like and 16 fresh background-OOD backgrounds. Five of six pre-existing acceptance gates pass. The U4 gate fails because V5 does not significantly beat the population-mean U4 baseline in ID-like backgrounds. Its paired V5-minus-population interval is `-0.019 [-0.039, 0.004]`; OOD is `+0.277 [0.246, 0.307]`. The active results below do not change this fixed-policy verdict.
 
-**Q1_ACTIVE_EXCITATION: NOT RUN.** The local Phase C audit supports practical weak excitation and nuisance collinearity, which is a reason to study active excitation as a separate protocol. No active policy/control experiment was implemented in this run, so there is no active verdict or evidence of benefit.
+**Phase D — `Q1_ACTIVE_EXCITATION`: FAIL.** The Fisher objective increased nuisance-residualized information for `log(b)` over sinusoidal and random exploration in both regimes. The preregistered success gate also required positive U4 skill in both regimes and superiority to sinusoidal U4 skill in both regimes. The U4 conditions fail: confidence intervals include zero in both regimes, and OOD U4 skill is significantly below sinusoidal. This is a separate active-excitation outcome, not a PASS for the fixed-policy benchmark.
 
-## Provenance and protocol
+Neither protocol accessed protected test splits.
 
-- Repository remote: `btl` -> `https://github.com/ducnguyenhuu26/Good.git`.
-- Starting/base source commit: `eff3d5c460f273917f132b37adf2d503ff558280`.
-- Work branch: `codex/q1-v5-identifiability-active`.
-- Supplied source archive SHA-256: `f3f5124d651ee8ea644a0a9446197e60d07214424cf13bebbf63af0dee85a163`.
-- Environment: Python 3.11.9, NumPy 2.4.6, SciPy 1.17.1, PyTorch 2.13.0+cpu, Windows.
-- Fixed protocol inputs retained for reproduction: `dt=0.05`, `sigma=0.0005`, old support 96, adaptation prefixes `{5,10,20,50,100}`, 40 training backgrounds and 16 development backgrounds per regime per seed, all 21 ordered programs. Original protected test split was not accessed.
-- Reproduction seeds: `20261024444`, `20261024618`. The output manifests reconstruct the runner's deterministic train/development seed formulas. They are exploratory manifests recorded after the source runner executed, not a preregistered fresh Phase B split.
-- Runner commands and per-seed rows are in `results/q1/q1_v5_integration_repro/`; the exact configuration and environment/source hashes are in that directory's JSON files.
+## Phase B — fixed-policy results
 
-## Reproduction results
+All cells below average the 21 programs within each background; intervals bootstrap the 16 development backgrounds. Independent-query MSE uses 256 fresh query transitions per background/program. The complete five-budget outputs, per-program rows, U1–U4 effects, baselines, intervals, and resolved configuration are in [`q1_v5_fixed_confirmatory_dev`](q1_v5_fixed_confirmatory_dev/).
 
-Functional-class accuracy at N=100 matched the ZIP pilot: ID-like `0.8482 / 0.8571`, background-OOD `0.9435 / 0.9405` across the two seeds. Current-checkout old+EB U4 ID-like skill was `0.9810 / 0.9759` versus population skill `0.9773 / 0.9748`. Paired background-bootstrap 95% intervals for old+EB minus population were `[-0.0026, 0.0093]` and `[-0.0044, 0.0069]`; both include zero. Background-OOD paired intervals were `[0.0716, 0.1888]` and `[0.0719, 0.1865]`.
+| Regime | Estimator | Functional-class accuracy at N=100 (95% CI) | Independent-query MSE (95% CI) |
+|---|---|---:|---:|
+| ID-like | V5 (`old_plus_eb`) | 0.812 [0.777, 0.848] | 2.621e-7 [2.599e-7, 2.645e-7] |
+| ID-like | V2 retrained | 0.440 [0.405, 0.476] | 6.957e-6 [6.482e-6, 7.411e-6] |
+| ID-like | V3 | 0.048 [0.048, 0.048] | 8.633e-5 [8.432e-5, 8.856e-5] |
+| ID-like | M4 | 0.348 [0.318, 0.381] | 8.733e-6 [7.834e-6, 9.673e-6] |
+| OOD | V5 (`old_plus_eb`) | 0.949 [0.929, 0.970] | 2.659e-7 [2.633e-7, 2.684e-7] |
+| OOD | V2 retrained | 0.482 [0.467, 0.497] | 2.037e-5 [1.925e-5, 2.147e-5] |
+| OOD | V3 | 0.048 [0.048, 0.048] | 1.443e-4 [1.416e-4, 1.468e-4] |
+| OOD | M4 | 0.283 [0.271, 0.295] | 5.602e-5 [5.262e-5, 5.931e-5] |
 
-The ZIP pilot reports slightly different U4 results, especially for seed 1. This is an unresolved reproduction mismatch; its source was reported as locally reconstructed modules, without environment/data hashes. These exploratory runs do not supply matched-baseline comparisons, ordered-pair summaries, or per-background absolute effect MSE and true-effect energy.
+The paired V5-minus-V2 functional-class accuracy differences are `+0.372 [0.312, 0.435]` ID-like and `+0.467 [0.443, 0.491]` OOD. Both ordered action-pair orders have V5 functional-class accuracy `1.000` in each regime at N=100. The population-mean, identity-operator, and direct-context results are in the detailed summary; direct-context is a prediction-only baseline and does not output program classes or ordered compositions.
 
-## Identifiability result
+| Regime | V5 U4 effect skill (95% CI) | Population-mean U4 skill (95% CI) | Paired skill difference (95% CI) |
+|---|---:|---:|---:|
+| ID-like | 0.953 [0.937, 0.970] | 0.972 [0.957, 0.986] | -0.019 [-0.039, 0.004] |
+| OOD | 0.944 [0.917, 0.968] | 0.667 [0.650, 0.683] | +0.277 [+0.246, +0.307] |
 
-The Phase C audit used the same two seed values, 16 ID-like and 16 OOD backgrounds each, and 5/10/20/50/96 prefixes. It includes six task-parameter nuisance columns and five shared-response nuisance coordinates. At N=96, median efficient information for `log(b)` was `3.69` ID-like and `8.23` OOD; corresponding local standard-error bounds were `0.52` and `0.35`. Median cosine between linear- and quadratic-drag velocity features was about `0.96`. Information was zero at N=5 because the short design could be spanned by nuisance columns. This indicates practical weak excitation/collinearity at small budgets, not structural nonidentifiability. Full per-background diagnostics are in `results/q1/q1_v5_identifiability/`.
+All six fixed gates are recorded in `q1_v5_fixed_confirmatory_dev/summary.json`: U4 beats population in both regimes **FAIL**; U3/U4 skill positive in both **PASS**; U1–U3 noninferior to V3 at margin 0.02 **PASS**; both ordered-pair accuracies at least 0.80 **PASS**; ordered-pair class accuracy noninferior to V3 at margin 0.02 **PASS**; V5 class accuracy beats V2 in both regimes **PASS**.
 
-## Tests and code status
+## Phase D — active excitation results
 
-- Focused V5, stage-contrast, and identifiability tests: **15 passed**.
-- Full repository suite after integration: **315 passed, 3 failed**. All failures are unrelated Windows path expectation mismatches in `tests/test_reproduction_commands.py`; those tests expect POSIX `/output` and `/observation` paths.
-- `compileall` passed for the integrated modules and scripts.
-- Existing runner/model/stage-contrast sources came from the supplied ZIP. The model docstring was corrected to describe the positive saturating mixture accurately. Added an SVD-based efficient-information diagnostic, focused tests, manifests, and mathematical claim-boundary documentation.
+The policy chose from `{-1,0,1}²` using a two-step frozen-model rollout and maximized `log(1 + I_eff(log b))` after nuisance residualization over six other task parameters and five learned-response coordinates. The matched uncertainty baseline maximized the twelve-coordinate information log-determinant. Four fresh backgrounds per regime, all 21 programs, four policies, five adaptation budgets, 100 adaptation transitions, and 256 independent query transitions were used. No action-bound violations occurred. Each active policy evaluated 151,200 candidate-action scores; active-action selection and trajectory-generation CPU time was 105.5 s for the target-information policy and 95.0 s for D-optimal, versus 9.3 s each for sinusoidal and random policy generation. Program ranking/refitting was run on the same cases and budgets for all policies. Full action paths and accounting are in [`q1_v5_active_excitation_dev`](q1_v5_active_excitation_dev/).
 
-## Remaining work required for scientific completion
+| Regime | Policy | N=100 nuisance-residualized Fisher for log(b), mean (95% CI) | N=100 functional-class accuracy | N=100 U4 effect skill (95% CI) |
+|---|---|---:|---:|---:|
+| ID-like | Sinusoidal | 12.35 [9.17, 16.08] | 0.869 | 0.210 [-0.044, 0.674] |
+| ID-like | Random | 11.96 [8.43, 15.60] | 0.869 | -0.039 [-0.295, 0.136] |
+| ID-like | Active `I_eff(log b)` | 55.18 [35.71, 80.74] | 0.845 | 0.598 [-0.032, 0.986] |
+| ID-like | Uncertainty D-optimal | 34.01 [28.50, 40.76] | 0.929 | 0.744 [0.248, 0.995] |
+| OOD | Sinusoidal | 42.19 [29.22, 57.15] | 0.964 | 0.958 [0.936, 0.979] |
+| OOD | Random | 41.32 [28.92, 55.22] | 0.952 | 0.791 [0.437, 0.983] |
+| OOD | Active `I_eff(log b)` | 59.12 [44.32, 73.92] | 0.833 | 0.432 [-0.081, 0.944] |
+| OOD | Uncertainty D-optimal | 115.96 [89.17, 148.70] | 0.952 | 0.987 [0.979, 0.993] |
 
-Phase B must first freeze one regime-blind rule using training/inner-validation only, then evaluate it on fresh disjoint backgrounds against matched V2/V3/M4/population/identity/direct-context baselines and report all specified effect and ordered-pair metrics. Phase D requires a separately named active protocol with matched controls and new backgrounds. These steps remain open; no source in this branch or report should be interpreted as satisfying them. The complete theorem matrix, proof sketches, and open claims are in `docs/q1_v5_identifiability_and_recovery.md`.
+At N=100, active Fisher exceeds sinusoidal by `+42.82 [26.28, 64.00]` ID-like and `+16.92 [8.43, 25.41]` OOD; it exceeds random by `+43.22 [26.43, 64.18]` and `+17.80 [10.07, 25.53]`. It is also above D-optimal in ID-like backgrounds by `+21.17 [3.14, 41.34]`, but below it in OOD by `-56.84 [-84.34, -24.55]`. The target-information policy therefore increased its target information against the two exploration controls but did not dominate the uncertainty-driven baseline across regimes. Its U4 skill does not meet the active success gate.
+
+## Mathematical status
+
+`docs/q1_v5_identifiability_and_recovery.md` now records exact algebraic properties and local Gaussian Fisher identities as proved; estimation, operator recovery, finite-candidate recovery, and adaptive concentration as conditional on explicit regularity, separation, independence, and excitation assumptions; and uniform finite-sample guarantees for the implemented learned-response pipeline as open. The active Fisher objective is a local model-based surrogate, not a guarantee of realized U4 or program-recovery improvement.
+
+## Provenance and verification
+
+- Branch: `codex/q1-v5-identifiability-active`; requested starting commit: `43245aee373ddd1061406a8c22f17f7ba686e30d`.
+- Phase B: seed `20261031`; 40 training, 8 inner-validation, and 16 development backgrounds per regime. Phase D: seed `20261033`; 4 fresh development backgrounds per regime. Split manifests record environment parameters and collision audits.
+- Both runs used CPU, `dt=0.05`, `sigma=0.0005`, 96 old-support transitions, 100 adaptation transitions, and 256 independent-query transitions. Protected test data were not used.
+- All Q1 tests: **95 passed, 1 failed**. The failure is the existing stochastic V2 test `tests/test_q1_v2_root_repair.py::test_effect_aware_training_learns_small_in_basis_effects_and_selects_on_inner_only`; it failed again when run alone (`after[3].skill=-1.9731` vs baseline `0`). The V5/active focused set passed **11/11**, and the Q1 protocol/model subset passed **42/42**. No V2 root-repair source or acceptance criterion was changed. `py_compile` passed for the new runners and active-design module; `git diff --check` passed.
+- Phase B elapsed time: 983.5 seconds. Phase D elapsed time and source/checkpoint hashes are recorded in each run's `provenance.json`.

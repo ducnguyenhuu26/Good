@@ -1,0 +1,20 @@
+{
+  "branch": "codex/q1-v5-identifiability-active",
+  "start_commit": "43245aee373ddd1061406a8c22f17f7ba686e30d",
+  "head_before_run": "43245aee373ddd1061406a8c22f17f7ba686e30d",
+  "python": "3.11.9",
+  "numpy": "2.4.6",
+  "scipy": "1.17.1",
+  "torch": "2.13.0+cpu",
+  "device": "cpu",
+  "seconds": 983.4858615398407,
+  "protected_test_used": false,
+  "source_sha256": {
+    "scripts\\q1_v5_fixed_confirmatory.py": "9fa9c182459873c7f0f607e7d02ea7f484c6c9ca245b56ad82f3385532d3b270"
+  },
+  "baseline_checkpoints": {
+    "v2": "90b6f4ecceed1cb43feb19313783522f69b286cb29f4b5b6b5a19321d83453f2",
+    "v3": "af49a7712ea98a53813a243c9c8c41cdac75c28e86bc28af2acd80e7b1a618b6",
+    "m4": "90aa85ca588bcb465a7960000a1f4e8ff66d8920945f20d34d85add8a99867a2"
+  }
+}

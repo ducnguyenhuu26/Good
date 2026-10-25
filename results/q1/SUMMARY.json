@@ -1,12 +1,23 @@
 {
   "project": "Q1 V5",
   "branch": "codex/q1-v5-identifiability-active",
-  "base_commit": "eff3d5c460f273917f132b37adf2d503ff558280",
+  "base_commit": "43245aee373ddd1061406a8c22f17f7ba686e30d",
   "source_zip_sha256": "f3f5124d651ee8ea644a0a9446197e60d07214424cf13bebbf63af0dee85a163",
   "protected_test_used": false,
-  "fixed_policy_verdict": "V5_FIXED_INCONCLUSIVE",
-  "active_excitation_verdict": "NOT_RUN",
-  "reproduction_seeds": [20261024444, 20261024618],
+  "fixed_policy_verdict": "FAIL",
+  "active_excitation_verdict": "FAIL",
+  "completed_phases": [
+    "Phase B fixed-policy confirmatory development evaluation",
+    "Phase D active-excitation development evaluation",
+    "conditional mathematical analysis"
+  ],
+  "selected_fixed_rule": "old_plus_eb",
+  "phase_b_seed": 20261031,
+  "phase_d_seed": 20261033,
+  "artifacts": [
+    "q1_v5_fixed_confirmatory_dev",
+    "q1_v5_active_excitation_dev"
+  ],
   "environment": {
     "python": "3.11.9",
     "numpy": "2.4.6",
@@ -15,13 +26,184 @@
     "platform": "Windows"
   },
   "metrics": {
+    "phase_b_n100": {
+      "id_like": {
+        "v5_functional_class_accuracy": [
+          0.812,
+          0.777,
+          0.848
+        ],
+        "v5_independent_query_mse": [
+          2.621E-07,
+          2.599E-07,
+          2.645E-07
+        ],
+        "v5_u4_skill": [
+          0.953,
+          0.937,
+          0.97
+        ],
+        "u4_v5_minus_population": [
+          -0.019,
+          -0.039,
+          0.004
+        ],
+        "ordered_pair_accuracy": [
+          1.0,
+          1.0
+        ]
+      },
+      "background_ood": {
+        "v5_functional_class_accuracy": [
+          0.949,
+          0.929,
+          0.97
+        ],
+        "v5_independent_query_mse": [
+          2.659E-07,
+          2.633E-07,
+          2.684E-07
+        ],
+        "v5_u4_skill": [
+          0.944,
+          0.917,
+          0.968
+        ],
+        "u4_v5_minus_population": [
+          0.277,
+          0.246,
+          0.307
+        ],
+        "ordered_pair_accuracy": [
+          1.0,
+          1.0
+        ]
+      }
+    },
+    "phase_d_n100": {
+      "id_like": {
+        "active_I_eff_logb": [
+          55.18,
+          35.71,
+          80.74
+        ],
+        "sinusoidal_I_eff_logb": [
+          12.35,
+          9.17,
+          16.08
+        ],
+        "random_I_eff_logb": [
+          11.96,
+          8.43,
+          15.6
+        ],
+        "d_optimal_I_eff_logb": [
+          34.01,
+          28.5,
+          40.76
+        ],
+        "active_U4_skill": [
+          0.598,
+          -0.032,
+          0.986
+        ],
+        "sinusoidal_U4_skill": [
+          0.21,
+          -0.044,
+          0.674
+        ],
+        "active_minus_sinusoidal_I_eff": [
+          42.82,
+          26.28,
+          64.0
+        ],
+        "active_minus_random_I_eff": [
+          43.22,
+          26.43,
+          64.18
+        ]
+      },
+      "background_ood": {
+        "active_I_eff_logb": [
+          59.12,
+          44.32,
+          73.92
+        ],
+        "sinusoidal_I_eff_logb": [
+          42.19,
+          29.22,
+          57.15
+        ],
+        "random_I_eff_logb": [
+          41.32,
+          28.92,
+          55.22
+        ],
+        "d_optimal_I_eff_logb": [
+          115.96,
+          89.17,
+          148.7
+        ],
+        "active_U4_skill": [
+          0.432,
+          -0.081,
+          0.944
+        ],
+        "sinusoidal_U4_skill": [
+          0.958,
+          0.936,
+          0.979
+        ],
+        "active_minus_sinusoidal_I_eff": [
+          16.92,
+          8.43,
+          25.41
+        ],
+        "active_minus_random_I_eff": [
+          17.8,
+          10.07,
+          25.53
+        ],
+        "active_minus_sinusoidal_U4": [
+          -0.526,
+          -1.037,
+          -0.015
+        ]
+      }
+    }
+  },
+  "prior_reproduction": {
     "functional_class_accuracy_n100": {
-      "id_like": [0.8482142857, 0.8571428571],
-      "background_ood": [0.9434523810, 0.9404761905]
+      "id_like": [
+        0.8482142857,
+        0.8571428571
+      ],
+      "background_ood": [
+        0.943452381,
+        0.9404761905
+      ]
     },
     "u4_old_eb_minus_population_bootstrap_ci95": {
-      "id_like": [[-0.0025805396, 0.0093125111], [-0.0043854241, 0.0069129811]],
-      "background_ood": [[0.0716172815, 0.1888198329], [0.0719422266, 0.1865481971]]
+      "id_like": [
+        [
+          -0.0025805396,
+          0.0093125111
+        ],
+        [
+          -0.0043854241,
+          0.0069129811
+        ]
+      ],
+      "background_ood": [
+        [
+          0.0716172815,
+          0.1888198329
+        ],
+        [
+          0.0719422266,
+          0.1865481971
+        ]
+      ]
     },
     "median_I_eff_logb_n96": {
       "id_like": 3.6905574844,
@@ -33,9 +215,16 @@
     }
   },
   "tests": {
-    "focused": "15 passed",
-    "full_suite": "315 passed, 3 unrelated failures",
-    "compileall": "passed"
+    "all_q1": "95 passed, 1 failed",
+    "failing_test": "tests/test_q1_v2_root_repair.py::test_effect_aware_training_learns_small_in_basis_effects_and_selects_on_inner_only",
+    "v5_and_active_focused": "11 passed",
+    "q1_protocol_and_model_subset": "42 passed",
+    "failure_reproduced_in_isolation": true,
+    "py_compile": "passed",
+    "git_diff_check": "passed"
   },
-  "open_phases": ["fresh matched Phase B", "active Phase D", "full manuscript-aligned Phase E proof dossier"]
+  "open_guarantees": [
+    "Uniform finite-sample bounds for the fitted V5 operator and posterior pipeline",
+    "Adaptive-data concentration and coverage under the implemented policy"
+  ]
 }

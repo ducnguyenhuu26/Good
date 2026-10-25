@@ -1,0 +1,15 @@
+{
+  "branch": "codex/q1-v5-identifiability-active",
+  "start_commit": "43245aee373ddd1061406a8c22f17f7ba686e30d",
+  "python": "3.11.9",
+  "numpy": "2.4.6",
+  "scipy": "1.17.1",
+  "torch": "2.13.0+cpu",
+  "device": "cpu",
+  "source_sha256": {
+    "scripts\\q1_v5_active_experiment.py": "8979ab430b39917a12f57505756dbb74325992a582ba1b7d5e47a75fba5702d3",
+    "q1_v5/active_design.py": "315f15e33951d35057e9a892da22d7e64eb6bb10ed1614ed7a3bc058773a4074"
+  },
+  "protected_test_used": false,
+  "elapsed_seconds": 323.2405586242676
+}

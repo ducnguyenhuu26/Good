@@ -1,0 +1,50 @@
+{
+  "protocol": "Q1_ACTIVE_EXCITATION",
+  "dt": 0.05,
+  "sigma": 0.0005,
+  "old_support": 96,
+  "adaptation_transitions": 100,
+  "query_transitions": 256,
+  "budgets": [
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "backgrounds_per_regime": 4,
+  "policies": [
+    "FIXED_SINUSOIDAL",
+    "RANDOM_UNIFORM",
+    "ACTIVE_I_EFF_LOGB",
+    "UNCERTAINTY_D_OPTIMAL"
+  ],
+  "candidate_action_grid": [
+    -1.0,
+    0.0,
+    1.0
+  ],
+  "action_bounds": [
+    -1.0,
+    1.0
+  ],
+  "greedy_horizon": 2,
+  "active_utility": "log(1 + nuisance-residualized Fisher information for log(b)) after a two-step frozen-model rollout",
+  "uncertainty_control": "full twelve-coordinate log-determinant of estimated information matrix",
+  "predeclared_active_success_gate": {
+    "N": 100,
+    "I_eff_logb_active_minus_sinusoidal_and_random_ci95_lower_gt_zero_both_regimes": true,
+    "U4_skill_positive_both_regimes": true,
+    "U4_skill_active_minus_sinusoidal_ci95_lower_gt_zero_both_regimes": true
+  },
+  "frozen_v5_rule": "old_plus_eb",
+  "selector_inputs": [
+    "observed current state",
+    "old and adaptation observed state/action history",
+    "frozen learned theta and action response"
+  ],
+  "oracle_policy_inputs": false,
+  "protected_test_used": false,
+  "v5_model_source": "Phase B frozen training records; no active-protocol retraining or hyperparameter selection",
+  "policy_changes": "adaptation action sequence only; old support, transition counts, simulator and independent query protocol unchanged"
+}

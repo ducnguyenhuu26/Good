@@ -1,0 +1,108 @@
+{
+  "protocol": "Q1_FIXED_POLICY",
+  "seed": 20261031,
+  "dt": 0.05,
+  "sigma": 0.0005,
+  "old_support": 96,
+  "adaptation_transitions": 100,
+  "query_transitions": 256,
+  "budgets": [
+    5,
+    10,
+    20,
+    50,
+    100
+  ],
+  "train_backgrounds": 40,
+  "inner_backgrounds": 8,
+  "development_backgrounds_per_regime": 16,
+  "programs": [
+    [],
+    [
+      0
+    ],
+    [
+      1
+    ],
+    [
+      2
+    ],
+    [
+      3
+    ],
+    [
+      0,
+      0
+    ],
+    [
+      0,
+      1
+    ],
+    [
+      0,
+      2
+    ],
+    [
+      0,
+      3
+    ],
+    [
+      1,
+      0
+    ],
+    [
+      1,
+      1
+    ],
+    [
+      1,
+      2
+    ],
+    [
+      1,
+      3
+    ],
+    [
+      2,
+      0
+    ],
+    [
+      2,
+      1
+    ],
+    [
+      2,
+      2
+    ],
+    [
+      2,
+      3
+    ],
+    [
+      3,
+      0
+    ],
+    [
+      3,
+      1
+    ],
+    [
+      3,
+      2
+    ],
+    [
+      3,
+      3
+    ]
+  ],
+  "V5_rule_selection_metric": "inner N=100 functional-class accuracy, tie-break by independent-query MSE; one rule across regimes",
+  "acceptance": {
+    "u4_positive_both": true,
+    "u4_positive_paired_bootstrap_ci_vs_population_both": true,
+    "effect_noninferiority_margin_u1_u3": 0.02,
+    "ordered_pair_accuracy_minimum": 0.8,
+    "development_class_accuracy_must_beat_matched_v2_both_regimes": true
+  },
+  "action_policy": "q1.datasets.stage_pair default sinusoidal-with-jitter, unchanged",
+  "protected_test_used": false
+}
